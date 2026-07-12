@@ -77,7 +77,7 @@ verbatim — they're tuned per blocker rule:
 ```json
 {
   "rule": "r2hf/use-state",
-  "message": "useState detected — Remotion compositions that drive animation via React state are not deterministic frame-capture targets in HyperFrames",
+  "message": "useState detected — Remotion compositions that drive animation via React state are not deterministic frame-capture targets in KENECT AI",
   "recommendation": "Use the runtime interop pattern from PR #214 instead of attempting a translation"
 }
 ```

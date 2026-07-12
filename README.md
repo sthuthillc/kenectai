@@ -2,7 +2,7 @@
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/logo/dark.svg">
     <source media="(prefers-color-scheme: light)" srcset="docs/logo/light.svg">
-    <img alt="HyperFrames" src="docs/logo/light.svg" width="300">
+    <img alt="KENECT AI" src="docs/logo/light.svg" width="300">
   </picture>
 </p>
 
@@ -19,14 +19,8 @@
 <p align="center">
   <a href="https://docs.kenectai.com/quickstart">Quickstart</a> |
   <a href="https://docs.kenectai.com/showcase">Showcase</a> |
-  <a href="https://www.hyperframes.dev/">Playground</a> |
   <a href="https://docs.kenectai.com/catalog/blocks/data-chart">Catalog</a> |
-  <a href="https://docs.kenectai.com/introduction">Docs</a> |
-  <a href="https://discord.gg/EbK98HBPdk">Discord</a>
-</p>
-
-<p align="center">
-  <img src="docs/public/images/hyperframes-logo-motion-1280-trimmed.webp" alt="HyperFrames demo: HTML code on the left transforms into a rendered video on the right" width="800">
+  <a href="https://docs.kenectai.com/introduction">Docs</a>
 </p>
 
 KENECT AI is an open-source framework for turning HTML, CSS, media, and seekable animations into deterministic MP4 videos — a fork of HeyGen's HyperFrames with a Google Cloud-hosted backend. Use it locally with the CLI, from AI coding agents with skills, or as the rendering core behind hosted authoring workflows.
@@ -35,7 +29,7 @@ KENECT AI is an open-source framework for turning HTML, CSS, media, and seekable
 
 ### With an AI coding agent
 
-Install the HyperFrames skills, then describe the video you want:
+Install the KENECT AI skills, then describe the video you want:
 
 ```bash
 npx skills add sthuthillc/kenectai --full-depth --yes
@@ -47,11 +41,11 @@ Try a prompt like:
 
 > Using `/hyperframes`, create a 10-second product intro with a fade-in title, a background video, and subtle background music.
 
-The skills teach agents the HyperFrames production loop: plan the video, write valid HTML, wire seekable animations, add media, lint, preview, and render. They work with Claude Code, Cursor, Gemini CLI, Codex, and other coding agents that support skills.
+The skills teach agents the KENECT AI production loop: plan the video, write valid HTML, wire seekable animations, add media, lint, preview, and render. They work with Claude Code, Cursor, Gemini CLI, Codex, and other coding agents that support skills.
 
 ## Skills
 
-HyperFrames ships 20 skills agents load on demand. Read `/hyperframes` first — it's the router and capability map; it picks a workflow for any "make me a…" request — video, deck, or composition port — and points to the domain skills below.
+KENECT AI ships 20 skills agents load on demand. Read `/hyperframes` first — it's the router and capability map; it picks a workflow for any "make me a…" request — video, deck, or composition port — and points to the domain skills below.
 
 Run `npx skills add sthuthillc/kenectai --full-depth` for the interactive picker, `npx skills add sthuthillc/kenectai --all --full-depth` to install all 20 at once (skips the picker), or `npx skills add sthuthillc/kenectai --skill <name> --full-depth` for just one (bare name, no leading `/`). Keep `--full-depth` — it installs the current `main`; without it `skills add` fetches the skills.sh blob, which lags by hours.
 
@@ -77,7 +71,7 @@ Installs stay lean after that: `npx @kenectai/cli init` keeps the **core set** f
 | `/music-to-video`          | A **music track** (audio file, or video to pull audio from) → a **beat-synced** video — lyric, slideshow, or kinetic promo; music drives pacing.                                         |
 | `/slideshow`               | A **presentation / pitch deck / interactive deck** — discrete slides, fragment reveals, branching, hotspot navigation, presenter mode. Output is a navigable deck, not a rendered video. |
 | `/general-video`           | **Anything else** — longer or multi-scene pieces, brand / sizzle reel, title card, static loop, freeform composition. Input- and length-agnostic fallback.                               |
-| `/remotion-to-hyperframes` | **Porting an existing Remotion** (React) composition's source to HyperFrames HTML. One-way migration, not creation.                                                                      |
+| `/remotion-to-hyperframes` | **Porting an existing Remotion** (React) composition's source to KENECT AI HTML. One-way migration, not creation.                                                                      |
 
 ### Domain skills (loaded on demand)
 
@@ -219,9 +213,9 @@ Define a video as HTML. Add data attributes for timing and tracks. Use GSAP, CSS
 
 Preview instantly in the browser. Render locally or in Docker. The renderer seeks each frame in headless Chrome and encodes the result with FFmpeg, so the same input produces the same video.
 
-## HyperFrames Stack
+## KENECT AI Stack
 
-HyperFrames is the open-source rendering engine, plus a growing set of tools around HTML-native video creation.
+KENECT AI is the open-source rendering engine, plus a growing set of tools around HTML-native video creation.
 
 | Piece                                           | Status              | What it does                                                                                      |
 | ----------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------- |
@@ -246,7 +240,7 @@ npx @kenectai/cli add data-chart            # animated chart
 
 Browse the catalog at [docs.kenectai.com/catalog](https://docs.kenectai.com/catalog/blocks/data-chart).
 
-## Why HyperFrames?
+## Why KENECT AI?
 
 - **HTML-native:** compositions are HTML files with data attributes. No React requirement, no proprietary timeline format.
 - **Agent-friendly:** agents already write HTML, and the CLI is non-interactive by default.
@@ -255,11 +249,11 @@ Browse the catalog at [docs.kenectai.com/catalog](https://docs.kenectai.com/cata
 - **Adapter-based animation:** bring GSAP, CSS animations, Lottie, Three.js, Anime.js, WAAPI, or a custom runtime.
 - **Open source:** Apache 2.0 license, with no per-render fees or commercial-use thresholds.
 
-## HyperFrames vs Remotion
+## KENECT AI vs Remotion
 
-HyperFrames is inspired by [Remotion](https://www.remotion.dev). Both tools render video with headless Chrome and FFmpeg. The main difference is the authoring model: Remotion's bet is React components; HyperFrames' bet is plain HTML that humans and agents can both write easily.
+KENECT AI is inspired by [Remotion](https://www.remotion.dev). Both tools render video with headless Chrome and FFmpeg. The main difference is the authoring model: Remotion's bet is React components; KENECT AI' bet is plain HTML that humans and agents can both write easily.
 
-|                          | **HyperFrames**                       | **Remotion**                            |
+|                          | **KENECT AI**                       | **Remotion**                            |
 | ------------------------ | ------------------------------------- | --------------------------------------- |
 | Authoring                | HTML + CSS + seekable animation       | React components                        |
 | Build step               | None; `index.html` plays as-is        | Bundler required                        |
@@ -268,7 +262,7 @@ HyperFrames is inspired by [Remotion](https://www.remotion.dev). Both tools rend
 | Distributed rendering    | Local and AWS Lambda render paths     | Remotion Lambda, mature cloud renderer  |
 | License                  | Apache 2.0                            | Source-available Remotion License       |
 
-Read the full comparison in the [HyperFrames vs Remotion guide](https://docs.kenectai.com/guides/hyperframes-vs-remotion).
+Read the full comparison in the [KENECT AI vs Remotion guide](https://docs.kenectai.com/guides/hyperframes-vs-remotion).
 
 ## Documentation
 

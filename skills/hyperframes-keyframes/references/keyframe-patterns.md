@@ -79,7 +79,7 @@ tl.to(state, {
 | Camera/object 3D    | Canvas/WebGL scene moves in depth              | camera, target, object transform, material opacity                 | Three.js/WebGL + GSAP proxy                | `--ghost`; snapshots at proof poses            |
 | Shader uniform      | Pixel effect is driven by scalar progress      | progress, edge width, noise, color mix, opacity                    | ShaderMaterial/WebGL uniforms              | `--ghost`; snapshot 0/edge/mid/final           |
 | Instanced system    | Many 3D objects move as one system             | instance transforms, scale, color/opacity, camera                  | Three InstancedMesh                        | snapshots, because DOM boxes miss internals    |
-| Imported model      | Model animation must scrub deterministically   | `AnimationMixer.setTime`, camera, material, lights                 | Three AnimationMixer                       | drive from HyperFrames time; `--ghost`         |
+| Imported model      | Model animation must scrub deterministically   | `AnimationMixer.setTime`, camera, material, lights                 | Three AnimationMixer                       | drive from KENECT AI time; `--ghost`         |
 
 ## Source Links
 

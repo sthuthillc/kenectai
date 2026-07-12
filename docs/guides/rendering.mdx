@@ -3,7 +3,7 @@ title: Rendering
 description: "Render compositions to MP4, MOV, WebM, GIF, or PNG sequences locally or in Docker."
 ---
 
-Render your Hyperframes [compositions](/concepts/compositions) to MP4, MOV, WebM, GIF, or PNG sequences with the [CLI](/packages/cli). The rendering pipeline is frame-by-frame and seek-driven — see [Deterministic Rendering](/concepts/determinism) for how this works under the hood.
+Render your KENECT AI [compositions](/concepts/compositions) to MP4, MOV, WebM, GIF, or PNG sequences with the [CLI](/packages/cli). The rendering pipeline is frame-by-frame and seek-driven — see [Deterministic Rendering](/concepts/determinism) for how this works under the hood.
 
 ## Getting Started
 
@@ -12,7 +12,7 @@ Render your Hyperframes [compositions](/concepts/compositions) to MP4, MOV, WebM
     Run the diagnostics command to check for required dependencies:
 
     ```bash Terminal
-    npx hyperframes doctor
+    npx @kenectai/cli doctor
     ```
 
     Expected output:
@@ -29,14 +29,14 @@ Render your Hyperframes [compositions](/concepts/compositions) to MP4, MOV, WebM
     Before rendering, preview your composition in the browser to verify it looks correct:
 
     ```bash Terminal
-    npx hyperframes preview
+    npx @kenectai/cli preview
     ```
   </Step>
   <Step title="Render to MP4">
     Run the render command from your project directory:
 
     ```bash Terminal
-    npx hyperframes render --output output.mp4
+    npx @kenectai/cli render --output output.mp4
     ```
 
     Expected output:
@@ -60,7 +60,7 @@ Render your Hyperframes [compositions](/concepts/compositions) to MP4, MOV, WebM
     **Requires:** FFmpeg installed on your system. See [Troubleshooting](/guides/troubleshooting) if FFmpeg is not found.
 
     ```bash Terminal
-    npx hyperframes render --output output.mp4
+    npx @kenectai/cli render --output output.mp4
     ```
 
     **Pros:**
@@ -81,7 +81,7 @@ Render your Hyperframes [compositions](/concepts/compositions) to MP4, MOV, WebM
     **Requires:** Docker installed and running.
 
     ```bash Terminal
-    npx hyperframes render --docker --output output.mp4
+    npx @kenectai/cli render --docker --output output.mp4
     ```
 
     **Pros:**
@@ -149,10 +149,10 @@ For finer control, use `--crf` or `--video-bitrate` to override the preset:
 
 ```bash
 # Near-lossless quality (CRF 15 = very high quality, large file)
-npx hyperframes render --crf 15 --output pristine.mp4
+npx @kenectai/cli render --crf 15 --output pristine.mp4
 
 # Target a specific bitrate (useful for size-constrained delivery)
-npx hyperframes render --video-bitrate 10M --output controlled.mp4
+npx @kenectai/cli render --video-bitrate 10M --output controlled.mp4
 ```
 
 **Tip**: The default `standard` preset (CRF 18) is visually lossless at 1080p — most people cannot distinguish it from the source. Use `--quality draft` for faster iteration, or `--quality high` / `--crf 10` when file size is no concern.
@@ -162,7 +162,7 @@ npx hyperframes render --video-bitrate 10M --output controlled.mp4
 Use GIF when the output needs to autoplay inline in GitHub PRs, READMEs, issue reports, and docs pages:
 
 ```bash Terminal
-npx hyperframes render --format gif --fps 15 --gif-loop 0 --output demo.gif
+npx @kenectai/cli render --format gif --fps 15 --gif-loop 0 --output demo.gif
 ```
 
 GIF output uses a two-pass FFmpeg palette encode (`palettegen` with diff statistics, then `paletteuse` with Sierra dithering) for better gradients and text edges than a single-pass conversion. GIFs are still much larger than MP4/WebM at the same dimensions, so prefer short compositions. GIF renders are capped at 30fps; pass `--fps 15` for smaller files.
@@ -173,20 +173,20 @@ For UI recordings, screen captures, or other source videos where saturated inter
 
 ## GPU Acceleration
 
-Hyperframes has two separate GPU acceleration surfaces:
+KENECT AI has two separate GPU acceleration surfaces:
 
 - `--gpu` uses a hardware video encoder in FFmpeg when one is available. Supported backends include VideoToolbox on macOS, NVENC on NVIDIA systems, AMD AMF on Windows, VAAPI on Linux, and Intel QSV on supported Windows/Linux hosts.
 - Browser GPU uses the host GPU for local Chrome/WebGL capture. It is enabled automatically for local renders and disabled in Docker. Use `--no-browser-gpu` to opt out.
 
 ```bash Terminal
 # Add hardware FFmpeg encoding to the default local browser-GPU render
-npx hyperframes render --gpu --output encoded-fast.mp4
+npx @kenectai/cli render --gpu --output encoded-fast.mp4
 
 # Opt out of hardware Chrome/WebGL capture
-npx hyperframes render --no-browser-gpu --output software-browser.mp4
+npx @kenectai/cli render --no-browser-gpu --output software-browser.mp4
 
 # Use browser GPU plus hardware FFmpeg encoding
-npx hyperframes render --gpu --output gpu.mp4
+npx @kenectai/cli render --gpu --output gpu.mp4
 ```
 
 Browser GPU capture is local-mode only. It maps to platform-native Chrome GPU backends: Metal on macOS, D3D11 on Windows, and EGL on Linux. Use `--no-browser-gpu` or Docker mode when exact cross-machine reproducibility matters more than local render speed.
@@ -197,7 +197,7 @@ Each render worker launches a **separate Chrome browser process** to capture fra
 
 ### Default behavior
 
-By default, Hyperframes uses **CPU cores minus 2** (reserving headroom for FFmpeg encoding and your other applications):
+By default, KENECT AI uses **CPU cores minus 2** (reserving headroom for FFmpeg encoding and your other applications):
 
 | Machine | CPU cores | Default workers |
 |---------|-----------|----------------|
@@ -212,13 +212,13 @@ Each worker spawns its own Chrome process (~256 MB RAM), so the per-worker overh
 
 ```bash Terminal
 # Explicit worker count
-npx hyperframes render --workers 1 --output output.mp4
+npx @kenectai/cli render --workers 1 --output output.mp4
 
-# Let Hyperframes pick based on your CPU
-npx hyperframes render --workers auto --output output.mp4
+# Let KENECT AI pick based on your CPU
+npx @kenectai/cli render --workers auto --output output.mp4
 
 # Maximum parallelism (use with caution on laptops)
-npx hyperframes render --workers 24 --output output.mp4
+npx @kenectai/cli render --workers 24 --output output.mp4
 ```
 
 <Tip>
@@ -249,10 +249,10 @@ Batch rendering runs the same composition once per variables row:
 ```
 
 ```bash Terminal
-npx hyperframes render --batch rows.json --output "renders/{name}.mp4" --strict-variables
+npx @kenectai/cli render --batch rows.json --output "renders/{name}.mp4" --strict-variables
 ```
 
-`--output` is a template. Use `{index}` or any scalar key from the row to make each path unique. Hyperframes preflights the full batch before rendering: malformed rows, missing placeholders, duplicate output paths, and strict variable mismatches fail before the first video starts. A `manifest.json` file is written next to the outputs with per-row status, output path, render time, duration when available, and error details.
+`--output` is a template. Use `{index}` or any scalar key from the row to make each path unique. KENECT AI preflights the full batch before rendering: malformed rows, missing placeholders, duplicate output paths, and strict variable mismatches fail before the first video starts. A `manifest.json` file is written next to the outputs with per-row status, output path, render time, duration when available, and error details.
 
 Rows continue after failures by default so a bad data row does not discard the rest of the batch. Add `--batch-fail-fast` to stop launching new rows after the first failure, or `--json` to stream machine-readable progress events while the manifest is updated.
 
@@ -266,7 +266,7 @@ The producer server uses a **request-level semaphore** to queue renders. Only `m
 
 ```bash Terminal
 # CLI flag
-npx hyperframes render --max-concurrent-renders 2 --output output.mp4
+npx @kenectai/cli render --max-concurrent-renders 2 --output output.mp4
 
 # Environment variable (for the producer server)
 PRODUCER_MAX_CONCURRENT_RENDERS=2
@@ -313,12 +313,12 @@ This lets agents report "waiting in queue" to users rather than appearing stuck.
 
 ## Transparent Video
 
-Hyperframes supports rendering with a transparent background — useful for overlays, lower thirds, subscribe cards, and any element you want to composite over other footage in a video editor.
+KENECT AI supports rendering with a transparent background — useful for overlays, lower thirds, subscribe cards, and any element you want to composite over other footage in a video editor.
 
 ### Recommended format: MOV (ProRes 4444)
 
 ```bash Terminal
-npx hyperframes render --format mov --output overlay.mov
+npx @kenectai/cli render --format mov --output overlay.mov
 ```
 
 **MOV with ProRes 4444** is the industry standard for transparent video. It works in all major video editors:
@@ -349,14 +349,14 @@ npx hyperframes render --format mov --output overlay.mov
 ### PNG sequence (no encoding)
 
 ```bash Terminal
-npx hyperframes render --format png-sequence --output frames/
+npx @kenectai/cli render --format png-sequence --output frames/
 ```
 
 `--format png-sequence` skips the encoder entirely. The captured RGBA frames are copied to `<output>/frame_NNNNNN.png` (zero-padded) and, if the composition has audio, an `audio.aac` sidecar is written alongside. Use this when you want lossless frames — for compositing in After Effects / Nuke / Fusion, or as the input to a custom encode pipeline. `--output` is treated as a directory and is created if it doesn't exist.
 
 ### How it works
 
-When you render with `--format mov`, `--format webm`, or `--format png-sequence`, Hyperframes:
+When you render with `--format mov`, `--format webm`, or `--format png-sequence`, KENECT AI:
 
 1. Captures each frame as a **PNG with alpha channel** (instead of JPEG for MP4)
 2. Sets Chrome's page background to transparent via `Emulation.setDefaultBackgroundColorOverride`
@@ -406,7 +406,7 @@ Only the visible elements (cards, text, images) will appear in the final video. 
   Use `draft` quality during development for fast previews. Switch to `standard` or `high` for final output.
 </Tip>
 
-- Use `npx hyperframes benchmark` to find optimal settings for your system
+- Use `npx @kenectai/cli benchmark` to find optimal settings for your system
 - Docker mode is slower but guarantees [identical output](/concepts/determinism) across platforms
 - For compositions with many frames, `--gpu` can significantly speed up local encoding
 

@@ -14,7 +14,7 @@
 
 ```bash
 # Auto-detect (HeyGen if key set, else ElevenLabs, else Kokoro)
-npx @kenectai/cli tts "Welcome to HyperFrames" -o narration.wav
+npx @kenectai/cli tts "Welcome to KENECT AI" -o narration.wav
 
 # Pin the provider explicitly
 npx @kenectai/cli tts "Hello" --provider kokoro
@@ -48,7 +48,7 @@ export HEYGEN_API_KEY=...   # or put it in a project .env
 
 # Synthesize + capture word timestamps in one call (skips a Whisper pass)
 node skills/media-use/audio/scripts/heygen-tts.mjs \
-  "Welcome to HyperFrames." -o narration.wav --words narration.words.json
+  "Welcome to KENECT AI." -o narration.wav --words narration.words.json
 
 node skills/media-use/audio/scripts/heygen-tts.mjs ./script.txt -o narration.wav
 node skills/media-use/audio/scripts/heygen-tts.mjs --list   # public starfish voices

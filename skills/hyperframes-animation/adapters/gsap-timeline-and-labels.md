@@ -1,6 +1,6 @@
 # Timelines and Labels
 
-HyperFrames is a seek-driven runtime. Build one paused timeline per composition, attach it to `window.__timelines["<composition-id>"]`, and let HyperFrames seek it. Never call `.play()` for render-critical motion.
+KENECT AI is a seek-driven runtime. Build one paused timeline per composition, attach it to `window.__timelines["<composition-id>"]`, and let KENECT AI seek it. Never call `.play()` for render-critical motion.
 
 ## Creating a Timeline
 
@@ -15,7 +15,7 @@ tl.to(".a", { x: 100 }).to(".b", { y: 50 }).to(".c", { opacity: 0 });
 
 Timeline options:
 
-- **paused: true** — required in HyperFrames. The framework drives the playhead.
+- **paused: true** — required in KENECT AI. The framework drives the playhead.
 - **repeat**, **yoyo** — apply to the whole timeline. `repeat: -1` is forbidden; use finite counts.
 - **defaults** — vars merged into every child tween. Use this instead of repeating `ease` and `duration` on every line.
 
@@ -66,7 +66,7 @@ child.to(".a", { x: 100 }).to(".b", { y: 50 });
 master.add(child, 0);
 ```
 
-In HyperFrames, **do not** nest sub-composition timelines into the host. Sub-compositions loaded via `data-composition-src` are seeked independently by HyperFrames from their own `data-start`. Nesting is only for grouping pieces of the _same_ composition's timeline.
+In KENECT AI, **do not** nest sub-composition timelines into the host. Sub-compositions loaded via `data-composition-src` are seeked independently by KENECT AI from their own `data-start`. Nesting is only for grouping pieces of the _same_ composition's timeline.
 
 ## Inside Sub-Compositions: prefer `fromTo` over `from`
 
@@ -77,7 +77,7 @@ For entrance tweens inside a sub-composition, prefer `gsap.fromTo()` over `gsap.
 tl.fromTo(".title", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.2);
 ```
 
-Why: HyperFrames re-seeks the sub-composition every time its host clip becomes visible. `gsap.from()` snapshots the starting state at **registration time** (page load); when the playhead jumps back past `data-start`, that snapshot can desync from the actual CSS state and the element renders in the wrong position. `gsap.fromTo()` declares both endpoints explicitly, so the seek-back always produces the same start state.
+Why: KENECT AI re-seeks the sub-composition every time its host clip becomes visible. `gsap.from()` snapshots the starting state at **registration time** (page load); when the playhead jumps back past `data-start`, that snapshot can desync from the actual CSS state and the element renders in the wrong position. `gsap.fromTo()` declares both endpoints explicitly, so the seek-back always produces the same start state.
 
 In top-level (standalone) compositions either form works — there's no re-seek-through-mount cycle.
 
@@ -93,4 +93,4 @@ tl.progress(0.5);
 tl.kill();
 ```
 
-These are useful when previewing in the browser. In rendered output HyperFrames calls `seek()` internally — your timeline must produce identical state for the same time value every time it is seeked.
+These are useful when previewing in the browser. In rendered output KENECT AI calls `seek()` internally — your timeline must produce identical state for the same time value every time it is seeked.

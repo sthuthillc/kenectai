@@ -1,14 +1,14 @@
 ---
 title: AWS Lambda
-description: "Deploy distributed HyperFrames rendering to AWS Lambda and drive renders from a laptop or CI."
+description: "Deploy distributed KENECT AI rendering to AWS Lambda and drive renders from a laptop or CI."
 ---
 
-HyperFrames ships a first-class AWS Lambda deployment: one Lambda function fronts a Step Functions standard workflow that fans renders out across many parallel chunk workers, with intermediate artifacts in S3. End-to-end is three commands once your AWS credentials are configured.
+KENECT AI ships a first-class AWS Lambda deployment: one Lambda function fronts a Step Functions standard workflow that fans renders out across many parallel chunk workers, with intermediate artifacts in S3. End-to-end is three commands once your AWS credentials are configured.
 
 ```bash
-hyperframes lambda deploy
-hyperframes lambda render ./my-project --width 1920 --height 1080 --wait
-hyperframes lambda destroy
+kenectai lambda deploy
+kenectai lambda render ./my-project --width 1920 --height 1080 --wait
+kenectai lambda destroy
 ```
 
 Templates with [variables](/concepts/variables) work on the same Lambda stack — declare `data-composition-variables` on the composition, then pass values per render with `--variables` or fan a whole batch out with `lambda render-batch`. See the [Templates on Lambda](/deploy/templates-on-lambda) guide for the personalised-render pipeline (single render, batch from JSONL, programmatic SDK) and the 256 KiB Step Functions execution-input cap.
@@ -45,18 +45,18 @@ The Lambda handler is a thin dispatch: parse the Step Functions event, download 
 | Tool | Why | Install |
 |------|-----|---------|
 | AWS credentials | The CLI and the deploy step both call AWS APIs. | Env vars, `~/.aws/credentials`, SSO, or IMDS — any chain the AWS SDK for JavaScript v3 would resolve. |
-| AWS SAM CLI | `hyperframes lambda deploy/destroy` shells out to `sam deploy`/`sam delete`. | [Install guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html) |
+| AWS SAM CLI | `kenectai lambda deploy/destroy` shells out to `sam deploy`/`sam delete`. | [Install guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html) |
 | `bun` | Used to build `packages/aws-lambda/dist/handler.zip` at deploy time. | `npm install -g bun` or [bun.sh](https://bun.sh) |
-| HyperFrames repo checkout | `lambda deploy` builds the Lambda handler ZIP from source. Adopters who deploy outside a checkout can set `HYPERFRAMES_REPO_ROOT` to point at one. | `git clone https://github.com/sthuthillc/kenectai` |
+| KENECT AI repo checkout | `lambda deploy` builds the Lambda handler ZIP from source. Adopters who deploy outside a checkout can set `HYPERFRAMES_REPO_ROOT` to point at one. | `git clone https://github.com/sthuthillc/kenectai` |
 
 ## Three deployment paths
 
-### Path 1 — `hyperframes lambda` CLI (recommended)
+### Path 1 — `kenectai lambda` CLI (recommended)
 
 The CLI is a thin wrapper around the SAM template + the `@kenectai/aws-lambda` SDK. For most adopters this is the right starting point.
 
 ```bash
-hyperframes lambda deploy \
+kenectai lambda deploy \
   --stack-name=hyperframes-prod \
   --region=us-east-1 \
   --concurrency=8 \
@@ -68,10 +68,10 @@ The default `--concurrency=8` is deliberately conservative for first-time users.
 After `deploy`, render anything with:
 
 ```bash
-hyperframes lambda render ./my-project --width 1920 --height 1080 --wait
+kenectai lambda render ./my-project --width 1920 --height 1080 --wait
 ```
 
-The `--wait` flag blocks and streams per-chunk progress + accrued cost; drop it to fire-and-forget, then poll with `hyperframes lambda progress <renderId>` on your own cadence.
+The `--wait` flag blocks and streams per-chunk progress + accrued cost; drop it to fire-and-forget, then poll with `kenectai lambda progress <renderId>` on your own cadence.
 
 See the [CLI reference](/packages/cli#hyperframes-lambda) for full flag documentation.
 
@@ -80,10 +80,10 @@ See the [CLI reference](/packages/cli#hyperframes-lambda) for full flag document
 Re-rendering the same project tree on every `lambda render` call re-tars and re-uploads it each time. For tight inner loops (CI smoke jobs, prompt iteration in a demo flow), pre-stage the project once and reuse the upload:
 
 ```bash
-hyperframes lambda sites create ./my-project
+kenectai lambda sites create ./my-project
 # → Site ID: a1b2c3d4e5f6g7h8 (content-addressed)
 
-hyperframes lambda render ./my-project --site-id=a1b2c3d4e5f6g7h8 \
+kenectai lambda render ./my-project --site-id=a1b2c3d4e5f6g7h8 \
   --width 1920 --height 1080 --wait
 ```
 
@@ -147,23 +147,23 @@ The CLI ships a built-in IAM bootstrap to avoid the "User is not authorized to p
 
 ```bash
 # Print an inline policy doc to attach to the IAM user that runs the CLI.
-hyperframes lambda policies user
+kenectai lambda policies user
 
 # Print { TrustRelationship, InlinePolicy } for a CloudFormation service role.
-hyperframes lambda policies role --principal=cloudformation
+kenectai lambda policies role --principal=cloudformation
 
 # Validate a checked-in policy still covers the CLI's needs (exit non-zero on missing).
-hyperframes lambda policies validate ./infra/iam/hyperframes-deploy.json
+kenectai lambda policies validate ./infra/iam/hyperframes-deploy.json
 ```
 
 The generated documents grant `Resource: "*"` for the CLI's required action set. After your first successful deploy you can narrow `Resource` to the deployed ARNs — predictable per the CloudFormation outputs above. Adopters running the CLI in CI typically check the policy doc into source control and run `policies validate` as a pre-deploy step to catch drift.
 
 ## Cost shape
 
-Lambda renders are billed by GB-seconds (Lambda billed duration × configured memory) plus a tiny per-state-transition fee for Step Functions standard workflows. `hyperframes lambda progress` exposes the running tally:
+Lambda renders are billed by GB-seconds (Lambda billed duration × configured memory) plus a tiny per-state-transition fee for Step Functions standard workflows. `kenectai lambda progress` exposes the running tally:
 
 ```bash
-hyperframes lambda progress my-render-id
+kenectai lambda progress my-render-id
 # Status:    SUCCEEDED
 # Progress:  100%
 # Frames:    480 / 480
@@ -182,11 +182,11 @@ Pass the same `--stack-name` you used the first time. SAM is idempotent — re-r
 
 ### `User is not authorized to perform iam:CreateRole`
 
-The IAM credential running `lambda deploy` doesn't have permission to create the service role CloudFormation needs. Run `hyperframes lambda policies user` and attach the printed policy to your IAM user (or take the `policies role` output and have your admin create a deploy role).
+The IAM credential running `lambda deploy` doesn't have permission to create the service role CloudFormation needs. Run `kenectai lambda policies user` and attach the printed policy to your IAM user (or take the `policies role` output and have your admin create a deploy role).
 
 ### `Lambda function failed: PLAN_HASH_MISMATCH`
 
-Step Functions invoked a `renderChunk` with a plan hash that didn't match the planDir on S3. Almost always means the producer version differs between the local `plan()` build and the deployed Lambda ZIP. Re-run `hyperframes lambda deploy` (which rebuilds the ZIP) and re-render.
+Step Functions invoked a `renderChunk` with a plan hash that didn't match the planDir on S3. Almost always means the producer version differs between the local `plan()` build and the deployed Lambda ZIP. Re-run `kenectai lambda deploy` (which rebuilds the ZIP) and re-render.
 
 ### `Lambda function failed: BROWSER_GPU_NOT_SOFTWARE`
 
@@ -194,24 +194,24 @@ The handler launched Chromium but the runtime probe found a non-SwiftShader GL b
 
 ```bash
 bun run --cwd packages/aws-lambda build:zip
-hyperframes lambda deploy --stack-name=<your-stack>
+kenectai lambda deploy --stack-name=<your-stack>
 ```
 
 The build pipeline pins `@sparticuz/chromium` + the Chrome flags (`--use-gl=swiftshader --use-angle=swiftshader`) so a fresh deploy almost always resolves this. If it persists, your stack's Lambda function is pointing at a stale handler ZIP from a previous deploy — `lambda deploy` always rebuilds, so re-running unsticks it.
 
 ### Render seems stuck at `RUNNING`
 
-Most often a Lambda cold-start chain on a many-chunk render. The Map state's reserved concurrency caps how many chunks can run in parallel — if you set `--concurrency=4` and your render has 16 chunks, the state machine processes them in batches of 4. `hyperframes lambda progress <id>` shows how many invocations are in flight.
+Most often a Lambda cold-start chain on a many-chunk render. The Map state's reserved concurrency caps how many chunks can run in parallel — if you set `--concurrency=4` and your render has 16 chunks, the state machine processes them in batches of 4. `kenectai lambda progress <id>` shows how many invocations are in flight.
 
 If progress doesn't advance for >10 minutes, check the Step Functions execution in the AWS console — failed Lambda invocations include the typed error name (`FONT_FETCH_FAILED`, `FFMPEG_VERSION_MISMATCH`, etc.) which short-circuits the state machine.
 
 ### Tearing down doesn't reclaim S3 storage
 
-The render bucket is created with CloudFormation `Retain` on delete — `hyperframes lambda destroy` (or `sam delete`) tears the function + state machine down but the bucket survives. This is intentional: it protects final-rendered MP4s from being lost when you re-deploy. To fully reclaim storage, empty + delete the bucket via the AWS console / `aws s3 rb`.
+The render bucket is created with CloudFormation `Retain` on delete — `kenectai lambda destroy` (or `sam delete`) tears the function + state machine down but the bucket survives. This is intentional: it protects final-rendered MP4s from being lost when you re-deploy. To fully reclaim storage, empty + delete the bucket via the AWS console / `aws s3 rb`.
 
 ## What's NOT in the v1 surface
 
-- **Webhooks on completion.** Not in v1 — poll with `hyperframes lambda progress` or watch the Step Functions execution. A `--webhook` flag with an SNS topic is on the Phase 6c backlog.
+- **Webhooks on completion.** Not in v1 — poll with `kenectai lambda progress` or watch the Step Functions execution. A `--webhook` flag with an SNS topic is on the Phase 6c backlog.
 - **`compositions` discovery verb.** Coming separately (PR 6.10 on the plan); for now, point `lambda render` at the project directory containing your `index.html`.
 - **Multi-region.** Each `--region` is an independent stack. There is no built-in cross-region failover.
 - **HDR.** Distributed mode is SDR-only. HDR mp4 with bsf signaling is on the v1.5 backlog.

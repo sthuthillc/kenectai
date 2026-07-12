@@ -1,16 +1,16 @@
 ---
 title: Video Editor Cheatsheet
-description: "Fast reference for video editors and creative people directing agents, cutting timing, tweaking layouts, previewing, and publishing HyperFrames projects."
+description: "Fast reference for video editors and creative people directing agents, cutting timing, tweaking layouts, previewing, and publishing KENECT AI projects."
 ---
 
-Use this as a fast reference when you are directing agents, cutting timing, making visual layout tweaks, previewing, and sharing HyperFrames projects.
+Use this as a fast reference when you are directing agents, cutting timing, making visual layout tweaks, previewing, and sharing KENECT AI projects.
 
 ## The Fast Loop
 
 ```bash
-npx hyperframes init my-video --example blank
+npx @kenectai/cli init my-video --example blank
 cd my-video
-npx hyperframes preview
+npx @kenectai/cli preview
 ```
 
 Keep the preview running while your agent edits `index.html` or files in `compositions/`. The Studio updates automatically, so you can direct the agent, scrub the result, make manual visual tweaks, then repeat.
@@ -26,21 +26,21 @@ Most production work should feel like this:
 Before showing or rendering a project:
 
 ```bash
-npx hyperframes lint
-npx hyperframes check
-npx hyperframes render --quality standard --output review.mp4
+npx @kenectai/cli lint
+npx @kenectai/cli check
+npx @kenectai/cli render --quality standard --output review.mp4
 ```
 
 For fast iteration renders, use draft quality:
 
 ```bash
-npx hyperframes render --quality draft --output draft.mp4
+npx @kenectai/cli render --quality draft --output draft.mp4
 ```
 
 For final delivery:
 
 ```bash
-npx hyperframes render --quality high --fps 30 --output final.mp4
+npx @kenectai/cli render --quality high --fps 30 --output final.mp4
 ```
 
 ## Terminal Shortcuts
@@ -57,7 +57,7 @@ open .              # open the current folder in Finder on macOS
 code .              # open the current folder in VS Code, if installed
 ```
 
-Common HyperFrames project folders:
+Common KENECT AI project folders:
 
 ```bash
 cd assets           # source videos, images, audio
@@ -65,20 +65,20 @@ cd compositions     # reusable scenes and overlays
 cd ..               # back to the project root
 ```
 
-Run HyperFrames commands from the project root, where `index.html` lives. If you are not sure where you are, run `pwd` then `ls`. If you see `index.html`, you are in the right place.
+Run KENECT AI commands from the project root, where `index.html` lives. If you are not sure where you are, run `pwd` then `ls`. If you see `index.html`, you are in the right place.
 
 ## Preview Shortcuts
 
 Start the Studio:
 
 ```bash
-npx hyperframes preview
+npx @kenectai/cli preview
 ```
 
 Use a different port if `3002` is already busy:
 
 ```bash
-npx hyperframes preview --port 4567
+npx @kenectai/cli preview --port 4567
 ```
 
 Inside the Studio, shortcuts are grouped the same way the playbar's `⌨` panel groups them — playback first, then work-area markers, view controls, and app-level commands. Open the `⌨` panel in the playbar for an in-app cheatsheet, a frame-jump input, and live readouts of the in/out points.
@@ -168,20 +168,20 @@ I moved the hero title and resized the CTA manually in Studio. Inspect the chang
 
 | Command | Use it for |
 | --- | --- |
-| `npx hyperframes init my-video` | Create a new project |
-| `npx hyperframes init my-video --example warm-grain` | Start from a visual template |
-| `npx hyperframes init my-video --video source.mp4` | Import video and generate captions from the source audio |
-| `npx hyperframes capture https://example.com` | Capture a website as source material for a video |
-| `npx hyperframes preview` | Open the live Studio preview |
-| `npx hyperframes lint` | Catch structural mistakes before preview or render |
-| `npx hyperframes check` | Run the composition in headless Chrome to catch runtime errors |
-| `npx hyperframes check` | Find text overflow and layout problems across the timeline |
-| `npx hyperframes snapshot --at 1,3,5` | Save PNG checks at exact timestamps |
-| `npx hyperframes render --output final.mp4` | Render the video |
-| `npx hyperframes publish` | Upload the project and get a shareable HyperFrames URL |
-| `npx hyperframes doctor` | Check Node.js, FFmpeg, Chrome, Docker, and other dependencies |
-| `npx hyperframes docs` | Open local CLI docs |
-| `npx hyperframes upgrade` | Check for a newer CLI version |
+| `npx @kenectai/cli init my-video` | Create a new project |
+| `npx @kenectai/cli init my-video --example warm-grain` | Start from a visual template |
+| `npx @kenectai/cli init my-video --video source.mp4` | Import video and generate captions from the source audio |
+| `npx @kenectai/cli capture https://example.com` | Capture a website as source material for a video |
+| `npx @kenectai/cli preview` | Open the live Studio preview |
+| `npx @kenectai/cli lint` | Catch structural mistakes before preview or render |
+| `npx @kenectai/cli check` | Run the composition in headless Chrome to catch runtime errors |
+| `npx @kenectai/cli check` | Find text overflow and layout problems across the timeline |
+| `npx @kenectai/cli snapshot --at 1,3,5` | Save PNG checks at exact timestamps |
+| `npx @kenectai/cli render --output final.mp4` | Render the video |
+| `npx @kenectai/cli publish` | Upload the project and get a shareable KENECT AI URL |
+| `npx @kenectai/cli doctor` | Check Node.js, FFmpeg, Chrome, Docker, and other dependencies |
+| `npx @kenectai/cli docs` | Open local CLI docs |
+| `npx @kenectai/cli upgrade` | Check for a newer CLI version |
 
 ## Timing Cheatsheet
 
@@ -231,11 +231,11 @@ For GSAP animation, register one paused timeline per composition:
 
 | Goal | Command |
 | --- | --- |
-| Fast iteration | `npx hyperframes render --quality draft --output draft.mp4` |
-| Review link | `npx hyperframes render --quality standard --output review.mp4` |
-| Final export | `npx hyperframes render --quality high --fps 30 --output final.mp4` |
-| Transparent overlay | `npx hyperframes render --format webm --output overlay.webm` |
-| Deterministic output | `npx hyperframes render --docker --output final.mp4` |
+| Fast iteration | `npx @kenectai/cli render --quality draft --output draft.mp4` |
+| Review link | `npx @kenectai/cli render --quality standard --output review.mp4` |
+| Final export | `npx @kenectai/cli render --quality high --fps 30 --output final.mp4` |
+| Transparent overlay | `npx @kenectai/cli render --format webm --output overlay.webm` |
+| Deterministic output | `npx @kenectai/cli render --docker --output final.mp4` |
 
 Use WebM for transparent overlays, captions, and lower thirds. Use `--docker` when you need pixel-consistent output across different machines.
 
@@ -244,14 +244,14 @@ Use WebM for transparent overlays, captions, and lower thirds. Use `--docker` wh
 Use `publish` when you want to share the editable project, not just the rendered MP4:
 
 ```bash
-npx hyperframes publish
+npx @kenectai/cli publish
 ```
 
 Publish zips the current project, uploads it, and prints a stable `hyperframes.dev` URL. The URL includes a claim token so the recipient can open it, claim the project, and continue editing in the web app.
 
 ```bash
-npx hyperframes publish ./my-video   # publish a specific folder
-npx hyperframes publish --yes        # skip the confirmation prompt in scripts
+npx @kenectai/cli publish ./my-video   # publish a specific folder
+npx @kenectai/cli publish --yes        # skip the confirmation prompt in scripts
 ```
 
 Publish expects an `index.html` at the project root. It ignores `.git`, `node_modules`, `dist`, `.next`, and `coverage`.
@@ -268,21 +268,21 @@ agent-browser snapshot -i
 agent-browser screenshot --screenshot-dir ./qa
 ```
 
-Use it when you want the agent to open the HyperFrames Studio preview, play or scrub the video, click timeline controls, inspect visible UI text, capture screenshots for review, or record proof of a tested flow.
+Use it when you want the agent to open the KENECT AI Studio preview, play or scrub the video, click timeline controls, inspect visible UI text, capture screenshots for review, or record proof of a tested flow.
 
-For editor-facing changes, keep `npx hyperframes preview` running, then have the agent use `agent-browser` against the local preview URL.
+For editor-facing changes, keep `npx @kenectai/cli preview` running, then have the agent use `agent-browser` against the local preview URL.
 
 ## Quick Fixes
 
 | Problem | Command or check |
 | --- | --- |
-| Preview will not start | `npx hyperframes doctor` |
-| Port already in use | `npx hyperframes preview --port 4567` |
-| Render fails | `npx hyperframes lint` then `npx hyperframes check` |
-| Need exact frame checks | `npx hyperframes snapshot --at 1,2.5,5` |
-| Text overflows in the frame | `npx hyperframes check` |
+| Preview will not start | `npx @kenectai/cli doctor` |
+| Port already in use | `npx @kenectai/cli preview --port 4567` |
+| Render fails | `npx @kenectai/cli lint` then `npx @kenectai/cli check` |
+| Need exact frame checks | `npx @kenectai/cli snapshot --at 1,2.5,5` |
+| Text overflows in the frame | `npx @kenectai/cli check` |
 | Final render is too slow | Try `--quality draft`, reduce image sizes, or lower `--fps` |
-| Need to share editable project | `npx hyperframes publish` |
+| Need to share editable project | `npx @kenectai/cli publish` |
 
 <CardGroup cols={2}>
   <Card title="Prompt Guide" icon="wand-magic-sparkles" href="/guides/prompting">

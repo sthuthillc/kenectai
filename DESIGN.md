@@ -1,6 +1,6 @@
-# HyperFrames Design System & Style Guide
+# KENECT AI Design System & Style Guide
 
-Use this guide to configure Mintlify docs or any other platform to match the HyperFrames brand.
+Use this guide to configure Mintlify docs or any other platform to match the KENECT AI brand.
 
 ---
 
@@ -154,7 +154,7 @@ Use this guide to configure Mintlify docs or any other platform to match the Hyp
 
 ## Shadows & Effects
 
-- **No heavy shadows** — HyperFrames uses a flat, minimal aesthetic
+- **No heavy shadows** — KENECT AI uses a flat, minimal aesthetic
 - **Borders over shadows** — Use `1px solid var(--border)` instead of box-shadows
 - **Backdrop blur** for nav: `backdrop-filter: blur(12px)`
 - **Selection color**: `rgba(128,128,128,0.2)` (light) / `rgba(255,255,255,0.15)` (dark)
@@ -296,6 +296,6 @@ Additional overrides (code font, CSS variables, heading tracking) live in `docs/
 
 ## Brand Assets
 
-- **Logo**: "HyperFrames" in `--font-display` at 600 weight
+- **Logo**: "KENECT AI" in `--font-display` at 600 weight
 - **Primary color**: `#0a0a0a` (near-black)
 - **Warm neutral palette**: Beige/cream tones, not pure grays

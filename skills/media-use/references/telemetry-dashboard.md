@@ -3,7 +3,7 @@
 Reproducible definition of the media-use usage dashboard. The dashboard answers
 "how much is media-use used, for what, is reuse working, and what can't it
 satisfy" from the telemetry `scripts/lib/telemetry.mjs` already emits. Build it
-in PostHog project **Hyperframes (356858)**; this doc is the source of truth so
+in PostHog project **KENECT AI (356858)**; this doc is the source of truth so
 it can be recreated. Local complement: `resolve --stats` (same questions, from
 `.media/` + `~/.media`, no PostHog access needed).
 

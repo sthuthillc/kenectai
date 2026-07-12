@@ -36,7 +36,7 @@ title: "Texture Mask Text"
 <CodeGroup>
 
 ```bash Terminal
-npx hyperframes add texture-mask-text
+npx @kenectai/cli add texture-mask-text
 ```
 
 </CodeGroup>
@@ -55,7 +55,7 @@ Use this wording when asking an agent to apply a texture:
 Use the Texture Mask Text catalog component.
 
 1. From the project root, run:
-   npx hyperframes add texture-mask-text
+   npx @kenectai/cli add texture-mask-text
 2. That command creates this installed snippet:
    compositions/components/texture-mask-text/texture-mask-text.html
 3. Open that file and paste the real <style> block
@@ -74,7 +74,7 @@ Use the Texture Mask Text catalog component.
    </div>
 ```
 
-After install, the snippet lives at `compositions/components/texture-mask-text/texture-mask-text.html` inside the project where you ran `npx hyperframes add texture-mask-text`. The part to paste is the real `<style>` element near the bottom of that file; the texture PNGs install to `assets/texture-mask-text/masks/` and are referenced by project-root URLs in that CSS.
+After install, the snippet lives at `compositions/components/texture-mask-text/texture-mask-text.html` inside the project where you ran `npx @kenectai/cli add texture-mask-text`. The part to paste is the real `<style>` element near the bottom of that file; the texture PNGs install to `assets/texture-mask-text/masks/` and are referenced by project-root URLs in that CSS.
 
 Swap `hf-texture-brick` for the class shown on any texture card below. The base class `hf-texture-text` is always required.
 
@@ -484,4 +484,4 @@ window.__timelines["my-composition"] = tl;
 
 ## Usage
 
-After `npx hyperframes add texture-mask-text`, the installed snippet lives at `compositions/components/texture-mask-text/texture-mask-text.html` inside your current HyperFrames project. Open that file and paste the real `<style>` element near the bottom into your composition once; it defines `hf-texture-text` and every `hf-texture-*` class used by the examples above. Keep the installed texture PNGs in `assets/texture-mask-text/masks/`; the CSS references them with project-root URLs.
+After `npx @kenectai/cli add texture-mask-text`, the installed snippet lives at `compositions/components/texture-mask-text/texture-mask-text.html` inside your current KENECT AI project. Open that file and paste the real `<style>` element near the bottom into your composition once; it defines `hf-texture-text` and every `hf-texture-*` class used by the examples above. Keep the installed texture PNGs in `assets/texture-mask-text/masks/`; the CSS references them with project-root URLs.

@@ -1,13 +1,13 @@
 ---
 title: Quickstart
-description: "Create, preview, and render your first Hyperframes video in under two minutes."
+description: "Create, preview, and render your first KENECT AI video in under two minutes."
 ---
 
 Go from zero to a rendered MP4 — either by prompting your AI agent or by starting a project manually.
 
 ## Option 1: With an AI coding agent (recommended)
 
-Install the HyperFrames skills, then describe the video you want:
+Install the KENECT AI skills, then describe the video you want:
 
 ```bash
 npx skills add sthuthillc/kenectai
@@ -66,7 +66,7 @@ Copy any of these into your agent to get started.
 The agent handles scaffolding, animation, and rendering. See the [prompting guide](/guides/prompting) for more patterns, or the [pipeline guide](/guides/pipeline) for the 7-step structure (DESIGN, SCRIPT, STORYBOARD, …) that AI agents follow for multi-beat videos.
 
 <Tip>
-  Skills encode HyperFrames-specific patterns — like required `class="clip"` on timed elements, GSAP timeline registration, adapter registries such as `window.__hfLottie`, and `data-*` attribute semantics — that are not in generic web docs. Using skills produces correct compositions from the start.
+  Skills encode KENECT AI-specific patterns — like required `class="clip"` on timed elements, GSAP timeline registration, adapter registries such as `window.__hfLottie`, and `data-*` attribute semantics — that are not in generic web docs. Using skills produces correct compositions from the start.
 </Tip>
 
 ## Option 2: Start a project manually
@@ -79,7 +79,7 @@ The agent handles scaffolding, animation, and rendering. See the [prompting guid
 <Accordion title="Install instructions">
   <Steps>
     <Step title="Install Node.js 22+">
-      Hyperframes requires Node.js 22 or later. Check your version:
+      KENECT AI requires Node.js 22 or later. Check your version:
 
       ```bash
       node --version
@@ -125,14 +125,14 @@ The agent handles scaffolding, animation, and rendering. See the [prompting guid
 <Steps>
   <Step title="Scaffold the project">
     ```bash
-    npx hyperframes init my-video
+    npx @kenectai/cli init my-video
     cd my-video
     ```
 
     This starts an interactive wizard that walks you through example selection and media import. To skip prompts (e.g. in CI or from an agent), use `--non-interactive`:
 
     ```bash
-    npx hyperframes init my-video --non-interactive --example blank
+    npx @kenectai/cli init my-video --non-interactive --example blank
     ```
 
     See [Examples](/examples) for all available examples.
@@ -163,18 +163,18 @@ The agent handles scaffolding, animation, and rendering. See the [prompting guid
     If you have a source video, pass it with `--video` for automatic transcription and captions:
 
     ```bash
-    npx hyperframes init my-video --example warm-grain --video ./intro.mp4
+    npx @kenectai/cli init my-video --example warm-grain --video ./intro.mp4
     ```
 
-    `hyperframes init` installs AI agent skills automatically, so you can hand off to your AI agent at any point.
+    `kenectai init` installs AI agent skills automatically, so you can hand off to your AI agent at any point.
   </Step>
 
   <Step title="Preview in the browser">
     ```bash
-    npx hyperframes preview
+    npx @kenectai/cli preview
     ```
 
-    This starts the Hyperframes Studio and opens your composition in the browser. Edits to `index.html` reload automatically.
+    This starts the KENECT AI Studio and opens your composition in the browser. Edits to `index.html` reload automatically.
 
     <Tip>
       The dev server supports hot reload — save your HTML file and the preview updates instantly, no manual refresh needed.
@@ -196,7 +196,7 @@ The agent handles scaffolding, animation, and rendering. See the [prompting guid
           style="font-size: 72px; color: white; text-align: center;
                  position: absolute; top: 50%; left: 50%;
                  transform: translate(-50%, -50%);">
-        Hello, Hyperframes!
+        Hello, KENECT AI!
       </h1>
 
       <!-- 2. Load GSAP for animation -->
@@ -221,7 +221,7 @@ The agent handles scaffolding, animation, and rendering. See the [prompting guid
 
   <Step title="Render to MP4">
     ```bash
-    npx hyperframes render --output output.mp4
+    npx @kenectai/cli render --output output.mp4
     ```
 
     ```bash Expected output

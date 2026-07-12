@@ -30,6 +30,6 @@ All files are distributed under the [Pixabay Content License](https://pixabay.co
 
 - Commercial and non-commercial use
 - Modification and remixing
-- Redistribution as part of derivative works (such as videos rendered with HyperFrames)
+- Redistribution as part of derivative works (such as videos rendered with KENECT AI)
 
 without any attribution requirement.

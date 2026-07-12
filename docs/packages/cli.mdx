@@ -3,12 +3,12 @@ title: CLI
 description: "Create, preview, and render HTML video compositions from the command line."
 ---
 
-The `hyperframes` CLI is the primary way to work with Hyperframes. It handles project creation, live preview, rendering, linting, and diagnostics — all from your terminal.
+The `hyperframes` CLI is the primary way to work with KENECT AI. It handles project creation, live preview, rendering, linting, and diagnostics — all from your terminal.
 
 ```bash
 npm install -g hyperframes
 # or use directly with npx
-npx hyperframes <command>
+npx @kenectai/cli <command>
 ```
 
 ## When to Use
@@ -30,7 +30,7 @@ npx hyperframes <command>
 - Parse or generate composition HTML in code — use [core](/packages/core)
 
 <Tip>
-  The CLI is the recommended starting point for all Hyperframes users. It wraps the producer, engine, and studio packages so you do not need to install them separately.
+  The CLI is the recommended starting point for all KENECT AI users. It wraps the producer, engine, and studio packages so you do not need to install them separately.
 </Tip>
 
 ## Agent-Friendly by Default
@@ -49,18 +49,18 @@ Interactivity is command-specific. For example, `init` uses prompts on TTY by de
   <Tab title="Agent mode (default)">
     ```bash
     # Fully non-interactive — all inputs from flags
-    npx hyperframes init my-video --example blank --video video.mp4
-    npx hyperframes render --output output.mp4 --fps 30 --quality standard
-    npx hyperframes upgrade --check --json
+    npx @kenectai/cli init my-video --example blank --video video.mp4
+    npx @kenectai/cli render --output output.mp4 --fps 30 --quality standard
+    npx @kenectai/cli upgrade --check --json
     ```
   </Tab>
   <Tab title="Human mode">
     ```bash
     # Command-specific interactive flow
-    npx hyperframes init my-video
+    npx @kenectai/cli init my-video
 
     # Interactive picker supported by catalog
-    npx hyperframes catalog --human-friendly
+    npx @kenectai/cli catalog --human-friendly
     ```
   </Tab>
 </Tabs>
@@ -89,7 +89,7 @@ The CLI checks npm for newer versions in the background (cached 24 hours). If an
 
 ```
   Update available: 0.1.4 → 0.1.5
-  Run: npx hyperframes@latest
+  Run: npx @kenectai/cli@latest
 ```
 
 This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_UPDATE_CHECK=1` is set.
@@ -100,11 +100,11 @@ This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_
   <Step title="Create a project">
     Scaffold a new composition from an example:
     ```bash
-    npx hyperframes init --example warm-grain
+    npx @kenectai/cli init --example warm-grain
     ```
     You will be prompted for a project name, or pass it as an argument:
     ```bash
-    npx hyperframes init my-video --example warm-grain
+    npx @kenectai/cli init my-video --example warm-grain
     ```
     See [Examples](/examples) for all available examples.
   </Step>
@@ -112,14 +112,14 @@ This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_
     Start the development server with live hot reload:
     ```bash
     cd my-video
-    npx hyperframes preview
+    npx @kenectai/cli preview
     ```
-    The Hyperframes Studio opens in your browser. Edit `index.html` and the preview updates instantly.
+    The KENECT AI Studio opens in your browser. Edit `index.html` and the preview updates instantly.
   </Step>
   <Step title="Lint your composition">
     Check for structural issues before rendering:
     ```bash
-    npx hyperframes lint
+    npx @kenectai/cli lint
     ```
     ```
     ◆  Linting my-project/index.html
@@ -130,15 +130,15 @@ This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_
   <Step title="Render to MP4">
     Produce the final video:
     ```bash
-    npx hyperframes render --output output.mp4
+    npx @kenectai/cli render --output output.mp4
     ```
     Render a specific composition instead of `index.html`:
     ```bash
-    npx hyperframes render -c compositions/intro.html -o intro.mp4
+    npx @kenectai/cli render -c compositions/intro.html -o intro.mp4
     ```
     For deterministic output, add `--docker`:
     ```bash
-    npx hyperframes render --docker --output output.mp4
+    npx @kenectai/cli render --docker --output output.mp4
     ```
   </Step>
 </Steps>
@@ -153,13 +153,13 @@ This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_
 
     ```bash
     # Agent mode (default) — --example is required
-    npx hyperframes init my-video --example blank --video video.mp4
+    npx @kenectai/cli init my-video --example blank --video video.mp4
 
     # Include Tailwind CSS browser-runtime support
-    npx hyperframes init my-video --example blank --tailwind
+    npx @kenectai/cli init my-video --example blank --tailwind
 
     # Human mode — interactive prompts on TTY by default
-    npx hyperframes init my-video
+    npx @kenectai/cli init my-video
     ```
 
     | Flag | Description |
@@ -196,16 +196,16 @@ This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_
 
     ```bash
     # Add a block (sub-composition scene)
-    npx hyperframes add claude-code-window
+    npx @kenectai/cli add claude-code-window
 
     # Add a component (effect / snippet)
-    npx hyperframes add shader-wipe
+    npx @kenectai/cli add shader-wipe
 
     # Target a different project dir
-    npx hyperframes add shader-wipe --dir ./my-video
+    npx @kenectai/cli add shader-wipe --dir ./my-video
 
     # Headless / CI (skip clipboard; also: --json for a machine-readable result)
-    npx hyperframes add shader-wipe --no-clipboard --json
+    npx @kenectai/cli add shader-wipe --no-clipboard --json
     ```
 
     | Flag | Description |
@@ -215,11 +215,11 @@ This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_
     | `--no-clipboard` | Skip copying the include snippet to the clipboard |
     | `--json` | Print a machine-readable summary (written files + snippet) to stdout |
 
-    `add` reads [`hyperframes.json`](#hyperframes-json) at the project root to know which registry to pull from and where to drop files. If the file is missing but the directory looks like a Hyperframes project (has `index.html`), a default `hyperframes.json` is written the first time you run `add`.
+    `add` reads [`hyperframes.json`](#hyperframes-json) at the project root to know which registry to pull from and where to drop files. If the file is missing but the directory looks like a KENECT AI project (has `index.html`), a default `hyperframes.json` is written the first time you run `add`.
 
     Output for a block or component is a set of files plus a **paste snippet** — the `<iframe>` tag (for blocks) or the fragment path (for components) to include in your host composition. The snippet is copied to the clipboard by default; add `--no-clipboard` for CI or headless environments.
 
-    Trying `add` with an example's name (e.g. `hyperframes add warm-grain`) emits a clear error pointing you at `init --example`.
+    Trying `add` with an example's name (e.g. `kenectai add warm-grain`) emits a clear error pointing you at `init --example`.
 
     ### `catalog`
 
@@ -227,17 +227,17 @@ This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_
 
     ```bash
     # List everything (default: table output)
-    npx hyperframes catalog
+    npx @kenectai/cli catalog
 
     # Filter by type or tag
-    npx hyperframes catalog --type block
-    npx hyperframes catalog --type block --tag social
+    npx @kenectai/cli catalog --type block
+    npx @kenectai/cli catalog --type block --tag social
 
     # Machine-readable JSON
-    npx hyperframes catalog --json
+    npx @kenectai/cli catalog --json
 
     # Interactive picker — select to install
-    npx hyperframes catalog --human-friendly
+    npx @kenectai/cli catalog --human-friendly
     ```
 
     | Flag | Description |
@@ -254,7 +254,7 @@ This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_
     List all compositions in the current project:
 
     ```bash
-    npx hyperframes compositions
+    npx @kenectai/cli compositions
     ```
 
     | Flag | Description |
@@ -269,16 +269,16 @@ This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_
 
     ```bash
     # Transcribe audio/video with local whisper.cpp
-    npx hyperframes transcribe audio.mp3
-    npx hyperframes transcribe video.mp4 --model medium.en --language en
+    npx @kenectai/cli transcribe audio.mp3
+    npx @kenectai/cli transcribe video.mp4 --model medium.en --language en
 
     # Import existing transcripts from other tools
-    npx hyperframes transcribe subtitles.srt
-    npx hyperframes transcribe captions.vtt
-    npx hyperframes transcribe openai-response.json
+    npx @kenectai/cli transcribe subtitles.srt
+    npx @kenectai/cli transcribe captions.vtt
+    npx @kenectai/cli transcribe openai-response.json
 
     # Export caption sidecars from transcript.json
-    npx hyperframes transcribe transcript.json --to srt
+    npx @kenectai/cli transcribe transcript.json --to srt
     ```
 
     | Flag | Description |
@@ -297,7 +297,7 @@ This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_
 
     | Format | Source |
     |--------|--------|
-    | whisper.cpp JSON | `hyperframes init --video`, `hyperframes transcribe` |
+    | whisper.cpp JSON | `kenectai init --video`, `kenectai transcribe` |
     | OpenAI Whisper API JSON | `openai.audio.transcriptions.create()` with word timestamps |
     | SRT subtitles | Video editors, YouTube, subtitle tools |
     | VTT subtitles | Web players, YouTube, transcription services |
@@ -316,28 +316,28 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     ```bash
     # Generate speech from text
-    npx hyperframes tts "Welcome to HyperFrames"
+    npx @kenectai/cli tts "Welcome to KENECT AI"
 
     # Choose a voice
-    npx hyperframes tts "Hello world" --voice am_adam
+    npx @kenectai/cli tts "Hello world" --voice am_adam
 
     # Save to a specific file
-    npx hyperframes tts "Intro" --voice bf_emma --output narration.wav
+    npx @kenectai/cli tts "Intro" --voice bf_emma --output narration.wav
 
     # Adjust speech speed
-    npx hyperframes tts "Slow and clear" --speed 0.8
+    npx @kenectai/cli tts "Slow and clear" --speed 0.8
 
     # Generate Spanish speech (lang auto-detected from the `e` voice prefix)
-    npx hyperframes tts "La reunión empieza a las nueve" --voice ef_dora --output es.wav
+    npx @kenectai/cli tts "La reunión empieza a las nueve" --voice ef_dora --output es.wav
 
     # Override the phonemizer (read English text with a French voice)
-    npx hyperframes tts "Bonjour le monde" --voice af_heart --lang fr-fr
+    npx @kenectai/cli tts "Bonjour le monde" --voice af_heart --lang fr-fr
 
     # Read text from a file
-    npx hyperframes tts script.txt
+    npx @kenectai/cli tts script.txt
 
     # List available voices
-    npx hyperframes tts --list
+    npx @kenectai/cli tts --list
     ```
 
     | Flag | Description |
@@ -363,23 +363,23 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     ```bash
     # Default: VP9-with-alpha WebM (HTML5-native, ~1 MB / 4s @ 1080p)
-    npx hyperframes remove-background avatar.mp4 -o transparent.webm
+    npx @kenectai/cli remove-background avatar.mp4 -o transparent.webm
 
     # ProRes 4444 .mov for editing round-trip
-    npx hyperframes remove-background avatar.mp4 -o transparent.mov
+    npx @kenectai/cli remove-background avatar.mp4 -o transparent.mov
 
     # Single image → transparent PNG
-    npx hyperframes remove-background portrait.jpg -o cutout.png
+    npx @kenectai/cli remove-background portrait.jpg -o cutout.png
 
     # Layer separation: cutout AND inverse-alpha background plate in one pass
-    npx hyperframes remove-background avatar.mp4 \
+    npx @kenectai/cli remove-background avatar.mp4 \
       -o subject.webm --background-output plate.webm
 
     # Force CPU on a machine that has CoreML or CUDA
-    npx hyperframes remove-background avatar.mp4 -o transparent.webm --device cpu
+    npx @kenectai/cli remove-background avatar.mp4 -o transparent.webm --device cpu
 
     # Inspect detected providers without rendering
-    npx hyperframes remove-background --info
+    npx @kenectai/cli remove-background --info
     ```
 
     | Flag | Description |
@@ -414,9 +414,9 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     Capture a website — extract screenshots, design tokens, fonts, assets, and animations for video production:
 
     ```bash
-    npx hyperframes capture https://stripe.com
-    npx hyperframes capture https://linear.app -o linear-capture
-    npx hyperframes capture https://example.com --json
+    npx @kenectai/cli capture https://stripe.com
+    npx @kenectai/cli capture https://linear.app -o linear-capture
+    npx @kenectai/cli capture https://example.com --json
     ```
 
     ```
@@ -449,15 +449,15 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     Start a live preview server with hot reload:
 
     ```bash
-    npx hyperframes preview [dir]
-    npx hyperframes preview --port 4567
+    npx @kenectai/cli preview [dir]
+    npx @kenectai/cli preview --port 4567
     ```
 
     | Flag | Description |
     |------|-------------|
     | `--port` | Port to run the preview server on (default: 3002) |
 
-    Opens your composition in the Hyperframes Studio with live preview. Edits to `index.html` and any referenced sub-compositions are reflected automatically. The preview uses the same Hyperframes runtime as production rendering, so what you see is what you get.
+    Opens your composition in the KENECT AI Studio with live preview. Edits to `index.html` and any referenced sub-compositions are reflected automatically. The preview uses the same KENECT AI runtime as production rendering, so what you see is what you get.
 
     <Note>
       Visual output matches render exactly. Playback *performance* does not: preview plays in real time in your browser, so paint-heavy compositions (large images, stacked `backdrop-filter` layers, many shadowed elements) may stutter depending on your hardware. The rendered mp4 is always accurate regardless — render captures frames one at a time, so per-frame cost shows up as longer render duration, not dropped frames. See [Performance](/guides/performance) for details.
@@ -467,15 +467,15 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     1. **Embedded mode** (default for `npx`) — runs a standalone server with the studio bundled in the CLI. Zero extra dependencies.
     2. **Local studio mode** — if `@kenectai/studio` is installed in your project's `node_modules`, spawns Vite with full HMR for faster iteration.
-    3. **Monorepo mode** — if running from the Hyperframes source repo, spawns the studio dev server directly.
+    3. **Monorepo mode** — if running from the KENECT AI source repo, spawns the studio dev server directly.
 
     ### `publish`
 
     Upload the project and get back a stable `hyperframes.dev` URL:
 
     ```bash
-    npx hyperframes publish [dir]
-    npx hyperframes publish --yes
+    npx @kenectai/cli publish [dir]
+    npx @kenectai/cli publish --yes
     ```
 
     | Flag | Description |
@@ -493,9 +493,9 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     Check a composition for common issues:
 
     ```bash
-    npx hyperframes lint [dir]
-    npx hyperframes lint [dir] --verbose   # include info-level findings
-    npx hyperframes lint [dir] --json      # machine-readable JSON output
+    npx @kenectai/cli lint [dir]
+    npx @kenectai/cli lint [dir] --verbose   # include info-level findings
+    npx @kenectai/cli lint [dir] --json      # machine-readable JSON output
     ```
     ```
     ◆  Linting my-project/index.html
@@ -525,11 +525,11 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     The browser verification gate: everything the old `validate` → `inspect` → `snapshot` loop did, in **one** command with one browser session:
 
     ```bash
-    npx hyperframes check [dir]
-    npx hyperframes check [dir] --json         # {ok, lint, runtime, layout, motion, contrast, snapshots}
-    npx hyperframes check [dir] --snapshots    # annotated overview frames + per-finding crops
-    npx hyperframes check [dir] --at 1.5,4,7.25
-    npx hyperframes check [dir] --strict       # exit non-zero on warnings too
+    npx @kenectai/cli check [dir]
+    npx @kenectai/cli check [dir] --json         # {ok, lint, runtime, layout, motion, contrast, snapshots}
+    npx @kenectai/cli check [dir] --snapshots    # annotated overview frames + per-finding crops
+    npx @kenectai/cli check [dir] --at 1.5,4,7.25
+    npx @kenectai/cli check [dir] --strict       # exit non-zero on warnings too
     ```
 
     `check` runs the linter first (browser skipped entirely on lint errors), then loads the bundled composition once and sweeps one seek grid running every audit per sample: runtime console errors and failed requests, layout defects (overflow, clipping, held overlaps, occlusion), `*.motion.json` sidecar assertions, and WCAG AA contrast.
@@ -553,8 +553,8 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     Detect the beats in a composition's music track and write them to a beat file the Studio uses to draw beat guides on the timeline:
 
     ```bash
-    npx hyperframes beats [dir]
-    npx hyperframes beats [dir] --json   # machine-readable JSON output
+    npx @kenectai/cli beats [dir]
+    npx @kenectai/cli beats [dir] --json   # machine-readable JSON output
     ```
 
     The command finds the music track (an `<audio>` element with `data-timeline-role="music"`, or an id like `music`/`bgm`/`soundtrack`), runs the **same** detection the Studio uses inside a headless Chrome (identical decode + BPM analysis), and writes `beats/<audio-path>.json`:
@@ -573,7 +573,7 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     |------|-------------|
     | `--json` | Output `{ ok, file, count, bpm }` as JSON |
 
-    Requires a local Chrome (the same one used by `render`; run `npx hyperframes browser ensure` if missing). Detection runs the **same** algorithm the Studio uses; results are near-identical (a different headless-Chrome audio sample rate can shift beat times by a frame or two).
+    Requires a local Chrome (the same one used by `render`; run `npx @kenectai/cli browser ensure` if missing). Detection runs the **same** algorithm the Studio uses; results are near-identical (a different headless-Chrome audio sample rate can shift beat times by a frame or two).
 
     ### `inspect`
 
@@ -582,10 +582,10 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     Inspect rendered visual layout across the composition timeline:
 
     ```bash
-    npx hyperframes inspect [dir]
-    npx hyperframes inspect [dir] --json
-    npx hyperframes inspect [dir] --samples 15
-    npx hyperframes inspect [dir] --at 1.5,4,7.25
+    npx @kenectai/cli inspect [dir]
+    npx @kenectai/cli inspect [dir] --json
+    npx @kenectai/cli inspect [dir] --samples 15
+    npx @kenectai/cli inspect [dir] --at 1.5,4,7.25
     ```
 
     ```
@@ -615,7 +615,7 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     `layout` remains available as a compatibility alias for the same visual inspection pass:
 
     ```bash
-    npx hyperframes layout [dir] --json
+    npx @kenectai/cli layout [dir] --json
     ```
 
     #### Motion verification
@@ -648,8 +648,8 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     Capture key frames from a composition as PNG screenshots — verify visual output without a full render:
 
     ```bash
-    npx hyperframes snapshot my-project --at 2.9,10.4,18.7
-    npx hyperframes snapshot my-project --frames 10
+    npx @kenectai/cli snapshot my-project --at 2.9,10.4,18.7
+    npx @kenectai/cli snapshot my-project --frames 10
     ```
 
     ```
@@ -676,22 +676,22 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     ```bash
     # Local mode (fast iteration)
-    npx hyperframes render --output output.mp4
+    npx @kenectai/cli render --output output.mp4
 
     # Docker mode (deterministic output)
-    npx hyperframes render --docker --output output.mp4
+    npx @kenectai/cli render --docker --output output.mp4
 
     # WebM with transparency (for overlays, captions, lower thirds)
-    npx hyperframes render --format webm --output overlay.webm
+    npx @kenectai/cli render --format webm --output overlay.webm
 
     # With options
-    npx hyperframes render --output output.mp4 --fps 60 --quality high
+    npx @kenectai/cli render --output output.mp4 --fps 60 --quality high
 
     # Opt out of local browser GPU capture
-    npx hyperframes render --no-browser-gpu --output cpu-browser.mp4
+    npx @kenectai/cli render --no-browser-gpu --output cpu-browser.mp4
 
     # Add hardware FFmpeg encoding
-    npx hyperframes render --gpu --output gpu.mp4
+    npx @kenectai/cli render --gpu --output gpu.mp4
     ```
 
     | Flag | Values | Default | Description |
@@ -748,13 +748,13 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     ```bash
     # Render with declared defaults (preview also uses the defaults)
-    npx hyperframes render --output default.mp4
+    npx @kenectai/cli render --output default.mp4
 
     # Override at render time — missing keys fall through to declared defaults
-    npx hyperframes render --variables '{"title":"Q4 Report","theme":"dark"}' --output q4.mp4
+    npx @kenectai/cli render --variables '{"title":"Q4 Report","theme":"dark"}' --output q4.mp4
 
     # Pass values from a JSON file
-    npx hyperframes render --variables-file ./vars.json --output out.mp4
+    npx @kenectai/cli render --variables-file ./vars.json --output out.mp4
     ```
 
     `getVariables()` returns the merged result of declared defaults and any `--variables` overrides, so the same composition runs unchanged in dev preview and in production renders.
@@ -765,7 +765,7 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     ```bash
     # Render a caption overlay with transparent background
-    npx hyperframes render --format webm --output captions.webm
+    npx @kenectai/cli render --format webm --output captions.webm
 
     # Overlay on another video with FFmpeg
     ffmpeg -c:v libvpx-vp9 -i captions.webm -i background.mp4 \
@@ -783,7 +783,7 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     Find optimal render settings for your system:
 
     ```bash
-    npx hyperframes benchmark [dir]
+    npx @kenectai/cli benchmark [dir]
     ```
 
     | Flag | Values | Default | Description |
@@ -799,10 +799,10 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     Check your environment for required dependencies:
 
     ```bash
-    npx hyperframes doctor
+    npx @kenectai/cli doctor
     ```
     ```
-    hyperframes doctor
+    kenectai doctor
 
       ✓ Version          0.1.4 (latest)
       ✓ Node.js          v22.x (linux x64)
@@ -821,10 +821,10 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     Verifies CLI version, Node.js, FFmpeg, FFprobe, Chrome, and Docker availability. If a newer CLI version is available, the version row shows an upgrade hint.
 
-    **CI gating.** `hyperframes doctor --json` always exits 0 on successful execution — the command succeeded if it produced valid output. Whether the environment is healthy is carried in the `ok` field of the payload, so a new CLI release (which flips `Version.ok` to `false`) never breaks your pipeline. Pipe through `jq` to gate on the payload instead:
+    **CI gating.** `kenectai doctor --json` always exits 0 on successful execution — the command succeeded if it produced valid output. Whether the environment is healthy is carried in the `ok` field of the payload, so a new CLI release (which flips `Version.ok` to `false`) never breaks your pipeline. Pipe through `jq` to gate on the payload instead:
 
     ```bash
-    hyperframes doctor --json | jq -e '.ok' > /dev/null || handle_failure
+    kenectai doctor --json | jq -e '.ok' > /dev/null || handle_failure
     ```
 
     Paths in `detail` and `hint` are redacted in JSON mode — the user's home directory is replaced with the literal `$HOME` so output is safe to paste into bug reports and agent contexts.
@@ -834,7 +834,7 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     Display project metadata:
 
     ```bash
-    npx hyperframes info [dir]
+    npx @kenectai/cli info [dir]
     ```
 
     | Flag | Description |
@@ -848,10 +848,10 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     Check for updates and show upgrade instructions:
 
     ```bash
-    npx hyperframes upgrade
-    npx hyperframes upgrade --check         # check and exit (no prompt)
-    npx hyperframes upgrade --check --json  # machine-readable for agents
-    npx hyperframes upgrade --yes           # show upgrade commands without prompting
+    npx @kenectai/cli upgrade
+    npx @kenectai/cli upgrade --check         # check and exit (no prompt)
+    npx @kenectai/cli upgrade --check --json  # machine-readable for agents
+    npx @kenectai/cli upgrade --yes           # show upgrade commands without prompting
     ```
 
     | Flag | Description |
@@ -877,23 +877,23 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     ```bash
     # Find or download Chrome for rendering
-    npx hyperframes browser ensure
+    npx @kenectai/cli browser ensure
 
     # Print the browser executable path (for scripting)
-    npx hyperframes browser path
+    npx @kenectai/cli browser path
 
     # Remove cached Chrome download
-    npx hyperframes browser clear
+    npx @kenectai/cli browser clear
     ```
 
-    The `path` subcommand outputs only the path, useful in scripts: `$(npx hyperframes browser path)`.
+    The `path` subcommand outputs only the path, useful in scripts: `$(npx @kenectai/cli browser path)`.
 
     ### `docs`
 
     View inline documentation in the terminal:
 
     ```bash
-    npx hyperframes docs [topic]
+    npx @kenectai/cli docs [topic]
     ```
 
     Available topics: `data-attributes`, `examples`, `rendering`, `gsap`, `troubleshooting`, `compositions`. Run without a topic to see the full list.
@@ -904,13 +904,13 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     ```bash
     # Quick rating (1 = poor, 5 = great)
-    npx hyperframes feedback --rating 5
+    npx @kenectai/cli feedback --rating 5
 
     # Rating with optional details
-    npx hyperframes feedback --rating 3 --comment "render succeeded but GSAP timeline didn't animate"
+    npx @kenectai/cli feedback --rating 3 --comment "render succeeded but GSAP timeline didn't animate"
 
     # Also file a pre-filled GitHub issue with a published minimal repro (opt-in, consented)
-    npx hyperframes feedback --rating 2 --comment "GSAP timeline froze on seek" --file-issue
+    npx @kenectai/cli feedback --rating 2 --comment "GSAP timeline froze on seek" --file-issue
     ```
 
     | Flag | Description |
@@ -932,27 +932,27 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     Manage anonymous usage telemetry:
 
     ```bash
-    npx hyperframes telemetry enable
-    npx hyperframes telemetry disable
-    npx hyperframes telemetry status
+    npx @kenectai/cli telemetry enable
+    npx @kenectai/cli telemetry disable
+    npx @kenectai/cli telemetry status
     ```
 
-    Telemetry collects command names, render performance, render checkpoint/error names, aggregate browser diagnostic counts, browser initialization duration and tween count, aggregate video extraction workload counts (such as extracted frame count and VFR preflight count), example choices, and system info — including a coarse environment fingerprint (OS, kernel string, CPU/memory shape, sandbox runtime such as gVisor or Docker, and the *name* of a coding agent driving the CLI when one is detected, e.g. `claude_code` / `codex` / `cursor`). The agent name is derived from the existence of well-known environment variables; their values are never read. Telemetry redacts local paths and URL query strings from render error/checkpoint messages and does **not** collect project names, video content, or environment variable values. It collects no personally identifiable information until you sign in: when you authenticate with `hyperframes auth login`, your HeyGen account email (or your username, if your account has no email) is linked to your usage so CLI activity can be associated with your account (and your prior anonymous usage is stitched to it). Nothing else personal is collected, and this only happens after you choose to sign in. Disable all telemetry with `HYPERFRAMES_NO_TELEMETRY=1` or the command above.
+    Telemetry collects command names, render performance, render checkpoint/error names, aggregate browser diagnostic counts, browser initialization duration and tween count, aggregate video extraction workload counts (such as extracted frame count and VFR preflight count), example choices, and system info — including a coarse environment fingerprint (OS, kernel string, CPU/memory shape, sandbox runtime such as gVisor or Docker, and the *name* of a coding agent driving the CLI when one is detected, e.g. `claude_code` / `codex` / `cursor`). The agent name is derived from the existence of well-known environment variables; their values are never read. Telemetry redacts local paths and URL query strings from render error/checkpoint messages and does **not** collect project names, video content, or environment variable values. It collects no personally identifiable information until you sign in: when you authenticate with `kenectai auth login`, your HeyGen account email (or your username, if your account has no email) is linked to your usage so CLI activity can be associated with your account (and your prior anonymous usage is stitched to it). Nothing else personal is collected, and this only happens after you choose to sign in. Disable all telemetry with `HYPERFRAMES_NO_TELEMETRY=1` or the command above.
 
     See [Feedback Collection](/guides/feedback) for how the periodic post-render prompt and Studio feedback bar work, what data they collect, and how to opt out.
 
     ### `skills`
 
-    Install HyperFrames skills for AI coding tools, including first-party runtime adapter skills:
+    Install KENECT AI skills for AI coding tools, including first-party runtime adapter skills:
 
     ```bash
     # Install to all default targets (Claude Code, Gemini CLI, Codex CLI)
-    npx hyperframes skills
+    npx @kenectai/cli skills
 
     # Install to specific tools
-    npx hyperframes skills --claude
-    npx hyperframes skills --cursor
-    npx hyperframes skills --claude --gemini
+    npx @kenectai/cli skills --claude
+    npx @kenectai/cli skills --cursor
+    npx @kenectai/cli skills --claude --gemini
     ```
 
     | Flag | Description |
@@ -974,9 +974,9 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     └  Installation failed
     ```
 
-    **Using `hyperframes skills` is already fine** — as of v0.4.5 the CLI sets `GIT_CLONE_PROTECTION_ACTIVE=0` on the child environment, which is the opt-in knob Git provides for exactly this case. You don't need to do anything.
+    **Using `kenectai skills` is already fine** — as of v0.4.5 the CLI sets `GIT_CLONE_PROTECTION_ACTIVE=0` on the child environment, which is the opt-in knob Git provides for exactly this case. You don't need to do anything.
 
-    **If you ran `npx skills add sthuthillc/kenectai` directly** (bypassing the HyperFrames CLI), set the env var yourself:
+    **If you ran `npx skills add sthuthillc/kenectai` directly** (bypassing the KENECT AI CLI), set the env var yourself:
 
     ```bash
     GIT_CLONE_PROTECTION_ACTIVE=0 npx skills add sthuthillc/kenectai
@@ -1007,7 +1007,7 @@ before the command reports success; a rejected key is not left on disk.
 
 ```bash
 # Interactive hidden-input prompt
-hyperframes auth login --api-key
+kenectai auth login --api-key
 
 # Pipe a key from stdin (CI-friendly)
 echo "$KENECT_API_KEY" | hyperframes auth login --api-key
@@ -1020,8 +1020,8 @@ Show the active credential's source, type, and verified identity
 or the API rejects the credential, so scripts can check sign-in state.
 
 ```bash
-hyperframes auth status
-hyperframes auth status --json   # machine-readable
+kenectai auth status
+kenectai auth status --json   # machine-readable
 ```
 
 #### `auth logout`
@@ -1029,9 +1029,9 @@ hyperframes auth status --json   # machine-readable
 Remove the stored credential. Prompts for confirmation on a TTY.
 
 ```bash
-hyperframes auth logout
-hyperframes auth logout --keep-api-key   # clear only an OAuth session
-hyperframes auth logout --yes            # skip the confirmation prompt
+kenectai auth logout
+kenectai auth logout --keep-api-key   # clear only an OAuth session
+kenectai auth logout --yes            # skip the confirmation prompt
 ```
 
 ### Environment variables
@@ -1047,13 +1047,13 @@ For the keys other capabilities use — ElevenLabs and Gemini for voice/music fa
 
 ## hyperframes cloud
 
-Render a HyperFrames composition on HeyGen's hosted cloud — no local Chrome, no local ffmpeg, no AWS to manage. Sign in once with `hyperframes auth login` and the same credential drives every `cloud` subcommand.
+Render a KENECT AI composition on HeyGen's hosted cloud — no local Chrome, no local ffmpeg, no AWS to manage. Sign in once with `kenectai auth login` and the same credential drives every `cloud` subcommand.
 
 ```bash
-hyperframes auth login                          # one-time
-hyperframes cloud render ./my-video             # zip + upload + poll + download
-hyperframes cloud render ./my-video --no-wait   # submit and exit with the render_id
-hyperframes cloud list                          # browse recent renders
+kenectai auth login                          # one-time
+kenectai cloud render ./my-video             # zip + upload + poll + download
+kenectai cloud render ./my-video --no-wait   # submit and exit with the render_id
+kenectai cloud list                          # browse recent renders
 ```
 
 ### Subcommands
@@ -1062,7 +1062,7 @@ hyperframes cloud list                          # browse recent renders
 
 End-to-end render: zips the project (excluding `.git`, `node_modules`, `dist`, `.next`, `coverage`, dotfiles), uploads it via `POST /v3/assets`, submits `POST /v3/hyperframes/renders`, polls `GET /v3/hyperframes/renders/{id}` until the render completes or fails, and streams the resulting video to disk.
 
-Render parameters mirror the local `hyperframes render` UX where they overlap:
+Render parameters mirror the local `kenectai render` UX where they overlap:
 
 | Flag | Default | Meaning |
 | --- | --- | --- |
@@ -1094,24 +1094,24 @@ Lifecycle / control flags:
 
 ```bash
 # Default flow — render the current directory.
-hyperframes cloud render
+kenectai cloud render
 
 # Pick a composition + output path.
-hyperframes cloud render . \
+kenectai cloud render . \
   --composition compositions/intro.html \
   --output ./renders/intro.mp4
 
 # Higher quality at 60fps.
-hyperframes cloud render --quality high --fps 60
+kenectai cloud render --quality high --fps 60
 
 # Fire-and-forget with a webhook (no local polling).
-hyperframes cloud render --callback-url https://example.com/hf-hook --no-wait
+kenectai cloud render --callback-url https://example.com/hf-hook --no-wait
 
 # Re-render an already-uploaded composition (skips zip + upload).
-hyperframes cloud render --asset-id asst_abc123
+kenectai cloud render --asset-id asst_abc123
 
 # Render from a public URL (no upload).
-hyperframes cloud render --url https://cdn.example.com/site.zip
+kenectai cloud render --url https://cdn.example.com/site.zip
 ```
 
 ##### Safe retries via `--idempotency-key`
@@ -1121,7 +1121,7 @@ The CLI transparently retries on a `401 Unauthorized` by force-refreshing the OA
 Pass `--idempotency-key <key>` whenever you want safe retries on `cloud render`. The key is forwarded to both the upload and submit calls; the server scopes idempotency per-endpoint, so reusing the same value across the two steps is safe and prevents duplicates on either step. Use a UUID per logical render, or any opaque string in `[A-Za-z0-9_:.-]` (1-255 chars).
 
 ```bash
-hyperframes cloud render . --idempotency-key "$(uuidgen)"
+kenectai cloud render . --idempotency-key "$(uuidgen)"
 ```
 
 #### `cloud list`
@@ -1129,9 +1129,9 @@ hyperframes cloud render . --idempotency-key "$(uuidgen)"
 Pages through recent renders. Cursor-based: `--limit` caps a single page (1-100), `--token` resumes from a previous `next_token`, `--all` walks the full list until exhausted.
 
 ```bash
-hyperframes cloud list
-hyperframes cloud list --limit 50 --json
-hyperframes cloud list --all
+kenectai cloud list
+kenectai cloud list --limit 50 --json
+kenectai cloud list --all
 ```
 
 #### `cloud get <render_id>`
@@ -1139,8 +1139,8 @@ hyperframes cloud list --all
 Fetches the full detail record for one render, including the short-lived signed `video_url` and `thumbnail_url` (presigned S3 URLs — re-fetch on demand rather than cache).
 
 ```bash
-hyperframes cloud get hfr_abc123
-hyperframes cloud get hfr_abc123 --json
+kenectai cloud get hfr_abc123
+kenectai cloud get hfr_abc123 --json
 ```
 
 #### `cloud delete <render_id>`
@@ -1148,30 +1148,30 @@ hyperframes cloud get hfr_abc123 --json
 Soft-deletes a render. Subsequent `GET` calls return 404 and the signed video URL stops working shortly after. Prompts for confirmation interactively; pass `--no-confirm` to bypass for scripts.
 
 ```bash
-hyperframes cloud delete hfr_abc123
-hyperframes cloud delete hfr_abc123 --no-confirm --json
+kenectai cloud delete hfr_abc123
+kenectai cloud delete hfr_abc123 --no-confirm --json
 ```
 
 ### When to pick `cloud` vs `lambda` vs local render
 
-- `hyperframes render` (local): fastest iteration loop. Use during composition authoring.
-- `hyperframes lambda render`: bring-your-own-AWS distributed rendering. Use when you've already invested in AWS and want chunked parallelism on your own account.
-- `hyperframes cloud render`: zero-infra option. HeyGen runs the render; you pay per credit. Use when you don't want to manage Chrome/ffmpeg/AWS locally.
+- `kenectai render` (local): fastest iteration loop. Use during composition authoring.
+- `kenectai lambda render`: bring-your-own-AWS distributed rendering. Use when you've already invested in AWS and want chunked parallelism on your own account.
+- `kenectai cloud render`: zero-infra option. HeyGen runs the render; you pay per credit. Use when you don't want to manage Chrome/ffmpeg/AWS locally.
 
 ### Auth + base URL
 
-`cloud` reuses the credential resolved by `hyperframes auth status`. Override the API base for staging tests with `KENECT_API_URL` (default `https://api.kenectai.com`).
+`cloud` reuses the credential resolved by `kenectai auth status`. Override the API base for staging tests with `KENECT_API_URL` (default `https://api.kenectai.com`).
 
 ## hyperframes lambda
 
-Deploy HyperFrames distributed rendering to AWS Lambda and drive renders from your laptop or CI.
+Deploy KENECT AI distributed rendering to AWS Lambda and drive renders from your laptop or CI.
 
-The `hyperframes lambda` command group wraps the `@kenectai/aws-lambda` SDK plus AWS SAM so an end-to-end render is three commands:
+The `kenectai lambda` command group wraps the `@kenectai/aws-lambda` SDK plus AWS SAM so an end-to-end render is three commands:
 
 ```bash
-hyperframes lambda deploy
-hyperframes lambda render ./my-project --width 1920 --height 1080 --wait
-hyperframes lambda destroy   # when you're done
+kenectai lambda deploy
+kenectai lambda render ./my-project --width 1920 --height 1080 --wait
+kenectai lambda destroy   # when you're done
 ```
 
 ### Prerequisites
@@ -1187,7 +1187,7 @@ hyperframes lambda destroy   # when you're done
 Builds `packages/aws-lambda/dist/handler.zip` and SAM-deploys the stack at `examples/aws-lambda/template.yaml`. On success, writes `<cwd>/.hyperframes/lambda-stack-<stackName>.json` so the other subcommands don't need to re-derive the bucket / state-machine ARN.
 
 ```bash
-hyperframes lambda deploy \
+kenectai lambda deploy \
   --stack-name=hyperframes-prod \
   --region=us-east-1 \
   --concurrency=8 \
@@ -1201,10 +1201,10 @@ Idempotent — re-running on the same `--stack-name` resolves to a no-op when no
 Tars + uploads `<projectDir>` to S3 with a content-addressed key. Returns a `siteId` you can reuse across multiple renders so a re-render of the same tree skips the upload.
 
 ```bash
-hyperframes lambda sites create ./my-project
+kenectai lambda sites create ./my-project
 # → siteId: abc1234deadbeef0  (stable across re-runs of the same tree)
 
-hyperframes lambda render ./my-project --site-id=abc1234deadbeef0 --width 1920 --height 1080
+kenectai lambda render ./my-project --site-id=abc1234deadbeef0 --width 1920 --height 1080
 ```
 
 #### `lambda render <projectDir>`
@@ -1212,7 +1212,7 @@ hyperframes lambda render ./my-project --site-id=abc1234deadbeef0 --width 1920 -
 Starts a Step Functions execution. Returns immediately with a `renderId` (use `lambda progress` to poll) unless `--wait` is set, in which case the CLI blocks until the render finishes and streams per-chunk progress lines.
 
 ```bash
-hyperframes lambda render ./my-project \
+kenectai lambda render ./my-project \
   --width=1920 --height=1080 --fps=30 --format=mp4 \
   --chunk-size=240 --max-parallel-chunks=16 \
   --wait
@@ -1220,16 +1220,16 @@ hyperframes lambda render ./my-project \
 
 `--json` swaps the human-readable output for a machine-parseable JSON snapshot.
 
-The composition can be parameterised with `--variables` / `--variables-file`, mirroring the local `hyperframes render` flags. Variables flow into the Step Functions execution input and reach every chunk worker as `window.__hfVariables`. Mismatches against the composition's `data-composition-variables` declaration print as warnings; pass `--strict-variables` to fail the command instead.
+The composition can be parameterised with `--variables` / `--variables-file`, mirroring the local `kenectai render` flags. Variables flow into the Step Functions execution input and reach every chunk worker as `window.__hfVariables`. Mismatches against the composition's `data-composition-variables` declaration print as warnings; pass `--strict-variables` to fail the command instead.
 
 ```bash
-hyperframes lambda render ./my-template --site-id=abc1234deadbeef0 \
+kenectai lambda render ./my-template --site-id=abc1234deadbeef0 \
   --width=1920 --height=1080 \
   --variables '{"title":"Hello Alice","accent":"#ff0000"}'
 ```
 
 ```bash
-hyperframes lambda render ./my-template --site-id=abc1234deadbeef0 \
+kenectai lambda render ./my-template --site-id=abc1234deadbeef0 \
   --width=1920 --height=1080 \
   --variables-file ./alice.json --strict-variables
 ```
@@ -1249,7 +1249,7 @@ Batch file format (JSONL — one JSON object per line):
 ```
 
 ```bash
-hyperframes lambda render-batch ./my-template \
+kenectai lambda render-batch ./my-template \
   --batch ./users.jsonl \
   --width 1920 --height 1080 \
   --max-concurrent 10
@@ -1265,12 +1265,12 @@ Batch dispatched: 3 started, 0 failed-to-start.
   ✓ line 3  renders/carol.mp4  arn:aws:states:us-east-1:1234:execution:hf:hf-carol-001
 ```
 
-Pass `--json` for the machine-readable form. Poll each execution via `hyperframes lambda progress <renderId>` (or use the returned `executionArn`).
+Pass `--json` for the machine-readable form. Poll each execution via `kenectai lambda progress <renderId>` (or use the returned `executionArn`).
 
 `--dry-run` skips the AWS calls and prints the manifest with `status: "would-invoke"` for every entry — use it to lint the batch file before committing to N billable executions:
 
 ```bash
-hyperframes lambda render-batch ./my-template --batch ./users.jsonl \
+kenectai lambda render-batch ./my-template --batch ./users.jsonl \
   --width 1920 --height 1080 --dry-run --json
 ```
 
@@ -1281,7 +1281,7 @@ hyperframes lambda render-batch ./my-template --batch ./users.jsonl \
 Prints one progress snapshot — overall percent, frames rendered, Lambda invocations, accrued cost, and any errors. Accepts either a bare `renderId` (resolved against the stack's state-machine ARN) or a full SFN execution ARN.
 
 ```bash
-hyperframes lambda progress hf-render-abcd1234
+kenectai lambda progress hf-render-abcd1234
 ```
 
 #### `lambda destroy`
@@ -1294,13 +1294,13 @@ Print or validate the minimum IAM policy the CLI needs to deploy / invoke / dest
 
 ```bash
 # Print an inline-policy doc you can attach to an IAM user that runs the CLI.
-hyperframes lambda policies user
+kenectai lambda policies user
 
 # Print { TrustRelationship, InlinePolicy } for an IAM role (default: cloudformation principal).
-hyperframes lambda policies role --principal=cloudformation
+kenectai lambda policies role --principal=cloudformation
 
 # Validate a checked-in policy still covers the CLI's needs.
-hyperframes lambda policies validate ./infra/iam/hyperframes-deploy.json
+kenectai lambda policies validate ./infra/iam/hyperframes-deploy.json
 ```
 
 `validate` reads the JSON doc and checks the union of its `Effect: Allow` actions against the CLI's required action set, expanding `s3:*` / `s3:Get*` / `*` wildcards. Missing actions print to stderr and the command exits non-zero — wire it into CI to catch drift before the next deploy fails.
@@ -1309,16 +1309,16 @@ The actions list is deliberately broad (`Resource: "*"`) because CloudFormation 
 
 ### State files
 
-`hyperframes lambda` keeps per-stack metadata under `<cwd>/.hyperframes/lambda-stack-<name>.json` so the verbs don't need to call `describe-stacks` every time. Commit the file to a repo or `.gitignore` it depending on your workflow — it contains the bucket name, state-machine ARN, and region, none of which are secrets but all of which are AWS-account-identifying.
+`kenectai lambda` keeps per-stack metadata under `<cwd>/.hyperframes/lambda-stack-<name>.json` so the verbs don't need to call `describe-stacks` every time. Commit the file to a repo or `.gitignore` it depending on your workflow — it contains the bucket name, state-machine ARN, and region, none of which are secrets but all of which are AWS-account-identifying.
 
 ## hyperframes cloudrun
 
-The Google Cloud counterpart to `hyperframes lambda`. Deploys HyperFrames distributed rendering to Cloud Run + Cloud Workflows and drives renders from your laptop or CI. Wraps the `@kenectai/gcp-cloud-run` SDK plus `terraform` (the module shipped with the package) and `gcloud` / Cloud Build for the image.
+The Google Cloud counterpart to `kenectai lambda`. Deploys KENECT AI distributed rendering to Cloud Run + Cloud Workflows and drives renders from your laptop or CI. Wraps the `@kenectai/gcp-cloud-run` SDK plus `terraform` (the module shipped with the package) and `gcloud` / Cloud Build for the image.
 
 ```bash
-hyperframes cloudrun deploy --project my-gcp-project
-hyperframes cloudrun render ./my-project --width 1920 --height 1080 --wait
-hyperframes cloudrun destroy --project my-gcp-project   # when you're done
+kenectai cloudrun deploy --project my-gcp-project
+kenectai cloudrun render ./my-project --width 1920 --height 1080 --wait
+kenectai cloudrun destroy --project my-gcp-project   # when you're done
 ```
 
 #### `cloudrun deploy`
@@ -1326,8 +1326,8 @@ hyperframes cloudrun destroy --project my-gcp-project   # when you're done
 Enables the required APIs, builds + pushes the render image via Cloud Build (unless you pass `--image`), then `terraform apply`s the module that provisions the GCS bucket, Cloud Run service, Cloud Workflows definition, two service accounts, and a runaway-request alert. Caches the resulting bucket / service URL / workflow id so later verbs don't need them re-passed.
 
 ```bash
-hyperframes cloudrun deploy --project my-gcp-project --region us-central1
-hyperframes cloudrun deploy --project my-gcp-project --image us-central1-docker.pkg.dev/my-gcp-project/hyperframes/hyperframes-render:v1
+kenectai cloudrun deploy --project my-gcp-project --region us-central1
+kenectai cloudrun deploy --project my-gcp-project --image us-central1-docker.pkg.dev/my-gcp-project/hyperframes/hyperframes-render:v1
 ```
 
 Flags: `--project` (required), `--region` (default `us-central1`), `--image` (skip the build), `--repo` (Artifact Registry repo, default `hyperframes`). Machine sizing / scaling: `--cpu` (1/2/4/8, default 4), `--memory` (e.g. `32Gi`, default `16Gi`), `--max-instances` (render fan-out ceiling, default 100), `--timeout` (per-request seconds, max 3600). Omitted sizing flags keep the module defaults; for anything finer, apply the Terraform module directly.
@@ -1358,11 +1358,11 @@ Same trade-off as `lambda`, on Google Cloud instead of AWS. Pick `cloudrun` when
 
 ### State file
 
-`hyperframes cloudrun` caches the deployed stack's coordinates under `~/.hyperframes/cloudrun-state.json` (project id, region, bucket, service URL, workflow id) so `render` / `progress` / `destroy` don't need them re-passed. None are secrets, but all are GCP-project-identifying.
+`kenectai cloudrun` caches the deployed stack's coordinates under `~/.hyperframes/cloudrun-state.json` (project id, region, bucket, service URL, workflow id) so `render` / `progress` / `destroy` don't need them re-passed. None are secrets, but all are GCP-project-identifying.
 
 ## hyperframes.json
 
-`hyperframes init` writes a `hyperframes.json` file at the root of every new project. `hyperframes add` reads it to know which registry to pull items from and where to drop them. Edit the file (or delete it to fall back to defaults) to reshape your project layout or point at a custom registry.
+`kenectai init` writes a `hyperframes.json` file at the root of every new project. `kenectai add` reads it to know which registry to pull items from and where to drop them. Edit the file (or delete it to fall back to defaults) to reshape your project layout or point at a custom registry.
 
 ```json
 {
@@ -1378,7 +1378,7 @@ Same trade-off as `lambda`, on Google Cloud instead of AWS. Pick `cloudrun` when
 
 | Field | Description |
 |-------|-------------|
-| `registry` | Base URL of the registry `add` pulls from. Defaults to the public Hyperframes registry. |
+| `registry` | Base URL of the registry `add` pulls from. Defaults to the public KENECT AI registry. |
 | `paths.blocks` | Where block `.html` files land (relative to project root). |
 | `paths.components` | Where component files land (relative to project root). |
 | `paths.assets` | Where referenced asset files (images, fonts) land. |
@@ -1392,7 +1392,7 @@ Missing fields are filled with defaults — you only need to specify what you wa
     The rendering pipeline the CLI calls under the hood. Use directly for programmatic rendering.
   </Card>
   <Card title="Studio" icon="palette" href="/packages/studio">
-    The editor UI that powers `hyperframes preview`. Use directly to embed in your own app.
+    The editor UI that powers `kenectai preview`. Use directly to embed in your own app.
   </Card>
   <Card title="Core" icon="cube" href="/packages/core">
     Types, linter, and runtime. Use directly for custom tooling and integrations.

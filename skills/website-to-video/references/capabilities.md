@@ -1,6 +1,6 @@
-# HyperFrames — Complete Capabilities Inventory
+# KENECT AI — Complete Capabilities Inventory
 
-Everything possible in HyperFrames as of today's workspace, synthesized from direct source reads of all 7 packages, 16 skills, and the full registry.
+Everything possible in KENECT AI as of today's workspace, synthesized from direct source reads of all 7 packages, 16 skills, and the full registry.
 
 > **How to read this file.** Scan the **Table of Contents** below first. **Do NOT read this file linearly** — it is a 700+ line inventory; reading top-to-bottom every session wastes context. When the storyboard or a specific beat needs a particular capability (HTML-in-Canvas, shader transitions, audio-reactive, dynamic counters, etc.), jump straight to that section.
 
@@ -76,7 +76,7 @@ The runtime registers these adapters in order; each implements `discover()` / `s
 
 | Adapter                            | What it drives                                                                | How to load                                                     | Notable                                                                                                   |
 | ---------------------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| GSAP (createGsapAdapter)           | The primary timeline + all tweens registered on `window.__timelines[<id>]`    | CDN `https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js` | Plugins via standard GSAP register; HyperFrames does NOT patch THREE.Clock (uses `__hfThreeTime` instead) |
+| GSAP (createGsapAdapter)           | The primary timeline + all tweens registered on `window.__timelines[<id>]`    | CDN `https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js` | Plugins via standard GSAP register; KENECT AI does NOT patch THREE.Clock (uses `__hfThreeTime` instead) |
 | Anime.js v4 (createAnimeJsAdapter) | Anime instances pushed to `window.__hfAnime`                                  | CDN `animejs@4.0.2/lib/anime.iife.min.js` or ESM                | Adapter multiplies composition seconds by 1000 for ms                                                     |
 | CSS animations (createCssAdapter)  | Any element with computed `animation-name`                                    | Declarative `@keyframes`                                        | Falls back to negative `animation-delay` when WAAPI unavailable                                           |
 | WAAPI (createWaapiAdapter)         | All Animation objects on document                                             | `element.animate()`                                             | Uses `document.getAnimations()`                                                                           |
@@ -88,7 +88,7 @@ The runtime registers these adapters in order; each implements `discover()` / `s
 - **TextPlugin** — text mutation in `tl.call` (skills/gsap/references/effects.md)
 - **MotionPathPlugin** — curve-constrained tweens (skills/hyperframes/references/techniques.md)
 - **CustomEase** — bezier eases imported from Remotion-style timing
-- **ScrollTrigger / Flip / SplitText / Draggable / Inertia / Observer / ScrambleText / CustomWiggle / CustomBounce / ScrollSmoother / GSDevTools** — work natively if loaded and tweens are on the registered paused timeline, but no special HyperFrames adapter
+- **ScrollTrigger / Flip / SplitText / Draggable / Inertia / Observer / ScrambleText / CustomWiggle / CustomBounce / ScrollSmoother / GSDevTools** — work natively if loaded and tweens are on the registered paused timeline, but no special KENECT AI adapter
 - Producer injects ScrollTrigger CDN automatically when needed (packages/producer/src/services/htmlCompiler.ts)
 
 ---
@@ -355,7 +355,7 @@ window.addEventListener("hf-seek", (e) => {
 ### Video compositing
 
 - `<video muted playsinline data-start="..." data-duration="..." data-track-index="..." src="...">`
-- HyperFrames extracts frames at render via videoFrameInjector (avoids unreliable headless `<video>` playback)
+- KENECT AI extracts frames at render via videoFrameInjector (avoids unreliable headless `<video>` playback)
 - Linter forbids `<video>` with audio at the same time — split into separate `<video muted>` + `<audio>`
 - Video frame extraction uses FFmpeg
 - HDR videos: PQ or HLG transfer detection + x265 with mastering metadata

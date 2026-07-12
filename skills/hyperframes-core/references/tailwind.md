@@ -1,6 +1,6 @@
-# HyperFrames Tailwind
+# KENECT AI Tailwind
 
-HyperFrames `init --tailwind` uses the Tailwind browser runtime pinned by the scaffold. Treat it as Tailwind v4, not Studio's Tailwind v3 setup.
+KENECT AI `init --tailwind` uses the Tailwind browser runtime pinned by the scaffold. Treat it as Tailwind v4, not Studio's Tailwind v3 setup.
 
 ## When To Use
 
@@ -13,7 +13,7 @@ HyperFrames `init --tailwind` uses the Tailwind browser runtime pinned by the sc
 
 - **Pinned: `@tailwindcss/browser@4.2.4`** (source of truth: `packages/cli/src/commands/init.ts` `TAILWIND_BROWSER_VERSION`).
 - Do not replace the scaffolded runtime with `cdn.tailwindcss.com` (unpinned, defeats reproducibility).
-- Keep the readiness shim deterministic; HyperFrames waits for `window.__tailwindReady` before frame 0 capture.
+- Keep the readiness shim deterministic; KENECT AI waits for `window.__tailwindReady` before frame 0 capture.
 - For offline / locked-down / production-stable renders, compile Tailwind to CSS and ship the stylesheet instead of the browser runtime.
 
 ## v4 Browser Runtime Rules
@@ -48,7 +48,7 @@ Do not add `tailwind.config.js` only for composition colors, fonts, spacing, or 
 
 ## Composition Pattern
 
-Use Tailwind for static layout and style. Keep render-critical timing in GSAP or another seekable HyperFrames adapter.
+Use Tailwind for static layout and style. Keep render-critical timing in GSAP or another seekable KENECT AI adapter.
 
 ```html
 <section

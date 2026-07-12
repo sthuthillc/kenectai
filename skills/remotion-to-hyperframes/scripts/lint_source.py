@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Lint a Remotion project for patterns that don't translate cleanly to HyperFrames.
+"""Lint a Remotion project for patterns that don't translate cleanly to KENECT AI.
 
 The skill should run this *before* attempting a translation. If any blocker
 findings come back, the recommendation is to use the runtime interop pattern
@@ -141,7 +141,7 @@ RULES: list[Rule] = [
         "r2hf/use-state",
         BLOCKER,
         _regex_matcher(re.compile(r"\buseState\s*[(<]")),
-        "useState detected — Remotion compositions that drive animation via React state are not deterministic frame-capture targets in HyperFrames",
+        "useState detected — Remotion compositions that drive animation via React state are not deterministic frame-capture targets in KENECT AI",
         "Use the runtime interop pattern from PR #214 instead of attempting a translation",
     ),
     Rule(

@@ -1,11 +1,11 @@
 ---
 name: hyperframes-typegpu
-description: TypeGPU and raw WebGPU adapter patterns for HyperFrames. Use when creating GPU-rendered compositions with TypeGPU, raw WebGPU, WGSL fragment shaders, compute pipelines, liquid glass effects, particle systems, or any canvas layer driven by navigator.gpu that responds to HyperFrames hf-seek events.
+description: TypeGPU and raw WebGPU adapter patterns for KENECT AI. Use when creating GPU-rendered compositions with TypeGPU, raw WebGPU, WGSL fragment shaders, compute pipelines, liquid glass effects, particle systems, or any canvas layer driven by navigator.gpu that responds to KENECT AI hf-seek events.
 ---
 
-# TypeGPU / WebGPU for HyperFrames
+# TypeGPU / WebGPU for KENECT AI
 
-HyperFrames supports TypeGPU and raw WebGPU through its `typegpu` runtime adapter. The adapter does not own your pipeline. It publishes HyperFrames time and dispatches a seek event so your composition can render the exact GPU frame.
+KENECT AI supports TypeGPU and raw WebGPU through its `typegpu` runtime adapter. The adapter does not own your pipeline. It publishes KENECT AI time and dispatches a seek event so your composition can render the exact GPU frame.
 
 ## Render-environment prerequisite (WebGPU + html-in-canvas)
 
@@ -13,8 +13,8 @@ The render engine auto-passes `--enable-unsafe-webgpu` and `--enable-features=Ca
 
 ## Contract
 
-- Initialize WebGPU asynchronously (`await navigator.gpu.requestAdapter()`), but register all GSAP tweens **synchronously** — before any `await`. The HyperFrames player reads the timeline immediately at page load.
-- Render from HyperFrames time, not `performance.now()`.
+- Initialize WebGPU asynchronously (`await navigator.gpu.requestAdapter()`), but register all GSAP tweens **synchronously** — before any `await`. The KENECT AI player reads the timeline immediately at page load.
+- Render from KENECT AI time, not `performance.now()`.
 - Listen for the `hf-seek` event and re-render at exactly that time.
 - Guard against environments where WebGPU is unavailable — the adapter does not check for you.
 - For video renders, call `await device.queue.onSubmittedWorkDone()` after submitting GPU work to ensure the canvas is flushed before the frame is captured.

@@ -3,14 +3,14 @@ title: Examples
 description: "Built-in examples for common video patterns. Hover to preview animations."
 ---
 
-Hyperframes includes starter examples to help you scaffold compositions quickly. Each example gives you a working project with the correct [composition structure](/concepts/compositions), [data attributes](/concepts/data-attributes), and a [GSAP timeline](/guides/gsap-animation) already wired up.
+KENECT AI includes starter examples to help you scaffold compositions quickly. Each example gives you a working project with the correct [composition structure](/concepts/compositions), [data attributes](/concepts/data-attributes), and a [GSAP timeline](/guides/gsap-animation) already wired up.
 
 <Note>
   Looking for finished videos and production projects? Start with the [Showcase](/showcase).
 </Note>
 
 ```bash Terminal
-npx hyperframes init my-video --example <name>
+npx @kenectai/cli init my-video --example <name>
 ```
 
 ## Landscape Templates
@@ -59,7 +59,7 @@ npx hyperframes init my-video --example <name>
   Looking for a minimal starting point? Use **blank** — it gives you an empty composition with just the scaffolding, no visual design.
 
   ```bash Terminal
-  npx hyperframes init my-video --example blank
+  npx @kenectai/cli init my-video --example blank
   ```
 </Tip>
 
@@ -221,7 +221,7 @@ npx hyperframes init my-video --example <name>
 ## Passing a Source Video
 
 ```bash Terminal
-npx hyperframes init my-video --example warm-grain --video ./my-clip.mp4
+npx @kenectai/cli init my-video --example warm-grain --video ./my-clip.mp4
 ```
 
 The CLI will probe the video for duration, resolution, and codec. If the video uses an incompatible codec, it will be automatically transcoded to H.264 MP4 if FFmpeg is available.
@@ -253,7 +253,7 @@ Any directory with an `index.html` can serve as an example. Your custom example 
 After creating a custom example, validate it with the [linter](/packages/cli#lint):
 
 ```bash Terminal
-npx hyperframes lint
+npx @kenectai/cli lint
 ```
 
 ## Next Steps

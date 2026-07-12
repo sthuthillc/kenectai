@@ -1,11 +1,11 @@
 ---
 name: hyperframes-handoff
 description: |
-  Produce a HyperFrames-valid HTML composition — paused GSAP timeline, data
+  Produce a KENECT AI-valid HTML composition — paused GSAP timeline, data
   attributes, scene structure — that any AI coding agent can immediately
-  refine with `npx hyperframes lint` and `npx hyperframes preview`. Use when
+  refine with `npx @kenectai/cli lint` and `npx @kenectai/cli preview`. Use when
   the brief mentions "video", "reel", "motion graphic", "title card",
-  "animated explainer", or pairs Open Design with HyperFrames for export.
+  "animated explainer", or pairs Open Design with KENECT AI for export.
 triggers:
   - "hyperframes"
   - "video"
@@ -26,10 +26,10 @@ od:
   design_system:
     requires: true
     sections: [color, typography, layout, motion]
-  example_prompt: "Design a 15-second Instagram reel announcing dark mode for Taskflow (#6C5CE7). Output as a HyperFrames composition I can render locally."
+  example_prompt: "Design a 15-second Instagram reel announcing dark mode for Taskflow (#6C5CE7). Output as a KENECT AI composition I can render locally."
 ---
 
-# HyperFrames Handoff — for Open Design
+# KENECT AI Handoff — for Open Design
 
 > **Drop this file at `skills/hyperframes-handoff/SKILL.md` inside your local
 > [Open Design](https://github.com/nexu-io/open-design) checkout, restart the
@@ -37,16 +37,16 @@ od:
 > as a one-shot.**
 
 This skill teaches Open Design to emit a **valid first draft** of a
-[HyperFrames](https://github.com/sthuthillc/kenectai) composition — plain
-HTML + CSS + a paused GSAP timeline. The CLI (`npx hyperframes render`, run
+[KENECT AI](https://github.com/sthuthillc/kenectai) composition — plain
+HTML + CSS + a paused GSAP timeline. The CLI (`npx @kenectai/cli render`, run
 from the project directory) turns the HTML into an MP4. You author the HTML;
 the user runs the render locally.
 
-**HyperFrames replaces the default video-artifact workflow.** Do NOT emit a
+**KENECT AI replaces the default video-artifact workflow.** Do NOT emit a
 React/Babel composition, do NOT call other prototype skills, do NOT use the
 sandboxed iframe's wall-clock playback for timing decisions. Plain HTML +
 GSAP only. Treat the [`claude-design-hyperframes.md`](https://github.com/sthuthillc/kenectai/blob/main/docs/guides/claude-design-hyperframes.md)
-companion document as the **upstream spec for HyperFrames structural rules** —
+companion document as the **upstream spec for KENECT AI structural rules** —
 the rules below condense it to what Open Design needs at emission time, but
 that file is the source of truth for shader catalogs, skeleton variants, and
 edge cases.
@@ -67,8 +67,8 @@ The user's workflow:
    mid-scene activity, pick shader transitions for 2–3 key moments
 2. **Save to disk** — Open Design writes the project into
    `.od/projects/<id>/` (real `cwd`, agent-ready)
-3. **Any AI coding agent** (Claude Code, Codex, Cursor, …) — `npx hyperframes
-   lint`, `npx hyperframes preview`, then iterate timing, eases, shader
+3. **Any AI coding agent** (Claude Code, Codex, Cursor, …) — `npx @kenectai/cli
+   lint`, `npx @kenectai/cli preview`, then iterate timing, eases, shader
    choices, pacing
 
 Your output must be a **valid starting point a coding agent can open and
@@ -81,7 +81,7 @@ refine immediately** — no structural fixes needed.
 - Strong visual layout per scene (hierarchy, spacing, readability at video
   size — 60px+ headlines, 20px+ body)
 - Scene content that tells the story (headlines, stats, copy, imagery)
-- Structural validity (passes `npx hyperframes lint` with zero errors)
+- Structural validity (passes `npx @kenectai/cli lint` with zero errors)
 - Appropriate shader choices for the mood (use the catalog at
   [docs.kenectai.com/catalog](https://docs.kenectai.com/catalog))
 - Reasonable scene count and durations for the video type
@@ -98,7 +98,7 @@ production QA.
 
 ## Hard rules (must-pass before emitting `<artifact>`)
 
-These are HyperFrames-structural and non-negotiable. Open Design's
+These are KENECT AI-structural and non-negotiable. Open Design's
 five-dimensional self-critique gate must verify all of them before emission.
 
 1. **Single HTML file.** `<!doctype html>` through `</html>`, all CSS inline,
@@ -113,7 +113,7 @@ five-dimensional self-critique gate must verify all of them before emission.
    clip">` with:
    - `data-start="<seconds-from-zero>"`
    - `data-duration="<scene-seconds>"`
-   - `data-track-index="0"` (HyperFrames uses tracks for layering; visual
+   - `data-track-index="0"` (KENECT AI uses tracks for layering; visual
      scenes share track 0 unless you intentionally overlap)
    - A `.scene-content` wrapper inside it that holds the readable content
      (headlines, stats, imagery). Decoratives (glows, grain, vignette) live
@@ -122,7 +122,7 @@ five-dimensional self-critique gate must verify all of them before emission.
    `gsap.timeline({ paused: true })` and registered on
    `window.__timelines = window.__timelines || {}; window.__timelines["<comp-id>"] = tl;`.
    This is what makes the composition deterministically seekable — the
-   HyperFrames engine drives the playhead.
+   KENECT AI engine drives the playhead.
 5. **`tl.from()` for entrances.** Animate FROM offscreen/invisible TO the
    resting CSS position. Offset the first tween 0.1–0.3s into each scene to
    avoid jump-cuts.
@@ -130,7 +130,7 @@ five-dimensional self-critique gate must verify all of them before emission.
    after its entrance. A still element on a still background is a JPEG with
    a progress bar. Use at least 2 patterns per scene from the table below.
 7. **Shader transitions ONLY at scene boundaries**, and at most 2–3 in the
-   whole video. Use HyperFrames' built-in shader blocks
+   whole video. Use KENECT AI' built-in shader blocks
    (`flash-through-white`, `whip-pan`, `cinematic-zoom`, `glitch`,
    `ripple-waves`, `light-leak`, `cross-warp-morph`, `chromatic-radial-split`,
    `swirl-vortex`, `gravitational-lens`, `domain-warp-dissolve`, `ridged-burn`,
@@ -268,7 +268,7 @@ Use at least 3 different eases across the timeline. Don't default to
 
 ## Step 4 — Shader transitions (2–3 max)
 
-Use HyperFrames' built-in shader blocks at scene boundaries. Pick by mood:
+Use KENECT AI' built-in shader blocks at scene boundaries. Pick by mood:
 
 | Shader                     | Mood                                  |
 | -------------------------- | ------------------------------------- |
@@ -324,7 +324,7 @@ Emit exactly two files inside `<artifact>`:
     html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); }
     #stage { position: relative; width: 100vw; aspect-ratio: 16/9; overflow: hidden; }
     .scene { position: absolute; inset: 0; opacity: 0; }
-    .scene.clip { /* HyperFrames toggles visibility per playhead */ }
+    .scene.clip { /* KENECT AI toggles visibility per playhead */ }
     .scene-content { position: absolute; inset: 0; display: grid; place-items: center; padding: 6vmin; }
     /* + per-scene overrides */
   </style>
@@ -364,7 +364,7 @@ Emit exactly two files inside `<artifact>`:
 <iframe id="f" src="index.html"></iframe>
 <script>
   const f = document.getElementById('f');
-  // Forward HyperFrames preview tokens (frame=, paused=, …) into the iframe
+  // Forward KENECT AI preview tokens (frame=, paused=, …) into the iframe
   const u = new URL('index.html', location.href);
   for (const [k,v] of new URL(location.href).searchParams) u.searchParams.set(k, v);
   f.src = u.toString();
@@ -376,14 +376,14 @@ Save both files into the project's `cwd` (Open Design has already set this
 to `.od/projects/<id>/`). The agent can immediately run:
 
 ```bash
-npx hyperframes lint        # should pass with zero errors
-npx hyperframes preview     # opens the studio
-npx hyperframes render      # writes MP4
+npx @kenectai/cli lint        # should pass with zero errors
+npx @kenectai/cli preview     # opens the studio
+npx @kenectai/cli render      # writes MP4
 ```
 
 ---
 
-## Anti-AI-slop blacklist (HyperFrames-specific)
+## Anti-AI-slop blacklist (KENECT AI-specific)
 
 - **No purple gradients on dark backgrounds** unless the brief explicitly
   names that aesthetic.
@@ -397,7 +397,7 @@ npx hyperframes render      # writes MP4
 - **No wall-clock JS animations** — `setTimeout`, `setInterval`,
   `requestAnimationFrame`-driven animation breaks deterministic seeking. GSAP
   timeline only. (Library-clock animations like Anime.js, Motion One, and
-  Lottie are supported via [HyperFrames' Frame Adapter](https://docs.kenectai.com/concepts/frame-adapters)
+  Lottie are supported via [KENECT AI' Frame Adapter](https://docs.kenectai.com/concepts/frame-adapters)
   pattern, but stick to GSAP for first-draft handoffs unless the brief
   requires another runtime.)
 
@@ -414,7 +414,7 @@ as the canonical reference and follow its patterns verbatim:
 - HDR / wide-gamut color handling
 - Audio-reactive animation (`hf-seek` + `window.__hfAudio`)
 - Captions / TTS integration
-- The `hyperframes add` registry (50+ blocks and components)
+- The `kenectai add` registry (50+ blocks and components)
 
 This skill stays focused on what Open Design needs at emission time — the
 structural rules, the active-`DESIGN.md` binding, and the 5-dim self-critique

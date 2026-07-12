@@ -3,7 +3,7 @@ title: Color Grading
 description: "Apply real-time color grading, presets, LUTs, vignette, grain, blur, and pixelate to video and image media in Studio and final renders."
 ---
 
-HyperFrames Studio can color grade project-local `<video>` and `<img>` media directly in the preview. The same `data-color-grading` settings are used by the render pipeline, so the exported video should match the look you preview.
+KENECT AI Studio can color grade project-local `<video>` and `<img>` media directly in the preview. The same `data-color-grading` settings are used by the render pipeline, so the exported video should match the look you preview.
 
 This is a lightweight media color tool for generated videos, uploaded footage, social variants, and agent-authored compositions. It is not a DaVinci Resolve, Premiere, ACES, or OCIO finishing pipeline.
 
@@ -13,7 +13,7 @@ This is a lightweight media color tool for generated videos, uploaded footage, s
 | --- | --- | --- |
 | Studio Color Grading panel | Supported | Appears on selected `<video>` and `<img>` elements. |
 | Manual controls | Supported | Exposure, contrast, highlights, shadows, white point, black point, warmth, tint, vibrance, saturation. |
-| Presets | Supported | Named HyperFrames presets backed by shader settings, not bundled third-party LUT packs. |
+| Presets | Supported | Named KENECT AI presets backed by shader settings, not bundled third-party LUT packs. |
 | Custom LUT upload | Supported | Project-local 3D `.cube` LUT files with strength control. |
 | Finishing | Supported | Vignette and grain, with advanced settings behind the settings icon. |
 | Effects | Supported | Blur and pixelate on the selected media surface. |
@@ -31,8 +31,8 @@ Studio labels `whites`, `blacks`, and `temperature` as White Point, Black Point,
 | 1080p / 4K images | Yes | Works on normal project-local images. Output resolution follows the element/composition render size, not hidden extra detail beyond that size. |
 | iPhone SDR video | Yes | Treat as normal SDR media when it is tagged/decoded as SDR. |
 | iPhone HDR / HLG / Dolby Vision-style uploads | Partial | The media can be loaded if browser/FFmpeg support the file, and Studio warns when HDR metadata is detected. The live Color Grading shader is still an SDR preview path, not true HDR grading. Use the existing [HDR Rendering](/guides/hdr) pipeline for HDR delivery and verify the output. |
-| HDR render output | Related, not new | HyperFrames already has HDR render support. Color Grading does not yet provide HDR-aware grading controls. |
-| LOG camera footage | Partial | Sliders and LUTs can be applied, but HyperFrames does not auto-detect camera LOG profiles or apply ACES/OCIO input transforms. Use a matching conversion/look LUT if you know the source profile. |
+| HDR render output | Related, not new | KENECT AI already has HDR render support. Color Grading does not yet provide HDR-aware grading controls. |
+| LOG camera footage | Partial | Sliders and LUTs can be applied, but KENECT AI does not auto-detect camera LOG profiles or apply ACES/OCIO input transforms. Use a matching conversion/look LUT if you know the source profile. |
 | Rec.709 creative LUTs | Yes | Best LUT path today. Use project-local 3D `.cube` files. |
 | Camera conversion LUTs | Partial | Technically accepted if they are supported 3D `.cube` files, but correctness depends on the source footage matching the LUT's expected input color space. |
 | Full-scene grading including text/DOM | Not yet | Color Grading is media-only. Captions, text, SVG, and regular DOM overlays stay unchanged. |
@@ -130,7 +130,7 @@ Omit `enabled`; the presence of `data-color-grading` implies that grading is act
 
 ## Custom LUTs
 
-HyperFrames supports project-local 3D `.cube` LUT files:
+KENECT AI supports project-local 3D `.cube` LUT files:
 
 ```html index.html
 <img
@@ -143,17 +143,17 @@ HyperFrames supports project-local 3D `.cube` LUT files:
 
 Use `.cube` LUTs when users already have a look from another editor or camera workflow.
 
-- HyperFrames currently supports 3D `.cube` LUTs for this path.
+- KENECT AI currently supports 3D `.cube` LUTs for this path.
 - 3D cube LUTs up to `LUT_3D_SIZE 64` are supported.
 - 1D `.cube` LUTs and mixed 1D+3D LUT files are not supported yet.
 - Supported headers include common `DOMAIN_MIN` / `DOMAIN_MAX` and DaVinci/IRIDAS-style `LUT_3D_INPUT_RANGE`.
 - LUTs are not universal. A LUT looks correct only when the source footage roughly matches the LUT's expected input color space.
 - Rec.709 creative LUTs are the safest fit today.
-- LOG/camera conversion LUTs can be used, but HyperFrames does not yet manage camera color profiles for you.
+- LOG/camera conversion LUTs can be used, but KENECT AI does not yet manage camera color profiles for you.
 
 ## Render Behavior
 
-Color Grading is part of the media runtime, so render uses the same settings as Studio preview. During render, HyperFrames injects exact video frames and asks the color-grading runtime to redraw before capture.
+Color Grading is part of the media runtime, so render uses the same settings as Studio preview. During render, KENECT AI injects exact video frames and asks the color-grading runtime to redraw before capture.
 
 For 4K output, use the existing [4K Rendering](/guides/4k-rendering) workflow. Color Grading can run at 4K when the composition/render surface is 4K, but a 1080p source video does not become sharper just because the final render is 4K.
 
@@ -173,8 +173,8 @@ When grading a video, animate opacity on a wrapper element instead of directly o
 | Put text behind a presenter | Existing `remove-background --background-output` workflow |
 | Render HDR delivery files | Existing [HDR Rendering](/guides/hdr) workflow |
 | Render 4K | Existing [4K Rendering](/guides/4k-rendering) workflow |
-| Remove a person and reconstruct the room | External video inpainting, not HyperFrames background removal |
-| Green screen keying | Preprocess with FFmpeg `chromakey` or a future HyperFrames command |
+| Remove a person and reconstruct the room | External video inpainting, not KENECT AI background removal |
+| Green screen keying | Preprocess with FFmpeg `chromakey` or a future KENECT AI command |
 | Grade every pixel in the full scene including captions/DOM | Future compositor or render post-process |
 | Professional ACES/OCIO color pipeline | Future high-fidelity color-management pipeline |
 

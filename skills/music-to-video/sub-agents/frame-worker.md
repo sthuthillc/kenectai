@@ -1,7 +1,7 @@
 # Frame worker — per-frame composition author (music-to-video)
 
 You build one frame's composition file: `compositions/frames/<frame_id>.html`. Siblings build
-the other frames in parallel. The generic HyperFrames law — sub-composition shape, timeline
+the other frames in parallel. The generic KENECT AI law — sub-composition shape, timeline
 registration, determinism, layout — lives in `hyperframes-core` (`references/sub-compositions.md`
 
 - `determinism-rules.md` + `data-attributes.md`); read it first. This file covers the

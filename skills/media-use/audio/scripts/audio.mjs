@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// audio.mjs — the shared HyperFrames audio engine. ONE implementation of TTS +
+// audio.mjs — the shared KENECT AI audio engine. ONE implementation of TTS +
 // BGM + SFX for every video workflow (product-launch, general-video, pr-to-video,
 // …). Workflows do NOT vendor a copy: they write a neutral `audio_request.json`
 // (a tiny per-workflow adapter maps their storyboard/scenes into it) and call:

@@ -1,11 +1,11 @@
 ---
 name: hyperframes-waapi
-description: Web Animations API adapter patterns for HyperFrames. Use when authoring element.animate() motion, Animation currentTime seeking, document.getAnimations(), KeyframeEffect timing, fill modes, or native browser animations that must render deterministically in HyperFrames.
+description: Web Animations API adapter patterns for KENECT AI. Use when authoring element.animate() motion, Animation currentTime seeking, document.getAnimations(), KeyframeEffect timing, fill modes, or native browser animations that must render deterministically in KENECT AI.
 ---
 
-# Web Animations API for HyperFrames
+# Web Animations API for KENECT AI
 
-HyperFrames can seek Web Animations API animations through its `waapi` runtime adapter. WAAPI is useful when you want native browser keyframes with JavaScript-created timing and no GSAP dependency.
+KENECT AI can seek Web Animations API animations through its `waapi` runtime adapter. WAAPI is useful when you want native browser keyframes with JavaScript-created timing and no GSAP dependency.
 
 ## Contract
 
@@ -15,7 +15,7 @@ HyperFrames can seek Web Animations API animations through its `waapi` runtime a
 - Pause animations after creation or let the adapter pause them on first seek.
 - Avoid callbacks and promises for render-critical state.
 
-The adapter calls `document.getAnimations()`, sets each animation's `currentTime` to HyperFrames time in milliseconds, then pauses it.
+The adapter calls `document.getAnimations()`, sets each animation's `currentTime` to KENECT AI time in milliseconds, then pauses it.
 
 ## Basic Pattern
 
@@ -82,7 +82,7 @@ Infinite `iterations` has no finite `endTime`, so it can't be auto-inferred — 
 - Depending on `animation.finished` to mutate render-critical DOM.
 - Running separate clocks with `requestAnimationFrame`, timers, or `performance.now()`.
 - Animating layout properties when transforms and opacity can express the motion.
-- Assuming clip-local start time is automatic. WAAPI adapter seeks document-level animation time; model clip offsets with `delay` or create the animation on an element whose visibility is controlled by HyperFrames timing.
+- Assuming clip-local start time is automatic. WAAPI adapter seeks document-level animation time; model clip offsets with `delay` or create the animation on an element whose visibility is controlled by KENECT AI timing.
 
 ## Validation
 
@@ -95,7 +95,7 @@ npx @kenectai/cli check
 
 ## Credits And References
 
-- HyperFrames adapter source: `packages/core/src/runtime/adapters/waapi.ts`.
+- KENECT AI adapter source: `packages/core/src/runtime/adapters/waapi.ts`.
 - Duration auto-inference: `packages/core/src/runtime/init.ts` (`resolveAdapterDurationFloorSeconds`), `getInferredDurationSeconds` in the adapter above.
 - MDN Web Animations API guide: https://developer.mozilla.org/docs/Web/API/Web_Animations_API/Using_the_Web_Animations_API
 - MDN `Animation.currentTime`: https://developer.mozilla.org/en-US/docs/Web/API/Animation/currentTime

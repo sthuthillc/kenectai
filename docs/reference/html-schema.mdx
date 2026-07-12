@@ -1,13 +1,13 @@
 ---
 title: HTML Schema Reference
-description: "Complete reference for authoring Hyperframes HTML compositions."
+description: "Complete reference for authoring KENECT AI HTML compositions."
 ---
 
-This is the full schema reference for Hyperframes compositions. For a gentler introduction, see [Compositions](/concepts/compositions) and [Data Attributes](/concepts/data-attributes).
+This is the full schema reference for KENECT AI compositions. For a gentler introduction, see [Compositions](/concepts/compositions) and [Data Attributes](/concepts/data-attributes).
 
 ## Overview
 
-Hyperframes uses HTML as the source of truth for describing a video:
+KENECT AI uses HTML as the source of truth for describing a video:
 
 - **HTML clips** = video, image, audio, composition
 - **[Data attributes](/concepts/data-attributes)** = timing, metadata, styling
@@ -235,5 +235,5 @@ For caption compositions, add these attributes to the root node so the framework
   - Timed visible elements (images, divs) have `class="clip"`
   - Video elements do **not** have `class="clip"` (framework manages them directly)
   - All `data-start` references point to existing clip IDs
-  - Run `npx hyperframes lint` to catch structural issues automatically
+  - Run `npx @kenectai/cli lint` to catch structural issues automatically
 </Check>

@@ -23,7 +23,7 @@ npx skills add sthuthillc/kenectai
 - `/slideshow` — a **presentation / pitch deck / interactive deck** — discrete slides, fragment reveals, branching, hotspot navigation, presenter mode. Output is a navigable deck, not a rendered video.
 - `/general-video` — fallback for any other video creation (title card, longer brand / sizzle reel, multi-scene montage, static loop, custom composition); the original hyperframes flow — design → plan → layout → build → validate, any length.
 
-**Porting an existing composition?** `/remotion-to-hyperframes` translates a Remotion (React) video composition into HyperFrames HTML — a source migration, separate from the creation workflows above.
+**Porting an existing composition?** `/remotion-to-hyperframes` translates a Remotion (React) video composition into KENECT AI HTML — a source migration, separate from the creation workflows above.
 
 ## Build & Test
 

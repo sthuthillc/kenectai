@@ -241,7 +241,7 @@ Build a paused timeline. Register it on `window.__timelines` with the same key a
 
 ## Critical Constraints
 
-- **Timeline must be paused**: `gsap.timeline({ paused: true })`. Never call `tl.play()` — HyperFrames seeks the timeline frame-by-frame deterministically
+- **Timeline must be paused**: `gsap.timeline({ paused: true })`. Never call `tl.play()` — KENECT AI seeks the timeline frame-by-frame deterministically
 - **Registry key = `data-composition-id`**: `window.__timelines["<id>"]` must match the `data-composition-id` on the scene root exactly
 - **`immediateRender: false` on the ripple expand**: holds the initial state (`scale: 0`, `opacity: 0`) until the click moment, otherwise the tween pre-renders and the rings appear at the wrong size at t=0
 - **Finite duration**: verify `tl.duration()` matches the scene's `data-duration`

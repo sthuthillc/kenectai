@@ -7,13 +7,13 @@ metadata:
 
 # Caption Template — Anatomy (the shared engine)
 
-A **caption template** = one complete, reproducible HyperFrames scene:
+A **caption template** = one complete, reproducible KENECT AI scene:
 
 > **the person (always in frame)** + a **flowing foreground caption** (verbatim, word-by-word, with appear **and** disappear) + a **climax word** (big, behind the speaker, with a designed entrance **and** exit) + a coherent **font / colour / motion** design.
 
 Every file in `templates/` is the SAME engine described here with three things swapped: (1) the **style tokens** (font, fills, accent, optional gradient/stroke), (2) the named **climax entrance** + **exit** (see `_motion.md`), (3) the **copy** (flow lines + climax word) and **scene/person**. So read this once; each template file is short.
 
-HyperFrames-native, so anyone can reproduce it:
+KENECT AI-native, so anyone can reproduce it:
 
 - **One paused GSAP timeline per composition**, registered to `window.__timelines[data-composition-id]`.
 - All timing in **seconds**; `data-start` / `data-duration` carry the scene window.
@@ -162,7 +162,7 @@ Caption size is in **`cqh`** (% of frame height) via a size container, so it hon
 
 ## 4 · One paused GSAP timeline (the loop, made seek-safe)
 
-The gallery used a `setInterval` loop; HyperFrames needs the same beats as **absolute-time tweens on one paused timeline**. The cycle is **FLOW line → (FLOW line) → CLIMAX in → hold → out**. Restraint is the rule: flow stays clean; the one big mood move happens only at the climax.
+The gallery used a `setInterval` loop; KENECT AI needs the same beats as **absolute-time tweens on one paused timeline**. The cycle is **FLOW line → (FLOW line) → CLIMAX in → hold → out**. Restraint is the rule: flow stays clean; the one big mood move happens only at the climax.
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
@@ -214,7 +214,7 @@ The gallery used a `setInterval` loop; HyperFrames needs the same beats as **abs
 - **FOUT** — flow exit ≈ 0.5 s. **Exit ≈ 75 % of entry** for every element (arrival deliberate, departure swift; see `_motion.md`).
 - **Climax size** — base 44 cqh; long words bleed off-frame (intended cinematic); 3-char words behind a centred subject need size + an outline so they peek.
 
-## Critical constraints (HyperFrames)
+## Critical constraints (KENECT AI)
 
 - Timeline **paused**; registry key = `data-composition-id`.
 - **No CSS keyframe animation** on caption elements — all motion is GSAP tweens at absolute times (seek-safe).

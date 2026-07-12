@@ -1,6 +1,6 @@
 # CSS Patterns for Marker Highlighting
 
-Pure CSS + GSAP implementations of all five MarkerHighlight.js drawing modes. Use these for deterministic rendering in HyperFrames compositions — no external library dependency, full GSAP timeline control.
+Pure CSS + GSAP implementations of all five MarkerHighlight.js drawing modes. Use these for deterministic rendering in KENECT AI compositions — no external library dependency, full GSAP timeline control.
 
 ## Contents
 

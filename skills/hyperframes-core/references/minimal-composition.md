@@ -1,6 +1,6 @@
 # Minimal Composition
 
-The smallest renderable HyperFrames composition — a standalone (top-level) root with one clip and one tween:
+The smallest renderable KENECT AI composition — a standalone (top-level) root with one clip and one tween:
 
 ```html
 <!doctype html>
@@ -8,7 +8,7 @@ The smallest renderable HyperFrames composition — a standalone (top-level) roo
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
-    <title>Minimal HyperFrames Composition</title>
+    <title>Minimal KENECT AI Composition</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       body {
@@ -45,7 +45,7 @@ The smallest renderable HyperFrames composition — a standalone (top-level) roo
       data-duration="5"
     >
       <section id="title-card" class="clip" data-start="0" data-duration="5" data-track-index="1">
-        <h1 id="title">Hello HyperFrames</h1>
+        <h1 id="title">Hello KENECT AI</h1>
       </section>
     </div>
     <script>

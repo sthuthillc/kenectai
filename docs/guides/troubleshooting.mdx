@@ -1,6 +1,6 @@
 ---
 title: Troubleshooting
-description: "Solutions for common Hyperframes issues."
+description: "Solutions for common KENECT AI issues."
 ---
 
 If your issue is about a specific coding mistake (animations not working, video cutting off early), see [Common Mistakes](/guides/common-mistakes) first. This page covers environment, tooling, and rendering issues.
@@ -9,7 +9,7 @@ If your issue is about a specific coding mistake (animations not working, video 
   <Accordion title='"No composition found"'>
     Your directory needs an `index.html` with a valid [composition](/concepts/compositions). The root element must have a [`data-composition-id`](/concepts/data-attributes#composition-attributes) attribute.
 
-    **Fix:** Run `npx hyperframes init` to create a composition from an [example](/examples), or verify your `index.html` has the correct structure:
+    **Fix:** Run `npx @kenectai/cli init` to create a composition from an [example](/examples), or verify your `index.html` has the correct structure:
 
     ```html index.html
     <div id="root" data-composition-id="my-video"
@@ -41,15 +41,15 @@ If your issue is about a specific coding mistake (animations not working, video 
     ```
     </CodeGroup>
 
-    After installing, run `npx hyperframes doctor` to verify the CLI can find it.
+    After installing, run `npx @kenectai/cli doctor` to verify the CLI can find it.
 
     <Tip>
-      If you cannot install FFmpeg, use [Docker mode](/guides/rendering) instead — it bundles FFmpeg inside the container: `npx hyperframes render --docker --output output.mp4`
+      If you cannot install FFmpeg, use [Docker mode](/guides/rendering) instead — it bundles FFmpeg inside the container: `npx @kenectai/cli render --docker --output output.mp4`
     </Tip>
   </Accordion>
 
   <Accordion title="Lint errors">
-    Run `npx hyperframes lint` to check for common structural issues (see [CLI: lint](/packages/cli#lint)):
+    Run `npx @kenectai/cli lint` to check for common structural issues (see [CLI: lint](/packages/cli#lint)):
 
     | Error | Meaning |
     |-------|---------|
@@ -66,7 +66,7 @@ If your issue is about a specific coding mistake (animations not working, video 
     If changes still do not appear:
 
     1. Check the terminal for errors from the preview server
-    2. Stop and restart `npx hyperframes preview`
+    2. Stop and restart `npx @kenectai/cli preview`
     3. Hard-refresh the browser: **Ctrl+Shift+R** (Windows/Linux) or **Cmd+Shift+R** (macOS)
     4. Clear the browser cache if CSS changes are not reflected
   </Accordion>
@@ -90,7 +90,7 @@ If your issue is about a specific coding mistake (animations not working, video 
     **Temporary workaround:** render to mp4 and watch the output. Render is accurate regardless of per-frame cost.
 
     ```bash Terminal
-    npx hyperframes render --quality draft --output preview.mp4
+    npx @kenectai/cli render --quality draft --output preview.mp4
     ```
 
     See [Performance](/guides/performance) for the full guide on expensive CSS patterns and how to fix them.
@@ -104,7 +104,7 @@ If your issue is about a specific coding mistake (animations not working, video 
     - **System-specific rendering** — GPU compositing, subpixel antialiasing, etc.
 
     ```bash Terminal
-    npx hyperframes render --docker --output output.mp4
+    npx @kenectai/cli render --docker --output output.mp4
     ```
 
     See [Rendering: When to Use Each Mode](/guides/rendering#when-to-use-each-mode) for guidance on choosing between local and Docker rendering.
@@ -120,14 +120,14 @@ If your issue is about a specific coding mistake (animations not working, video 
     Common issues:
     - **Docker not running:** Start Docker Desktop or the Docker daemon
     - **Permission denied:** Add your user to the `docker` group (`sudo usermod -aG docker $USER`) and restart your shell
-    - **Image pull fails:** Check your internet connection; the first render downloads the Hyperframes Docker image
+    - **Image pull fails:** Check your internet connection; the first render downloads the KENECT AI Docker image
   </Accordion>
 
   <Accordion title="Render is slow">
     Try these optimizations:
 
     1. Use `--quality draft` during development for faster encoding
-    2. Run `npx hyperframes benchmark` to find the optimal worker count for your system
+    2. Run `npx @kenectai/cli benchmark` to find the optimal worker count for your system
     3. Local Chrome/WebGL GPU capture is enabled automatically; compare with `--no-browser-gpu` if troubleshooting
     4. Use `--gpu` for hardware-accelerated encoding (local mode only)
     5. Reduce `--fps` to 24 if 30fps is not needed
@@ -139,10 +139,10 @@ If your issue is about a specific coding mistake (animations not working, video 
 
 ## System Diagnostics
 
-Run `npx hyperframes doctor` to check your environment:
+Run `npx @kenectai/cli doctor` to check your environment:
 
 ```bash Terminal
-npx hyperframes doctor
+npx @kenectai/cli doctor
 ```
 
 This checks for Node.js version, FFmpeg availability, Docker status, and other requirements. If `doctor` reports issues, address them before rendering.
@@ -151,9 +151,9 @@ This checks for Node.js version, FFmpeg availability, Docker status, and other r
 
 If none of the above resolves your issue:
 
-1. Run `npx hyperframes info` to gather system and project details
+1. Run `npx @kenectai/cli info` to gather system and project details
 2. Check [GitHub Issues](https://github.com/sthuthillc/kenectai/issues) for similar reports
-3. Open a new issue with the output of `npx hyperframes info` and steps to reproduce
+3. Open a new issue with the output of `npx @kenectai/cli info` and steps to reproduce
 
 ## Next Steps
 

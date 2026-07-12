@@ -1,6 +1,6 @@
 # Step 2: Strategy & Messaging
 
-**First, scan the Table of Contents in [capabilities.md](capabilities.md)** — the 24-row TOC tells you everything HyperFrames can do. You need this to tell users what's possible. Deep-dive specific sections only if a beat needs them.
+**First, scan the Table of Contents in [capabilities.md](capabilities.md)** — the 24-row TOC tells you everything KENECT AI can do. You need this to tell users what's possible. Deep-dive specific sections only if a beat needs them.
 
 You've captured the site and you now understand the brand — what the product does, who it's for, what voice it speaks in, what mood it lives in. Before any creative decisions, **align with the user on the story this video must tell.** Captured assets exist as a brand toolkit you'll reach for late in Step 3; they are not what the conversation in this step is about.
 

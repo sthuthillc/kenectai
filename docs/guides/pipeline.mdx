@@ -1,11 +1,11 @@
 ---
 title: The Pipeline
-description: "The 7-step pipeline for producing any Hyperframes video: capture, design, strategy & messaging, storyboard + script, voiceover, build, validate."
+description: "The 7-step pipeline for producing any KENECT AI video: capture, design, strategy & messaging, storyboard + script, voiceover, build, validate."
 ---
 
-Every well-structured Hyperframes video flows through the same 7 steps, whether it starts from a website, a PDF, a CSV, or a blank page. Each step produces a named artifact that the next step depends on, so your AI agent (and you) always know what's done, what's next, and where the creative decisions live on disk.
+Every well-structured KENECT AI video flows through the same 7 steps, whether it starts from a website, a PDF, a CSV, or a blank page. Each step produces a named artifact that the next step depends on, so your AI agent (and you) always know what's done, what's next, and where the creative decisions live on disk.
 
-This pipeline is the backbone of the [website-to-video workflow](/guides/website-to-video), but it's just as useful when you're scripting a brand reel from scratch, turning research notes into a launch teaser, or learning Hyperframes for the first time. Most of the production-grade [launch videos](/launch-videos) HeyGen ships are organized this way.
+This pipeline is the backbone of the [website-to-video workflow](/guides/website-to-video), but it's just as useful when you're scripting a brand reel from scratch, turning research notes into a launch teaser, or learning KENECT AI for the first time. Most of the production-grade [launch videos](/launch-videos) HeyGen ships are organized this way.
 
 ## The seven steps
 
@@ -58,10 +58,10 @@ Capture artifacts stay in `capture/` so they're cleanly separated from the build
 
 **Output:** `capture/`
 
-When the video is grounded in an existing source (a website, a brand site, a competitor reference), start with capture. Hyperframes ships a built-in capture command for websites:
+When the video is grounded in an existing source (a website, a brand site, a competitor reference), start with capture. KENECT AI ships a built-in capture command for websites:
 
 ```bash
-npx hyperframes capture https://example.com -o my-video/capture
+npx @kenectai/cli capture https://example.com -o my-video/capture
 ```
 
 This extracts screenshots at every scroll depth, pixel-sampled color palettes, the CSS font stack (and downloaded woff2 files), images and SVGs with semantic names, Lottie animations, and detected animations on the page. Optional [Gemini vision enrichment](/guides/website-to-video#enriching-captures-with-gemini-vision) adds AI-powered descriptions of every captured asset.
@@ -86,7 +86,7 @@ A typical `DESIGN.md` has five sections:
 | **Spacing & Layout** | Base spacing unit, scale with usage, max-width / grid, and breakpoint strategy |
 | **Iteration Guide** | Do's and don'ts, common failure modes, and rules for modifying the design in later steps |
 
-`DESIGN.md` is also the input format for [Open Design](/guides/open-design) and [Claude Design](/guides/claude-design); both produce a `DESIGN.md` you can drop into a Hyperframes project.
+`DESIGN.md` is also the input format for [Open Design](/guides/open-design) and [Claude Design](/guides/claude-design); both produce a `DESIGN.md` you can drop into a KENECT AI project.
 
 **Gate:** `DESIGN.md` exists with all five sections filled in from real captured data (or chosen deliberately for greenfield projects).
 
@@ -131,8 +131,8 @@ The storyboard typically opens with a global-direction block: format, voiceover 
 Generate the TTS narration, then transcribe it for word-level timestamps. Those timestamps are the source of truth for every beat duration downstream.
 
 ```bash
-npx hyperframes tts SCRIPT.md --voice af_nova --output narration.wav
-npx hyperframes transcribe narration.wav
+npx @kenectai/cli tts SCRIPT.md --voice af_nova --output narration.wav
+npx @kenectai/cli transcribe narration.wav
 ```
 
 | File             | What it contains |
@@ -141,7 +141,7 @@ npx hyperframes transcribe narration.wav
 | `narration.txt`  | The exact spoken text with pronunciation substitutions applied (`API` → `A P I`, `$2T` → `two trillion`). Distinct from `SCRIPT.md` so you can regenerate the audio later with a different voice without redoing the substitutions. |
 | `transcript.json`| `[{ text, start, end }]` for every word. Every later step reads this for timing. |
 
-Hyperframes ships multiple TTS adapters (Kokoro, ElevenLabs, HeyGen); see [`/media-use`](/guides/prompting) for the skill that picks one. After generating audio, update `STORYBOARD.md` with the real beat boundaries from `transcript.json`.
+KENECT AI ships multiple TTS adapters (Kokoro, ElevenLabs, HeyGen); see [`/media-use`](/guides/prompting) for the skill that picks one. After generating audio, update `STORYBOARD.md` with the real beat boundaries from `transcript.json`.
 
 **Gate:** `narration.wav`, `narration.txt`, and `transcript.json` exist. `STORYBOARD.md` beat timings reference real timestamps, not estimates.
 
@@ -164,17 +164,17 @@ After each composition is built, run a self-review for layout, asset placement, 
 Three checks before delivery:
 
 ```bash
-npx hyperframes lint                              # static HTML structure checks
-npx hyperframes check                             # one browser session: runtime errors, layout, motion, contrast
-npx hyperframes snapshot my-video --at 2.9,10.4   # PNGs at beat midpoints
+npx @kenectai/cli lint                              # static HTML structure checks
+npx @kenectai/cli check                             # one browser session: runtime errors, layout, motion, contrast
+npx @kenectai/cli snapshot my-video --at 2.9,10.4   # PNGs at beat midpoints
 ```
 
 `lint` catches missing attributes, timeline registration issues, tween conflicts, and CSS-transform vs. GSAP conflicts. `validate` loads each composition in headless Chrome and surfaces runtime JS errors, missing assets, and failed network requests. `snapshot` captures frames at specific timestamps so you can _see_ your output without a full render.
 
-The pipeline delivers the localhost Studio URL as the handoff. Your AI agent runs `npx hyperframes preview` and shares the project URL. Rendering to MP4 is on-demand:
+The pipeline delivers the localhost Studio URL as the handoff. Your AI agent runs `npx @kenectai/cli preview` and shares the project URL. Rendering to MP4 is on-demand:
 
 ```bash
-npx hyperframes render --output my-video.mp4
+npx @kenectai/cli render --output my-video.mp4
 ```
 
 For personalized or catalog outputs, render the same validated composition with `--batch rows.json --output "renders/{name}.mp4"` and use the generated `manifest.json` as the delivery checklist.
@@ -186,7 +186,7 @@ For personalized or catalog outputs, render the same validated composition with 
 The pipeline is built around named artifacts on disk so you can re-enter anywhere without re-running everything:
 
 - To rework the creative plan, edit `STORYBOARD.md`: change a beat's mood, swap an asset, retime the entrance, then ask the agent to rebuild just that beat.
-- For surgical tweaks, open a composition file directly (e.g. `compositions/beat-3-proof.html`) and adjust animations, colors, or layout. `npx hyperframes preview` shows changes live.
+- For surgical tweaks, open a composition file directly (e.g. `compositions/beat-3-proof.html`) and adjust animations, colors, or layout. `npx @kenectai/cli preview` shows changes live.
 - To rebuild one beat from scratch, prompt the agent: _"Rebuild beat 2 with more energy. Use the product screenshot as full-bleed background."_ It reads `STORYBOARD.md`, `DESIGN.md`, and the transcript, then regenerates just that file.
 - To swap the voice without redoing Step 3, re-run TTS against `narration.txt`, which already has the pronunciation substitutions baked in.
 
@@ -199,7 +199,7 @@ The pipeline is the recommended structure for:
 - Capturing a website with the [/website-to-video](/guides/website-to-video) skill, which follows it end-to-end.
 - Shipping a product launch. Most of the [HeyGen launch videos](/launch-videos) use this artifact layout.
 - Any narrative video with three or more beats, where a storyboard pays for itself.
-- Learning Hyperframes, because the artifacts leave every creative decision inspectable on disk.
+- Learning KENECT AI, because the artifacts leave every creative decision inspectable on disk.
 
 For a 5-second one-shot animation, a single hand-authored composition is fine; the pipeline is overhead you don't need. The rough cutoff: if a non-author needs to understand _why_ a beat looks the way it does, write it down in `STORYBOARD.md`.
 

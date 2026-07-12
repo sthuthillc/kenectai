@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # setup.sh — generate the binary assets this fixture needs.
 #
-# Both Remotion and HyperFrames variants need a 200x200 blue PNG and a
+# Both Remotion and KENECT AI variants need a 200x200 blue PNG and a
 # 6-second silent WAV. Generating them via ffmpeg keeps binaries out of
 # the repo while still letting the fixture render reproducibly.
 #

@@ -2,7 +2,7 @@
 
 ## What it tests
 
-The simplest non-trivial Remotion → HyperFrames translation. A single text
+The simplest non-trivial Remotion → KENECT AI translation. A single text
 element fades in over the first 0.5 s, holds for 2.0 s, and fades out over
 the last 0.5 s. No audio, no media, no custom components.
 
@@ -13,7 +13,7 @@ paused-GSAP driver.
 
 ## Translation walk-through
 
-| Remotion                                                      | HyperFrames                                                                                             |
+| Remotion                                                      | KENECT AI                                                                                             |
 | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `<AbsoluteFill style={{ backgroundColor: "#0a0a0a" }}>`       | `<body style="background: #0a0a0a">` + a positioned root div                                            |
 | `useCurrentFrame()`                                           | dropped — HF seeks the timeline                                                                         |
@@ -30,7 +30,7 @@ The Remotion→HF time conversion is `time = frame / fps`. So
 cd remotion-src && npm install && npm run render
 # Renders to remotion-src/out/baseline.mp4
 
-# Render HyperFrames translation
+# Render KENECT AI translation
 cd ../hf-src && npx @kenectai/cli render --output ../hf.mp4
 
 # Compare with the eval harness (from skill scripts/)

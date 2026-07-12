@@ -242,7 +242,7 @@ animations) — a static one-liner gets boring past 8s. For long pieces
 where many cards exceed 30s, consider **chunking the timeline into
 sub-compositions** (one .html per chapter, mounted with
 `data-composition-src`) so the GSAP timeline per file stays manageable
-— see the `timeline_track_too_dense` HyperFrames lint warning.
+— see the `timeline_track_too_dense` KENECT AI lint warning.
 
 `content` can be a plain string ("Title: annualized 5.69%\nNotes: ...") or any JSON
 shape that captures the data. The agent decides the shape per card.
@@ -852,7 +852,7 @@ ffmpeg -y -i "$VIDEO_PATH" -c:v libx264 -crf 18 -g 30 -keyint_min 30 \
         box-sizing: border-box;
       }
       /* Body font-family MUST list concrete font names (not just var(--font-family)) —
-   the HyperFrames renderer's static analyzer doesn't expand CSS variables when
+   the KENECT AI renderer's static analyzer doesn't expand CSS variables when
    resolving fonts, so a var-only chain triggers `font_family_without_font_face`
    lint and falls back to a generic. Use the concrete chain here; cards that
    want the theme font can still reference var(--font-family) internally. */
@@ -940,7 +940,7 @@ ffmpeg -y -i "$VIDEO_PATH" -c:v libx264 -crf 18 -g 30 -keyint_min 30 \
       <!-- Layer 2: each card-host sits at the bounds dictated by its layout. -->
       <!-- IMPORTANT: every card-host MUST carry BOTH "card-host" and "clip" classes. -->
       <!--   - "card-host"  → our positioning + pointer-events styles                 -->
-      <!--   - "clip"       → HyperFrames runtime uses this to enforce visibility     -->
+      <!--   - "clip"       → KENECT AI runtime uses this to enforce visibility     -->
       <!--                    only during data-start … data-start+data-duration.      -->
       <!--                    Without "clip" the host stays visible the whole video   -->
       <!--                    (lint: timed_element_missing_clip_class).               -->
@@ -1135,7 +1135,7 @@ height:Hpx;..."`. For `video-overlay` zone (overlay recipe), the
 card-host fills the full canvas — your CSS inside `.card .root`
 decides where the actual visible card sits.
 
-#### HyperFrames Layout / Animation QA Rules
+#### KENECT AI Layout / Animation QA Rules
 
 - Build each card's static hero frame first: the moment where the card is fully visible and readable.
 - Confirm video, cards, subtitles/captions, and diagrams do not unintentionally overlap.
@@ -1148,8 +1148,8 @@ decides where the actual visible card sits.
 - Animate wrappers such as `#video-wrap`, not the video element dimensions directly.
 - Avoid animating the same property on the same element from multiple timelines at the same time.
 - Use `data-track-index`, not `data-layer`; use `data-duration`, not `data-end`.
-- Every timed element (`card-host`, sub-composition, etc.) MUST include `class="clip"` alongside its own classes — e.g. `class="card-host clip"`. The HyperFrames runtime uses `.clip` to gate visibility to the `data-start … data-start+data-duration` window. Without it the element is visible for the whole video (lint: `timed_element_missing_clip_class`).
-- For body / global `font-family`, list **concrete font names** (`'Inter', 'Caveat', …`) — not a CSS variable like `var(--font-family)`. The HyperFrames font resolver doesn't expand CSS vars during static analysis (lint: `font_family_without_font_face`). Cards may still use `var(--font-family)` internally since their `@font-face` declarations are loaded.
+- Every timed element (`card-host`, sub-composition, etc.) MUST include `class="clip"` alongside its own classes — e.g. `class="card-host clip"`. The KENECT AI runtime uses `.clip` to gate visibility to the `data-start … data-start+data-duration` window. Without it the element is visible for the whole video (lint: `timed_element_missing_clip_class`).
+- For body / global `font-family`, list **concrete font names** (`'Inter', 'Caveat', …`) — not a CSS variable like `var(--font-family)`. The KENECT AI font resolver doesn't expand CSS vars during static analysis (lint: `font_family_without_font_face`). Cards may still use `var(--font-family)` internally since their `@font-face` declarations are loaded.
 
 ### 10. Render to MP4
 

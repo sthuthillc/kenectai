@@ -7,7 +7,7 @@ You are building ONE beat of a multi-beat video composition. This file tells you
 **Required (every beat):**
 
 1. **Load the `hyperframes` skill** — composition rules, data attributes, timeline contract, deterministic rendering. Read the whole skill.
-2. **[capabilities.md](capabilities.md)** — full inventory of HyperFrames capabilities (24 sections). Read the Table of Contents first, then deep-dive sections your beat needs.
+2. **[capabilities.md](capabilities.md)** — full inventory of KENECT AI capabilities (24 sections). Read the Table of Contents first, then deep-dive sections your beat needs.
 3. **The beat spec** the main agent gave you — concept, choreography, assets, brand values, timing.
 
 **Read based on what your beat needs (pick relevant ones):**

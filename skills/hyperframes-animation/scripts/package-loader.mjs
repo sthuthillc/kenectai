@@ -217,7 +217,7 @@ async function confirmBootstrap(packageSpecs) {
   try {
     const answer = await rl.question(
       [
-        "HyperFrames helper package(s) are missing.",
+        "KENECT AI helper package(s) are missing.",
         `Run a temporary install with lifecycle scripts disabled?`,
         `  ${installLine}`,
         "Proceed? [y/N] ",

@@ -1,16 +1,16 @@
 ---
 name: hyperframes-three
-description: Three.js and WebGL adapter patterns for HyperFrames. Use when creating deterministic Three.js scenes, WebGL canvas layers, AnimationMixer timelines, camera motion, shader-driven visuals, or canvas renders that respond to HyperFrames hf-seek events.
+description: Three.js and WebGL adapter patterns for KENECT AI. Use when creating deterministic Three.js scenes, WebGL canvas layers, AnimationMixer timelines, camera motion, shader-driven visuals, or canvas renders that respond to KENECT AI hf-seek events.
 ---
 
-# Three.js for HyperFrames
+# Three.js for KENECT AI
 
-HyperFrames supports Three.js through its `three` runtime adapter. The adapter does not own your scene. It publishes HyperFrames time and dispatches a seek event so your composition can render the exact frame.
+KENECT AI supports Three.js through its `three` runtime adapter. The adapter does not own your scene. It publishes KENECT AI time and dispatches a seek event so your composition can render the exact frame.
 
 ## Contract
 
 - Create the scene, camera, renderer, materials, and assets synchronously when possible.
-- Render from HyperFrames time, not wall-clock time.
+- Render from KENECT AI time, not wall-clock time.
 - Listen for the `hf-seek` event and render exactly that time.
 - Load models, textures, and HDRIs before render-critical seeking. Do not fetch them at seek time.
 - Avoid `requestAnimationFrame` or `renderer.setAnimationLoop` as the source of truth for render-critical motion.
@@ -66,7 +66,7 @@ The adapter sets `window.__hfThreeTime` and dispatches `new CustomEvent("hf-seek
 
 ## Loading Addons (`GLTFLoader`, `OrbitControls`, etc.)
 
-For anything under `three/addons/`, use an importmap so bare specifiers resolve. The HyperFrames lint recognizes both this form and the inline `+esm` import above — pick whichever your composition needs.
+For anything under `three/addons/`, use an importmap so bare specifiers resolve. The KENECT AI lint recognizes both this form and the inline `+esm` import above — pick whichever your composition needs.
 
 ```html
 <script type="importmap">
@@ -125,7 +125,7 @@ npx @kenectai/cli check
 
 ## Credits And References
 
-- HyperFrames adapter source: `packages/core/src/runtime/adapters/three.ts`.
+- KENECT AI adapter source: `packages/core/src/runtime/adapters/three.ts`.
 - Why `data-duration` is required here specifically (no auto-inference for this adapter): `packages/core/src/runtime/init.ts` (`resolveAdapterDurationFloorSeconds`) and the CSS/WAAPI/Lottie adapters' `getInferredDurationSeconds`, which the `three` adapter deliberately does not implement.
 - Three.js `WebGLRenderer` docs: https://threejs.org/docs/pages/WebGLRenderer.html
 - Three.js `AnimationMixer.setTime()` docs: https://threejs.org/docs/pages/AnimationMixer.html

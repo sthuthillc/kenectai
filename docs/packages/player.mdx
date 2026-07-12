@@ -1,9 +1,9 @@
 ---
 title: "@kenectai/player"
-description: "Embeddable web component for playing HyperFrames compositions in any web page."
+description: "Embeddable web component for playing KENECT AI compositions in any web page."
 ---
 
-The player package provides a `<hyperframes-player>` custom element that embeds a HyperFrames composition anywhere — in any framework or plain HTML. Zero dependencies, 3KB gzipped.
+The player package provides a `<hyperframes-player>` custom element that embeds a KENECT AI composition anywhere — in any framework or plain HTML. Zero dependencies, 3KB gzipped.
 
 ```bash
 npm install @kenectai/player
@@ -18,7 +18,7 @@ npm install @kenectai/player
 
 **Use a different package if you want to:**
 - Edit compositions interactively — use the [studio](/packages/studio)
-- Preview during development — use the [CLI](/packages/cli) (`npx hyperframes preview`)
+- Preview during development — use the [CLI](/packages/cli) (`npx @kenectai/cli preview`)
 - Render to MP4 — use the [CLI](/packages/cli) or [producer](/packages/producer)
 
 ## Quick Start
@@ -229,7 +229,7 @@ The player uses an iframe inside a Shadow DOM container. This provides:
 - **Security** — iframe sandbox restricts composition capabilities
 - **Scaling** — auto-scales the composition to fit the player's container via CSS transforms
 
-The player communicates with the composition via the HyperFrames runtime bridge protocol (`postMessage`). Existing compositions work without modification.
+The player communicates with the composition via the KENECT AI runtime bridge protocol (`postMessage`). Existing compositions work without modification.
 
 ## Controls
 

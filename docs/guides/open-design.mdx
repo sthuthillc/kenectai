@@ -1,11 +1,11 @@
 ---
 title: Open Design
-description: "Create HyperFrames video drafts in Open Design — the open-source, BYOK Claude-Design alternative — then refine in any AI coding agent."
+description: "Create KENECT AI video drafts in Open Design — the open-source, BYOK Claude-Design alternative — then refine in any AI coding agent."
 ---
 
 [Open Design](https://github.com/nexu-io/open-design) is an open-source, local-first alternative to Claude Design. It runs on your laptop with `pnpm tools-dev`, deploys the web layer to Vercel, and delegates to whichever coding-agent CLI you already have on your `PATH` (Claude Code, Codex, Cursor Agent, Gemini CLI, OpenCode, Qwen, Copilot, Hermes, Kimi, Pi) — or to any OpenAI-compatible BYOK endpoint.
 
-Open Design produces a **valid first draft** of a HyperFrames composition — palette, scene content, GSAP entrance tweens, mid-scene activity, and shader transitions. You then download the project and refine in any AI coding agent with linting and live preview.
+Open Design produces a **valid first draft** of a KENECT AI composition — palette, scene content, GSAP entrance tweens, mid-scene activity, and shader transitions. You then download the project and refine in any AI coding agent with linting and live preview.
 
 ## Get started
 
@@ -36,8 +36,8 @@ Open Design produces a **valid first draft** of a HyperFrames composition — pa
     ```bash
     cd .od/projects/<id>
     npx skills add sthuthillc/kenectai   # install skills (one-time)
-    npx hyperframes lint                     # should pass with zero errors
-    npx hyperframes preview                  # open the studio
+    npx @kenectai/cli lint                     # should pass with zero errors
+    npx @kenectai/cli preview                  # open the studio
     ```
   </Step>
 </Steps>
@@ -140,8 +140,8 @@ If you want the Claude Design loop without lock-in, Open Design is the same arti
 
 ## Known limitations
 
-- **Render still happens locally** — Open Design produces the HTML; `npx hyperframes render` and HDR encoding still need FFmpeg + Node 22+ on your machine.
-- **In-pane preview is sandboxed iframe** — full browser playback is reliable; for frame-accurate scrubbing use `npx hyperframes preview` after handoff.
+- **Render still happens locally** — Open Design produces the HTML; `npx @kenectai/cli render` and HDR encoding still need FFmpeg + Node 22+ on your machine.
+- **In-pane preview is sandboxed iframe** — full browser playback is reliable; for frame-accurate scrubbing use `npx @kenectai/cli preview` after handoff.
 - **Shader passthrough requires WebGL** — same as the Claude Design path; Open Design's iframe sandbox supports it.
 - **Skill pre-flight is daemon-side** — if you bypass the skill picker and paste raw HTML into chat, you lose the side-file injection and 5-dim critique gate. Use the skill.
 
@@ -152,8 +152,8 @@ Open Design's project folder is the agent's `cwd`. There's no "export then re-im
 ```bash
 cd .od/projects/<your-project-id>
 npx skills add sthuthillc/kenectai   # one-time setup
-npx hyperframes lint                     # verify structure
-npx hyperframes preview                  # open the studio
+npx @kenectai/cli lint                     # verify structure
+npx @kenectai/cli preview                  # open the studio
 ```
 
 Then iterate the same way as the Claude Design path:
@@ -170,6 +170,6 @@ Then iterate the same way as the Claude Design path:
     The closed-source flavor of the same workflow — useful when you don't have a CLI on your laptop.
   </Card>
   <Card title="Prompt Guide" icon="message" href="/guides/prompting">
-    More prompt patterns for HyperFrames across Claude Code, Claude Design, Open Design, and other agents.
+    More prompt patterns for KENECT AI across Claude Code, Claude Design, Open Design, and other agents.
   </Card>
 </CardGroup>

@@ -3,7 +3,7 @@ title: "@kenectai/core"
 description: "Types, HTML generation, runtime, and linter — the foundation every other package depends on."
 ---
 
-The core package provides the foundational types, HTML parsing/generation, runtime, and composition linter that all other Hyperframes packages build on. If you are building tooling, writing a custom integration, or extending Hyperframes itself, this is the package you need.
+The core package provides the foundational types, HTML parsing/generation, runtime, and composition linter that all other KENECT AI packages build on. If you are building tooling, writing a custom integration, or extending KENECT AI itself, this is the package you need.
 
 ```bash
 npm install @kenectai/core
@@ -19,12 +19,12 @@ npm install @kenectai/core
 - Lint compositions programmatically (CI pipelines, editor plugins)
 - Parse HTML compositions into structured TypeScript objects
 - Generate composition HTML from data (e.g., from an API or AI agent)
-- Access the Hyperframes type system for your own tooling
-- Embed the Hyperframes runtime in a custom player
+- Access the KENECT AI type system for your own tooling
+- Embed the KENECT AI runtime in a custom player
 
 **Use a different package if you want to:**
-- Preview compositions in the browser — use the [CLI](/packages/cli) (`npx hyperframes preview`) or [studio](/packages/studio)
-- Render compositions to MP4 — use the [CLI](/packages/cli) (`npx hyperframes render`) or [producer](/packages/producer)
+- Preview compositions in the browser — use the [CLI](/packages/cli) (`npx @kenectai/cli preview`) or [studio](/packages/studio)
+- Render compositions to MP4 — use the [CLI](/packages/cli) (`npx @kenectai/cli render`) or [producer](/packages/producer)
 - Capture frames from a headless browser — use the [engine](/packages/engine)
 
 ## Package Exports
@@ -244,7 +244,7 @@ const styles = getStageStyles('portrait');
   The composition linter now lives in its own package, [`@kenectai/lint`](/packages/lint) — install it directly to lint a project or HTML string from Node without the CLI. `@kenectai/core/lint` remains a back-compat re-export.
 </Info>
 
-The composition linter checks for structural issues that would cause rendering failures or unexpected behavior. You can run it from the CLI with `npx hyperframes lint`, or call it programmatically:
+The composition linter checks for structural issues that would cause rendering failures or unexpected behavior. You can run it from the CLI with `npx @kenectai/cli lint`, or call it programmatically:
 
 ```typescript
 import { lintHyperframeHtml, lintMediaUrls } from '@kenectai/core/lint';
@@ -343,7 +343,7 @@ const guard: HyperframeStaticGuardResult = validateHyperframeHtmlContract(html);
 
 ## Runtime
 
-The Hyperframes runtime manages playback, seeking, and clip lifecycle in the browser. The core package provides utilities for building and loading the runtime:
+The KENECT AI runtime manages playback, seeking, and clip lifecycle in the browser. The core package provides utilities for building and loading the runtime:
 
 ```typescript
 import {

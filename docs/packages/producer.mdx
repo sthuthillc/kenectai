@@ -18,7 +18,7 @@ npm install @kenectai/producer
 - Benchmark render performance across different configurations
 
 **Use a different package if you want to:**
-- Render from the command line without writing code — use the [CLI](/packages/cli) (`npx hyperframes render`)
+- Render from the command line without writing code — use the [CLI](/packages/cli) (`npx @kenectai/cli render`)
 - Preview compositions in the browser — use the [CLI](/packages/cli) or [studio](/packages/studio)
 - Capture frames without encoding — use the [engine](/packages/engine)
 - Lint or parse composition HTML — use [core](/packages/core)
@@ -35,7 +35,7 @@ The producer orchestrates the full render pipeline:
   <Step title="Load the composition HTML">
     Reads your `index.html` and any referenced sub-compositions.
   </Step>
-  <Step title="Inject the Hyperframes runtime">
+  <Step title="Inject the KENECT AI runtime">
     Adds the runtime script that manages timeline seeking, clip lifecycle, and media playback.
   </Step>
   <Step title="Wait for readiness gates">
@@ -192,11 +192,11 @@ For deterministic output, the producer can render inside a Docker container with
 
 ```bash
 # Via the CLI (recommended)
-npx hyperframes render --docker --output output.mp4
+npx @kenectai/cli render --docker --output output.mp4
 ```
 
 <Info>
-  Docker mode requires Docker to be installed and running. Run `npx hyperframes doctor` to verify your environment. See [Deterministic Rendering](/concepts/determinism) for details on what makes Docker mode deterministic.
+  Docker mode requires Docker to be installed and running. Run `npx @kenectai/cli doctor` to verify your environment. See [Deterministic Rendering](/concepts/determinism) for details on what makes Docker mode deterministic.
 </Info>
 
 ## Quality Presets
@@ -219,10 +219,10 @@ The producer supports hardware-accelerated encoding for faster renders:
 | Intel | QSV | Auto-detected |
 | AMD on Windows | AMF | Auto-detected |
 
-When GPU encoding is enabled, Hyperframes detects the available FFmpeg hardware encoder automatically. To check your system's capabilities:
+When GPU encoding is enabled, KENECT AI detects the available FFmpeg hardware encoder automatically. To check your system's capabilities:
 
 ```bash
-npx hyperframes doctor
+npx @kenectai/cli doctor
 ```
 
 The CLI enables local Chrome/WebGL GPU capture automatically and supports `--no-browser-gpu` as an opt-out. When using the producer API directly, pass an engine config override:
@@ -320,7 +320,7 @@ Find optimal render settings for your hardware:
 
 ```bash
 # Via the CLI
-npx hyperframes benchmark
+npx @kenectai/cli benchmark
 
 # Directly from the producer package
 cd packages/producer

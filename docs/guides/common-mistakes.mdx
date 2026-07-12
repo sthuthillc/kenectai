@@ -1,9 +1,9 @@
 ---
 title: Common Mistakes
-description: "Pitfalls that break Hyperframes compositions."
+description: "Pitfalls that break KENECT AI compositions."
 ---
 
-These are mistakes that cannot be caught by the linter. For automated checks, run `npx hyperframes lint` (see [CLI](/packages/cli#lint)).
+These are mistakes that cannot be caught by the linter. For automated checks, run `npx @kenectai/cli lint` (see [CLI](/packages/cli#lint)).
 
 <Warning>
   The first two mistakes — animating video element dimensions and controlling media playback in scripts — are the most common causes of broken compositions. If your video looks wrong, check these first.
@@ -88,7 +88,7 @@ These are mistakes that cannot be caught by the linter. For automated checks, ru
     `tl.set({}, {}, TIME)` adds a zero-duration tween at the specified time, extending the timeline without affecting any elements.
 
     <Tip>
-      A quick check: run `npx hyperframes compositions` to see the resolved duration of each composition. If it is shorter than expected, your timeline needs extending.
+      A quick check: run `npx @kenectai/cli compositions` to see the resolved duration of each composition. If it is shorter than expected, your timeline needs extending.
     </Tip>
   </Accordion>
 
@@ -140,7 +140,7 @@ These are mistakes that cannot be caught by the linter. For automated checks, ru
     ```
 
     <Note>
-      The linter catches this one: `npx hyperframes lint` will flag timed elements missing `class="clip"`.
+      The linter catches this one: `npx @kenectai/cli lint` will flag timed elements missing `class="clip"`.
     </Note>
   </Accordion>
 
@@ -216,7 +216,7 @@ These are mistakes that cannot be caught by the linter. For automated checks, ru
   <Accordion title="Expected HDR output but got SDR">
     **Symptom:** Expected an HDR render, but the output looks the same as SDR or `ffprobe` reports `color_transfer=bt709`.
 
-    **Cause:** By default, Hyperframes only switches to HDR encoding when a source `<video>` or `<img>` is tagged with BT.2020 / PQ / HLG color metadata. Common reasons HDR is not engaged:
+    **Cause:** By default, KENECT AI only switches to HDR encoding when a source `<video>` or `<img>` is tagged with BT.2020 / PQ / HLG color metadata. Common reasons HDR is not engaged:
 
     1. **All sources are SDR.** Auto-detect leaves SDR-only compositions in SDR. Verify with `ffprobe`:
 
@@ -226,7 +226,7 @@ These are mistakes that cannot be caught by the linter. For automated checks, ru
        # SDR:  bt709, smpte170m, bt470bg, etc.
        ```
 
-    2. **Wrong output format.** HDR output requires MP4. `--format mov` and `--format webm` fall back to SDR — Hyperframes logs a warning when this happens.
+    2. **Wrong output format.** HDR output requires MP4. `--format mov` and `--format webm` fall back to SDR — KENECT AI logs a warning when this happens.
 
     3. **SDR was forced.** `--sdr` disables HDR even when HDR sources are present.
 
@@ -264,7 +264,7 @@ These are mistakes that cannot be caught by the linter. For automated checks, ru
 
 When something does not work, check in this order:
 
-1. **Run the linter:** `npx hyperframes lint` — catches most structural issues
+1. **Run the linter:** `npx @kenectai/cli lint` — catches most structural issues
 2. **Timeline registered?** Is `window.__timelines["<id>"]` set? Does the key match [`data-composition-id`](/concepts/data-attributes#composition-attributes)?
 3. **GSAP-only animations?** Only animate visual properties (opacity, transform, color) — see [GSAP Animation](/guides/gsap-animation#key-rules)
 4. **Timeline long enough?** Add `tl.set({}, {}, DURATION)` at the end — see [Timeline Duration](/guides/gsap-animation#timeline-duration-and-composition-duration)

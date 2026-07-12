@@ -411,7 +411,7 @@ function frameTokensCss(framePath, H) {
 
 // ── default path (no preset skin) ─────────────────────────────────────────────
 // Self-contained captions sub-composition. The <template> holds the band container
-// + style AND the <script> (the HyperFrames loader only executes scripts INSIDE the
+// + style AND the <script> (the KENECT AI loader only executes scripts INSIDE the
 // cloned template — a sibling <script> after </template> never runs, so the timeline
 // never registers and captions render blank). The script builds per-word spans and a
 // paused, seek-safe GSAP timeline (opacity for group show/hide, a quick color tween

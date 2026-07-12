@@ -1,9 +1,9 @@
 ---
 title: Prompt Guide
-description: "How to prompt Claude Code, Cursor, Codex, Google Antigravity, GitHub Copilot CLI, and other AI agents to author Hyperframes compositions — with copy-pasteable examples and vocabulary tables."
+description: "How to prompt Claude Code, Cursor, Codex, Google Antigravity, GitHub Copilot CLI, and other AI agents to author KENECT AI compositions — with copy-pasteable examples and vocabulary tables."
 ---
 
-Hyperframes is built for AI agents — compositions are plain HTML, the CLI is non-interactive, and the framework ships [skills](https://github.com/vercel-labs/skills) that teach agents the patterns docs alone don't cover. This guide shows how to prompt agents effectively once skills are installed — the vocabulary that changes output, the iteration patterns that save time, and the rules that prevent breakage.
+KENECT AI is built for AI agents — compositions are plain HTML, the CLI is non-interactive, and the framework ships [skills](https://github.com/vercel-labs/skills) that teach agents the patterns docs alone don't cover. This guide shows how to prompt agents effectively once skills are installed — the vocabulary that changes output, the iteration patterns that save time, and the rules that prevent breakage.
 
 ## One-time setup
 
@@ -25,7 +25,7 @@ The installer shows a picker. Select the **core skills** below — every project
 | `/hyperframes-creative` | Creative direction — design spec, palettes, typography, narration, beats   |
 | `/hyperframes-cli`      | Dev-loop CLI — `init`, `lint`, `validate`, `inspect`, `preview`, `render`, `doctor` |
 | `/media-use`    | Asset preprocessing — `tts`, `transcribe`, `remove-background`             |
-| `/hyperframes-registry` | Block and component installation via `hyperframes add`                     |
+| `/hyperframes-registry` | Block and component installation via `kenectai add`                     |
 | `/general-video`        | The general authoring workflow — fallback for any video that doesn't match a specific workflow below |
 
 **Optional workflows — add the ones that match your inputs** (`/hyperframes` routes to whichever you've installed)
@@ -41,10 +41,10 @@ The installer shows a picker. Select the **core skills** below — every project
 | `/motion-graphics`       | A short, unnarrated, design-led motion graphic (logo sting, kinetic type, stat / chart) |
 | `/music-to-video`        | A music track (audio file or video) → a beat-synced video (lyric, slideshow, or kinetic promo) |
 | `/slideshow`             | A presentation / pitch deck / interactive deck — discrete slides, fragment reveals, branching |
-| `/remotion-to-hyperframes` | Port an existing Remotion (React) composition to HyperFrames HTML         |
+| `/remotion-to-hyperframes` | Port an existing Remotion (React) composition to KENECT AI HTML         |
 
 <Tip>
-  To skip the picker and install everything (core + every workflow) in one shot, run `npx skills add sthuthillc/kenectai --all`. And start Hyperframes prompts with `/hyperframes` (or invoke the skill another way for non-Claude agents) — it loads the routing + composition context explicitly so the agent picks the right workflow and gets the rules right the first time.
+  To skip the picker and install everything (core + every workflow) in one shot, run `npx skills add sthuthillc/kenectai --all`. And start KENECT AI prompts with `/hyperframes` (or invoke the skill another way for non-Claude agents) — it loads the routing + composition context explicitly so the agent picks the right workflow and gets the rules right the first time.
 </Tip>
 
 ## Claude Design
@@ -60,11 +60,11 @@ Traction: 200+ teams, $1.2M ARR, 18% MoM growth.
 CTA: autocrmhq.com
 ```
 
-Claude Design produces a valid first draft (brand identity, scene content, animations, transitions). Download the ZIP and refine in any AI coding agent with `npx hyperframes preview` running. See the [Claude Design guide](/guides/claude-design) for the full workflow.
+Claude Design produces a valid first draft (brand identity, scene content, animations, transitions). Download the ZIP and refine in any AI coding agent with `npx @kenectai/cli preview` running. See the [Claude Design guide](/guides/claude-design) for the full workflow.
 
 ## The two prompt shapes
 
-Most successful Hyperframes prompts fall into one of two shapes.
+Most successful KENECT AI prompts fall into one of two shapes.
 
 ### Cold start — describe the video
 
@@ -83,7 +83,7 @@ Cold-start prompts work best when you specify:
 
 ### Warm start — turn context into a video
 
-You give the agent something to work with — a URL, a doc, a CSV, a transcript — and ask it to synthesize that into a video. This is where Hyperframes shines because the agent does the research/summarization step *and* the production step in one flow.
+You give the agent something to work with — a URL, a doc, a CSV, a transcript — and ask it to synthesize that into a video. This is where KENECT AI shines because the agent does the research/summarization step *and* the production step in one flow.
 
 > Take a look at this GitHub repo https://github.com/sthuthillc/kenectai and explain its uses and architecture to me using `/hyperframes`.
 
@@ -97,7 +97,7 @@ Warm-start prompts produce richer, more grounded videos because the agent is wri
 
 ## Iterating
 
-Hyperframes is a conversation. After the first render, talk to the agent the way you'd talk to a video editor — don't re-prompt from scratch:
+KENECT AI is a conversation. After the first render, talk to the agent the way you'd talk to a video editor — don't re-prompt from scratch:
 
 > Make the title 2x bigger.
 
@@ -216,7 +216,7 @@ Hand-drawn emphasis effects for text:
 
 ### Text-to-speech voices
 
-HyperFrames supports three TTS providers: **HeyGen** (Starfish voices, requires sign-in via `npx hyperframes auth`), **ElevenLabs** (requires API key), and **Kokoro** (free, runs locally, no API key needed). The agent asks which provider to use — or picks automatically in autonomous mode. Describe the content and the agent picks a voice, or request one directly:
+KENECT AI supports three TTS providers: **HeyGen** (Starfish voices, requires sign-in via `npx @kenectai/cli auth`), **ElevenLabs** (requires API key), and **Kokoro** (free, runs locally, no API key needed). The agent asks which provider to use — or picks automatically in autonomous mode. Describe the content and the agent picks a voice, or request one directly:
 
 | Content type  | Kokoro voices              |
 | ------------- | -------------------------- |
@@ -265,20 +265,20 @@ The skills enforce these automatically, but if you hand-edit compositions or deb
 
 Things that cause friction (or wrong output):
 
-- **Don't ask for React / Vue components.** Hyperframes compositions are plain HTML with `data-*` attributes and a GSAP timeline. Asking for "a React component for the intro" forces the agent to translate later.
+- **Don't ask for React / Vue components.** KENECT AI compositions are plain HTML with `data-*` attributes and a GSAP timeline. Asking for "a React component for the intro" forces the agent to translate later.
 - **Don't ask for 4K or 60fps unless you need it.** Defaults (1920×1080, 30fps) render fast and look great. Higher specs slow rendering meaningfully.
 - **Don't skip the slash command.** Without `/hyperframes`, the agent may guess at HTML video conventions instead of using the framework's actual rules (`class="clip"` on timed elements, `window.__timelines` registration, etc.).
-- **Don't paste long error logs into the prompt without context.** Run `npx hyperframes check` first — lint catches structural issues, validate catches runtime errors (JS exceptions, missing assets, contrast problems).
+- **Don't paste long error logs into the prompt without context.** Run `npx @kenectai/cli check` first — lint catches structural issues, validate catches runtime errors (JS exceptions, missing assets, contrast problems).
 - **Don't assume the agent knows your assets.** Mention file paths explicitly (`assets/intro.mp4`, `assets/logo.png`) — the agent will check what's there but a hint speeds it up.
 
 ## Recommended workflow
 
-1. `npx hyperframes init my-video` — scaffold a project (skills install automatically)
+1. `npx @kenectai/cli init my-video` — scaffold a project (skills install automatically)
 2. Open the project in Claude Code (or Cursor / Codex)
 3. Prompt with `/hyperframes` and one of the shapes above
-4. `npx hyperframes preview` — watch in the browser as the agent edits
+4. `npx @kenectai/cli preview` — watch in the browser as the agent edits
 5. Iterate with small targeted prompts
-6. `npx hyperframes render --output final.mp4` when you're happy
+6. `npx @kenectai/cli render --output final.mp4` when you're happy
 
 ## Next steps
 

@@ -1,7 +1,7 @@
 ---
 name: general-video
 description: >
-  The fallback workflow for authoring or editing any custom HyperFrames composition at any
+  The fallback workflow for authoring or editing any custom KENECT AI composition at any
   length or format — longer / multi-scene pieces, brand and sizzle reels,
   montages, title cards, static loops, freeform builds. Use only when no
   specialized workflow fits the input; routing table at /hyperframes.
@@ -16,7 +16,7 @@ metadata: { "tags": "orchestrator, general-video, fallback, freeform, compositio
 
 # general-video — general video workflow
 
-> **Confirm the route before you build.** This is the **fallback** for custom composition authoring. If the input clearly fits a specialized workflow, prefer it: marketed product → `/product-launch-video`; general site → `/website-to-video`; topic explainer → `/faceless-explainer`; GitHub PR → `/pr-to-video`; existing footage → `/embedded-captions` · `/talking-head-recut`; short unnarrated motion graphic → `/motion-graphics`; Remotion port → `/remotion-to-hyperframes`. **Out of scope**: live / at-render-time data, NLE-style editing of a finished video, or producing footage HyperFrames can't capture. Unsure? **Read `/hyperframes` first.**
+> **Confirm the route before you build.** This is the **fallback** for custom composition authoring. If the input clearly fits a specialized workflow, prefer it: marketed product → `/product-launch-video`; general site → `/website-to-video`; topic explainer → `/faceless-explainer`; GitHub PR → `/pr-to-video`; existing footage → `/embedded-captions` · `/talking-head-recut`; short unnarrated motion graphic → `/motion-graphics`; Remotion port → `/remotion-to-hyperframes`. **Out of scope**: live / at-render-time data, NLE-style editing of a finished video, or producing footage KENECT AI can't capture. Unsure? **Read `/hyperframes` first.**
 
 **Build exactly what was asked.** A title card is a title card — not a title card + three supporting scenes + ambient music + captions. If extra scenes or elements would genuinely improve the piece, _propose_ them; don't add them silently. For small edits (fix a color, adjust one duration, add one element), skip the planning steps and go straight to the build.
 

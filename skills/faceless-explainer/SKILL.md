@@ -7,9 +7,9 @@ description: "Turn arbitrary text — an article, notes, a topic, a brief — in
 
 > **media-use**: Before sourcing audio/images/logos, call `/media-use` to resolve BGM/SFX/images from the HeyGen catalog and brand logos from their official sources. Run `--adopt` first to register existing assets. See `/media-use` skill.
 
-# Faceless Explainer to HyperFrames
+# Faceless Explainer to KENECT AI
 
-Use this skill to turn a body of text into an explainer video: pick a design system, plan a teaching story, and build it frame by frame in HyperFrames. **Faceless** means every visual is invented downstream — there is no capture step and no real asset inventory.
+Use this skill to turn a body of text into an explainer video: pick a design system, plan a teaching story, and build it frame by frame in KENECT AI. **Faceless** means every visual is invented downstream — there is no capture step and no real asset inventory.
 
 > **Confirm the route before Step 0.** You are the orchestrator. Run each step, verify its gate, and only then continue. This skill is for **explaining a topic from text, with no product and no website to capture**. Route other intents elsewhere: a product launch/promo → `/product-launch-video`; a tour of a real site → `/website-to-video`; a GitHub PR → `/pr-to-video`; captions on existing footage → `/embedded-captions`; a short unnarrated motion graphic → `/motion-graphics`. If the user says only "make a video" or the route is uncertain, read `/hyperframes` first.
 
@@ -21,7 +21,7 @@ Workflow: Step 0 setup → `kenectai.json`; Step 1 brief → `capture/extracted/
 
 ## Step 0: Setup and Brief
 
-Goal: Lock the core video brief and create the HyperFrames project if needed.
+Goal: Lock the core video brief and create the KENECT AI project if needed.
 
 Initialize only if `kenectai.json` is missing. Name `<project>` from the topic in kebab-case, such as `compound-interest-explained`; never use workspace name or timestamp.
 

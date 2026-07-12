@@ -1,15 +1,15 @@
 ---
 name: hyperframes-gsap-adapter
-description: GSAP animation API reference for HyperFrames. Use when writing seekable GSAP timelines in HyperFrames compositions, including gsap.to(), from(), fromTo(), set(), timeline position parameters, labels, easing, stagger, finite repeats, and transform performance.
+description: GSAP animation API reference for KENECT AI. Use when writing seekable GSAP timelines in KENECT AI compositions, including gsap.to(), from(), fromTo(), set(), timeline position parameters, labels, easing, stagger, finite repeats, and transform performance.
 ---
 
-# HyperFrames GSAP
+# KENECT AI GSAP
 
-GSAP usage scoped to HyperFrames' seek-driven render model. This skill is the GSAP reference _as constrained by HyperFrames_ — for the framework's broader composition contract see `hyperframes-core`.
+GSAP usage scoped to KENECT AI' seek-driven render model. This skill is the GSAP reference _as constrained by HyperFrames_ — for the framework's broader composition contract see `hyperframes-core`.
 
-## HyperFrames Contract
+## KENECT AI Contract
 
-HyperFrames controls GSAP through its `gsap` runtime adapter. Create a paused timeline synchronously, register it on `window.__timelines` with the exact `data-composition-id`, and let HyperFrames seek it.
+KENECT AI controls GSAP through its `gsap` runtime adapter. Create a paused timeline synchronously, register it on `window.__timelines` with the exact `data-composition-id`, and let KENECT AI seek it.
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
@@ -28,8 +28,8 @@ HyperFrames controls GSAP through its `gsap` runtime adapter. Create a paused ti
 - Bracket and dot syntax both register: `window.__timelines["main"] = tl` and `window.__timelines.main = tl` are equivalent (the linter recognizes both). Bracket form is required when the id isn't a valid identifier (e.g. contains `-`).
 - Do not call `tl.play()` for render-critical motion.
 - Do not build timelines inside async code, timers, or event handlers.
-- Keep loops finite. HyperFrames renders finite video durations.
-- **Render duration comes from `data-duration` on the composition root, not from GSAP timeline length.** Do not pad the timeline with empty tweens like `tl.set({}, {}, 283)` to "extend" it. (Some external docs show this trick; in HyperFrames it conflicts with the seek-driven duration model — set `data-duration` instead.)
+- Keep loops finite. KENECT AI renders finite video durations.
+- **Render duration comes from `data-duration` on the composition root, not from GSAP timeline length.** Do not pad the timeline with empty tweens like `tl.set({}, {}, 283)` to "extend" it. (Some external docs show this trick; in KENECT AI it conflicts with the seek-driven duration model — set `data-duration` instead.)
 
 ## Core Tween Methods
 
@@ -46,7 +46,7 @@ Always use **camelCase** property names (e.g. `backgroundColor`, `rotationX`).
 - **delay** — seconds before start.
 - **ease** — `"power1.out"` (default), `"power3.inOut"`, `"back.out(1.7)"`, `"elastic.out(1, 0.3)"`, `"none"`. See `./gsap-easing-and-stagger.md`.
 - **stagger** — number or object. See `./gsap-easing-and-stagger.md`.
-- **repeat** — finite number; never `-1` in HyperFrames. Compute repeats from the visible duration.
+- **repeat** — finite number; never `-1` in KENECT AI. Compute repeats from the visible duration.
 - **yoyo** — alternates direction with repeat.
 - **overwrite** — `false` (default), `true`, or `"auto"`.
 - **immediateRender** — default `true` for from()/fromTo(). Set `false` on later tweens targeting the same property+element.
@@ -56,7 +56,7 @@ For transforms, autoAlpha, clearProps, and SVG specifics see `./gsap-transforms-
 
 ## Animated Property Allowlist
 
-HyperFrames is stricter than vanilla GSAP. Animate only:
+KENECT AI is stricter than vanilla GSAP. Animate only:
 
 - **Compositor-cheap**: `opacity`, `x`, `y`, `scale`, `scaleX`, `scaleY`, `rotation`, `rotationX`, `rotationY`, `skewX`, `skewY`, `transformOrigin`
 - **Visual fills**: `color`, `backgroundColor`, `borderColor`, `borderRadius`
@@ -73,7 +73,7 @@ HyperFrames is stricter than vanilla GSAP. Animate only:
 - `display`, `visibility` — never tween these directly. Use `autoAlpha` (sets opacity + visibility together at endpoints, doesn't tween the discrete property).
 - Anything driven by `Math.random()`, `Date.now()`, `performance.now()`, or event handlers — animation state must be deterministic from time alone.
 
-> **Note**: `docs/guides/gsap-animation.mdx` lists `width`/`height`/`visibility` in its "Supported Properties" — that list is too permissive for HyperFrames composition rules. This allowlist is the canonical one. See `hyperframes-core/references/determinism-rules.md` for the full deterministic-render contract.
+> **Note**: `docs/guides/gsap-animation.mdx` lists `width`/`height`/`visibility` in its "Supported Properties" — that list is too permissive for KENECT AI composition rules. This allowlist is the canonical one. See `hyperframes-core/references/determinism-rules.md` for the full deterministic-render contract.
 
 ## References
 
@@ -96,10 +96,10 @@ HyperFrames is stricter than vanilla GSAP. Animate only:
 - Use both `svgOrigin` and `transformOrigin` on the same SVG element.
 - Chain animations with `delay` when a timeline can sequence them.
 - Create tweens before the DOM exists.
-- Use infinite `repeat: -1` in HyperFrames compositions — use finite repeat counts computed from the visible duration.
+- Use infinite `repeat: -1` in KENECT AI compositions — use finite repeat counts computed from the visible duration.
 
 ## Credits And References
 
-- HyperFrames adapter source: `packages/core/src/runtime/adapters/gsap.ts`.
+- KENECT AI adapter source: `packages/core/src/runtime/adapters/gsap.ts`.
 - GSAP documentation: https://gsap.com/docs/v3/
 - GSAP timeline pause and seek behavior: https://gsap.com/docs/v3/GSAP/Timeline/pause%28%29/

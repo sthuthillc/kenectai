@@ -3,7 +3,7 @@ title: Deterministic Rendering
 description: "Same input, identical output. Every time."
 ---
 
-Hyperframes is built around a core guarantee: **the same [composition](/concepts/compositions) always produces the same video**. This is what makes automated pipelines, CI testing, and AI-driven workflows reliable.
+KENECT AI is built around a core guarantee: **the same [composition](/concepts/compositions) always produces the same video**. This is what makes automated pipelines, CI testing, and AI-driven workflows reliable.
 
 ## How It Works
 
@@ -52,7 +52,7 @@ These same rules apply to every [frame adapter](/concepts/frame-adapters). If yo
 For maximum reproducibility, render in Docker:
 
 ```bash
-npx hyperframes render --docker --output output.mp4
+npx @kenectai/cli render --docker --output output.mp4
 ```
 
 Docker mode uses an exact Chrome version and font set, ensuring:
@@ -64,7 +64,7 @@ See the [Rendering guide](/guides/rendering) for all rendering options.
 
 ## Preview vs. Render Parity
 
-The browser preview and the rendered MP4 should match. Hyperframes achieves this through:
+The browser preview and the rendered MP4 should match. KENECT AI achieves this through:
 
 - **One runtime** -- the same `hyperframe.runtime` drives both preview and render
 - **Producer-canonical behavior** -- the [producer's](/packages/producer) seek semantics are the source of truth

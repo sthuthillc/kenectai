@@ -1,6 +1,6 @@
 # Documentation Guidelines
 
-Standards for writing and maintaining Hyperframes documentation. Based on patterns from Remotion, Stripe, Tailwind CSS, and Astro.
+Standards for writing and maintaining KENECT AI documentation. Based on patterns from Remotion, Stripe, Tailwind CSS, and Astro.
 
 ## Core Principles
 

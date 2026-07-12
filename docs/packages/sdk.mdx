@@ -3,7 +3,7 @@ title: "@kenectai/sdk"
 description: "Headless, framework-neutral composition editing engine for agents and custom editors."
 ---
 
-The SDK package provides a programmatic editing layer for HyperFrames compositions. It opens composition HTML, exposes query and mutation APIs, emits JSON patches, supports undo/redo, and can persist changes through pluggable adapters without requiring React, Studio, or a browser UI.
+The SDK package provides a programmatic editing layer for KENECT AI compositions. It opens composition HTML, exposes query and mutation APIs, emits JSON patches, supports undo/redo, and can persist changes through pluggable adapters without requiring React, Studio, or a browser UI.
 
 ```bash
 npm install @kenectai/sdk
@@ -21,7 +21,7 @@ npm install @kenectai/sdk
 
 **Use a different package if you want to:**
 - Render compositions to MP4 or WebM - use the [CLI](/packages/cli) or [producer](/packages/producer)
-- Preview and edit visually out of the box - use the [CLI](/packages/cli) (`npx hyperframes preview`) or [studio](/packages/studio)
+- Preview and edit visually out of the box - use the [CLI](/packages/cli) (`npx @kenectai/cli preview`) or [studio](/packages/studio)
 - Parse, lint, or generate low-level composition HTML - use [core](/packages/core)
 - Capture frames from a headless browser - use [engine](/packages/engine)
 
@@ -68,7 +68,7 @@ comp.dispose();
 
 ### Explicit Element IDs
 
-All edits target stable HyperFrames element IDs. This makes the SDK safe for headless agents and backend jobs because mutations do not depend on mouse state or a current UI selection.
+All edits target stable KENECT AI element IDs. This makes the SDK safe for headless agents and backend jobs because mutations do not depend on mouse state or a current UI selection.
 
 ```typescript
 const allElements = comp.getElements();

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// contrast-report.mjs — HyperFrames contrast audit
+// contrast-report.mjs — KENECT AI contrast audit
 //
 // Reads a composition, seeks to N sample timestamps, walks the DOM for text
 // elements, measures the WCAG 2.1 contrast ratio between each element's
@@ -47,7 +47,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { hyperframesPackageSpec, importPackagesOrBootstrap } from "./package-loader.mjs";
 
-// Use the producer's file server — it auto-injects the HyperFrames runtime
+// Use the producer's file server — it auto-injects the KENECT AI runtime
 // and render-seek bridge, so raw authoring HTML works without a build step.
 const packages = await importPackagesOrBootstrap(["@kenectai/producer", "sharp"], {
   npmPackages: [hyperframesPackageSpec("@kenectai/producer"), "sharp@0.34.5"],

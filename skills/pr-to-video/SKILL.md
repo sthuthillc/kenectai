@@ -7,9 +7,9 @@ description: "Turn a GitHub pull request (a PR URL, owner/repo#N, or 'this PR' i
 
 > **media-use**: Before sourcing audio/images/logos, call `/media-use` to resolve BGM/SFX/images from the HeyGen catalog and brand logos from their official sources. Run `--adopt` first to register existing assets. See `/media-use` skill.
 
-# PR to HyperFrames
+# PR to KENECT AI
 
-Use this skill to ingest a GitHub pull request, understand the change, plan a code-change explainer, and build it frame by frame in HyperFrames. The input is a **code change** (read via `gh`), not a website — there is **no capture step and no real assets** beyond the contributors' avatars.
+Use this skill to ingest a GitHub pull request, understand the change, plan a code-change explainer, and build it frame by frame in KENECT AI. The input is a **code change** (read via `gh`), not a website — there is **no capture step and no real assets** beyond the contributors' avatars.
 
 > **Confirm the route before Step 0.** You are the orchestrator. Run each step, verify its gate, and only then continue. This skill is for a **GitHub pull request** (a code change). Route other intents elsewhere: a product launch/promo → `/product-launch-video`; a general website tour → `/website-to-video`; a topic explainer with no PR → `/faceless-explainer`; captions on existing footage → `/embedded-captions`; a short unnarrated motion graphic → `/motion-graphics`; a whole-repo or multi-PR release walkthrough → `/general-video`. **Out of scope:** live / at-render-time data — PR facts are read once at author time and baked in. If the user says only "make a video" or the route is uncertain, read `/hyperframes` first.
 
@@ -21,7 +21,7 @@ Workflow: Step 0 setup → `kenectai.json`; Step 1 ingest → `capture/extracted
 
 ## Step 0: Setup and Brief
 
-Goal: Lock the PR reference and the core video brief, and create the HyperFrames project if needed.
+Goal: Lock the PR reference and the core video brief, and create the KENECT AI project if needed.
 
 Get the **PR reference** (a full URL, an `<owner>/<repo>#<N>` ref, or "this PR" in a checked-out repo), then confirm the brief in two rounds — through the question UI when the environment has one, conversationally otherwise. The intro text states **message** (the ONE thing the video must say about this change, in one sentence), **language**, and the style (always **claude**). Skip a question only when the user's request already answered it.
 

@@ -1,11 +1,11 @@
 ---
 name: hyperframes-lottie
-description: Lottie and dotLottie adapter patterns for HyperFrames. Use when embedding lottie-web JSON animations, .lottie files, @lottiefiles/dotlottie-web players, registering instances on window.__hfLottie, or making After Effects exports deterministic in HyperFrames.
+description: Lottie and dotLottie adapter patterns for KENECT AI. Use when embedding lottie-web JSON animations, .lottie files, @lottiefiles/dotlottie-web players, registering instances on window.__hfLottie, or making After Effects exports deterministic in KENECT AI.
 ---
 
-# Lottie for HyperFrames
+# Lottie for KENECT AI
 
-HyperFrames can seek both `lottie-web` and dotLottie players through its `lottie` runtime adapter. Lottie is a strong fit because the animation timeline is already encoded in the asset; HyperFrames only needs a player object it can seek.
+KENECT AI can seek both `lottie-web` and dotLottie players through its `lottie` runtime adapter. Lottie is a strong fit because the animation timeline is already encoded in the asset; KENECT AI only needs a player object it can seek.
 
 ## Contract
 
@@ -80,7 +80,7 @@ window.__hfLottie.push(iconAnim);
 window.__hfLottie.push(confettiAnim);
 ```
 
-HyperFrames seeks them all to the same composition time.
+KENECT AI seeks them all to the same composition time.
 
 ## Composition Duration
 
@@ -90,14 +90,14 @@ The render engine needs the composition's total length. GSAP timelines report du
 
 - After Effects exports that are already known to render correctly in lottie-web.
 - Logo reveals, icon loops, decorative accents, and product UI motion.
-- Translating Remotion Lottie usage into plain HyperFrames HTML.
+- Translating Remotion Lottie usage into plain KENECT AI HTML.
 
 ## Avoid
 
 - Relying on remote `path` URLs at render time.
 - Starting playback with `play()`.
 - Assuming unsupported After Effects effects will survive export. Test the JSON or `.lottie` file in a browser first.
-- Loading a player asynchronously and registering it after HyperFrames validation has already inspected the page.
+- Loading a player asynchronously and registering it after KENECT AI validation has already inspected the page.
 
 ## Validation
 
@@ -110,7 +110,7 @@ npx @kenectai/cli check
 
 ## Credits And References
 
-- HyperFrames adapter source: `packages/core/src/runtime/adapters/lottie.ts`.
+- KENECT AI adapter source: `packages/core/src/runtime/adapters/lottie.ts`.
 - Duration auto-inference: `packages/core/src/runtime/init.ts` (`resolveAdapterDurationFloorSeconds`), `getInferredDurationSeconds` in the adapter above.
 - lottie-web by Airbnb: https://github.com/airbnb/lottie-web
 - lottie-web `loadAnimation` options: https://github.com/airbnb/lottie-web/wiki/loadAnimation-options

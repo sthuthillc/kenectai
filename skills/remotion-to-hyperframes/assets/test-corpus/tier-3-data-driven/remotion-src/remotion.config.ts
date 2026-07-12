@@ -1,6 +1,6 @@
 import { Config } from "@remotion/cli/config";
 
-// Match HyperFrames' default render so SSIM diffs measure translation
+// Match KENECT AI' default render so SSIM diffs measure translation
 // fidelity, not encoder differences.
 //
 //   setVideoImageFormat("png") avoids the JPEG limited-range/full-range

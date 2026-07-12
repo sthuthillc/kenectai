@@ -3,15 +3,15 @@ title: Templates on Lambda
 description: "Render personalised template videos at scale on AWS Lambda using --variables and the lambda render-batch verb."
 ---
 
-HyperFrames templates are compositions that take typed variables — a name, a colour, a chart payload, a CTA URL — and produce a finished render parameterised by those values. Pair a template with the deployed Lambda stack and `lambda render-batch`, and you get personalised-video-at-scale in one CLI call:
+KENECT AI templates are compositions that take typed variables — a name, a colour, a chart payload, a CTA URL — and produce a finished render parameterised by those values. Pair a template with the deployed Lambda stack and `lambda render-batch`, and you get personalised-video-at-scale in one CLI call:
 
 ```bash
-hyperframes lambda render-batch ./my-template \
+kenectai lambda render-batch ./my-template \
   --batch ./users.jsonl \
   --width 1920 --height 1080
 ```
 
-This guide walks the full loop: declare variables on a composition, iterate locally with `hyperframes render`, deploy to Lambda once, then fan out N renders from a batch file. The same flow also drives single personalised renders via `lambda render --variables` and programmatic batches via `renderToLambda({ variables })`.
+This guide walks the full loop: declare variables on a composition, iterate locally with `kenectai render`, deploy to Lambda once, then fan out N renders from a batch file. The same flow also drives single personalised renders via `lambda render --variables` and programmatic batches via `renderToLambda({ variables })`.
 
 ```mermaid
 flowchart LR
@@ -23,7 +23,7 @@ flowchart LR
 
 ## What's a template
 
-A template is just a HyperFrames composition whose top-level HTML element declares a `data-composition-variables` attribute listing the variables it accepts. The composition reads the runtime values via `window.__hyperframes.getVariables()`.
+A template is just a KENECT AI composition whose top-level HTML element declares a `data-composition-variables` attribute listing the variables it accepts. The composition reads the runtime values via `window.__hyperframes.getVariables()`.
 
 ```html
 <!doctype html>
@@ -82,26 +82,26 @@ The runtime won't accept declaration `type: "object"` — the parser rejects any
 
 ## Local iteration loop
 
-Fast iteration is the whole point of templates — you should not have to deploy to Lambda to see how a value looks. Use `hyperframes render` locally with `--variables` (or `--variables-file`) to render the template against any payload:
+Fast iteration is the whole point of templates — you should not have to deploy to Lambda to see how a value looks. Use `kenectai render` locally with `--variables` (or `--variables-file`) to render the template against any payload:
 
 ```bash
-hyperframes render --variables '{"title":"Hello Alice","accentColor":"#ff0000"}' \
+kenectai render --variables '{"title":"Hello Alice","accentColor":"#ff0000"}' \
   --output renders/alice-preview.mp4
 ```
 
 Pass `--strict-variables` to fail on type mismatches against the `data-composition-variables` declaration. Without the flag, mismatches print as warnings and the render continues.
 
 ```bash
-hyperframes render --variables-file ./alice.json --strict-variables \
+kenectai render --variables-file ./alice.json --strict-variables \
   --output renders/alice-preview.mp4
 ```
 
 ## Deploying to Lambda
 
-Templates render on the standard `hyperframes lambda` stack — there's no special template-only deployment. Run:
+Templates render on the standard `kenectai lambda` stack — there's no special template-only deployment. Run:
 
 ```bash
-hyperframes lambda deploy
+kenectai lambda deploy
 ```
 
 once per AWS account/region. The [aws-lambda deploy guide](/deploy/aws-lambda) covers the SAM stack, IAM policies, and the CloudFormation outputs.
@@ -109,7 +109,7 @@ once per AWS account/region. The [aws-lambda deploy guide](/deploy/aws-lambda) c
 When the same template will produce many renders, upload the project once with `lambda sites create` and reference its content-addressed `siteId` from every subsequent render or batch:
 
 ```bash
-hyperframes lambda sites create ./my-template
+kenectai lambda sites create ./my-template
 # → Site ID: abc1234deadbeef0
 ```
 
@@ -118,7 +118,7 @@ hyperframes lambda sites create ./my-template
 For one-off renders, pass `--site-id` + per-render `--variables`. The CLI synthesises the minimal site handle from the `siteId` (no re-tarring) and invokes `renderToLambda`:
 
 ```bash
-hyperframes lambda render ./my-template \
+kenectai lambda render ./my-template \
   --site-id abc1234deadbeef0 \
   --width 1920 --height 1080 \
   --variables '{"title":"Hello Alice","accentColor":"#ff0000"}' \
@@ -126,7 +126,7 @@ hyperframes lambda render ./my-template \
   --wait
 ```
 
-`--wait` streams progress lines until the render finishes; without it the CLI returns immediately and you poll via `hyperframes lambda progress <renderId>`.
+`--wait` streams progress lines until the render finishes; without it the CLI returns immediately and you poll via `kenectai lambda progress <renderId>`.
 
 ## Batch pipeline (the headline)
 
@@ -143,7 +143,7 @@ hyperframes lambda render ./my-template \
 Run the batch:
 
 ```bash
-hyperframes lambda render-batch ./my-template \
+kenectai lambda render-batch ./my-template \
   --batch ./users.jsonl \
   --width 1920 --height 1080 \
   --max-concurrent 5
@@ -166,7 +166,7 @@ Batch dispatched: 5 started, 0 failed-to-start.
 Add `--json` for the machine-readable form your batch coordinator can pipe to `jq`:
 
 ```bash
-hyperframes lambda render-batch ./my-template --batch ./users.jsonl \
+kenectai lambda render-batch ./my-template --batch ./users.jsonl \
   --width 1920 --height 1080 --json \
   | jq -r '.[] | select(.status == "started") | .executionArn'
 ```
@@ -174,13 +174,13 @@ hyperframes lambda render-batch ./my-template --batch ./users.jsonl \
 Poll each `executionArn` (or `renderId`) with `lambda progress` to track completions:
 
 ```bash
-hyperframes lambda progress arn:aws:states:us-east-1:1234:execution:hf:hf-render-abcd
+kenectai lambda progress arn:aws:states:us-east-1:1234:execution:hf:hf-render-abcd
 ```
 
 Use `--dry-run` to lint a batch file before paying for any executions. Every entry's status becomes `would-invoke`:
 
 ```bash
-hyperframes lambda render-batch ./my-template --batch ./users.jsonl \
+kenectai lambda render-batch ./my-template --batch ./users.jsonl \
   --width 1920 --height 1080 --dry-run --json
 ```
 
@@ -223,7 +223,7 @@ const handles = await Promise.all(
 console.log(`Started ${handles.length} renders`);
 ```
 
-`HYPERFRAMES_BUCKET` and `HYPERFRAMES_SFN_ARN` come from the deployed stack. `hyperframes lambda deploy` prints them as `RenderBucketName` and `RenderStateMachineArn`, and they're also available via `aws cloudformation describe-stacks --query "Stacks[0].Outputs"`. See the [aws-lambda deploy guide](/deploy/aws-lambda) for the full CloudFormation outputs table.
+`HYPERFRAMES_BUCKET` and `HYPERFRAMES_SFN_ARN` come from the deployed stack. `kenectai lambda deploy` prints them as `RenderBucketName` and `RenderStateMachineArn`, and they're also available via `aws cloudformation describe-stacks --query "Stacks[0].Outputs"`. See the [aws-lambda deploy guide](/deploy/aws-lambda) for the full CloudFormation outputs table.
 
 Wrap the `Promise.all` in a semaphore (or use the CLI's `runWithConcurrencyLimit` pattern) when the batch is large enough that an unbounded burst would trip your AWS Lambda concurrent-execution quota.
 
@@ -295,13 +295,13 @@ Each Step Functions execution fans out to ~`maxParallelChunks` Lambda invocation
 
 For small batches (< 100 entries) the default `--max-concurrent 50` is fine. For large batches (> 1 000), a useful starting point is `--max-concurrent ≈ floor(reservedConcurrency / maxParallelChunks)` so each running render gets its full chunk fan-out budget; the batch verb does NOT enforce this, it's just guidance for picking the flag value.
 
-In-process vs distributed crossover: for a single render under ~30 seconds, the in-process renderer (`hyperframes render`) wins on latency because there's no S3 round-trip per chunk. Distributed wins for renders over ~60 seconds or when you need a personalised batch — that's the whole reason this surface exists. (The Phase 7 small-render shortcut, when it lands, will collapse the gap for short renders.)
+In-process vs distributed crossover: for a single render under ~30 seconds, the in-process renderer (`kenectai render`) wins on latency because there's no S3 round-trip per chunk. Distributed wins for renders over ~60 seconds or when you need a personalised batch — that's the whole reason this surface exists. (The Phase 7 small-render shortcut, when it lands, will collapse the gap for short renders.)
 
 ## Migrating from @remotion/lambda inputProps
 
-Remotion's `inputProps` API and HyperFrames' `variables` are isomorphic — both are JSON objects injected as render-time overrides on top of declared composition defaults. The mapping is mechanical:
+Remotion's `inputProps` API and KENECT AI' `variables` are isomorphic — both are JSON objects injected as render-time overrides on top of declared composition defaults. The mapping is mechanical:
 
-| Remotion | HyperFrames |
+| Remotion | KENECT AI |
 |----------|-------------|
 | `Composition.defaultProps` | `data-composition-variables` declaration on the root HTML element |
 | `useCurrentFrame()` + `props.<x>` | `window.__hyperframes.getVariables().<x>` (read once on DOMContentLoaded) |
@@ -314,7 +314,7 @@ Remotion's `inputProps` has the same 256 KiB constraint and the same "URL your a
 ## What's next
 
 - **Smaller batch primitives**: HTML-form input alongside JSONL. Open an issue if you'd find this useful.
-- **TypeScript types generated from `data-composition-variables`**: `hyperframes types generate <projectDir>` is sketched and may land in v1.5; it would let SDK callers `import type { Variables } from "./template/variables"` for autocomplete + typecheck.
+- **TypeScript types generated from `data-composition-variables`**: `kenectai types generate <projectDir>` is sketched and may land in v1.5; it would let SDK callers `import type { Variables } from "./template/variables"` for autocomplete + typecheck.
 - **HDR template support**: HDR mp4 is currently distributed-mode-rejected (in-process only). The next v1.5 item is unblocking HDR for distributed renders so templates can produce wide-gamut output.
 
 If your template pipeline hits a wall the docs don't cover, [file an issue on GitHub](https://github.com/sthuthillc/kenectai/issues/new) — the batch surface is new and the feedback loop on it is short.

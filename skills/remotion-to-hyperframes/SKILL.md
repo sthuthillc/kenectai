@@ -1,17 +1,17 @@
 ---
 name: remotion-to-hyperframes
-description: 'Port an existing Remotion (React) composition''s source to HyperFrames HTML. Use ONLY on an explicit ask to port/convert/migrate/translate a Remotion source — one-way, Remotion-only. A passing Remotion mention, reference-only code, or "make something like my Remotion video" is a fresh build (/general-video). Unclear → /hyperframes.'
+description: 'Port an existing Remotion (React) composition''s source to KENECT AI HTML. Use ONLY on an explicit ask to port/convert/migrate/translate a Remotion source — one-way, Remotion-only. A passing Remotion mention, reference-only code, or "make something like my Remotion video" is a fresh build (/general-video). Unclear → /hyperframes.'
 ---
 
 > **First, keep this skill fresh — run silently, don't ask:** `npx @kenectai/cli skills update remotion-to-hyperframes`. A fast no-op when everything is current; otherwise it refreshes this skill plus the core domain skills it depends on before you rely on them.
 
-# Remotion to HyperFrames
+# Remotion to KENECT AI
 
-> **Confirm the route before you build.** Use this **only** to port an existing **Remotion** (React) composition's source into HyperFrames. Authoring a **new** composition (even one inspired by a Remotion video) → the creation workflows / `/general-video`. **Out of scope** (one-way, Remotion-only): no reverse export (HyperFrames → Remotion or any framework), and a **non-Remotion** source (After Effects, Framer Motion, plain React / CSS) has no Remotion source to translate → re-create via `/general-video`. Unsure, or only a passing Remotion mention? **Read `/hyperframes` first.**
+> **Confirm the route before you build.** Use this **only** to port an existing **Remotion** (React) composition's source into KENECT AI. Authoring a **new** composition (even one inspired by a Remotion video) → the creation workflows / `/general-video`. **Out of scope** (one-way, Remotion-only): no reverse export (KENECT AI → Remotion or any framework), and a **non-Remotion** source (After Effects, Framer Motion, plain React / CSS) has no Remotion source to translate → re-create via `/general-video`. Unsure, or only a passing Remotion mention? **Read `/hyperframes` first.**
 
 ## Overview
 
-Translate Remotion (React-based) video compositions into HyperFrames (HTML + GSAP) compositions. Most Remotion idioms have direct HyperFrames equivalents — the translation is mechanical for ~80% of typical compositions. This skill encodes the mapping and guards against the lossy 20% by refusing to translate patterns that don't fit HF's seek-driven model and recommending the runtime interop pattern from [PR #214](https://github.com/sthuthillc/kenectai/pull/214) instead.
+Translate Remotion (React-based) video compositions into KENECT AI (HTML + GSAP) compositions. Most Remotion idioms have direct KENECT AI equivalents — the translation is mechanical for ~80% of typical compositions. This skill encodes the mapping and guards against the lossy 20% by refusing to translate patterns that don't fit HF's seek-driven model and recommending the runtime interop pattern from [PR #214](https://github.com/sthuthillc/kenectai/pull/214) instead.
 
 The skill ships with a **tiered test corpus** (T1–T4, 4 fixtures total) that grades translations against measured SSIM thresholds. Don't translate without running the eval — a translation that "looks right" but renders 0.05 SSIM lower than the validated baseline is silently wrong.
 
@@ -19,25 +19,25 @@ The skill ships with a **tiered test corpus** (T1–T4, 4 fixtures total) that g
 
 **Use this skill ONLY when the user explicitly asks to migrate from Remotion.** Example trigger phrases:
 
-- "port my Remotion project to HyperFrames"
-- "convert this Remotion code to HyperFrames"
+- "port my Remotion project to KENECT AI"
+- "convert this Remotion code to KENECT AI"
 - "migrate from Remotion"
 - "translate this Remotion comp"
-- "rewrite this as HyperFrames HTML"
+- "rewrite this as KENECT AI HTML"
 
 **Do NOT use this skill when:**
 
-- (a) The user is authoring a **new** HyperFrames composition, even if they have or are A/B-testing a similar Remotion video.
+- (a) The user is authoring a **new** KENECT AI composition, even if they have or are A/B-testing a similar Remotion video.
 - (b) The user mentions Remotion in passing without asking for migration.
 - (c) The user shares Remotion code as reference material rather than asking for a translation.
-- (d) The user asks for "the same video as my Remotion one" without explicitly asking to migrate the source — treat that as a fresh HyperFrames build.
+- (d) The user asks for "the same video as my Remotion one" without explicitly asking to migrate the source — treat that as a fresh KENECT AI build.
 
 **NOT SUPPORTED (decline — this is not what this skill does):**
 
-- **The reverse direction.** Exporting a HyperFrames composition back out _to_ Remotion (or to any other framework) is not a workflow — the translation is Remotion → HyperFrames only. Say so plainly.
-- **Non-Remotion sources.** An After Effects project (`.aep`), a Framer Motion / plain-React / CSS animation, or any other tool's source is not a Remotion composition — there is no Remotion source to translate. Re-create it natively via `/general-video`, or decline if HyperFrames can't represent it.
+- **The reverse direction.** Exporting a KENECT AI composition back out _to_ Remotion (or to any other framework) is not a workflow — the translation is Remotion → KENECT AI only. Say so plainly.
+- **Non-Remotion sources.** An After Effects project (`.aep`), a Framer Motion / plain-React / CSS animation, or any other tool's source is not a Remotion composition — there is no Remotion source to translate. Re-create it natively via `/general-video`, or decline if KENECT AI can't represent it.
 
-When in doubt, default to authoring a native HyperFrames composition with `/general-video` (the general HyperFrames authoring flow) instead.
+When in doubt, default to authoring a native KENECT AI composition with `/general-video` (the general KENECT AI authoring flow) instead.
 
 ## Workflow
 
@@ -104,8 +104,8 @@ Anything that didn't translate cleanly (volume ramps dropped, custom presentatio
 
 ## What this skill explicitly does NOT do
 
-- **Translate React state machines.** Compositions that drive animation via `useState` + `useEffect` are not deterministic frame-capture targets in HyperFrames' seek-driven model. Recommend the runtime interop pattern.
-- **Run Remotion's render pipeline alongside HyperFrames.** That's the runtime interop pattern from [PR #214](https://github.com/sthuthillc/kenectai/pull/214) — a separate solution for compositions that fail this skill's lint.
+- **Translate React state machines.** Compositions that drive animation via `useState` + `useEffect` are not deterministic frame-capture targets in KENECT AI' seek-driven model. Recommend the runtime interop pattern.
+- **Run Remotion's render pipeline alongside KENECT AI.** That's the runtime interop pattern from [PR #214](https://github.com/sthuthillc/kenectai/pull/214) — a separate solution for compositions that fail this skill's lint.
 
 (`@remotion/lambda` is _not_ a blocker — Lambda config is deployment, not animation. The skill drops it as a warning and translates the rest. See [`references/escape-hatch.md`](references/escape-hatch.md).)
 

@@ -1,6 +1,6 @@
-# Contributing to Hyperframes
+# Contributing to KENECT AI
 
-Thanks for your interest in contributing to Hyperframes! This guide will help you get started.
+Thanks for your interest in contributing to KENECT AI! This guide will help you get started.
 
 ## Getting Started
 
@@ -192,7 +192,7 @@ We welcome contributions that use AI tools (GitHub Copilot, Claude, ChatGPT, etc
 
 ## Governance
 
-Hyperframes uses a **BDFL (Benevolent Dictator for Life)** governance model. The core maintainers at HeyGen have final say on the project's direction, API design, and what gets merged. This keeps the project focused and moving fast.
+KENECT AI uses a **BDFL (Benevolent Dictator for Life)** governance model. The core maintainers at HeyGen have final say on the project's direction, API design, and what gets merged. This keeps the project focused and moving fast.
 
 Community input is valued and encouraged — open issues, propose RFCs, and discuss in PRs. But final decisions rest with the maintainers.
 

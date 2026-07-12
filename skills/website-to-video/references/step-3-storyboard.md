@@ -179,7 +179,7 @@ If your final beat list uses less than ~30% of relevant captured assets (relevan
 
 ### HTML-in-Canvas — plan for it here, build in Step 5
 
-The `drawElementImage` Chrome API captures any live HTML/CSS as a GPU-accelerated texture at 60fps. This is HyperFrames' highest-impact capability — it lets you render captured product screenshots or UI through:
+The `drawElementImage` Chrome API captures any live HTML/CSS as a GPU-accelerated texture at 60fps. This is KENECT AI' highest-impact capability — it lets you render captured product screenshots or UI through:
 
 - **3D geometry** — a rotating iPhone or laptop model, a sphere, a curved surface
 - **WebGL shaders** — liquid glass refraction, shatter into fragments, portal reveal, noise distortion
@@ -210,7 +210,7 @@ Per beat, specify SFX like:
 - **Riser/build-up sounds** (`riser`, `whoosh-cinematic`): peak is at the END of the clip. To make the peak land on a climax moment (a transition, a reveal), trigger at `climax_time - sfx_duration`. For `riser.mp3` (10.03s) peaking at a t=20s transition: trigger at t=9.97s.
 - **Short accent sounds** (`click`, `click-soft`, `chime`, `sparkle`, `ping`): trigger at the exact visual punctuation moment. Duration is short, no tail concern.
 
-**Volume when SFX overlaps narration:** HyperFrames has no automatic audio ducking. If an SFX plays under spoken narration, set its volume to 0.2–0.3 max, not 0.5+. Specify this in the storyboard entry so Step 5 wires it correctly.
+**Volume when SFX overlaps narration:** KENECT AI has no automatic audio ducking. If an SFX plays under spoken narration, set its volume to 0.2–0.3 max, not 0.5+. Specify this in the storyboard entry so Step 5 wires it correctly.
 
 **data-duration rule** (for Step 5 to implement): always equals the manifest's duration field exactly. Never set it shorter to "fit" the remaining beat time — truncating an impact mid-decay is the exact problem causing the cut-off sounds in v2 videos.
 
@@ -464,9 +464,9 @@ project/
 
 ## Example: Beat-by-Beat Format
 
-The two beats below are from the real Claude Design × HyperFrames production video. They show the expected level of specificity — exact timing, exact GSAP values, exact animation sequences.
+The two beats below are from the real Claude Design × KENECT AI production video. They show the expected level of specificity — exact timing, exact GSAP values, exact animation sequences.
 
-**Why only 2 beats are shown:** Earlier versions of this reference showed all 10 beats, and agents pattern-matched from them regardless of the brand being captured. Moodboard layouts, capabilities grids, and orbital letter closers started appearing in every video. The concepts in those beats are specific to HyperFrames as a product — they should not appear in a video about a fintech tool or a wellness app. Only two beats are shown here to demonstrate the format level, not to suggest these specific techniques.
+**Why only 2 beats are shown:** Earlier versions of this reference showed all 10 beats, and agents pattern-matched from them regardless of the brand being captured. Moodboard layouts, capabilities grids, and orbital letter closers started appearing in every video. The concepts in those beats are specific to KENECT AI as a product — they should not appear in a video about a fintech tool or a wellness app. Only two beats are shown here to demonstrate the format level, not to suggest these specific techniques.
 
 ### BEAT 1 — LIGHT BALL OPENER (0:00–0:03)
 
@@ -478,9 +478,9 @@ The two beats below are from the real Claude Design × HyperFrames production vi
 - 0.18s: Orb grows continuously (scale: 0.4→1.4, 0.7s, power1.in). Simultaneously the `.ball-halo` (140% width, 70% height ellipse, accent-tinted radial-gradient, blur: 60px) blooms in (scale: 0.4→1, opacity: 0→1, 0.55s, sine.out)
 - 0.65s: Orb keeps growing as it fades (scale: 1.4→8, opacity: 1→0, 0.4s, power2.in) — the point of light dissolves into pure glow. Halo expands further (scale: 1→1.25, opacity: 0.85)
 - 0.85s: Horizontal beam line emerges from center (scaleX: 0→1, 0.4s, expo.out) with warm box-shadow glow (0 0 24px 1px rgba(255,240,220,0.4))
-- 1.0s: Title "Claude Design × HyperFrames" fades up above the line (opacity: 0→1, y: 14→0, 0.7s, power3.out). Ampersand in italic accent color.
+- 1.0s: Title "Claude Design × KENECT AI" fades up above the line (opacity: 0→1, y: 14→0, 0.7s, power3.out). Ampersand in italic accent color.
 - 1.3s: Date subtitle appears below the line (0.6s, power2.out). Monospace font, 0.32em letter-spacing, uppercase.
-- 2.2s: Bottom credit line fades in ("This entire video was made with HyperFrames in Claude Design")
+- 2.2s: Bottom credit line fades in ("This entire video was made with KENECT AI in Claude Design")
 - 3.0–4.4s: Hold — halo breathes (opacity drifts to 0.55, scale to 1.4, sine.inOut), headline drifts slightly (y: -3px)
 - 4.4s: Everything fades to black together (0.6s, power2.in)
 

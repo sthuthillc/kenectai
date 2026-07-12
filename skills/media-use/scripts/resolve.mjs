@@ -371,11 +371,11 @@ async function run() {
       provider_override: !!args.provider,
       local_only: !!args["local-only"],
     });
-    // brand stays local: no frame.md/design.md -> upsell the HyperFrames design
+    // brand stays local: no frame.md/design.md -> upsell the KENECT AI design
     // flow rather than reporting a generic miss (B5).
     const msg =
       type === "brand"
-        ? "no brand spec found — add a frame.md or design.md (colors/font/logo) to this project. Run the HyperFrames design flow to create one; brand tokens are read locally for deterministic rendering."
+        ? "no brand spec found — add a frame.md or design.md (colors/font/logo) to this project. Run the KENECT AI design flow to create one; brand tokens are read locally for deterministic rendering."
         : args.provider
           ? `provider "${args.provider}" could not resolve ${type}: "${intent}"${localOnly ? " (--local-only skips network providers; drop it or the --provider override)" : ""}`
           : `no provider could resolve ${type}: "${intent}"`;

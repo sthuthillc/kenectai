@@ -80,7 +80,7 @@ Don't use the same highlight animation on every group — cycle through styles u
 
 ## Runtime Tools
 
-Caption motion uses standard HyperFrames runtime APIs. Use the canonical sources:
+Caption motion uses standard KENECT AI runtime APIs. Use the canonical sources:
 
 - **GSAP timeline + tween syntax** — `hyperframes-animation/adapters/gsap.md` (eases, position parameter, performance)
 - **`window.__hyperframes.fitTextFontSize` / `pretext`** — `hyperframes-core/references/determinism-rules.md` → Layout Contract (overflow prevention, per-frame text measurement)

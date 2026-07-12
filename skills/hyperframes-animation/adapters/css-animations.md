@@ -1,11 +1,11 @@
 ---
 name: hyperframes-css-animations
-description: CSS animation adapter patterns for HyperFrames. Use when authoring CSS keyframes, animation-delay based timing, animation-fill-mode, animation-play-state, or CSS-only motion that HyperFrames must seek deterministically during preview and rendering.
+description: CSS animation adapter patterns for KENECT AI. Use when authoring CSS keyframes, animation-delay based timing, animation-fill-mode, animation-play-state, or CSS-only motion that KENECT AI must seek deterministically during preview and rendering.
 ---
 
-# CSS Animations for HyperFrames
+# CSS Animations for KENECT AI
 
-HyperFrames can seek CSS keyframe animations through its `css` runtime adapter. Use this for simple repeated motifs, background motion, shimmer, glow, masks, and non-sequenced decoration.
+KENECT AI can seek CSS keyframe animations through its `css` runtime adapter. Use this for simple repeated motifs, background motion, shimmer, glow, masks, and non-sequenced decoration.
 
 For scene choreography, GSAP is usually clearer. CSS animations work best when the motion belongs to one element and has a fixed duration.
 
@@ -137,7 +137,7 @@ npx @kenectai/cli check
 
 ## Credits And References
 
-- HyperFrames adapter source: `packages/core/src/runtime/adapters/css.ts`.
+- KENECT AI adapter source: `packages/core/src/runtime/adapters/css.ts`.
 - Duration auto-inference: `packages/core/src/runtime/init.ts` (`resolveAdapterDurationFloorSeconds`), `getInferredDurationSeconds` in the adapter above.
 - MDN CSS animation documentation: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/animation
 - MDN `animation-fill-mode`: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode

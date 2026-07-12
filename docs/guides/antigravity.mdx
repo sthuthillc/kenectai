@@ -1,13 +1,13 @@
 ---
 title: Google Antigravity
-description: "Set up HyperFrames in Google Antigravity — install skills, author compositions, and render video from the agent-first IDE."
+description: "Set up KENECT AI in Google Antigravity — install skills, author compositions, and render video from the agent-first IDE."
 ---
 
-Google Antigravity is Google's agent-first IDE built on VS Code. Its agent discovers and loads HyperFrames skills automatically based on your prompts, so you get correct compositions without memorizing framework internals.
+Google Antigravity is Google's agent-first IDE built on VS Code. Its agent discovers and loads KENECT AI skills automatically based on your prompts, so you get correct compositions without memorizing framework internals.
 
 ## Install skills
 
-Install the HyperFrames skill package into your project:
+Install the KENECT AI skill package into your project:
 
 ```bash
 npx skills add sthuthillc/kenectai
@@ -48,7 +48,7 @@ Antigravity uses **semantic matching** — when you type a prompt, the agent com
 The skill is only injected into the agent's context window when it matches — this keeps the context clean and focused.
 
 <Note>
-  For the best results, mention "HyperFrames" or "composition" in your prompt so the agent matches the right skills immediately instead of guessing at generic web-video conventions.
+  For the best results, mention "KENECT AI" or "composition" in your prompt so the agent matches the right skills immediately instead of guessing at generic web-video conventions.
 </Note>
 
 ## Create and preview a video
@@ -58,7 +58,7 @@ The skill is only injected into the agent's context window when it matches — t
     Open Antigravity's integrated terminal and run:
 
     ```bash
-    npx hyperframes init my-video
+    npx @kenectai/cli init my-video
     cd my-video
     ```
 
@@ -67,10 +67,10 @@ The skill is only injected into the agent's context window when it matches — t
 
   <Step title="Start the preview server">
     ```bash
-    npx hyperframes preview
+    npx @kenectai/cli preview
     ```
 
-    This launches the HyperFrames Studio in your browser with hot reload — edits to `index.html` appear instantly.
+    This launches the KENECT AI Studio in your browser with hot reload — edits to `index.html` appear instantly.
   </Step>
 
   <Step title="Prompt the agent">
@@ -78,7 +78,7 @@ The skill is only injected into the agent's context window when it matches — t
 
     > Create a 15-second dark-themed product intro for my SaaS app with a fade-in title, hype-style captions, and a flash transition to the CTA.
 
-    The agent reads the HyperFrames skill, writes valid HTML with `data-*` attributes and GSAP timelines, and saves it to your project files. The preview updates automatically.
+    The agent reads the KENECT AI skill, writes valid HTML with `data-*` attributes and GSAP timelines, and saves it to your project files. The preview updates automatically.
   </Step>
 
   <Step title="Iterate">
@@ -93,7 +93,7 @@ The skill is only injected into the agent's context window when it matches — t
 
   <Step title="Render">
     ```bash
-    npx hyperframes render --output output.mp4
+    npx @kenectai/cli render --output output.mp4
     ```
   </Step>
 </Steps>
@@ -106,21 +106,21 @@ Antigravity's [Manager view](https://antigravity.google/docs/agent) lets you orc
 - **Agent 2:** Generate TTS narration and caption timing
 - **Agent 3:** Build the data visualization scene
 
-Each agent picks up the relevant HyperFrames skills independently. Merge the output into a single `index.html` with `data-composition-src` references when all agents finish.
+Each agent picks up the relevant KENECT AI skills independently. Merge the output into a single `index.html` with `data-composition-src` references when all agents finish.
 
 ## MCP alternative
 
-If you prefer zero-install cloud authoring, Antigravity supports remote MCP servers. Add the HyperFrames MCP connector to author and render compositions without the CLI — see [Antigravity's MCP documentation](https://antigravity.google/docs/mcp) for the exact setup steps in your version, then use the server URL:
+If you prefer zero-install cloud authoring, Antigravity supports remote MCP servers. Add the KENECT AI MCP connector to author and render compositions without the CLI — see [Antigravity's MCP documentation](https://antigravity.google/docs/mcp) for the exact setup steps in your version, then use the server URL:
 
 ```
 https://mcp.heygen.com/mcp/hyperframes
 ```
 
-Authorize via OAuth with your HeyGen account when prompted. See the [HyperFrames MCP guide](/guides/mcp) for full details on tools and prompting. The MCP handles rendering in the cloud; the CLI gives you local control.
+Authorize via OAuth with your HeyGen account when prompted. See the [KENECT AI MCP guide](/guides/mcp) for full details on tools and prompting. The MCP handles rendering in the cloud; the CLI gives you local control.
 
 ## Agent instruction files
 
-HyperFrames projects created with `npx hyperframes init` scaffold both `CLAUDE.md` and `AGENTS.md` automatically — these give the agent additional composition context beyond what the skills provide.
+KENECT AI projects created with `npx @kenectai/cli init` scaffold both `CLAUDE.md` and `AGENTS.md` automatically — these give the agent additional composition context beyond what the skills provide.
 
 - **`AGENTS.md`** — the cross-agent convention. Antigravity reads this regardless of which model you've selected (Gemini, Claude, or others).
 - **`CLAUDE.md`** — read when Antigravity's agent uses a Claude model (Sonnet or Opus), providing Claude-specific project instructions.
@@ -128,9 +128,9 @@ HyperFrames projects created with `npx hyperframes init` scaffold both `CLAUDE.m
 ## Tips
 
 - **Mention the skill by name when precision matters.** "Using the hyperframes skill, add a grain overlay" is more reliable than "add a grain overlay" when the agent has many skills loaded.
-- **Use `npx hyperframes lint` before rendering.** The linter catches structural issues (missing `class="clip"`, unregistered timelines, muted video violations) that the agent might miss on complex edits.
-- **Install registry blocks for advanced effects.** Run `npx hyperframes add shimmer-sweep` to install pre-built blocks, then ask the agent to wire them into your composition.
-- **Keep the preview server running.** Antigravity's file watcher + HyperFrames' hot reload means you see every agent edit in real time.
+- **Use `npx @kenectai/cli lint` before rendering.** The linter catches structural issues (missing `class="clip"`, unregistered timelines, muted video violations) that the agent might miss on complex edits.
+- **Install registry blocks for advanced effects.** Run `npx @kenectai/cli add shimmer-sweep` to install pre-built blocks, then ask the agent to wire them into your composition.
+- **Keep the preview server running.** Antigravity's file watcher + KENECT AI' hot reload means you see every agent edit in real time.
 
 ## Next steps
 

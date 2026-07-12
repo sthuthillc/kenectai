@@ -1,6 +1,6 @@
 # lambda — Cloud Rendering on AWS Lambda
 
-Deploy HyperFrames distributed rendering to AWS Lambda and drive renders from your laptop or CI. Wraps `@kenectai/aws-lambda` SDK plus AWS SAM. End-to-end is three commands:
+Deploy KENECT AI distributed rendering to AWS Lambda and drive renders from your laptop or CI. Wraps `@kenectai/aws-lambda` SDK plus AWS SAM. End-to-end is three commands:
 
 ```bash
 npx @kenectai/cli lambda deploy

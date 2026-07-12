@@ -9,9 +9,9 @@ description: "Turn a product or marketing URL, pasted script, or brief into a pr
 
 > **figma source**: If the source is a figma.com URL, run `/figma` first — asset export, brand tokens, and components/storyboard reconstruction if needed — then build this workflow from its output. Don't drive Figma via raw MCP tools directly: that skips SVG sanitization, `.media/manifest.jsonl` provenance, and brand-token `var()` binding, so a later brand change can't propagate without a full re-import.
 
-# Product Launch to HyperFrames
+# Product Launch to KENECT AI
 
-Use this skill to capture a product, understand its brand, plan a launch video, and build it frame by frame in HyperFrames.
+Use this skill to capture a product, understand its brand, plan a launch video, and build it frame by frame in KENECT AI.
 
 > **Confirm the route before Step 0.** You are the orchestrator. Run each step, verify its gate, and only then continue to the next step. This skill is for a **product being marketed, launched, promoted, or revealed**, including requests such as "promo for our site" when the purpose is promotional. Route other intents elsewhere: a general non-launch website tour -> `/website-to-video`; a topic explainer with no product -> `/faceless-explainer`; a GitHub PR -> `/pr-to-video`; captions on existing footage -> `/embedded-captions`; a short unnarrated motion graphic -> `/motion-graphics`. If the user says only "make a video" or the route is uncertain, read `/hyperframes` first.
 
@@ -23,7 +23,7 @@ Workflow: Step 0 setup -> `kenectai.json`; Step 1 capture -> `capture/`; Step 2 
 
 ## Step 0: Setup and Brief
 
-Goal: Lock the core video brief and create the HyperFrames project if needed.
+Goal: Lock the core video brief and create the KENECT AI project if needed.
 
 Initialize only if `kenectai.json` is missing. Name `<project>` from the brand or domain in kebab-case, such as `acme-promo`; never use workspace name or timestamp.
 

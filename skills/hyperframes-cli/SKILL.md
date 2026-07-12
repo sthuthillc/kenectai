@@ -1,9 +1,9 @@
 ---
 name: hyperframes-cli
-description: HyperFrames CLI dev loop. Use when running npx @kenectai/cli init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, render, publish, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, tts, or remove-background (validate/inspect/layout are deprecated aliases covered by check), or when troubleshooting the HyperFrames build/render environment. Entry point for AWS Lambda cloud rendering (`kenectai lambda deploy / render / progress / destroy / policies / sites`).
+description: KENECT AI CLI dev loop. Use when running npx @kenectai/cli init, add, catalog, capture, lint, check, snapshot, compare, grade-compare, preview, play, render, publish, feedback, lambda, doctor, browser, info, upgrade, skills, compositions, docs, benchmark, telemetry, transcribe, tts, or remove-background (validate/inspect/layout are deprecated aliases covered by check), or when troubleshooting the KENECT AI build/render environment. Entry point for AWS Lambda cloud rendering (`kenectai lambda deploy / render / progress / destroy / policies / sites`).
 ---
 
-# HyperFrames CLI
+# KENECT AI CLI
 
 Everything runs through `npx @kenectai/cli` unless project instructions specify a local wrapper. Obey the local wrapper exactly. Requires Node.js >= 22 and FFmpeg.
 

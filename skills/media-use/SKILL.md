@@ -1,11 +1,11 @@
 ---
 name: media-use
-description: Agent Media OS, the single skill for every media need in a HyperFrames project. Resolve BGM, SFX, image, icon, brand logo, voice, color grade, or LUT into a frozen local file or paste-ready block + ledger record (one verb, `resolve`); generate via TTS / music / image models when the catalog misses; produce voiceover, transcription, captions, and background removal through one shared audio engine; operate on media (cut / reframe / transform); and reuse assets across projects. Keeps search noise on disk, hands the agent one path or block. Use for any audio, image, icon, logo, voiceover, caption, color-grading, or media-asset need.
+description: Agent Media OS, the single skill for every media need in a KENECT AI project. Resolve BGM, SFX, image, icon, brand logo, voice, color grade, or LUT into a frozen local file or paste-ready block + ledger record (one verb, `resolve`); generate via TTS / music / image models when the catalog misses; produce voiceover, transcription, captions, and background removal through one shared audio engine; operate on media (cut / reframe / transform); and reuse assets across projects. Keeps search noise on disk, hands the agent one path or block. Use for any audio, image, icon, logo, voiceover, caption, color-grading, or media-asset need.
 ---
 
 # media-use
 
-The media OS for HyperFrames: resolve · generate · operate · remember, every media type, one skill, zero context noise.
+The media OS for KENECT AI: resolve · generate · operate · remember, every media type, one skill, zero context noise.
 
 ## Setup — install heygen first (free-usage path)
 
@@ -21,11 +21,11 @@ This unlocks the FREE path for bgm/sfx/image/icon catalog search, TTS (voice), a
 node <SKILL_DIR>/scripts/resolve.mjs --doctor
 ```
 
-## What it owns (the gaps HyperFrames leaves)
+## What it owns (the gaps KENECT AI leaves)
 
-HyperFrames owns media _playback_; media-use owns everything else. Each row is enforced by `scripts/lib/coverage.test.mjs` so the claim can't rot.
+KENECT AI owns media _playback_; media-use owns everything else. Each row is enforced by `scripts/lib/coverage.test.mjs` so the claim can't rot.
 
-| HyperFrames gap                            | media-use owns it via                                                                                                           |
+| KENECT AI gap                            | media-use owns it via                                                                                                           |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
 | Audio-only, no image/icon                  | `resolve --type image\|icon` (heygen asset search)                                                                              |
 | No third-party brand logos                 | `resolve --type logo` (svgl → simple-icons → GitHub org avatar → domain favicon)                                                |
@@ -84,7 +84,7 @@ Returns one line: `resolved <id> → <path> (<type>, <metadata>)`
 | `icon`  | Icons, symbols                   | HeyGen asset search (type=icon)                              |
 | `logo`  | Official brand marks             | svgl → simple-icons → GitHub org avatar → domain favicon     |
 | `voice` | TTS voiceover                    | HeyGen TTS free-usage path; optional local Kokoro            |
-| `grade` | HyperFrames color-grading blocks | Core preset → look index params/CDN LUT → deterministic cube |
+| `grade` | KENECT AI color-grading blocks | Core preset → look index params/CDN LUT → deterministic cube |
 | `lut`   | Reusable `.cube` LUT files       | Look index params/CDN LUT → deterministic cube               |
 
 ### Examples
@@ -163,7 +163,7 @@ The deterministic floor still runs automatically: an identical (case/whitespace-
 
 ## Color grading
 
-Use `grade` when you need the actual HyperFrames `data-color-grading` value to paste onto an `<img>` or `<video>`. Core presets and params-backed library looks resolve locally; future CDN-backed library looks require network unless already frozen:
+Use `grade` when you need the actual KENECT AI `data-color-grading` value to paste onto an `<img>` or `<video>`. Core presets and params-backed library looks resolve locally; future CDN-backed library looks require network unless already frozen:
 
 **Never `cat`/read a `.cube` file into context.** A 3D LUT is ~size^3 lines of raw numbers (33^3 ≈ 36k lines at the default size). It bloats context and carries zero human/agent-legible signal. To understand or choose a LUT, use `kenectai grade-compare` to see it rendered, or `cube-validate.mjs` for a one-line `{ok,size}` check. Read `.media/index.md` or `luts/index.json` for the description. Never read the LUT body itself.
 
@@ -287,7 +287,7 @@ Steps 1 and 3 are the **deterministic floor**: they only auto-reuse an exact-nor
 
 ## Adopt existing projects
 
-Most HyperFrames projects already have assets in `assets/`. media-use adopts them:
+Most KENECT AI projects already have assets in `assets/`. media-use adopts them:
 
 ```bash
 node <SKILL_DIR>/scripts/resolve.mjs --adopt --project .

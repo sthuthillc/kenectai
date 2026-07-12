@@ -1,9 +1,9 @@
 ---
 title: Claude Design
-description: "Create HyperFrames video drafts in Claude Design, then refine in any AI coding agent."
+description: "Create KENECT AI video drafts in Claude Design, then refine in any AI coding agent."
 ---
 
-Claude Design produces a **valid first draft** of a HyperFrames video — brand identity, scene content, layout, animations, and transitions. You then download the ZIP and refine in any AI coding agent (Claude Code, Cursor, Codex, Windsurf, etc.) with linting and live preview.
+Claude Design produces a **valid first draft** of a KENECT AI video — brand identity, scene content, layout, animations, and transitions. You then download the ZIP and refine in any AI coding agent (Claude Code, Cursor, Codex, Windsurf, etc.) with linting and live preview.
 
 ## Get started
 
@@ -24,8 +24,8 @@ Claude Design produces a **valid first draft** of a HyperFrames video — brand 
     Open the project in Claude Code, Cursor, Codex, or any agent with terminal access for animation polish, timing, and production QA.
     ```bash
     npx skills add sthuthillc/kenectai   # install skills (one-time)
-    npx hyperframes lint                     # should pass with zero errors
-    npx hyperframes preview                  # open the studio
+    npx @kenectai/cli lint                     # should pass with zero errors
+    npx @kenectai/cli preview                  # open the studio
     ```
   </Step>
 </Steps>
@@ -51,7 +51,7 @@ The instruction file gives Claude Design **pre-valid HTML skeletons** — the st
 3. **Animations** — GSAP entrance tweens and mid-scene activity
 4. **Transitions** — hard cuts for most scenes, shader transitions at 2-3 key moments
 
-This template-first approach means the output passes `npx hyperframes lint` with zero errors on first download — your coding agent can start refining immediately without structural fixes.
+This template-first approach means the output passes `npx @kenectai/cli lint` with zero errors on first download — your coding agent can start refining immediately without structural fixes.
 
 ## Example prompts
 
@@ -113,8 +113,8 @@ The more specific your prompt, the better the output. Include palette, fonts, du
 
 ## Known limitations
 
-- **In-pane preview** — scrubbing is unreliable in Claude Design's iframe sandbox. Download and use `npx hyperframes preview` locally for reliable playback.
-- **No linting** — Claude Design can't run `npx hyperframes lint`. The template-first skeletons handle structural validity, but the self-review checklist is the only QA before download.
+- **In-pane preview** — scrubbing is unreliable in Claude Design's iframe sandbox. Download and use `npx @kenectai/cli preview` locally for reliable playback.
+- **No linting** — Claude Design can't run `npx @kenectai/cli lint`. The template-first skeletons handle structural validity, but the self-review checklist is the only QA before download.
 - **Shaders work at any aspect ratio** — vertical (1080x1920), landscape (1920x1080), and square (1080x1080) all supported.
 - **3 fetch limit** — Claude Design limits web fetches per turn. All critical rules are inlined; external references are for edge cases only.
 - **Seeking backwards** — scrubbing backwards in the in-pane preview can show blank frames. Forward seeking usually works.
@@ -125,8 +125,8 @@ Claude Design's output is a valid first draft. Open it in Claude Code, Cursor, C
 
 ```bash
 npx skills add sthuthillc/kenectai   # one-time setup
-npx hyperframes lint                     # verify structure
-npx hyperframes preview                  # open the studio
+npx @kenectai/cli lint                     # verify structure
+npx @kenectai/cli preview                  # open the studio
 ```
 
 Then iterate:
@@ -140,7 +140,7 @@ Then iterate:
 
 <CardGroup cols={2}>
   <Card title="Prompt Guide" icon="message" href="/guides/prompting">
-    More prompt patterns for HyperFrames across Claude Code, Claude Design, and other agents.
+    More prompt patterns for KENECT AI across Claude Code, Claude Design, and other agents.
   </Card>
   <Card title="@kenectai/player" icon="play" href="/packages/player">
     Embed compositions with the official player component.

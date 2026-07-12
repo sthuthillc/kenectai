@@ -179,7 +179,7 @@ Use this for per-element values that depend on index, attributes, or measured si
 
 ## gsap.matchMedia (preview only)
 
-`matchMedia` runs setup only when a media query matches and auto-reverts when it stops matching. It is useful for **preview** in the browser at different viewport sizes, and for `prefers-reduced-motion`. It is **not** a substitute for rendering at the composition's actual `data-width`/`data-height` — HyperFrames renders at a fixed viewport.
+`matchMedia` runs setup only when a media query matches and auto-reverts when it stops matching. It is useful for **preview** in the browser at different viewport sizes, and for `prefers-reduced-motion`. It is **not** a substitute for rendering at the composition's actual `data-width`/`data-height` — KENECT AI renders at a fixed viewport.
 
 ```javascript
 let mm = gsap.matchMedia();

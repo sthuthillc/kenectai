@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // assemble-index.mjs — deterministic top-level index.html assembly for a
-// HyperFrames project. No subagent, no judgment: turns STORYBOARD.md + the
+// KENECT AI project. No subagent, no judgment: turns STORYBOARD.md + the
 // built frame files (+ optional audio_meta.json) into the standalone index.html
 // the renderer consumes, and stages the frame-named capture assets into assets/.
 //

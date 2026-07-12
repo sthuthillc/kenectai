@@ -1,10 +1,10 @@
 # Determinism, Animation Runtime, and Layout
 
-HyperFrames seeks compositions frame-by-frame. Every frame must be reproducible from its time value alone — same input time → same pixels. Three contracts enforce this: the **animation runtime contract**, the **determinism rules**, and the **layout contract**.
+KENECT AI seeks compositions frame-by-frame. Every frame must be reproducible from its time value alone — same input time → same pixels. Three contracts enforce this: the **animation runtime contract**, the **determinism rules**, and the **layout contract**.
 
 ## Animation Runtime Contract
 
-GSAP is the primary runtime. The core requirement is generic: animation state must be seekable from HyperFrames time.
+GSAP is the primary runtime. The core requirement is generic: animation state must be seekable from KENECT AI time.
 
 For GSAP:
 

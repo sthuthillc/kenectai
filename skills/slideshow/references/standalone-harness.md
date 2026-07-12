@@ -1,8 +1,8 @@
-# Standalone HyperFrames Slideshow Harness
+# Standalone KENECT AI Slideshow Harness
 
 ## 1. Interim framing — why this exists
 
-These patterns are a **temporary workaround** for standalone demos. The durable solution is engine-hosted: a future `kenectai preview --slideshow` / studio present mode will host the composition over the real HyperFrames engine, which drives seek-timelines frame-by-frame, owns the gesture frame, and reads the slideshow island directly from the composition. When that path ships, most of what follows collapses.
+These patterns are a **temporary workaround** for standalone demos. The durable solution is engine-hosted: a future `kenectai preview --slideshow` / studio present mode will host the composition over the real KENECT AI engine, which drives seek-timelines frame-by-frame, owns the gesture frame, and reads the slideshow island directly from the composition. When that path ships, most of what follows collapses.
 
 Until then, a standalone slideshow opened via the bare player bundle must work around three facts:
 
@@ -23,7 +23,7 @@ Do not treat these as the blessed authoring model. When the engine-hosted path s
 
 The parent page hosts the two dist bundles, wraps the components, duplicates the island, and owns all audio.
 
-For public or user-facing generated projects, make this wrapper the root `index.html` so opening the project in a browser runs the slideshow. Put the raw HyperFrames composition in a separate path such as `composition/index.html`. In repo examples you may still see this file called `demo.html`; that name is a reference pattern, not the preferred handoff for a standalone deck.
+For public or user-facing generated projects, make this wrapper the root `index.html` so opening the project in a browser runs the slideshow. Put the raw KENECT AI composition in a separate path such as `composition/index.html`. In repo examples you may still see this file called `demo.html`; that name is a reference pattern, not the preferred handoff for a standalone deck.
 
 ```html
 <!doctype html>
@@ -439,7 +439,7 @@ For converted source pages, preserve the original page's visual design, motion l
 
 ### Navigation camera transitions for converted pages
 
-When a source page uses scroll to move a translated/scaled world, slideshow navigation usually seeks directly to each slide's hold frame. That seek bypasses any in-timeline interpolation near the scene boundary, so a deck can compute the right camera positions and still appear to jump. Add an explicit standalone navigation transition for manual slide changes, while keeping normal HyperFrames timeline seeks static and deterministic.
+When a source page uses scroll to move a translated/scaled world, slideshow navigation usually seeks directly to each slide's hold frame. That seek bypasses any in-timeline interpolation near the scene boundary, so a deck can compute the right camera positions and still appear to jump. Add an explicit standalone navigation transition for manual slide changes, while keeping normal KENECT AI timeline seeks static and deterministic.
 
 Use this pattern only for direct-open/presenter slideshow UI. Do not depend on CSS transitions for rendered video output; rendered compositions must still be correct when seeking a single frame.
 
@@ -498,7 +498,7 @@ function updateCameraForTime(t, opts) {
 
 During measurement, temporarily remove the transform with `hf-camera-static`, compute all element union rects, then restore `currentCamera` without animation. On initial load, resize, and validation-style seeks, call `updateCameraForTime(t, { staticCamera: true })`. In the standalone wrapper, set `iframe.contentWindow.__hfCameraTransitionsEnabled = true` after the player iframe is available. That keeps the exported composition seekable while letting presenter navigation glide between focal points.
 
-Before validation, resolve source font variables. HyperFrames lint accepts concrete generic stacks such as `system-ui, sans-serif` and `ui-monospace, monospace`, or real `@font-face` declarations pointing at local font files. It does not accept `font-family: var(--f-body)` / `var(--f-mono)` as a render-safe family.
+Before validation, resolve source font variables. KENECT AI lint accepts concrete generic stacks such as `system-ui, sans-serif` and `ui-monospace, monospace`, or real `@font-face` declarations pointing at local font files. It does not accept `font-family: var(--f-body)` / `var(--f-mono)` as a render-safe family.
 
 ```html
 <!-- In index.html (composition) -->
@@ -728,7 +728,7 @@ Wrapper-owned SFX should live in the parent page. Browsers enforce user-activati
 
 Normal slide media should stay in the composition. The slideshow player now stops slide media automatically on slide/sequence changes by calling `hyperframes-player.stopMedia()`, which pauses iframe `<video>` / `<audio>`, runtime WebAudio, and parent proxies adopted from iframe media. Same-slide fragment reveals do not stop media, and global/deck-level parent audio such as `audio-src` is left alone. Do not hand-roll per-slide cleanup scripts for regular video/audio players.
 
-Every copied `<video>` / `<audio>` with a `src` must be timed for HyperFrames ownership:
+Every copied `<video>` / `<audio>` with a `src` must be timed for KENECT AI ownership:
 
 ```html
 <video
@@ -878,7 +878,7 @@ Do NOT add a mute button inside the composition. The `#sfx-mute` coral button pa
 </script>
 ```
 
-**Sourcing SFX files:** use the HeyGen MCP `search_audio_sounds` tool with `type=sound_effects` and keywords like "whoosh", "click", "transition". Download the results to a local `sfx/` directory next to `demo.html` and reference them by relative path. Do not fetch SFX at render time — the HyperFrames determinism rule forbids runtime network requests; pre-download and commit them.
+**Sourcing SFX files:** use the HeyGen MCP `search_audio_sounds` tool with `type=sound_effects` and keywords like "whoosh", "click", "transition". Download the results to a local `sfx/` directory next to `demo.html` and reference them by relative path. Do not fetch SFX at render time — the KENECT AI determinism rule forbids runtime network requests; pre-download and commit them.
 
 ---
 
@@ -1015,6 +1015,6 @@ if (!renderer) {
 | Presenter media events are not bridged                | Audience follows slides but not play/pause/seek/mute            | Mirror native media events over `BroadcastChannel("hf-slideshow:" + location.pathname)` in standalone wrappers with interactive media            |
 | Remote play is blocked in the audience window         | Audience media time jumps but video never plays                 | Try muted playback first; if `media.play()` rejects, show an audience unlock button and ignore live `timeupdate` chasing until playback succeeds |
 | Audience muted autoplay publishes back to presenter   | Presenter audio starts, then mutes or cuts out                  | Publish media events only from presenter mode; audience mute is a local browser-autoplay workaround, not shared media state                      |
-| Copied media lacks HyperFrames timing                 | Lint errors on untimed media; preview/render diverge            | Add `data-start`, `data-duration`, and `data-has-audio="true"` when audible; avoid `preload="none"`                                              |
+| Copied media lacks KENECT AI timing                 | Lint errors on untimed media; preview/render diverge            | Add `data-start`, `data-duration`, and `data-has-audio="true"` when audible; avoid `preload="none"`                                              |
 | Source font CSS variables kept as font-family values  | StaticGuard font-family contract errors                         | Replace with concrete render-safe stacks or add local `@font-face` declarations                                                                  |
 | Converted scroll/camera source jumps between slides   | Per-slide focal points are correct but manual navigation snaps  | Add a standalone navigation-camera transition hook; disable it for measurement, initial load, resize, and render/validation seeks                |

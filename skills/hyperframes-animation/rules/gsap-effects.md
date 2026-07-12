@@ -1,6 +1,6 @@
-# GSAP Effects for HyperFrames
+# GSAP Effects for KENECT AI
 
-Drop-in animation patterns. Each effect is self-contained (HTML + CSS + JS) and follows the HyperFrames seek-driven contract — deterministic, no randomness, timeline registered on `window.__timelines`.
+Drop-in animation patterns. Each effect is self-contained (HTML + CSS + JS) and follows the KENECT AI seek-driven contract — deterministic, no randomness, timeline registered on `window.__timelines`.
 
 ## Index
 
@@ -220,7 +220,7 @@ xhr.send();
 var AUDIO_DATA = JSON.parse(xhr.responseText);
 ```
 
-**Do NOT use async `fetch()`.** HyperFrames reads `window.__timelines` synchronously after page load — building the timeline inside `.then()` means the timeline isn't ready when capture starts.
+**Do NOT use async `fetch()`.** KENECT AI reads `window.__timelines` synchronously after page load — building the timeline inside `.then()` means the timeline isn't ready when capture starts.
 
 ### Driving the Timeline
 
@@ -243,7 +243,7 @@ for (let f = 0; f < AUDIO_DATA.totalFrames; f++) {
 }
 ```
 
-**WebGL / Three.js** — HyperFrames patches `THREE.Clock` for deterministic time. Update uniforms from audio data each frame.
+**WebGL / Three.js** — KENECT AI patches `THREE.Clock` for deterministic time. Update uniforms from audio data each frame.
 
 **DOM elements** — fine for fewer than ~20 elements, slower than Canvas for many.
 

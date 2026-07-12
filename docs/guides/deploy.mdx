@@ -1,9 +1,9 @@
 ---
 title: Deploy
-description: "Run a Hyperframes preview + render API in the cloud from an official template."
+description: "Run a KENECT AI preview + render API in the cloud from an official template."
 ---
 
-Hyperframes ships three official deployment templates that wrap a composition in a small web app: an in-browser preview and a `/api/render` endpoint that produces an MP4 server-side. All are open source, Apache-2.0 — Vercel and Cloudflare deploy from a single button, Modal from a single `modal deploy`.
+KENECT AI ships three official deployment templates that wrap a composition in a small web app: an in-browser preview and a `/api/render` endpoint that produces an MP4 server-side. All are open source, Apache-2.0 — Vercel and Cloudflare deploy from a single button, Modal from a single `modal deploy`.
 
 | Template | Compute | Storage | Deploy |
 |----------|---------|---------|--------|
@@ -15,7 +15,7 @@ All three templates use the same shape:
 
 - **Preview** the bundled `ui-3d-reveal` composition in the browser via the [`<hyperframes-player>`](/packages/player) web component.
 - **Render** to MP4 by POSTing to `/api/render`. The handler ships the composition to a sandboxed runtime that has Chromium, FFmpeg, and `hyperframes` pre-installed, then streams the MP4 back to storage and returns a URL.
-- **Author locally**, deploy the preview + render API. Compositions are still built on your machine with `npx hyperframes init`, then dropped into the template's compositions directory.
+- **Author locally**, deploy the preview + render API. Compositions are still built on your machine with `npx @kenectai/cli init`, then dropped into the template's compositions directory.
 
 ## Choosing a template
 
@@ -126,9 +126,9 @@ All three templates ship with one bundled composition (`ui-3d-reveal`). To use y
     Compositions are HTML — author them on your machine with the [CLI](/packages/cli):
 
     ```bash Terminal
-    npx hyperframes init my-video
+    npx @kenectai/cli init my-video
     cd my-video
-    npx hyperframes preview
+    npx @kenectai/cli preview
     ```
   </Step>
   <Step title="Drop the bundle into the template">
@@ -155,11 +155,11 @@ All three templates ship with one bundled composition (`ui-3d-reveal`). To use y
 
 ## When to use a template vs. roll your own
 
-Templates are optimized for **a single render endpoint behind a preview UI**. They're the fastest way to get a hosted Hyperframes render API running. If you need:
+Templates are optimized for **a single render endpoint behind a preview UI**. They're the fastest way to get a hosted KENECT AI render API running. If you need:
 
 - A **render queue** with retries, deduplication, or priorities — start from a template, then add your own queue (e.g. Vercel Queues, Cloudflare Queues, SQS).
 - **Multi-tenant rendering** with per-user composition uploads — start from a template, replace the bundled composition with a runtime-fetched one.
-- **Self-hosted** rendering — see the [Rendering guide](/guides/rendering) and run `hyperframes render --docker` on your own infrastructure.
+- **Self-hosted** rendering — see the [Rendering guide](/guides/rendering) and run `kenectai render --docker` on your own infrastructure.
 
 For everything else, the templates are the recommended starting point.
 

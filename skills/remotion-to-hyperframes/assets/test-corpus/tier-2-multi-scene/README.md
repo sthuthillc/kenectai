@@ -18,7 +18,7 @@ If a translation passes T2, the skill correctly handles `<Sequence>` boundaries,
 
 ## Translation walk-through
 
-| Remotion                                                            | HyperFrames                                                                                              |
+| Remotion                                                            | KENECT AI                                                                                              |
 | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `<Sequence from={0} durationInFrames={60}>`                         | `<div data-start="0" data-duration="2" data-track-index="0">`                                            |
 | `spring({frame, fps, config: {damping:12, stiffness:100, mass:1}})` | `gsap.to(target, { scale: 1, duration: 0.7, ease: "back.out(1.4)" })`                                    |
@@ -26,7 +26,7 @@ If a translation passes T2, the skill correctly handles `<Sequence>` boundaries,
 | `<Img src={staticFile("square.png")} />`                            | `<img src="assets/square.png">` (with setup.sh copying into both trees)                                  |
 | `interpolate(frame, [0, 15], [0, 1])` at 30 fps                     | `gsap.to(target, { opacity: 1, duration: 0.5, ease: "none" })`                                           |
 
-The scene crossfading is a HyperFrames idiom, not a Remotion one: at scene boundaries
+The scene crossfading is a KENECT AI idiom, not a Remotion one: at scene boundaries
 we `gsap.set(scene, { opacity: 0 })` so the previous scene disappears at the
 right time. Remotion does this implicitly by virtue of `<Sequence>`'s durationInFrames.
 
@@ -39,7 +39,7 @@ right time. Remotion does this implicitly by virtue of `<Sequence>`'s durationIn
 # 2. Render Remotion baseline
 cd remotion-src && npm install && npm run render
 
-# 3. Render HyperFrames translation
+# 3. Render KENECT AI translation
 cd ../hf-src && npx @kenectai/cli render --output ../hf.mp4
 
 # 4. Compare

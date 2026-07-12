@@ -2,7 +2,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in Hyperframes, please report it responsibly.
+If you discover a security vulnerability in KENECT AI, please report it responsibly.
 
 **Do not open a public GitHub issue for security vulnerabilities.**
 

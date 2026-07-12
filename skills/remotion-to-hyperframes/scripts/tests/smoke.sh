@@ -4,7 +4,7 @@
 # Generates two synthetic videos with ffmpeg's testsrc filter, runs render_diff
 # and frame_strip against them, and runs lint_source against fixture .tsx files.
 # Asserts the harness produces sensible output without depending on a real
-# Remotion or HyperFrames render pipeline being installed.
+# Remotion or KENECT AI render pipeline being installed.
 #
 # Usage: ./smoke.sh
 # Exit 0 on pass.

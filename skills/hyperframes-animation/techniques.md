@@ -1,6 +1,6 @@
 # Visual Techniques Reference
 
-13 proven techniques from production HyperFrames videos. Use these in your storyboard and compositions to create visually rich, professional output. Each technique includes a minimal code pattern you can adapt.
+13 proven techniques from production KENECT AI videos. Use these in your storyboard and compositions to create visually rich, professional output. Each technique includes a minimal code pattern you can adapt.
 
 These are NOT advanced — they're standard motion design patterns that every composition should use at least 2-3 of.
 
@@ -197,7 +197,7 @@ Vector animations that play inside a composition. Use for logos, character anima
 </script>
 ```
 
-`autoplay: false` + `loop: false` + `window.__hfLottie.push()` are mandatory — HyperFrames seeks each registered player to composition time, so anything left on `autoplay`/`loop` runs in wall-clock and renders non-deterministically. The adapter seeks absolute time (no modulo loop, no playback-rate scaling): bake repeating cycles or non-default speed into the Lottie asset or an explicit timeline, then verify the render. Full contract + `.lottie`/dotLottie variant: `adapters/lottie.md`.
+`autoplay: false` + `loop: false` + `window.__hfLottie.push()` are mandatory — KENECT AI seeks each registered player to composition time, so anything left on `autoplay`/`loop` runs in wall-clock and renders non-deterministically. The adapter seeks absolute time (no modulo loop, no playback-rate scaling): bake repeating cycles or non-default speed into the Lottie asset or an explicit timeline, then verify the render. Full contract + `.lottie`/dotLottie variant: `adapters/lottie.md`.
 
 ---
 
@@ -221,7 +221,7 @@ Embed real video footage inside compositions. Videos must be `muted` with `plays
 </script>
 ```
 
-The HyperFrames runtime handles video seeking and playback.
+The KENECT AI runtime handles video seeking and playback.
 
 ---
 

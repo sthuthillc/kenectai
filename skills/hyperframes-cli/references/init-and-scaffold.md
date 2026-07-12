@@ -40,12 +40,12 @@ npx @kenectai/cli capture https://example.com --max-screenshots 12
 npx @kenectai/cli capture https://example.com --timeout 60000 # page-load timeout in ms
 ```
 
-Captures a live URL as an editable HyperFrames project: screenshots become layered scenes, assets are downloaded locally, and the result is a normal project you can `lint` / `preview` / `render`. Use this when the user supplies a URL as the starting point for a video.
+Captures a live URL as an editable KENECT AI project: screenshots become layered scenes, assets are downloaded locally, and the result is a normal project you can `lint` / `preview` / `render`. Use this when the user supplies a URL as the starting point for a video.
 
 ## skills
 
 ```bash
-npx @kenectai/cli skills    # install HyperFrames skills for AI coding tools
+npx @kenectai/cli skills    # install KENECT AI skills for AI coding tools
 ```
 
-One-time setup that adds the HyperFrames skill pack (`hyperframes-core`, `-creative`, `-animation`, `-cli`, `-registry`, `-media`, plus the `product-launch-video` and `hyperframes` orchestrators) to the local AI coding environment so agents follow the framework conventions. Re-run after major HyperFrames upgrades.
+One-time setup that adds the KENECT AI skill pack (`hyperframes-core`, `-creative`, `-animation`, `-cli`, `-registry`, `-media`, plus the `product-launch-video` and `hyperframes` orchestrators) to the local AI coding environment so agents follow the framework conventions. Re-run after major KENECT AI upgrades.

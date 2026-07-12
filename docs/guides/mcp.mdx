@@ -1,9 +1,9 @@
 ---
-title: HyperFrames MCP
-description: "Author, preview, and render HyperFrames videos directly inside Claude.ai, ChatGPT, and Grok — no local install required."
+title: KENECT AI MCP
+description: "Author, preview, and render KENECT AI videos directly inside Claude.ai, ChatGPT, and Grok — no local install required."
 ---
 
-The HyperFrames MCP is a hosted [Model Context Protocol](https://modelcontextprotocol.io) server that lets you create, edit, preview, and render HyperFrames video compositions from inside Claude.ai, ChatGPT, or Grok.
+The KENECT AI MCP is a hosted [Model Context Protocol](https://modelcontextprotocol.io) server that lets you create, edit, preview, and render KENECT AI video compositions from inside Claude.ai, ChatGPT, or Grok.
 
 <Note>
   **In beta.** Features and pricing may change. Found a bug or have feedback? [File an issue on GitHub](https://github.com/sthuthillc/kenectai/issues).
@@ -18,7 +18,7 @@ The HyperFrames MCP is a hosted [Model Context Protocol](https://modelcontextpro
 - Revisit compositions you've created previously
 - Check your render credits
 
-The agent behind `compose` has 25+ HyperFrames-specific skills baked in — typography, color palettes, motion principles, GSAP effects, audio-reactive animation, and captions. You don't have to specify any of this directly; describe the video you want and the agent picks the right tools.
+The agent behind `compose` has 25+ KENECT AI-specific skills baked in — typography, color palettes, motion principles, GSAP effects, audio-reactive animation, and captions. You don't have to specify any of this directly; describe the video you want and the agent picks the right tools.
 
 <Note>
   Looking for the open-source CLI? See the [Quickstart](/quickstart). The MCP is a hosted product for zero-install authoring inside an LLM chat. The CLI gives you full control of rendering and runtime; the MCP gives you instant authoring with cloud rendering.
@@ -38,8 +38,8 @@ The MCP requires a HeyGen account for authentication and credits. Sign up at [he
       <Step title="Open Settings → Connectors">
         In Claude.ai web or desktop: **Settings → Connectors**.
       </Step>
-      <Step title="Find HyperFrames">
-        Search the connector catalog for **HyperFrames** and click **Connect**.
+      <Step title="Find KENECT AI">
+        Search the connector catalog for **KENECT AI** and click **Connect**.
 
         Don't see it in the catalog? Add it manually: **Add custom connector**, then paste:
         ```
@@ -47,7 +47,7 @@ The MCP requires a HeyGen account for authentication and credits. Sign up at [he
         ```
       </Step>
       <Step title="Sign in to HeyGen">
-        OAuth opens in a new window. Authorize the HyperFrames connector to access your HeyGen account.
+        OAuth opens in a new window. Authorize the KENECT AI connector to access your HeyGen account.
       </Step>
       <Step title="Start a new chat">
         Open a new Claude.ai chat. Try:
@@ -80,8 +80,8 @@ The MCP requires a HeyGen account for authentication and credits. Sign up at [he
       <Step title="Open Settings → Connectors">
         In Grok: **Settings → Connectors**.
       </Step>
-      <Step title="Find HyperFrames">
-        Search the connector catalog for **HyperFrames** and click **Connect**.
+      <Step title="Find KENECT AI">
+        Search the connector catalog for **KENECT AI** and click **Connect**.
 
         Don't see it in the catalog? Add it manually: **Add custom connector**, then paste:
         ```
@@ -113,7 +113,7 @@ The MCP exposes six tools to the LLM. You don't call them directly — the model
 
 ### compose
 
-Authors a new composition or applies an edit to an existing one. The HyperFrames agent handles captions, blocks, layout, transitions, color, and timing internally based on your natural-language prompt.
+Authors a new composition or applies an edit to an existing one. The KENECT AI agent handles captions, blocks, layout, transitions, color, and timing internally based on your natural-language prompt.
 
 **Triggered by prompts like:**
 
@@ -299,11 +299,11 @@ For bugs or feature requests, file an issue at [github.com/sthuthillc/kenectai/i
 
 ## How this relates to the open-source framework
 
-[HyperFrames itself is open source](https://github.com/sthuthillc/kenectai) — the HTML composition format, CLI, renderer, and player. You can use HyperFrames locally without the MCP.
+[KENECT AI itself is open source](https://github.com/sthuthillc/kenectai) — the HTML composition format, CLI, renderer, and player. You can use KENECT AI locally without the MCP.
 
 The MCP is a HeyGen-hosted product that wraps:
 
-- The HyperFrames composition agent (the LLM that authors compositions)
+- The KENECT AI composition agent (the LLM that authors compositions)
 - HeyGen's cloud rendering pipeline
 - HeyGen's asset libraries
 - OAuth, credits, and tier management
@@ -318,7 +318,7 @@ The MCP is a HeyGen-hosted product that wraps:
 
 <CardGroup cols={2}>
   <Card title="Quickstart" href="/quickstart">
-    Try HyperFrames locally with the open-source CLI.
+    Try KENECT AI locally with the open-source CLI.
   </Card>
   <Card title="Prompting guide" href="/guides/prompting">
     Tips for getting the best results when working with AI agents.

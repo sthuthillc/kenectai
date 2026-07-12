@@ -3,7 +3,7 @@ title: "@kenectai/lint"
 description: "The composition linter as a standalone library — lint a directory or a single HTML file without the CLI."
 ---
 
-The lint package is the composition linter extracted from core into a dedicated, independently-installable package. It's the **single source of truth** for linting: both the CLI's `hyperframes lint` command and the render-time render-gate consume the same rule engine from here.
+The lint package is the composition linter extracted from core into a dedicated, independently-installable package. It's the **single source of truth** for linting: both the CLI's `kenectai lint` command and the render-time render-gate consume the same rule engine from here.
 
 ```bash
 npm install @kenectai/lint
@@ -12,7 +12,7 @@ npm install @kenectai/lint
 ## When to Use
 
 <Tip>
-  This package is the payoff of running validation **as a library** instead of shelling out to the CLI. A Node app (an agent harness, a CI step, an editor plugin) can `import { lintProject } from '@kenectai/lint'` and lint a composition directory directly — no `npx hyperframes lint` subprocess, no stdout parsing.
+  This package is the payoff of running validation **as a library** instead of shelling out to the CLI. A Node app (an agent harness, a CI step, an editor plugin) can `import { lintProject } from '@kenectai/lint'` and lint a composition directory directly — no `npx @kenectai/cli lint` subprocess, no stdout parsing.
 </Tip>
 
 **Use `@kenectai/lint` when you need to:**
@@ -123,7 +123,7 @@ Detected issues include:
     Types and runtime; re-exports the linter for back-compat.
   </Card>
   <Card title="CLI" icon="terminal" href="/packages/cli">
-    `npx hyperframes lint` wraps this package.
+    `npx @kenectai/cli lint` wraps this package.
   </Card>
   <Card title="Studio" icon="palette" href="/packages/studio">
     Surfaces lint findings in the editor.

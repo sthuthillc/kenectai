@@ -3,19 +3,19 @@ title: 4K Rendering
 description: "Render any composition to 4K (3840×2160) without rewriting it — the CLI supersamples a 1080p composition via Chrome's device scale factor."
 ---
 
-Hyperframes renders to 4K (3840×2160) two ways. Both produce a true 4K MP4; pick the one that matches your project.
+KENECT AI renders to 4K (3840×2160) two ways. Both produce a true 4K MP4; pick the one that matches your project.
 
 <CardGroup cols={2}>
   <Card title="Author at 4K" icon="ruler">
     Scaffold the project at 4K so the composition is laid out at 4K natively. Best when you want crisp 4K-native typography and assets.
     ```bash
-    npx hyperframes init my-video --resolution 4k
+    npx @kenectai/cli init my-video --resolution 4k
     ```
   </Card>
   <Card title="Supersample at render" icon="up-right-and-down-left-from-center">
     Keep your existing 1080p composition. Pass `--resolution 4k` at render time and Chrome renders at 2× DPR so the screenshot lands at 4K.
     ```bash
-    npx hyperframes render --resolution 4k --output 4k.mp4
+    npx @kenectai/cli render --resolution 4k --output 4k.mp4
     ```
   </Card>
 </CardGroup>
@@ -25,14 +25,14 @@ Hyperframes renders to 4K (3840×2160) two ways. Both produce a true 4K MP4; pic
 <Steps>
   <Step title="Render an existing project at 4K">
     ```bash Terminal
-    npx hyperframes render --resolution 4k --output my-video-4k.mp4
+    npx @kenectai/cli render --resolution 4k --output my-video-4k.mp4
     ```
 
     The composition's `data-width` / `data-height` are unchanged. Chrome's `deviceScaleFactor` is set to `2`, so the captured screenshot for each frame is 3840×2160. ffmpeg auto-detects the dimensions from the screenshot stream and encodes at 4K.
   </Step>
   <Step title="Or scaffold a new project at 4K">
     ```bash Terminal
-    npx hyperframes init my-video --resolution 4k
+    npx @kenectai/cli init my-video --resolution 4k
     ```
 
     Every scaffolded HTML file is patched in place: `data-width="3840"`, `data-height="2160"`, `data-resolution="landscape-4k"`, `#stage` CSS dimensions, and the `<meta viewport>` tag.
@@ -66,14 +66,14 @@ Hyperframes renders to 4K (3840×2160) two ways. Both produce a true 4K MP4; pic
 Examples:
 
 ```bash Terminal
-npx hyperframes render --resolution 4k         # landscape 4K
-npx hyperframes render --resolution portrait-4k # vertical 4K (TikTok / Reels at max quality)
-npx hyperframes render --resolution 1080p       # explicit 1080p (no-op on 1080p compositions)
+npx @kenectai/cli render --resolution 4k         # landscape 4K
+npx @kenectai/cli render --resolution portrait-4k # vertical 4K (TikTok / Reels at max quality)
+npx @kenectai/cli render --resolution 1080p       # explicit 1080p (no-op on 1080p compositions)
 ```
 
 ## How `--resolution` works (supersampling)
 
-The composition stays at its authored dimensions. Hyperframes computes a `deviceScaleFactor` from the ratio of output to composition dimensions and passes it to Chrome:
+The composition stays at its authored dimensions. KENECT AI computes a `deviceScaleFactor` from the ratio of output to composition dimensions and passes it to Chrome:
 
 | Composition | `--resolution` | `deviceScaleFactor` | Output |
 |-------------|---------------|--------------------|--------|
@@ -112,17 +112,17 @@ Supersampling re-renders the page at higher DPR. That genuinely helps anything t
 
 ```bash
 # OK — both landscape
-hyperframes render --resolution 4k         # composition is 1920×1080
+kenectai render --resolution 4k         # composition is 1920×1080
 
 # Error — composition is landscape, target is portrait
-hyperframes render --resolution portrait-4k  # composition is 1920×1080
+kenectai render --resolution portrait-4k  # composition is 1920×1080
 # → outputResolution portrait-4k (2160×3840) does not match the aspect ratio
 #   of the composition (1920×1080). Pick a preset whose orientation matches.
 ```
 
 ### The scale must be an integer
 
-The width ratio (output ÷ composition) must be a positive integer. 1080p → 4K is exactly `2×`. 720p → 4K would be `3×` and works. Non-integer scales like 900p → 4K (`2.4×`) introduce aliasing on subpixel-positioned text — Hyperframes refuses rather than producing a blurry render.
+The width ratio (output ÷ composition) must be a positive integer. 1080p → 4K is exactly `2×`. 720p → 4K would be `3×` and works. Non-integer scales like 900p → 4K (`2.4×`) introduce aliasing on subpixel-positioned text — KENECT AI refuses rather than producing a blurry render.
 
 ### Downsampling is not supported
 
@@ -157,8 +157,8 @@ The resolution applies per render, not per project — your composition files ar
 
 You can also drive resolution from the CLI:
 
-- **New project**: `hyperframes init my-video --resolution 4k`
-- **Existing project**: `hyperframes render --resolution 4k --output 4k.mp4`
+- **New project**: `kenectai init my-video --resolution 4k`
+- **Existing project**: `kenectai render --resolution 4k --output 4k.mp4`
 
 ## See also
 

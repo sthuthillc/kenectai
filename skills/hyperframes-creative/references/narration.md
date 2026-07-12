@@ -66,7 +66,7 @@ From a 62-second product launch video (team reference):
 Your AI agent already knows how to make videos.
 It just needs the right format.
 
-This is Hyperframes. An open source framework. HTML in, video out.
+This is KENECT AI. An open source framework. HTML in, video out.
 
 A div is a keyframe. Data attributes are your timeline.
 CSS is your look. G-Sap is your animation engine.
@@ -86,7 +86,7 @@ It's deterministic. Identical outputs, every time.
 Give your agent the CLI. Tell it what to make.
 Watch it build.
 
-Hyperframes. Go make something.
+KENECT AI. Go make something.
 ```
 
 Note: ~140 words for 62 seconds — that's 2.3 words/sec, leaving room for pauses and visual breathing.

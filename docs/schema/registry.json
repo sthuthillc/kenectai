@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://docs.kenectai.com/schema/registry.json",
-  "title": "Hyperframes Registry Manifest",
-  "description": "Top-level manifest describing all items in a Hyperframes registry.",
+  "title": "KENECT AI Registry Manifest",
+  "description": "Top-level manifest describing all items in a KENECT AI registry.",
   "type": "object",
   "required": ["name", "homepage", "items"],
   "additionalProperties": false,

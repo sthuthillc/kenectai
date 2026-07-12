@@ -1,9 +1,9 @@
 ---
 title: Changelog process
-description: How HyperFrames drafts, reviews, and publishes release notes.
+description: How KENECT AI drafts, reviews, and publishes release notes.
 ---
 
-HyperFrames changelogs have two audiences:
+KENECT AI changelogs have two audiences:
 
 - Developers reading the docs changelog for user-facing changes, migration notes, and reasons to upgrade.
 - Maintainers publishing GitHub Releases during the npm release process.
@@ -52,7 +52,7 @@ The docs changelog lives in `docs/changelog.mdx` and uses Mintlify `<Update>` en
     ```bash
     bun run release:prepare 0.6.53
     ```
-    For stable releases, `release:prepare` checks that `releases/v0.6.53.md` exists, that `docs/changelog.mdx` has a matching `HyperFrames v0.6.53` entry, and that neither artifact still contains the generated TODO summary. The lower-level `set-version` command enforces the same reviewed-changelog checkpoint for maintainers who run it directly. Prereleases and `--no-tag` version bumps skip this check. Use `--skip-changelog-check` only for emergency stable releases.
+    For stable releases, `release:prepare` checks that `releases/v0.6.53.md` exists, that `docs/changelog.mdx` has a matching `KENECT AI v0.6.53` entry, and that neither artifact still contains the generated TODO summary. The lower-level `set-version` command enforces the same reviewed-changelog checkpoint for maintainers who run it directly. Prereleases and `--no-tag` version bumps skip this check. Use `--skip-changelog-check` only for emergency stable releases.
 
     The release commit can include the version bump, `releases/v0.6.53.md`, and the docs changelog update.
   </Step>

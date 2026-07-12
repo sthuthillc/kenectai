@@ -1,14 +1,14 @@
 ---
 name: hyperframes-keyframes
 description: >
-  Use when a HyperFrames composition needs seek-safe 2D/3D keyframes, GSAP
+  Use when a KENECT AI composition needs seek-safe 2D/3D keyframes, GSAP
   timelines, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw,
   text trails, 3D depth, or `kenectai keyframes` diagnostics.
   Don't use for broad scene strategy, brand design, media sourcing, captions, or
   general video planning.
 ---
 
-# HyperFrames Keyframes
+# KENECT AI Keyframes
 
 Keyframes are a pose contract: visible states, continuous subject identity, seek-safe runtime, verified pixels.
 
@@ -177,7 +177,7 @@ Use one or two diagnostic angles that expose the depth relationship. If angled p
 
 ## Canvas / WebGL
 
-Keyframe camera position, camera target, object transform, material opacity, shader uniforms, and postprocess intensity through deterministic state. Render from HyperFrames time. Use `--ghost` because marker boxes cannot see internal canvas motion.
+Keyframe camera position, camera target, object transform, material opacity, shader uniforms, and postprocess intensity through deterministic state. Render from KENECT AI time. Use `--ghost` because marker boxes cannot see internal canvas motion.
 
 ## CLI Proof
 

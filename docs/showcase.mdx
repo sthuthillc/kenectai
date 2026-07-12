@@ -1,11 +1,11 @@
 ---
 title: Showcase
-description: "Finished HyperFrames videos you can watch, read, run, and remix."
+description: "Finished KENECT AI videos you can watch, read, run, and remix."
 ---
 
-The README explains what HyperFrames is. This page shows what you can build with it.
+The README explains what KENECT AI is. This page shows what you can build with it.
 
-Every project below is a real HyperFrames composition with source you can inspect,
+Every project below is a real KENECT AI composition with source you can inspect,
 preview, render, and remix.
 
 Want the production notes, repo structure, and clone options behind these videos?
@@ -30,7 +30,7 @@ Videos is the deeper teardown.
     />
     <div className="p-4">
       <div className="text-xs uppercase tracking-wide text-zinc-500">Product launch</div>
-      <h3 className="mt-1 text-lg font-semibold text-zinc-950 dark:text-zinc-50">HyperFrames launch video</h3>
+      <h3 className="mt-1 text-lg font-semibold text-zinc-950 dark:text-zinc-50">KENECT AI launch video</h3>
       <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
         A full announcement video with CSS, GSAP, Lottie, shader transitions, Three.js,
         footage compositing, captions, voiceover, and SFX.
@@ -59,7 +59,7 @@ Videos is the deeper teardown.
     />
     <div className="p-4">
       <div className="text-xs uppercase tracking-wide text-zinc-500">Website to video</div>
-      <h3 className="mt-1 text-lg font-semibold text-zinc-950 dark:text-zinc-50">Website to HyperFrames demo</h3>
+      <h3 className="mt-1 text-lg font-semibold text-zinc-950 dark:text-zinc-50">Website to KENECT AI demo</h3>
       <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
         A 41.8-second launch video showing AI agents turning websites into product
         promos, social ads, feature showcases, and brand reels.
@@ -120,7 +120,7 @@ Videos is the deeper teardown.
       <h3 className="mt-1 text-lg font-semibold text-zinc-950 dark:text-zinc-50">Texture launch</h3>
       <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
         Texture-mask typography, shader backgrounds, and transition-heavy title
-        design built as a full HyperFrames composition.
+        design built as a full KENECT AI composition.
       </p>
       <a
         className="mt-3 block text-sm font-medium text-zinc-950 dark:text-zinc-50"
@@ -209,7 +209,7 @@ Videos is the deeper teardown.
 | A product UI reveal | [Timeline editor launch](https://github.com/heygen-com/hyperframes-launches/tree/main/timeline-launch) | Shows mockups, interface closeups, and feature storytelling. |
 | A texture or title-card system | [Texture launch](https://github.com/heygen-com/hyperframes-launches/tree/main/texture-launch-video) | Shows expressive text treatment and shader-backed motion. |
 | An effects-heavy launch reel | [VFX x HeyGen combined](https://github.com/heygen-com/hyperframes-launches/tree/main/vfx-heygen-combined) | Shows Three.js, generated media, and HTML-in-canvas in one render. |
-| A starter project | [Examples](/examples) | Scaffold working templates with `npx hyperframes init --example <name>`. |
+| A starter project | [Examples](/examples) | Scaffold working templates with `npx @kenectai/cli init --example <name>`. |
 | A reusable motion part | [Catalog](/catalog/blocks/data-chart) | Add blocks and components to an existing composition. |
 
 ## Run One Locally
@@ -224,8 +224,8 @@ git lfs install
 git clone https://github.com/heygen-com/hyperframes-launches.git
 cd hyperframes-launches/website-to-hyperframes
 
-npx hyperframes preview
-npx hyperframes render
+npx @kenectai/cli preview
+npx @kenectai/cli render
 ```
 
 To skip pulling every launch asset up front, clone first and pull only the
@@ -237,7 +237,7 @@ cd hyperframes-launches
 git lfs pull --include="website-to-hyperframes/**"
 cd website-to-hyperframes
 
-npx hyperframes preview
+npx @kenectai/cli preview
 ```
 
 The launch projects include source HTML, sub-compositions, assets, rendered
@@ -248,7 +248,7 @@ outputs, and production notes such as `STORYBOARD.md`, `DESIGN.md`, and
 
 <CardGroup cols={2}>
   <Card title="Starter Examples" icon="layer-group" href="/examples">
-    Scaffold remixable templates with `npx hyperframes init --example`.
+    Scaffold remixable templates with `npx @kenectai/cli init --example`.
   </Card>
   <Card title="Community Playground" icon="play" href="https://www.hyperframes.dev/">
     Open shared projects, preview videos, and publish your own.

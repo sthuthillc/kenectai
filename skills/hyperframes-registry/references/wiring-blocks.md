@@ -37,7 +37,7 @@ After `kenectai add data-chart`, wire it into your `index.html`:
 
 ## Timeline coordination
 
-The block's internal GSAP timeline runs independently from the host timeline. The HyperFrames runtime loads the sub-composition, finds its `window.__timelines` registration, and seeks the block in sync with the host, offset by `data-start`. You do NOT need to reference the block's timeline in your host's GSAP code.
+The block's internal GSAP timeline runs independently from the host timeline. The KENECT AI runtime loads the sub-composition, finds its `window.__timelines` registration, and seeks the block in sync with the host, offset by `data-start`. You do NOT need to reference the block's timeline in your host's GSAP code.
 
 ## Positioning blocks
 

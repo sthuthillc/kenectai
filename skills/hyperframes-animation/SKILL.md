@@ -1,9 +1,9 @@
 ---
 name: hyperframes-animation
-description: "All animation knowledge for HyperFrames — atomic motion rules, multi-phase scene blueprints, scene transitions, broader motion-design techniques, AND the seven runtime adapters (GSAP default, plus Lottie, Three.js, Anime.js, CSS keyframes, Web Animations API, TypeGPU). Use for any motion or animation task: pick 2-4 rules and compose, or load a blueprint, or look up runtime-specific API (e.g. GSAP eases / Lottie player / Three.js mixer). Also covers auditing an existing composition's choreography (animation map) and 24 named text-animation effects. HyperFrames-native: single paused timeline, seek-safe, deterministic."
+description: "All animation knowledge for KENECT AI — atomic motion rules, multi-phase scene blueprints, scene transitions, broader motion-design techniques, AND the seven runtime adapters (GSAP default, plus Lottie, Three.js, Anime.js, CSS keyframes, Web Animations API, TypeGPU). Use for any motion or animation task: pick 2-4 rules and compose, or load a blueprint, or look up runtime-specific API (e.g. GSAP eases / Lottie player / Three.js mixer). Also covers auditing an existing composition's choreography (animation map) and 24 named text-animation effects. KENECT AI-native: single paused timeline, seek-safe, deterministic."
 ---
 
-# HyperFrames Animation
+# KENECT AI Animation
 
 All motion knowledge in one skill: **rules** (atomic recipes), **blueprints** (multi-phase scene templates), **transitions** (scene-to-scene), **techniques** (broader motion-design patterns), and **adapters** (per-runtime APIs).
 
@@ -55,7 +55,7 @@ Blueprints live in `blueprints-index.md`. Each entry points to `blueprints/<id>.
 - **WAAPI** for native browser keyframes without a GSAP dependency.
 - **TypeGPU / WebGPU** for GPU-rendered canvases (particles, liquid glass, custom shaders).
 
-Multiple runtimes can coexist in one composition. Each registers its instances on the runtime-specific global so HyperFrames can seek all of them in one pass.
+Multiple runtimes can coexist in one composition. Each registers its instances on the runtime-specific global so KENECT AI can seek all of them in one pass.
 
 ## Critical Constraints
 
@@ -75,7 +75,7 @@ node skills/hyperframes-animation/scripts/animation-map.mjs <composition-dir> \
 
 Reads every GSAP timeline registered on `window.__timelines`, enumerates tweens, samples bboxes, computes flags, outputs `animation-map.json`. Use it to audit choreography (dead zones, stagger consistency, lifecycle warnings) after authoring.
 
-`animation-map.mjs` resolves helper packages from the current project first, then can bootstrap the bundled HyperFrames package version. Set `HYPERFRAMES_SKILL_PKG_VERSION=<version>` only when running the skill outside the bundled CLI/skill install and you need to pin that bootstrap version explicitly.
+`animation-map.mjs` resolves helper packages from the current project first, then can bootstrap the bundled KENECT AI package version. Set `HYPERFRAMES_SKILL_PKG_VERSION=<version>` only when running the skill outside the bundled CLI/skill install and you need to pin that bootstrap version explicitly.
 
 ## See Also
 

@@ -95,7 +95,7 @@ Video elements must be muted and inline. Audio must be a separate `<audio>` elem
 
 ### Media Rules
 
-- **Do not** call `video.play()`, `audio.play()`, pause, or seek in composition code. HyperFrames owns playback.
+- **Do not** call `video.play()`, `audio.play()`, pause, or seek in composition code. KENECT AI owns playback.
 - **Do not** place media inside a sub-comp `<template>` or any wrapper `<div>` — direct host-root child only (see above), else it never decodes.
 - **Do not** drive host media from a sub-comp timeline — it has no effect. Drive it from the main timeline at global time.
 - **Do not** animate timed media element dimensions; animate a non-timed wrapper instead.

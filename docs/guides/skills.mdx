@@ -1,9 +1,9 @@
 ---
 title: Skills catalog
-description: "Every HyperFrames skill agents load on demand — what each one is for, and how to install them."
+description: "Every KENECT AI skill agents load on demand — what each one is for, and how to install them."
 ---
 
-HyperFrames ships AI agent skills via [vercel-labs/skills](https://github.com/vercel-labs/skills). They teach your agent the framework-specific patterns — `data-*` attributes, GSAP timeline registration, adapter registries, runtime-owned media playback — that generic web docs don't cover. **Install them before writing compositions** and your agent produces valid HyperFrames HTML on the first try.
+KENECT AI ships AI agent skills via [vercel-labs/skills](https://github.com/vercel-labs/skills). They teach your agent the framework-specific patterns — `data-*` attributes, GSAP timeline registration, adapter registries, runtime-owned media playback — that generic web docs don't cover. **Install them before writing compositions** and your agent produces valid KENECT AI HTML on the first try.
 
 The skills split into three groups:
 
@@ -48,16 +48,16 @@ The skills split into three groups:
 
 After the first install, skills stay lean and current on their own — nothing re-pulls the full set behind your back:
 
-- **Core set** — the `/hyperframes` router, the `hyperframes-*` domain skills, and `/media-use`. `npx hyperframes init` (which every creation workflow runs when scaffolding) refreshes the core set plus anything else you already have installed. It never _expands_ the install — workflow skills you haven't used are not pulled — and re-running `init` on an up-to-date machine is a no-op. Offline (or rate-limited) it degrades gracefully and never hard-fails.
-- **Workflow skills** (and `/figma`) — install **on demand**, when their workflow is first triggered. The `/hyperframes` router runs `npx hyperframes skills update <workflow>` before entering a workflow, so the one it routes to is guaranteed present.
+- **Core set** — the `/hyperframes` router, the `hyperframes-*` domain skills, and `/media-use`. `npx @kenectai/cli init` (which every creation workflow runs when scaffolding) refreshes the core set plus anything else you already have installed. It never _expands_ the install — workflow skills you haven't used are not pulled — and re-running `init` on an up-to-date machine is a no-op. Offline (or rate-limited) it degrades gracefully and never hard-fails.
+- **Workflow skills** (and `/figma`) — install **on demand**, when their workflow is first triggered. The `/hyperframes` router runs `npx @kenectai/cli skills update <workflow>` before entering a workflow, so the one it routes to is guaranteed present.
 
 Check or refresh manually anytime:
 
 ```bash
-npx hyperframes skills check          # non-zero exit if installed skills are stale or the core set is incomplete
-npx hyperframes skills update         # refresh the core set + everything installed (never expands)
-npx hyperframes skills update <name>  # also install a specific workflow / domain skill on demand
-npx hyperframes skills                # install the full set explicitly
+npx @kenectai/cli skills check          # non-zero exit if installed skills are stale or the core set is incomplete
+npx @kenectai/cli skills update         # refresh the core set + everything installed (never expands)
+npx @kenectai/cli skills update <name>  # also install a specific workflow / domain skill on demand
+npx @kenectai/cli skills                # install the full set explicitly
 ```
 
 `skills check` reports workflow skills you haven't installed as _available on demand_, not as a failure.
@@ -86,7 +86,7 @@ One workflow per input shape. The router (`/hyperframes`) picks one of these for
 | `/music-to-video`          | A **music track** (audio file, or video to pull audio from) → a **beat-synced** video — lyric, slideshow, or kinetic promo; music drives pacing.                                        |
 | `/slideshow`               | A **presentation / pitch deck / interactive deck** — discrete slides, fragment reveals, branching, hotspot navigation, presenter mode. Output is a navigable deck, not a rendered video. |
 | `/general-video`           | **Anything else** — longer or multi-scene pieces, brand / sizzle reel, title card, static loop, freeform composition. Input- and length-agnostic fallback.                              |
-| `/remotion-to-hyperframes` | **Porting an existing Remotion** (React) composition's source to HyperFrames HTML. One-way migration, not creation.                                                                     |
+| `/remotion-to-hyperframes` | **Porting an existing Remotion** (React) composition's source to KENECT AI HTML. One-way migration, not creation.                                                                     |
 
 ## Domain skills (loaded on demand)
 
@@ -96,11 +96,11 @@ Atomic capabilities the creation workflows compose against — pull one when you
 | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `/hyperframes-core`      | The composition contract — `data-*` timing attributes, `class="clip"`, tracks, sub-compositions, variables, framework-owned media playback, determinism rules.        |
 | `/hyperframes-animation` | All animation knowledge — atomic motion rules, scene blueprints, transitions, runtime adapters (GSAP / Lottie / Three.js / Anime.js / CSS / WAAPI / TypeGPU).         |
-| `/hyperframes-keyframes` | Seek-safe keyframe authoring across runtimes — GSAP timelines, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw, 3D depth — plus `hyperframes keyframes` diagnostics for rendered motion. |
+| `/hyperframes-keyframes` | Seek-safe keyframe authoring across runtimes — GSAP timelines, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw, 3D depth — plus `kenectai keyframes` diagnostics for rendered motion. |
 | `/hyperframes-creative`  | Non-animation creative direction — `frame.md` / `design.md`, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns.            |
 | `/media-use`             | The media OS — resolve any media need (BGM, SFX, image, icon, logo, voice, color grade, LUT) into a frozen local file or paste-ready block + ledger record, generate via TTS/music/image models when the catalog misses, transcribe, caption, remove backgrounds, and reuse assets across projects. One shared audio engine + manifest tracking.          |
 | `/hyperframes-cli`       | CLI dev loop — `init`, `lint`, `check`, `snapshot`, `preview`, `render`, `publish`, `doctor`, plus AWS Lambda cloud rendering (`lambda deploy / render / progress / destroy / policies`). |
-| `/hyperframes-registry`  | Install and wire registry blocks and components into compositions via `hyperframes add`. Authoring a new block or component to contribute upstream.                   |
+| `/hyperframes-registry`  | Install and wire registry blocks and components into compositions via `kenectai add`. Authoring a new block or component to contribute upstream.                   |
 | `/figma`                 | Import Figma assets, tokens, components, and storyboard sections → reconstructed motion (frames read as states, not slides) (REST/CLI) plus Motion animations (MCP) and shaders (MCP source / native export) into a composition. |
 
 ## Source of truth
@@ -117,9 +117,9 @@ The one-line "use when" for each skill comes from its own `SKILL.md` frontmatter
     Produce a valid first draft in Claude Design, then refine in any AI coding agent.
   </Card>
   <Card title="GitHub Copilot CLI" icon="terminal" href="/guides/copilot-cli">
-    Install and invoke HyperFrames skills from Copilot CLI in your terminal.
+    Install and invoke KENECT AI skills from Copilot CLI in your terminal.
   </Card>
   <Card title="Google Antigravity" icon="atom" href="/guides/antigravity">
-    Use HyperFrames skills in Google Antigravity.
+    Use KENECT AI skills in Google Antigravity.
   </Card>
 </CardGroup>

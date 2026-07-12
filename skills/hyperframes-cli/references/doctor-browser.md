@@ -24,7 +24,7 @@ Run `doctor` first when:
 
 - `render` fails with a Chrome or FFmpeg error.
 - `preview` opens but the composition fails to load.
-- A fresh machine has never run HyperFrames.
+- A fresh machine has never run KENECT AI.
 
 Common issues:
 
@@ -40,6 +40,6 @@ npx @kenectai/cli browser path      # print the browser executable path (for scr
 npx @kenectai/cli browser clear     # remove the cached Chrome download
 ```
 
-Manage the Chrome build HyperFrames uses for rendering. The pinned version exists because pixel output drifts across Chrome versions — using the bundled build keeps rendered output reproducible across machines.
+Manage the Chrome build KENECT AI uses for rendering. The pinned version exists because pixel output drifts across Chrome versions — using the bundled build keeps rendered output reproducible across machines.
 
 Use `path` to embed the binary in scripts: `$(npx @kenectai/cli browser path)`.

@@ -1,25 +1,25 @@
 ---
 title: Contributing to the Catalog
-description: How to add blocks and components to the HyperFrames registry.
+description: How to add blocks and components to the KENECT AI registry.
 ---
 
-Your agent already knows how to build video components. It writes HTML. HyperFrames renders it. The registry is the collection of everything that's been built — 52 blocks and counting.
+Your agent already knows how to build video components. It writes HTML. KENECT AI renders it. The registry is the collection of everything that's been built — 52 blocks and counting.
 
 This guide shows you how to add to it.
 
 <Info>
-**Quick version** — Fork the repo. Write one HTML file with a paused GSAP timeline. Add `registry-item.json`. Run `hyperframes lint` + `validate`. Publish with `npx hyperframes publish`. Open a PR.
+**Quick version** — Fork the repo. Write one HTML file with a paused GSAP timeline. Add `registry-item.json`. Run `kenectai lint` + `validate`. Publish with `npx @kenectai/cli publish`. Open a PR.
 </Info>
 
 ## Why Contribute?
 
-Every block in the registry exists because someone needed it and built it. When you add a block, every HyperFrames user gets it with one command:
+Every block in the registry exists because someone needed it and built it. When you add a block, every KENECT AI user gets it with one command:
 
 ```bash
-npx hyperframes add instagram-follow
+npx @kenectai/cli add instagram-follow
 ```
 
-The registry grows, HyperFrames gets more useful, and your work ships to everyone.
+The registry grows, KENECT AI gets more useful, and your work ships to everyone.
 
 ## Two Paths
 
@@ -39,7 +39,7 @@ Open an issue on [GitHub](https://github.com/sthuthillc/kenectai/issues) with a 
 
 Every block is a single HTML file. No build step, no framework.
 
-If you use Claude Code with HyperFrames skills:
+If you use Claude Code with KENECT AI skills:
 
 > "I want to contribute a new transition that looks like \[description\]"
 
@@ -140,8 +140,8 @@ Not everything belongs in the registry. The bar is production quality.
   </Step>
   <Step title="Validate">
     ```bash
-    hyperframes lint
-    hyperframes check
+    kenectai lint
+    kenectai check
     npx oxfmt your-block.html
     ```
   </Step>
@@ -154,12 +154,12 @@ Not everything belongs in the registry. The bar is production quality.
   </Step>
   <Step title="Render preview">
     ```bash
-    hyperframes render -o preview.mp4
+    kenectai render -o preview.mp4
     ```
   </Step>
   <Step title="Publish and PR">
     ```bash
-    npx hyperframes publish
+    npx @kenectai/cli publish
     ```
     Open a PR with your [hyperframes.dev](https://hyperframes.dev) preview link.
   </Step>

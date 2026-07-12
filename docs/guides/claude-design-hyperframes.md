@@ -1,19 +1,19 @@
-# Claude Design + HyperFrames (Template-First)
+# Claude Design + KENECT AI (Template-First)
 
-Your medium is **HyperFrames compositions**: plain HTML + CSS + a paused GSAP timeline. The CLI (`npx hyperframes render`, run from the project directory) turns the HTML into an MP4. You author the HTML -- the user renders locally.
+Your medium is **KENECT AI compositions**: plain HTML + CSS + a paused GSAP timeline. The CLI (`npx @kenectai/cli render`, run from the project directory) turns the HTML into an MP4. You author the HTML -- the user renders locally.
 
-**HyperFrames replaces your default video-artifact workflow.** Do NOT call `copy_starter_component`, do NOT invoke the built-in "Animated video" skill, do NOT use React/Babel. Plain HTML + GSAP only.
+**KENECT AI replaces your default video-artifact workflow.** Do NOT call `copy_starter_component`, do NOT invoke the built-in "Animated video" skill, do NOT use React/Babel. Plain HTML + GSAP only.
 
 ---
 
 ## Your role
 
-**You produce a valid first draft -- not a final render.** Your strengths are visual identity, layout, and brand-accurate content decisions. You are not a motion design tool -- you're a rapid prototyping tool that produces structurally valid HyperFrames projects.
+**You produce a valid first draft -- not a final render.** Your strengths are visual identity, layout, and brand-accurate content decisions. You are not a motion design tool -- you're a rapid prototyping tool that produces structurally valid KENECT AI projects.
 
 The user's workflow:
 
 1. **Claude Design** (you) -- brand identity, scene content, layout, first-pass animations, shader choices
-2. **Download ZIP** -- user gets a valid HyperFrames project
+2. **Download ZIP** -- user gets a valid KENECT AI project
 3. **Claude Code** (or any AI coding agent) -- animation polish, timing refinement, pacing, production QA with linting and live preview
 
 Your output must be a **valid starting point that Claude Code can open and immediately work with** -- no structural fixes needed, just creative refinement.
@@ -23,7 +23,7 @@ Your output must be a **valid starting point that Claude Code can open and immed
 - Correct brand identity from attachments (palette, typography, tone)
 - Strong visual layout per scene (hierarchy, spacing, readability)
 - Scene content that tells the story (headlines, stats, copy, imagery)
-- Structural validity (passes `npx hyperframes lint` with zero errors)
+- Structural validity (passes `npx @kenectai/cli lint` with zero errors)
 - Appropriate shader transition choices for the mood
 - Reasonable scene count and durations for the video type
 
@@ -46,7 +46,7 @@ Think of it as: **you create the first cut of the film, Claude Code does the edi
 
 ## How this works
 
-You get a **pre-valid skeleton** that already passes the HyperFrames linter. Your job:
+You get a **pre-valid skeleton** that already passes the KENECT AI linter. Your job:
 
 1. Read the brief, pick a skeleton
 2. Fill in the palette + typography (CSS custom properties)
@@ -339,7 +339,7 @@ Scrub through every scene and check:
 | Scene doesn't appear          | Wrong `data-start` / `data-duration`                  | Check scene windows tile end-to-end                                                                                                                                   |
 | Blink before transition       | Exit animation before shader fires                    | Remove exit tweens -- shader IS the exit                                                                                                                              |
 | Blink before transition       | Transition duration < 0.3s                            | Increase to 0.5s                                                                                                                                                      |
-| Seeking backwards shows blank | Async capture race condition                          | Known bug in HyperShader browser mode. Forward seek usually works. For reliable scrubbing, download and use `npx hyperframes preview` locally                         |
+| Seeking backwards shows blank | Async capture race condition                          | Known bug in HyperShader browser mode. Forward seek usually works. For reliable scrubbing, download and use `npx @kenectai/cli preview` locally                         |
 | Middle scene invisible        | First shader anchor not shown                         | Add `tl.set("#sN", { opacity: 1 }, startTime)` for first anchor in each shader group                                                                                  |
 | Middle scene invisible        | Non-anchor uses `visibility` instead of `autoAlpha`   | Change to `tl.set("#sN", { autoAlpha: 1 }, start)` and `tl.set("#sN", { autoAlpha: 0 }, end)`. Shader blanket reset poisons opacity; `visibility` alone can't fix it. |
 
@@ -352,7 +352,7 @@ The `preview.html` and `README.md` are already in the skeleton -- don't modify `
 In your final message, tell the user:
 
 1. **What you built** -- scene count, duration, visual identity summary, shader transitions used
-2. **What to do next** -- download the ZIP, run `npx hyperframes preview` locally to see the full composition with reliable playback
+2. **What to do next** -- download the ZIP, run `npx @kenectai/cli preview` locally to see the full composition with reliable playback
 3. **What to refine in Claude Code** -- be specific about which scenes need animation polish, where timing could be tighter, which mid-scene activities are basic and could be richer. Don't just say "refine in Claude Code" -- say "scene 4's counter animation could be smoother with a longer duration, and scene 6 would benefit from a breathing float on the logo."
 4. **Caveats** -- placeholder assets, unverified stats, elements inspired by a real brand
 
@@ -441,7 +441,7 @@ Run before delivering. Check with actual code, not assumptions.
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>HyperFrames Preview</title>
+    <title>KENECT AI Preview</title>
     <style>
       html,
       body {
@@ -474,31 +474,31 @@ Run before delivering. Check with actual code, not assumptions.
 ````markdown
 # <project-name>
 
-A HyperFrames video composition. Plain HTML + GSAP; rendered to MP4 by the `hyperframes` CLI.
+A KENECT AI video composition. Plain HTML + GSAP; rendered to MP4 by the `hyperframes` CLI.
 
 ## Requirements
 
 - **Node.js 22+** -- [nodejs.org](https://nodejs.org/)
 - **FFmpeg** -- `brew install ffmpeg` (macOS) or `sudo apt install ffmpeg` (Debian/Ubuntu) or [ffmpeg.org/download](https://ffmpeg.org/download.html) (Windows)
 
-Verify: `npx hyperframes doctor`
+Verify: `npx @kenectai/cli doctor`
 
 ## Preview
 
 ```bash
-npx hyperframes preview
+npx @kenectai/cli preview
 ```
 
-Opens the HyperFrames Studio at `http://localhost:3002` with frame-accurate scrubbing.
+Opens the KENECT AI Studio at `http://localhost:3002` with frame-accurate scrubbing.
 
 ## Refine with Claude Code
 
 This project was drafted in Claude Design. To polish animations, timing, and pacing:
 
 ```bash
-npx skills add sthuthillc/kenectai   # install HyperFrames skills (one-time)
-npx hyperframes lint                     # verify structure (should pass with zero errors)
-npx hyperframes preview                  # open the studio for live feedback
+npx skills add sthuthillc/kenectai   # install KENECT AI skills (one-time)
+npx @kenectai/cli lint                     # verify structure (should pass with zero errors)
+npx @kenectai/cli preview                  # open the studio for live feedback
 ```
 
 Then open in Claude Code and iterate:
@@ -515,7 +515,7 @@ positional argument is the project directory, not a file, so pass a specific
 composition with `-c` rather than as a bare path.
 
 ```bash
-npx hyperframes render -o output.mp4
+npx @kenectai/cli render -o output.mp4
 ```
 
 1920x1080 / 30fps by default. Use `--fps 60` or `--resolution 3840x2160` to override.

@@ -2,7 +2,7 @@
 /**
  * Objective fidelity gate for figma-motion imports (skill step 2b).
  *
- * Compares the HyperFrames render against Figma's own `export_video` output
+ * Compares the KENECT AI render against Figma's own `export_video` output
  * using MOTION-ENERGY deltas: for each sample window [t, t+interval], the
  * frame difference ref(t+i)-ref(t) is compared (PSNR) against
  * render(t+i)-render(t). Static import divergence (fonts, rasterized edges,

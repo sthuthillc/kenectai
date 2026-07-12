@@ -3,7 +3,7 @@ title: "@kenectai/studio"
 description: "Visual composition editor with live preview, timeline view, and hot reload."
 ---
 
-The studio package provides a browser-based visual editor for creating and previewing Hyperframes compositions. It gives you a real-time preview of your video, a visual timeline of all clips, and player controls for seeking and playback — all updating live as you edit your HTML.
+The studio package provides a browser-based visual editor for creating and previewing KENECT AI compositions. It gives you a real-time preview of your video, a visual timeline of all clips, and player controls for seeking and playback — all updating live as you edit your HTML.
 
 ```bash
 npm install @kenectai/studio
@@ -13,16 +13,16 @@ npm install @kenectai/studio
 
 **Use `@kenectai/studio` when you need to:**
 - Build a custom composition editor UI (e.g., embedded in your own web application)
-- Integrate the Hyperframes preview player into a larger product
+- Integrate the KENECT AI preview player into a larger product
 - Extend the editor with custom panels, toolbars, or integrations
 
 **Use a different package if you want to:**
-- Preview compositions during development — use the [CLI](/packages/cli) (`npx hyperframes preview`), which launches the studio for you
+- Preview compositions during development — use the [CLI](/packages/cli) (`npx @kenectai/cli preview`), which launches the studio for you
 - Render compositions to MP4 — use the [CLI](/packages/cli) or [producer](/packages/producer)
 - Capture frames programmatically — use the [engine](/packages/engine)
 
 <Tip>
-  **For most development workflows, you do not need to install the studio directly.** Running `npx hyperframes preview` starts the studio automatically with hot reload. Install `@kenectai/studio` only if you are embedding the editor into your own application.
+  **For most development workflows, you do not need to install the studio directly.** Running `npx @kenectai/cli preview` starts the studio automatically with hot reload. Install `@kenectai/studio` only if you are embedding the editor into your own application.
 </Tip>
 
 ## Running the Studio
@@ -30,7 +30,7 @@ npm install @kenectai/studio
 ### Via the CLI (recommended)
 
 ```bash
-npx hyperframes preview
+npx @kenectai/cli preview
 ```
 
 This starts the studio development server, opens your composition in the browser, and watches for file changes. This is the easiest way to get a live preview.
@@ -165,7 +165,7 @@ const picker = useElementPicker(iframeRef);
 
 ### Live Preview
 
-The studio renders your composition in an iframe using the Hyperframes runtime. What you see in the preview is exactly what will be captured during rendering — the same runtime code, the same seek logic, the same clip lifecycle.
+The studio renders your composition in an iframe using the KENECT AI runtime. What you see in the preview is exactly what will be captured during rendering — the same runtime code, the same seek logic, the same clip lifecycle.
 
 Changes to your HTML are picked up automatically through hot reload, so you can edit `index.html` in your editor and see the result in the browser within milliseconds.
 
@@ -214,7 +214,7 @@ File changes are detected and applied without restarting the server. The preview
 
 The studio is a React application with the following structure:
 
-1. **Iframe preview** — your composition HTML is loaded in an isolated iframe with the Hyperframes runtime injected. This ensures the preview uses the same rendering path as production.
+1. **Iframe preview** — your composition HTML is loaded in an isolated iframe with the KENECT AI runtime injected. This ensures the preview uses the same rendering path as production.
 
 2. **Runtime bridge** — the studio communicates with the iframe via `postMessage` to control playback (play, pause, seek) and receive state updates (current time, duration, readiness).
 
@@ -240,7 +240,7 @@ export default {
 
 <CardGroup cols={2}>
   <Card title="CLI" icon="terminal" href="/packages/cli">
-    Launches the studio via `npx hyperframes preview` — the easiest way to preview compositions.
+    Launches the studio via `npx @kenectai/cli preview` — the easiest way to preview compositions.
   </Card>
   <Card title="Core" icon="cube" href="/packages/core">
     Types, parsing, and runtime that the studio uses for preview and timeline rendering.

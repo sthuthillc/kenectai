@@ -1,6 +1,6 @@
 # Sub-Compositions
 
-A sub-composition is a separate HTML file embedded in a host composition. HyperFrames loads it, seeks it independently, and composites the result into the host at `data-start`.
+A sub-composition is a separate HTML file embedded in a host composition. KENECT AI loads it, seeks it independently, and composites the result into the host at `data-start`.
 
 ## Host Wiring
 
@@ -106,7 +106,7 @@ Contrast with **standalone** compositions, which put the root directly in `<body
 </body>
 ```
 
-**Why this happens:** standard HTML conventions tell you to put `<style>` in `<head>`. In a standalone HTML file that's correct. In a HyperFrames sub-composition it is **not** — the runtime only clones `<template>` contents, so `<head><style>` is dropped on the floor.
+**Why this happens:** standard HTML conventions tell you to put `<style>` in `<head>`. In a standalone HTML file that's correct. In a KENECT AI sub-composition it is **not** — the runtime only clones `<template>` contents, so `<head><style>` is dropped on the floor.
 
 **Symptom:** the composition lints / validates / inspects clean, the render completes, but every text element shows up as tiny unstyled default text in the top-left and SVGs blow up to canvas-size because none of the CSS reached the live DOM. The same trap applies to `<script>` blocks, `<link rel="stylesheet">`, custom-element registrations — anything that needs to execute or apply in the render must be inside `<template>`.
 
@@ -131,7 +131,7 @@ Contrast with **standalone** compositions, which put the root directly in `<body
 <!-- timeline: window.__timelines["data-chart"] = tl; -->
 ```
 
-**Why this happens:** it feels natural to give the host slot a different name like `chart-mount` ("the mount point") vs `data-chart` ("the actual chart"). HyperFrames does not work that way — **the host's `data-composition-id` is the lookup key the framework uses to find the registered timeline**. Lint passes because each file's ids are individually valid; the cross-file mismatch only blows up at render.
+**Why this happens:** it feels natural to give the host slot a different name like `chart-mount` ("the mount point") vs `data-chart` ("the actual chart"). KENECT AI does not work that way — **the host's `data-composition-id` is the lookup key the framework uses to find the registered timeline**. Lint passes because each file's ids are individually valid; the cross-file mismatch only blows up at render.
 
 **Symptom:** the render logs `Sub-composition timelines not registered after 45000ms: <host-id>` for every mismatched slot, waits 45s per scene, then captures static initial-state frames (so the video is full-length but no animation plays).
 
@@ -198,13 +198,13 @@ grep -n 'data-composition-id=' compositions/<scene>.html
 
 For the runtime end-to-end check (a fast `snapshot` pass + per-scene frame eyeball), see the **Visual smoke test** step in `hyperframes-cli`'s Minimum Completion Gate — that is the only gate that catches these three pitfalls.
 
-## What HyperFrames Does With the Sub-Composition
+## What KENECT AI Does With the Sub-Composition
 
 - Loads the file and registers its timeline under its internal `data-composition-id`.
 - Seeks the sub-composition's timeline independently from the host's playhead.
 - Plays the sub-composition's content from `data-start` of the host clip, for `data-duration` seconds.
 
-**Do not** manually `master.add(child)` a sub-composition timeline into the host timeline. HyperFrames already drives them independently — nesting them in GSAP causes double-seeks.
+**Do not** manually `master.add(child)` a sub-composition timeline into the host timeline. KENECT AI already drives them independently — nesting them in GSAP causes double-seeks.
 
 ### The host clip's `data-duration` is the slot's visible window
 

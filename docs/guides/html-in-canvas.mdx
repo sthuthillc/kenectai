@@ -14,7 +14,7 @@ The HTML-in-Canvas API (`drawElementImage`) lets you capture live, rendered DOM 
 2. Set **CanvasDrawElement** to **Enabled**
 3. Restart the browser
 
-HyperFrames enables this flag automatically during rendering (`--enable-features=CanvasDrawElement`), so rendered videos work without manual setup. The flag is only needed for live preview in the Studio.
+KENECT AI enables this flag automatically during rendering (`--enable-features=CanvasDrawElement`), so rendered videos work without manual setup. The flag is only needed for live preview in the Studio.
 </Warning>
 
 ## How it works
@@ -102,29 +102,29 @@ function render() {
 Install all HTML-in-Canvas blocks at once:
 
 ```bash
-npx hyperframes add html-in-canvas
+npx @kenectai/cli add html-in-canvas
 ```
 
 Or install individually:
 
 | Block | Description | Install |
 |-------|-------------|---------|
-| [iOS 26 Liquid Glass Home Screen](/catalog/blocks/ios26-liquid-glass) | iPhone home screen with live Liquid Glass notifications and widgets | `npx hyperframes add ios26-liquid-glass` |
-| [macOS Tahoe Liquid Glass Desktop](/catalog/blocks/macos-tahoe-liquid-glass) | MacBook desktop with liquid glass windows, dock, and notifications | `npx hyperframes add macos-tahoe-liquid-glass` |
-| [Liquid Glass Notification](/catalog/blocks/liquid-glass-notification) | Native-feeling glass notification stack with progress and reply states | `npx hyperframes add liquid-glass-notification` |
-| [iPhone & MacBook](/catalog/blocks/vfx-iphone-device) | Real 3D GLTF devices with live HTML screens | `npx hyperframes add vfx-iphone-device` |
-| [Text Cursor](/catalog/blocks/vfx-text-cursor) | Dramatic text reveal with chromatic shadows | `npx hyperframes add vfx-text-cursor` |
-| [Portal](/catalog/blocks/vfx-portal) | Dimension breach with volumetric light | `npx hyperframes add vfx-portal` |
-| [Shatter](/catalog/blocks/vfx-shatter) | HTML shatters into glass fragments | `npx hyperframes add vfx-shatter` |
-| [Magnetic](/catalog/blocks/vfx-magnetic) | Magnetic field particle visualization | `npx hyperframes add vfx-magnetic` |
-| [Liquid Background](/catalog/blocks/vfx-liquid-background) | Organic liquid simulation | `npx hyperframes add vfx-liquid-background` |
+| [iOS 26 Liquid Glass Home Screen](/catalog/blocks/ios26-liquid-glass) | iPhone home screen with live Liquid Glass notifications and widgets | `npx @kenectai/cli add ios26-liquid-glass` |
+| [macOS Tahoe Liquid Glass Desktop](/catalog/blocks/macos-tahoe-liquid-glass) | MacBook desktop with liquid glass windows, dock, and notifications | `npx @kenectai/cli add macos-tahoe-liquid-glass` |
+| [Liquid Glass Notification](/catalog/blocks/liquid-glass-notification) | Native-feeling glass notification stack with progress and reply states | `npx @kenectai/cli add liquid-glass-notification` |
+| [iPhone & MacBook](/catalog/blocks/vfx-iphone-device) | Real 3D GLTF devices with live HTML screens | `npx @kenectai/cli add vfx-iphone-device` |
+| [Text Cursor](/catalog/blocks/vfx-text-cursor) | Dramatic text reveal with chromatic shadows | `npx @kenectai/cli add vfx-text-cursor` |
+| [Portal](/catalog/blocks/vfx-portal) | Dimension breach with volumetric light | `npx @kenectai/cli add vfx-portal` |
+| [Shatter](/catalog/blocks/vfx-shatter) | HTML shatters into glass fragments | `npx @kenectai/cli add vfx-shatter` |
+| [Magnetic](/catalog/blocks/vfx-magnetic) | Magnetic field particle visualization | `npx @kenectai/cli add vfx-magnetic` |
+| [Liquid Background](/catalog/blocks/vfx-liquid-background) | Organic liquid simulation | `npx @kenectai/cli add vfx-liquid-background` |
 
 ## Rendering
 
-HyperFrames enables the Chrome flag automatically during rendering. No special configuration needed:
+KENECT AI enables the Chrome flag automatically during rendering. No special configuration needed:
 
 ```bash
-npx hyperframes render --output my-video.mp4
+npx @kenectai/cli render --output my-video.mp4
 ```
 
 For Docker renders, the flag is also enabled automatically inside the container.

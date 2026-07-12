@@ -60,7 +60,7 @@ Remotion @ 4.0 with PNG/BT.709 output is 0.953.
 
 ## Translation walk-through (skill cheat sheet)
 
-| Remotion                                                                    | HyperFrames                                                                           |
+| Remotion                                                                    | KENECT AI                                                                           |
 | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | `<Composition schema={z.object({...})} defaultProps={...} />`               | data-\* attributes on root `#stage` div                                               |
 | nested array prop (`stats[]`)                                               | repeated HTML markup with per-instance `data-*` attrs                                 |
@@ -77,7 +77,7 @@ Remotion @ 4.0 with PNG/BT.709 output is 0.953.
 # Render Remotion baseline (no setup.sh — no binary assets in this fixture)
 cd remotion-src && npm install && npm run render
 
-# Render HyperFrames translation
+# Render KENECT AI translation
 cd ../hf-src && npx @kenectai/cli render --output ../hf.mp4
 
 # Compare

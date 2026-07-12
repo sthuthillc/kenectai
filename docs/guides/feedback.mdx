@@ -1,9 +1,9 @@
 ---
 title: Feedback Collection
-description: "How HyperFrames collects feedback, what data is collected, and how to opt out."
+description: "How KENECT AI collects feedback, what data is collected, and how to opt out."
 ---
 
-HyperFrames occasionally asks how a render went or how a Studio session felt. This page explains why we do it, when prompts appear, what data is collected, and how to disable them.
+KENECT AI occasionally asks how a render went or how a Studio session felt. This page explains why we do it, when prompts appear, what data is collected, and how to disable them.
 
 ## Why We Ask
 
@@ -15,7 +15,7 @@ No account, email, or identity is tied to responses. Each installation generates
 
 ### CLI — post-render prompt
 
-After a successful `hyperframes render`, a short prompt may appear:
+After a successful `kenectai render`, a short prompt may appear:
 
 ```
   How was this render? [1=poor 5=great, enter to skip]
@@ -56,9 +56,9 @@ VITE_HYPERFRAMES_FEEDBACK_INTERVAL=3
 
 Invalid values (non-integer, zero, negative) fall back to the default.
 
-**Note:** Disabling CLI telemetry (`hyperframes telemetry disable`) does not suppress the Studio bar — Studio feedback is gated separately. The submitted data is still sent through the same anonymous PostHog pipeline, so the same privacy guarantees apply.
+**Note:** Disabling CLI telemetry (`kenectai telemetry disable`) does not suppress the Studio bar — Studio feedback is gated separately. The submitted data is still sent through the same anonymous PostHog pipeline, so the same privacy guarantees apply.
 
-### `hyperframes feedback` command
+### `kenectai feedback` command
 
 You can submit feedback manually at any time:
 
@@ -78,7 +78,7 @@ hyperframes feedback --rating 3 --comment "render succeeded but GSAP timeline di
 | `--dir` | Project directory to publish as the repro (default: current directory) |
 | `--yes` | Skip the publish + file-issue consent prompt (for scripts) |
 
-This command collects a doctor summary automatically, flushes telemetry, and exits. It appears under the **Settings** group in `hyperframes --help`.
+This command collects a doctor summary automatically, flushes telemetry, and exits. It appears under the **Settings** group in `kenectai --help`.
 
 ### Filing a GitHub issue (`--file-issue`)
 
@@ -91,20 +91,20 @@ hyperframes feedback --rating 2 --comment "GSAP timeline froze on seek" --file-i
 This is **opt-in** and **consented**. With `--file-issue` set, after the usual feedback is sent the CLI:
 
 1. Asks you to confirm (interactive) or requires `--yes` in non-interactive shells, because it will **publicly publish** the project at `--dir`.
-2. Publishes a minimal repro of the project and gets a public URL (the same upload as `hyperframes publish`).
+2. Publishes a minimal repro of the project and gets a public URL (the same upload as `kenectai publish`).
 3. Opens your browser with a **pre-filled** GitHub issue draft, labelled `bug`, containing the rating, your comment, the public repro link, and the environment summary. It also prints the URL so you can copy it if no browser opens.
 
 The issue is **not auto-submitted**: you review and file it under your own GitHub account. There is no token, backend, or `gh` invocation; if publishing fails the issue still opens, just without a repro link.
 
 ## Agent Runtimes
 
-When an AI agent is detected, HyperFrames **skips the interactive readline prompt** and prints a structured hint instead:
+When an AI agent is detected, KENECT AI **skips the interactive readline prompt** and prints a structured hint instead:
 
 ```
   [hyperframes] Agent feedback: hyperframes feedback --rating <1-5> --comment "..."
 ```
 
-Agents can then submit feedback using the `hyperframes feedback` command above.
+Agents can then submit feedback using the `kenectai feedback` command above.
 
 The same cadence gate applies: the hint only appears on the first render, then every 15th.
 
@@ -135,7 +135,7 @@ Only the existence (or in some cases the value) of these variables is checked �
 | `render_duration_ms` | Time the render took in milliseconds |
 | `doctor_summary` | System context (see below) |
 
-The `doctor_summary` is a compact string with environment context — included automatically so you don't need to run `hyperframes doctor` when reporting a problem:
+The `doctor_summary` is a compact string with environment context — included automatically so you don't need to run `kenectai doctor` when reporting a problem:
 
 ```
 os=darwin/arm64 node=v22.11.0 cpu=10cores mem=32GB ffmpeg=yes
@@ -193,7 +193,7 @@ Disabling telemetry suppresses the CLI feedback prompt and all other CLI usage t
 
 ```bash
 # Via CLI command (persisted to ~/.hyperframes/config.json)
-hyperframes telemetry disable
+kenectai telemetry disable
 
 # Or via environment variable (per-session)
 HYPERFRAMES_NO_TELEMETRY=1 hyperframes render --output out.mp4
@@ -202,13 +202,13 @@ HYPERFRAMES_NO_TELEMETRY=1 hyperframes render --output out.mp4
 DO_NOT_TRACK=1 hyperframes render --output out.mp4
 ```
 
-Once disabled, the `hyperframes feedback` command will print `Telemetry is disabled. Feedback not sent.` and exit without sending anything.
+Once disabled, the `kenectai feedback` command will print `Telemetry is disabled. Feedback not sent.` and exit without sending anything.
 
 ### CLI — suppress output without disabling telemetry
 
 ```bash
 # Quiet mode: renders without any post-render output (including the feedback prompt)
-hyperframes render --quiet --output out.mp4
+kenectai render --quiet --output out.mp4
 ```
 
 ### CI environments
@@ -234,5 +234,5 @@ VITE_HYPERFRAMES_FEEDBACK_INTERVAL=20
 ## Related
 
 - [Telemetry](/packages/cli#telemetry) — full telemetry settings and what usage data is collected
-- [`hyperframes feedback`](/packages/cli#feedback) — CLI command reference
+- [`kenectai feedback`](/packages/cli#feedback) — CLI command reference
 - [Troubleshooting](/guides/troubleshooting) — if a prompt is blocking your pipeline unexpectedly

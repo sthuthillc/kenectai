@@ -1,6 +1,6 @@
 # Visual Style Library
 
-Named visual identities for HyperFrames videos. Each style is grounded in a real graphic design tradition and expressed as a DESIGN.md-compatible token block. Use them as starters — copy the YAML into your project's `design.md` front matter, then customize.
+Named visual identities for KENECT AI videos. Each style is grounded in a real graphic design tradition and expressed as a DESIGN.md-compatible token block. Use them as starters — copy the YAML into your project's `design.md` front matter, then customize.
 
 **How to pick:** Match mood first, content second. Ask: _"What should the viewer FEEL?"_
 

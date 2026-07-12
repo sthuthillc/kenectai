@@ -3,7 +3,7 @@ title: Introduction
 description: "Write HTML. Render video. Built for agents."
 ---
 
-Hyperframes is an open-source framework that turns HTML into deterministic, frame-by-frame rendered video — so you can define a video the same way you build a web page.
+KENECT AI is an open-source framework that turns HTML into deterministic, frame-by-frame rendered video — so you can define a video the same way you build a web page.
 
 ## See It in Action
 
@@ -19,7 +19,7 @@ Here is a video defined entirely as HTML:
   <h1 id="title" class="clip"
       data-start="1" data-duration="4" data-track-index="1"
       style="font-size: 72px; color: white;">
-    Welcome to Hyperframes
+    Welcome to KENECT AI
   </h1>
 
   <audio id="bg-music" data-start="0" data-duration="5"
@@ -27,11 +27,11 @@ Here is a video defined entirely as HTML:
 </div>
 ```
 
-Run `npx hyperframes render --output demo.mp4` and this produces an MP4 with deterministic, frame-by-frame capture. Same input, identical output, every time. No timeline editor. No proprietary format. Just HTML.
+Run `npx @kenectai/cli render --output demo.mp4` and this produces an MP4 with deterministic, frame-by-frame capture. Same input, identical output, every time. No timeline editor. No proprietary format. Just HTML.
 
 <CardGroup cols={2}>
   <Card title="Watch the Showcase" icon="play" href="/showcase">
-    Finished HyperFrames videos you can watch, read, run, and remix — product launches, website-to-video demos, UI reveals, and VFX experiments.
+    Finished KENECT AI videos you can watch, read, run, and remix — product launches, website-to-video demos, UI reveals, and VFX experiments.
   </Card>
   <Card title="Browse the Catalog" icon="grid-2" href="/catalog/blocks/data-chart">
     50+ ready-to-use blocks and components — social overlays, shader transitions, data visualizations, and cinematic effects. Install any of them with one command.
@@ -40,18 +40,18 @@ Run `npx hyperframes render --output demo.mp4` and this produces an MP4 with det
     Go from zero to rendered video in under 5 minutes.
   </Card>
   <Card title="Skills catalog" icon="sparkles" href="/guides/skills">
-    Every HyperFrames AI agent skill — router, creation workflows, and domain skills. Install with `npx skills add sthuthillc/kenectai`.
+    Every KENECT AI AI agent skill — router, creation workflows, and domain skills. Install with `npx skills add sthuthillc/kenectai`.
   </Card>
 </CardGroup>
 
-## Why Hyperframes?
+## Why KENECT AI?
 
 <Tabs>
   <Tab title="For developers">
     **You already know the stack.** Compositions are HTML files with data attributes. Animations use GSAP, Lottie, CSS, or any runtime that can seek to a given frame. There is no custom DSL, no proprietary component system, and no React requirement. If you can build a web page, you can build a video.
   </Tab>
   <Tab title="For AI agents">
-    **Agents already speak HTML.** Most video tools require complex APIs or drag-and-drop interfaces that agents cannot operate. Hyperframes compositions are plain HTML documents — the format LLMs are best at generating. The CLI is non-interactive by default — all inputs via flags, plain text output, fail-fast on errors — so agents can drive every command without prompts or parsing.
+    **Agents already speak HTML.** Most video tools require complex APIs or drag-and-drop interfaces that agents cannot operate. KENECT AI compositions are plain HTML documents — the format LLMs are best at generating. The CLI is non-interactive by default — all inputs via flags, plain text output, fail-fast on errors — so agents can drive every command without prompts or parsing.
   </Tab>
   <Tab title="For automated pipelines">
     **Determinism by design.** The rendering pipeline is seek-driven with no wall-clock dependencies. `frame = floor(time * fps)` — every frame is independently captured via Chrome's `beginFrame` API and encoded with FFmpeg. Same input always produces identical output, making CI testing and batch rendering reliable.
@@ -59,7 +59,7 @@ Run `npx hyperframes render --output demo.mp4` and this produces an MP4 with det
 </Tabs>
 
 <Tip>
-  Hyperframes was designed from the ground up for AI agent integration. Compositions are plain HTML that any LLM can generate. The CLI is non-interactive by default — flag-driven with plain text output — so agents can scaffold, render, and lint without interactive prompts. Add `--human-friendly` for the interactive terminal UI. See [CLI](/packages/cli) for details.
+  KENECT AI was designed from the ground up for AI agent integration. Compositions are plain HTML that any LLM can generate. The CLI is non-interactive by default — flag-driven with plain text output — so agents can scaffold, render, and lint without interactive prompts. Add `--human-friendly` for the interactive terminal UI. See [CLI](/packages/cli) for details.
 </Tip>
 
 ## How It Works
@@ -69,10 +69,10 @@ Run `npx hyperframes render --output demo.mp4` and this produces an MP4 with det
     Define your video as an HTML document. Each element gets data attributes for timing (`data-start`, `data-duration`) and layout (`data-track-index`). Add animations with GSAP, Lottie, CSS transitions, or any seekable runtime via the Frame Adapter pattern.
   </Step>
   <Step title="Preview in the browser">
-    Run `npx hyperframes preview` to open a live preview in your browser. Edit your HTML and see changes instantly — no build step, no compilation.
+    Run `npx @kenectai/cli preview` to open a live preview in your browser. Edit your HTML and see changes instantly — no build step, no compilation.
   </Step>
   <Step title="Render to MP4">
-    Run `npx hyperframes render --output output.mp4` to produce a final video. The engine seeks each frame in headless Chrome, captures it with `beginFrame`, and pipes the result through FFmpeg. Run locally or in Docker for fully reproducible output.
+    Run `npx @kenectai/cli render --output output.mp4` to produce a final video. The engine seeks each frame in headless Chrome, captures it with `beginFrame`, and pipes the result through FFmpeg. Run locally or in Docker for fully reproducible output.
   </Step>
 </Steps>
 
@@ -89,7 +89,7 @@ Run `npx hyperframes render --output demo.mp4` and this produces an MP4 with det
     Seekable page-to-video capture engine. Loads HTML in headless Chrome and captures frame-by-frame.
   </Card>
   <Card title="@kenectai/player" icon="play" href="/packages/player">
-    Embeddable web component for playing HyperFrames compositions in any web page.
+    Embeddable web component for playing KENECT AI compositions in any web page.
   </Card>
   <Card title="@kenectai/producer" icon="video" href="/packages/producer">
     Full rendering pipeline combining capture and FFmpeg encoding into a single API call.
@@ -121,7 +121,7 @@ Run `npx hyperframes render --output demo.mp4` and this produces an MP4 with det
     Build and render your first video in 60 seconds
   </Card>
   <Card title="Skills catalog" icon="sparkles" href="/guides/skills">
-    Every HyperFrames AI agent skill — router, creation workflows, and domain skills
+    Every KENECT AI AI agent skill — router, creation workflows, and domain skills
   </Card>
   <Card title="Compositions" icon="layer-group" href="/concepts/compositions">
     Understand the HTML-based data model behind every video

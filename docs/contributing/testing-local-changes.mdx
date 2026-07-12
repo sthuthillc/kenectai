@@ -3,7 +3,7 @@ title: Testing Local CLI Changes
 description: How to test unreleased CLI changes outside the monorepo using your local build.
 ---
 
-When you modify the CLI or any package it bundles (core, engine, producer, studio), you need to test those changes against real projects _outside_ the monorepo — the same way an end user would run `hyperframes preview`.
+When you modify the CLI or any package it bundles (core, engine, producer, studio), you need to test those changes against real projects _outside_ the monorepo — the same way an end user would run `kenectai preview`.
 
 ## Prerequisites
 
@@ -36,7 +36,7 @@ Now use `hyperframes` normally in any directory:
 
 ```bash
 cd ~/my-video-project
-hyperframes preview .
+kenectai preview .
 ```
 
 **After every `bun run build`** the linked binary is already up to date — no re-linking needed.
@@ -85,7 +85,7 @@ When validating a specific bug fix, extract one of the test project archives and
 ```bash
 # Example: testing audio-after-seek fix
 unzip golden-lyric-video.zip && cd golden-lyric-video
-hyperframes preview .
+kenectai preview .
 # 1. Press Play — confirm audio plays
 # 2. Drag the timeline scrubber to a different position
 # 3. Press Play again — audio should resume from the seeked position
@@ -125,8 +125,8 @@ cd packages/cli && bun link
 
 **Port already in use**
 
-`hyperframes preview` defaults to port 3002 and auto-increments if it's taken. Pass `--port` to use a specific port:
+`kenectai preview` defaults to port 3002 and auto-increments if it's taken. Pass `--port` to use a specific port:
 
 ```bash
-hyperframes preview . --port 4000
+kenectai preview . --port 4000
 ```
