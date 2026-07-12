@@ -1,0 +1,52 @@
+{
+  "name": "@kenectai/api",
+  "version": "0.1.0",
+  "description": "Kenect AI product API for Google Cloud hosted rendering, publishing, and feedback.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sthuthillc/kenectai",
+    "directory": "packages/kenect-api"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./server": {
+      "import": "./dist/server.js",
+      "types": "./dist/server.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/server.ts",
+    "start": "node dist/server.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^7.14.0",
+    "@hono/node-server": "^1.13.0",
+    "@hyperframes/gcp-cloud-run": "workspace:^",
+    "adm-zip": "^0.5.16",
+    "hono": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.7",
+    "@types/node": "^25.0.10",
+    "tsup": "^8.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.7.2",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
