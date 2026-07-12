@@ -41,7 +41,7 @@ export function buildElementAgentPrompt({
 }): string {
   const displayedSourceFile = sourceFilePath?.trim() || selection.sourceFile;
   const lines = [
-    "## HyperFrames element edit request v1",
+    "## KENECT AI element edit request v1",
     "Schema version: 1",
     "",
     userInstruction?.trim() || "Edit this selected HyperFrames element.",

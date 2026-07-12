@@ -15,7 +15,7 @@ export function LintModal({
   projectId,
   projectDir,
   title = "HyperFrame Lint Results",
-  promptIntro = "Fix these HyperFrames lint issues",
+  promptIntro = "Fix these KENECT AI lint issues",
   onClose,
 }: {
   findings: LintFinding[];
