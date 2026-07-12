@@ -1,7 +1,7 @@
 {
   "name": "@kenectai/player",
-  "version": "0.7.53",
-  "description": "Embeddable web component for HyperFrames compositions",
+  "version": "0.7.54",
+  "description": "Embeddable web component for KENECT AI compositions",
   "repository": {
     "type": "git",
     "url": "https://github.com/heygen-com/hyperframes",

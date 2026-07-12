@@ -1,6 +1,6 @@
 # @kenectai/gcp-cloud-run
 
-Google Cloud Run + Cloud Workflows adapter for HyperFrames distributed
+Google Cloud Run + Cloud Workflows adapter for KENECT AI distributed
 rendering. The OSS render primitives (`plan` → `renderChunk` × N →
 `assemble`) are pure functions over local file paths; this package is the
 deployment, orchestration, and storage glue that runs them on Google Cloud —

@@ -75,4 +75,4 @@ Full documentation: [docs.kenectai.com/packages/engine](https://docs.kenectai.co
 
 - [`@kenectai/core`](../core) — types, parsers, frame adapters
 - [`@kenectai/producer`](../producer) — high-level render pipeline built on this engine
-- [`hyperframes`](../cli) — CLI
+- [`@kenectai/cli`](../cli) — CLI

@@ -1,6 +1,6 @@
 # @kenectai/shader-transitions
 
-WebGL shader transitions for HyperFrames compositions. Renders GPU-accelerated scene-to-scene transitions using fragment shaders, driven by GSAP timelines.
+WebGL shader transitions for KENECT AI compositions. Renders GPU-accelerated scene-to-scene transitions using fragment shaders, driven by GSAP timelines.
 
 ## Install
 
@@ -125,7 +125,7 @@ All formats include source maps. TypeScript definitions included.
 
 - [`@kenectai/core`](../core) -- types, parsers, runtime
 - [`@kenectai/engine`](../engine) -- rendering engine
-- [`hyperframes`](../cli) -- CLI
+- [`@kenectai/cli`](../cli) -- CLI
 
 ## License
 

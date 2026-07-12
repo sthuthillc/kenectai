@@ -1,17 +1,17 @@
-# hyperframes
+# @kenectai/cli
 
 CLI for creating, previewing, and rendering HTML video compositions.
 
 ## Install
 
 ```bash
-npm install -g hyperframes
+npm install -g @kenectai/cli
 ```
 
 Or use directly with npx:
 
 ```bash
-npx hyperframes <command>
+npx @kenectai/cli <command>
 ```
 
 **Requirements:** Node.js >= 22, FFmpeg
@@ -20,10 +20,10 @@ npx hyperframes <command>
 
 ### `init`
 
-Scaffold a new Hyperframes project from a template:
+Scaffold a new KENECT AI project from a template:
 
 ```bash
-npx hyperframes init my-video
+npx @kenectai/cli init my-video
 cd my-video
 ```
 
@@ -32,10 +32,10 @@ cd my-video
 Start the live preview studio in your browser:
 
 ```bash
-npx hyperframes preview
+npx @kenectai/cli preview
 # Studio running at http://localhost:3002
 
-npx hyperframes preview --port 4567
+npx @kenectai/cli preview --port 4567
 ```
 
 ### `render`
@@ -45,18 +45,18 @@ argument is the project directory (not a file), so render the project's
 `index.html` directly, or point at a specific composition file with `-c`:
 
 ```bash
-npx hyperframes render -o output.mp4
-npx hyperframes render -c ./my-composition.html -o output.mp4
+npx @kenectai/cli render -o output.mp4
+npx @kenectai/cli render -c ./my-composition.html -o output.mp4
 ```
 
 ### `lint`
 
-Validate your Hyperframes HTML:
+Validate your KENECT AI HTML:
 
 ```bash
-npx hyperframes lint ./my-composition
-npx hyperframes lint ./my-composition --json      # JSON output for CI/tooling
-npx hyperframes lint ./my-composition --verbose   # Include info-level findings
+npx @kenectai/cli lint ./my-composition
+npx @kenectai/cli lint ./my-composition --json      # JSON output for CI/tooling
+npx @kenectai/cli lint ./my-composition --verbose   # Include info-level findings
 ```
 
 By default only errors and warnings are shown. Use `--verbose` to also display informational findings (e.g., external script dependency notices). Use `--json` for machine-readable output with `errorCount`, `warningCount`, `infoCount`, and a `findings` array.
@@ -66,7 +66,7 @@ By default only errors and warnings are shown. Use `--verbose` to also display i
 List compositions found in the current project:
 
 ```bash
-npx hyperframes compositions
+npx @kenectai/cli compositions
 ```
 
 ### `benchmark`
@@ -74,7 +74,7 @@ npx hyperframes compositions
 Run rendering benchmarks:
 
 ```bash
-npx hyperframes benchmark ./my-composition.html
+npx @kenectai/cli benchmark ./my-composition.html
 ```
 
 ### `doctor`
@@ -82,7 +82,7 @@ npx hyperframes benchmark ./my-composition.html
 Check your environment for required dependencies (Chrome, FFmpeg, Node.js):
 
 ```bash
-npx hyperframes doctor
+npx @kenectai/cli doctor
 ```
 
 ### `browser`
@@ -90,7 +90,7 @@ npx hyperframes doctor
 Manage the bundled Chrome/Chromium installation:
 
 ```bash
-npx hyperframes browser
+npx @kenectai/cli browser
 ```
 
 ### `info`
@@ -98,7 +98,7 @@ npx hyperframes browser
 Print version and environment info:
 
 ```bash
-npx hyperframes info
+npx @kenectai/cli info
 ```
 
 ### `docs`
@@ -106,7 +106,7 @@ npx hyperframes info
 Open the documentation in your browser:
 
 ```bash
-npx hyperframes docs
+npx @kenectai/cli docs
 ```
 
 ### `upgrade`
@@ -114,8 +114,8 @@ npx hyperframes docs
 Check for updates and show upgrade instructions:
 
 ```bash
-npx hyperframes upgrade
-npx hyperframes upgrade --check --json  # machine-readable for agents
+npx @kenectai/cli upgrade
+npx @kenectai/cli upgrade --check --json  # machine-readable for agents
 ```
 
 ## Documentation

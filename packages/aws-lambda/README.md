@@ -1,6 +1,6 @@
 # @kenectai/aws-lambda
 
-AWS Lambda adapter for HyperFrames distributed rendering. Ships three
+AWS Lambda adapter for KENECT AI distributed rendering. Ships three
 things together:
 
 1. The **Lambda handler** that wraps the OSS `plan` / `renderChunk` /
@@ -67,7 +67,7 @@ script sets that env var via Lambda function configuration in
 
 ## BeginFrame regression guard
 
-HyperFrames' renderer drives Chrome via the CDP
+KENECT AI' renderer drives Chrome via the CDP
 `HeadlessExperimental.beginFrame` command — same path the K8s deploy uses.
 The Lambda adapter assumes that `@sparticuz/chromium`'s
 chrome-headless-shell build honours BeginFrame. To prove it (and re-prove
@@ -185,7 +185,7 @@ consumers don't pull them at runtime. The construct itself imports from
 
 ## What's still ahead
 
-- `hyperframes lambda` CLI (deploy / sites create / render / progress / destroy) — PR 6.5.
+- `kenectai lambda` CLI (deploy / sites create / render / progress / destroy) — PR 6.5.
 - IAM bootstrap subcommand (`policies role | user | validate`) — PR 6.9.
 - Lambda-local regression harness (`--mode=lambda-local`) — PR 6.6.
 - Adopter-facing migration guide — PR 6.8.

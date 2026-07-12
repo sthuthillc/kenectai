@@ -153,4 +153,4 @@ Full documentation: [docs.kenectai.com/packages/producer](https://docs.kenectai.
 
 - [`@kenectai/core`](../core) — types, parsers, frame adapters
 - [`@kenectai/engine`](../engine) — lower-level capture and encode primitives
-- [`hyperframes`](../cli) — CLI
+- [`@kenectai/cli`](../cli) — CLI

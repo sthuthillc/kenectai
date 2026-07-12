@@ -1,6 +1,6 @@
 # @kenectai/core
 
-Types, parsers, generators, compiler, linter, runtime, and frame adapters for the Hyperframes video framework.
+Types, parsers, generators, compiler, linter, runtime, and frame adapters for the KENECT AI video framework.
 
 ## Install
 
@@ -16,9 +16,9 @@ npm install @kenectai/core
 | ------------------ | ---------------------------------------------------------------------------------------------------- |
 | **Types**          | `TimelineElement`, `CompositionSpec`, `Asset`, canvas dimensions, defaults                           |
 | **Parsers**        | `parseHtml` — extract timeline elements from HTML; `parseGsapScript` — parse GSAP animations         |
-| **Generators**     | `generateHyperframesHtml` — produce valid Hyperframes HTML from a composition spec                   |
+| **Generators**     | `generateHyperframesHtml` — produce valid KENECT AI HTML from a composition spec                   |
 | **Compiler**       | `compileTimingAttrs` — resolve `data-start` / `data-duration` into absolute times                    |
-| **Linter**         | `lintHyperframeHtml` — validate Hyperframes HTML (missing attributes, overlapping tracks, etc.)      |
+| **Linter**         | `lintHyperframeHtml` — validate KENECT AI HTML (missing attributes, overlapping tracks, etc.)      |
 | **Runtime**        | IIFE script injected into the browser — manages seek, media playback, and the `window.__hf` protocol |
 | **Frame Adapters** | Pluggable animation drivers (GSAP, Lottie, CSS, or custom)                                           |
 
@@ -75,4 +75,4 @@ Full documentation: [docs.kenectai.com/packages/core](https://docs.kenectai.com/
 
 - [`@kenectai/engine`](../engine) — rendering engine that drives the browser
 - [`@kenectai/producer`](../producer) — full render pipeline (capture + encode)
-- [`hyperframes`](../cli) — CLI
+- [`@kenectai/cli`](../cli) — CLI

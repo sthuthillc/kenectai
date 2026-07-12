@@ -1,6 +1,6 @@
 # @kenectai/player
 
-Embeddable web component for playing HyperFrames compositions. Zero dependencies, works with any framework.
+Embeddable web component for playing KENECT AI compositions. Zero dependencies, works with any framework.
 
 ## Install
 
@@ -222,7 +222,7 @@ The `width` and `height` attributes define the composition's native resolution f
 
 ## How it works
 
-The player renders compositions in a sandboxed `<iframe>` inside a Shadow DOM. It communicates with the HyperFrames runtime via `postMessage`. If the composition has GSAP timelines (`window.__timelines`) but no runtime, the player auto-injects it from CDN.
+The player renders compositions in a sandboxed `<iframe>` inside a Shadow DOM. It communicates with the KENECT AI runtime via `postMessage`. If the composition has GSAP timelines (`window.__timelines`) but no runtime, the player auto-injects it from CDN.
 
 ## Distribution
 

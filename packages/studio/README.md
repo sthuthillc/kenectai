@@ -1,6 +1,6 @@
 # @kenectai/studio
 
-Browser-based composition editor UI for Hyperframes. Provides a visual timeline, code editor, and live preview for building video compositions.
+Browser-based composition editor UI for KENECT AI. Provides a visual timeline, code editor, and live preview for building video compositions.
 
 ## Install
 
@@ -19,7 +19,7 @@ The studio is a React application with:
 
 ## Development
 
-The studio is embedded in the `hyperframes preview` command. To develop the studio UI itself:
+The studio is embedded in the `kenectai preview` command. To develop the studio UI itself:
 
 ```bash
 cd packages/studio
@@ -43,4 +43,4 @@ Full documentation: [docs.kenectai.com/packages/studio](https://docs.kenectai.co
 ## Related packages
 
 - [`@kenectai/core`](../core) — types and parsers used by the editor
-- [`hyperframes`](../cli) — CLI that serves the studio via `hyperframes preview`
+- [`@kenectai/cli`](../cli) — CLI that serves the studio via `kenectai preview`
