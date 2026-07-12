@@ -78,7 +78,7 @@ bun run --cwd packages/producer docker:test -- --sequential
 | Mode | What it calls | Use for |
 |---|---|---|
 | `in-process` (default) | `executeRenderJob` | Day-to-day baselines. This is the same path the `hyperframes render` CLI takes, and it is what produced every existing `output/output.mp4`. |
-| `distributed-simulated` | `plan()` → `renderChunk()` × N → `assemble()` from `@hyperframes/producer/distributed` | Validates the distributed pipeline against the in-process baseline. No Temporal or Lambda involvement — the controller and chunk worker are both this process. |
+| `distributed-simulated` | `plan()` → `renderChunk()` × N → `assemble()` from `@kenectai/producer/distributed` | Validates the distributed pipeline against the in-process baseline. No Temporal or Lambda involvement — the controller and chunk worker are both this process. |
 
 ### `--mode=distributed-simulated`
 

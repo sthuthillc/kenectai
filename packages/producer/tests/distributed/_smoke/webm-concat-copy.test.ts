@@ -22,7 +22,7 @@ import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, mkdtempSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { buildEncoderArgs } from "@hyperframes/engine";
+import { buildEncoderArgs } from "@kenectai/engine";
 
 const FPS = 30;
 const TOTAL_FRAMES = 60;
