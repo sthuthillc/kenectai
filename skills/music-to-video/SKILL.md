@@ -3,7 +3,7 @@ name: music-to-video
 description: "Turn a music track (an audio file, a video to pull audio from, or a track generated from a mood brief) into a beat-synced video — lyric video, slideshow, or kinetic promo. The music drives all pacing; any user-supplied images/videos are cut onto the same beat grid, and a complete video needs zero assets. Narrated pieces → the input-matched workflow (see /hyperframes). Unclear → /hyperframes."
 ---
 
-> **First, keep this skill fresh — run silently, don't ask:** `npx hyperframes skills update music-to-video`. A fast no-op when everything is current; otherwise it refreshes this skill plus the core domain skills it depends on before you rely on them.
+> **First, keep this skill fresh — run silently, don't ask:** `npx @kenectai/cli skills update music-to-video`. A fast no-op when everything is current; otherwise it refreshes this skill plus the core domain skills it depends on before you rely on them.
 
 # music-to-video — one music-grounded, beat-synced video workflow
 
@@ -13,7 +13,7 @@ You are the **orchestrator**. Work in `videos/<project>/`. Run the steps in orde
 
 `SKILL_DIR` = this skill directory. `PROJECT_DIR` = `videos/<project-name>/`.
 
-Workflow: Step 0 setup → `hyperframes.json` + `assets/bgm.mp3`; Step 1 analyze → `audiomap.json`; Step 2 skeleton → `STORYBOARD.md` (frames, groups `TBD`); Step 3 plan → complete `STORYBOARD.md` + `frame.md`; Step 4 build → `compositions/frames/NN-*.html`; Step 5 assemble → `index.html`; Step 6 render → `renders/video.mp4`.
+Workflow: Step 0 setup → `kenectai.json` + `assets/bgm.mp3`; Step 1 analyze → `audiomap.json`; Step 2 skeleton → `STORYBOARD.md` (frames, groups `TBD`); Step 3 plan → complete `STORYBOARD.md` + `frame.md`; Step 4 build → `compositions/frames/NN-*.html`; Step 5 assemble → `index.html`; Step 6 render → `renders/video.mp4`.
 
 ## Two ideas that shape everything
 
@@ -26,14 +26,14 @@ Workflow: Step 0 setup → `hyperframes.json` + `assets/bgm.mp3`; Step 1 analyze
 
 Goal: Establish the music source, create the HyperFrames project, and note any user-supplied media.
 
-The **music is the spine** — establish one track before anything else. This skill is tuned for **fast, high-energy BGM**: a strong beat grid drives the cuts (calm tracks work, but pace by phrase rather than beat). If the user gave you audio — a music file, or a video to pull the audio from — use it. If not, generate one: choose the mood from the user's description (e.g. "driving synthwave", "trap beat", "upbeat corporate") and produce a track via `/media-use` (`references/bgm.md` — HeyGen retrieval when credentialed, else local Lyria / MusicGen; ElevenLabs or another generator also works). Before generating, run `npx hyperframes auth status` and **relay its output verbatim (don't paraphrase or rewrite it)** — it shows whether BGM comes from HeyGen or local MusicGen and, if not signed in, how to sign in. **If not signed in, STOP and wait for the user to choose — sign in, or continue offline with local MusicGen — before generating the track**; don't write keys into a per-repo `.env`. (In autonomous mode, note the status and continue offline.) See `/media-use` → Preflight for the canonical guidance. Either way the track lands at `assets/bgm.mp3`. Stage any user-supplied images or videos so frames can weave them in on the beat grid; otherwise typography carries the whole video.
+The **music is the spine** — establish one track before anything else. This skill is tuned for **fast, high-energy BGM**: a strong beat grid drives the cuts (calm tracks work, but pace by phrase rather than beat). If the user gave you audio — a music file, or a video to pull the audio from — use it. If not, generate one: choose the mood from the user's description (e.g. "driving synthwave", "trap beat", "upbeat corporate") and produce a track via `/media-use` (`references/bgm.md` — HeyGen retrieval when credentialed, else local Lyria / MusicGen; ElevenLabs or another generator also works). Before generating, run `npx @kenectai/cli auth status` and **relay its output verbatim (don't paraphrase or rewrite it)** — it shows whether BGM comes from HeyGen or local MusicGen and, if not signed in, how to sign in. **If not signed in, STOP and wait for the user to choose — sign in, or continue offline with local MusicGen — before generating the track**; don't write keys into a per-repo `.env`. (In autonomous mode, note the status and continue offline.) See `/media-use` → Preflight for the canonical guidance. Either way the track lands at `assets/bgm.mp3`. Stage any user-supplied images or videos so frames can weave them in on the beat grid; otherwise typography carries the whole video.
 
 **Lyric videos:** for lyrics synced to the vocals, get word/line timing by transcribing the track via `/media-use`, or ask the user for the lyrics text and place lines on the beat grid.
 
-Initialize only if `hyperframes.json` is missing. Name `<project>` from the brief in kebab-case, such as `midnight-drive-loop` — never a timestamp. `init` checks the installed skills against the latest on GitHub and updates the global set if any are out of date.
+Initialize only if `kenectai.json` is missing. Name `<project>` from the brief in kebab-case, such as `midnight-drive-loop` — never a timestamp. `init` checks the installed skills against the latest on GitHub and updates the global set if any are out of date.
 
 ```bash
-npx hyperframes init "videos/<project>" --non-interactive --example=blank
+npx @kenectai/cli init "videos/<project>" --non-interactive --example=blank
 mkdir -p "$PROJECT_DIR/assets" "$PROJECT_DIR/renders"
 cp "<user-music>" "$PROJECT_DIR/assets/bgm.mp3"   # extract from a video first if needed
 # only if the user gave you images/videos:
@@ -42,7 +42,7 @@ node <SKILL_DIR>/scripts/stage-assets.mjs --from <dir> --hyperframes "$PROJECT_D
 
 The **brand** (font + palette) is chosen at Step 3, not here. Don't pick a genre or a track type up front — assets are just an optional ingredient, and the genre emerges from the per-frame choices.
 
-**Gate:** `hyperframes.json` + `assets/bgm.mp3` exist; aspect / length / fps and (if any) the asset inventory are noted.
+**Gate:** `kenectai.json` + `assets/bgm.mp3` exist; aspect / length / fps and (if any) the asset inventory are noted.
 
 ---
 
@@ -146,13 +146,13 @@ Goal: Verify the assembled video, get user approval, and render the final MP4.
 Run the CLI on the **assembled project** — that's the correct unit (the per-frame workers couldn't run it). `lint` checks structure, `validate` runs headless Chrome (catching JS errors and missing assets), `inspect` snapshots frames.
 
 ```bash
-( cd "$PROJECT_DIR" && npx hyperframes check . )
+( cd "$PROJECT_DIR" && npx @kenectai/cli check . )
 ```
 
 Inspect at `t=0`, each frame start, the strongest DROP / SURGE, every `hard_stops[].t`, and the final frame. On failure, make the **cheapest safe fix** yourself: edit the offending `compositions/frames/NN-*.html`. Never change duration or audio timing to hide a sync issue. Once the gates pass, pause for user review, then render only on approval (autonomous mode: ask the one kept question — "preview first, or render?" — then deliver the MP4 with the contact sheet):
 
 ```bash
-( cd "$PROJECT_DIR" && npx hyperframes render . --skill=music-to-video -q draft -o renders/video.mp4 --fps 30 )
+( cd "$PROJECT_DIR" && npx @kenectai/cli render . --skill=music-to-video -q draft -o renders/video.mp4 --fps 30 )
 ```
 
 **Gate:** `lint` / `validate` / `inspect` passed; the user approved (autonomous: checks passed and the delivery includes the contact sheet); `renders/video.mp4` exists with audio, duration == `audiomap.audio.duration_sec`. The final reply states the MP4 path and duration.

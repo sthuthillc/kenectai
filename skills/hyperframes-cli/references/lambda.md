@@ -3,9 +3,9 @@
 Deploy HyperFrames distributed rendering to AWS Lambda and drive renders from your laptop or CI. Wraps `@hyperframes/aws-lambda` SDK plus AWS SAM. End-to-end is three commands:
 
 ```bash
-npx hyperframes lambda deploy
-npx hyperframes lambda render ./my-project --width 1920 --height 1080 --wait
-npx hyperframes lambda destroy
+npx @kenectai/cli lambda deploy
+npx @kenectai/cli lambda render ./my-project --width 1920 --height 1080 --wait
+npx @kenectai/cli lambda destroy
 ```
 
 ## When to Use Lambda vs Local Render
@@ -26,7 +26,7 @@ For one-off short renders Lambda is not worth the deploy overhead.
 ### deploy
 
 ```bash
-npx hyperframes lambda deploy \
+npx @kenectai/cli lambda deploy \
   --stack-name=hyperframes-prod \
   --region=us-east-1 \
   --concurrency=8 \
@@ -47,10 +47,10 @@ Builds `packages/aws-lambda/dist/handler.zip` and SAM-deploys the stack (Lambda 
 ### sites create
 
 ```bash
-npx hyperframes lambda sites create ./my-project
+npx @kenectai/cli lambda sites create ./my-project
 # → siteId: abc1234deadbeef0  (stable across re-runs of the same tree)
 
-npx hyperframes lambda render ./my-project --site-id=abc1234deadbeef0 ...
+npx @kenectai/cli lambda render ./my-project --site-id=abc1234deadbeef0 ...
 ```
 
 Tars + uploads `<projectDir>` to S3 with a content-addressed key. Returns a stable `siteId` you can reuse — re-renders of the same tree skip the upload.
@@ -58,7 +58,7 @@ Tars + uploads `<projectDir>` to S3 with a content-addressed key. Returns a stab
 ### render
 
 ```bash
-npx hyperframes lambda render ./my-project \
+npx @kenectai/cli lambda render ./my-project \
   --width 1920 --height 1080 --fps 30 --format mp4 \
   --chunk-size 240 --max-parallel-chunks 16 \
   --wait
@@ -85,8 +85,8 @@ Starts a Step Functions execution. Returns immediately with a `renderId` unless 
 ### progress
 
 ```bash
-npx hyperframes lambda progress hf-render-abcd1234
-npx hyperframes lambda progress arn:aws:states:us-east-1:...:execution:...
+npx @kenectai/cli lambda progress hf-render-abcd1234
+npx @kenectai/cli lambda progress arn:aws:states:us-east-1:...:execution:...
 ```
 
 Prints one snapshot — overall percent, frames rendered, Lambda invocations, accrued cost, and any errors. Accepts a bare `renderId` (resolved against the stack's state-machine ARN) or a full SFN execution ARN.
@@ -94,7 +94,7 @@ Prints one snapshot — overall percent, frames rendered, Lambda invocations, ac
 ### destroy
 
 ```bash
-npx hyperframes lambda destroy
+npx @kenectai/cli lambda destroy
 ```
 
 Calls `sam delete --no-prompts` and drops the local state file. **The render S3 bucket is configured `Retain`** so it survives stack destruction — empty + delete it via the AWS console / CLI if you want the storage back.
@@ -111,9 +111,9 @@ A subset of failures the Step Functions state machine short-circuits instead of 
 Print or validate the minimum IAM permissions the CLI needs.
 
 ```bash
-npx hyperframes lambda policies user                                  # inline policy for an IAM user
-npx hyperframes lambda policies role --principal=cloudformation       # { TrustRelationship, InlinePolicy }
-npx hyperframes lambda policies validate ./infra/iam/hf-deploy.json   # CI gate
+npx @kenectai/cli lambda policies user                                  # inline policy for an IAM user
+npx @kenectai/cli lambda policies role --principal=cloudformation       # { TrustRelationship, InlinePolicy }
+npx @kenectai/cli lambda policies validate ./infra/iam/hf-deploy.json   # CI gate
 ```
 
 `validate` reads a JSON policy doc and checks the union of its `Effect: Allow` actions (expanding `s3:*` / `s3:Get*` / `*` wildcards) against the CLI's required action set. Missing actions print to stderr; the command exits non-zero. Wire it into CI to catch policy drift before the next deploy fails.
@@ -122,7 +122,7 @@ The default action set is deliberately broad (`Resource: "*"`) because CloudForm
 
 ## State Files
 
-`hyperframes lambda` stores per-stack metadata under `<cwd>/.hyperframes/lambda-stack-<name>.json` (bucket name, state-machine ARN, region). Not secret, but AWS-account-identifying. Commit it to a repo or `.gitignore` it per your workflow.
+`kenectai lambda` stores per-stack metadata under `<cwd>/.hyperframes/lambda-stack-<name>.json` (bucket name, state-machine ARN, region). Not secret, but AWS-account-identifying. Commit it to a repo or `.gitignore` it per your workflow.
 
 ## Cost and Cleanup
 

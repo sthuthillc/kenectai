@@ -132,10 +132,10 @@ Scale snapshot count to the video — not a fixed number. Formula: `max(beats ×
 # .env file in <project-dir> with GEMINI_API_KEY=... is enough — no
 # explicit `export` needed. If you've set GEMINI_API_KEY in your shell
 # environment, that works too.
-npx hyperframes snapshot <project-dir> --frames <N>
+npx @kenectai/cli snapshot <project-dir> --frames <N>
 
 # Pass a custom question to Gemini instead of the default prompt:
-npx hyperframes snapshot <project-dir> --frames <N> \
+npx @kenectai/cli snapshot <project-dir> --frames <N> \
   --describe "Is the brand logo visible in every beat? Is any beat showing a black or blank frame?"
 ```
 
@@ -263,7 +263,7 @@ If neither Path 1 nor Path 2 is possible in this session, your final summary MUS
 Always start the preview so the user can see and scrub through the project:
 
 ```bash
-npx hyperframes preview
+npx @kenectai/cli preview
 ```
 
 The Studio URL is the deliverable. In your final response, always include it:
@@ -313,16 +313,16 @@ When rendering, **always specify quality and resolution explicitly.** Don't use 
 
 ```bash
 # Standard quality, 1080p landscape (default for most videos)
-npx hyperframes render --skill=website-to-video --output renders/<name>.mp4 --quality standard --fps 30
+npx @kenectai/cli render --skill=website-to-video --output renders/<name>.mp4 --quality standard --fps 30
 
 # High quality for final delivery
-npx hyperframes render --skill=website-to-video --output renders/<name>.mp4 --quality high --fps 30
+npx @kenectai/cli render --skill=website-to-video --output renders/<name>.mp4 --quality high --fps 30
 
 # Portrait for Instagram Stories / TikTok
-npx hyperframes render --skill=website-to-video --output renders/<name>.mp4 --quality standard --fps 30 --resolution portrait
+npx @kenectai/cli render --skill=website-to-video --output renders/<name>.mp4 --quality standard --fps 30 --resolution portrait
 
 # 4K for premium output
-npx hyperframes render --skill=website-to-video --output renders/<name>.mp4 --quality high --fps 30 --resolution 4k
+npx @kenectai/cli render --skill=website-to-video --output renders/<name>.mp4 --quality high --fps 30 --resolution 4k
 ```
 
 **Available options:**

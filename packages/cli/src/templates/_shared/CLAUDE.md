@@ -21,11 +21,11 @@
 
 The domain skills (`/hyperframes-core`, `/hyperframes-animation`, `/hyperframes-keyframes`, `/hyperframes-creative`, `/hyperframes-cli`, `/media-use`, `/hyperframes-registry`, `/figma`) and the full capability map live inside `/hyperframes` — it is the single source of truth for which skill handles which intent.
 
-> **Tailwind v4 projects** (`hyperframes init --tailwind`): see `/hyperframes-core` → `references/tailwind.md`.
+> **Tailwind v4 projects** (`kenectai init --tailwind`): see `/hyperframes-core` → `references/tailwind.md`.
 
-> **Skill missing or stale?** Run `npx hyperframes skills update <name>` to install/refresh
+> **Skill missing or stale?** Run `npx @kenectai/cli skills update <name>` to install/refresh
 > the specific skill you need (the `/hyperframes` router does this automatically before
-> entering a workflow), or bare `npx hyperframes skills update` to refresh the core set plus
+> entering a workflow), or bare `npx @kenectai/cli skills update` to refresh the core set plus
 > everything already installed — neither pulls the full set. Restart the agent session so
 > newly installed skills load.
 
@@ -36,9 +36,9 @@ npm run dev          # start the preview server (long-running — keep it alive 
 npm run check        # lint + runtime + layout + motion + contrast (one command)
 npm run render       # render to MP4
 npm run publish      # publish and get a shareable link
-npx hyperframes lint --verbose  # include info-level findings
-npx hyperframes lint --json     # machine-readable output for CI
-npx hyperframes docs <topic> # reference docs in terminal
+npx @kenectai/cli lint --verbose  # include info-level findings
+npx @kenectai/cli lint --json     # machine-readable output for CI
+npx @kenectai/cli docs <topic> # reference docs in terminal
 ```
 
 > **`npm run dev` is a long-running server, not a one-shot command.** It blocks until stopped.
@@ -50,7 +50,7 @@ npx hyperframes docs <topic> # reference docs in terminal
 **For quick reference**, use the local CLI docs command (no network required):
 
 ```bash
-npx hyperframes docs <topic>
+npx @kenectai/cli docs <topic>
 ```
 
 Topics: `data-attributes`, `gsap`, `compositions`, `rendering`, `examples`, `troubleshooting`

@@ -4,7 +4,7 @@ Blocks are standalone compositions with their own `data-composition-id`, dimensi
 
 ## Basic wiring
 
-After `hyperframes add data-chart`, wire it into your `index.html`:
+After `kenectai add data-chart`, wire it into your `index.html`:
 
 ```html
 <div id="stage" data-composition-id="main" data-width="1920" data-height="1080" data-duration="20">

@@ -112,7 +112,7 @@ if (wordsPath) {
     writeFileSync(wordsPath, JSON.stringify(withWordIds(words), null, 2));
     wordCount = words.length;
   } else {
-    console.error("⚠ no word_timestamps in response — run `hyperframes transcribe` instead");
+    console.error("⚠ no word_timestamps in response — run `kenectai transcribe` instead");
   }
 }
 

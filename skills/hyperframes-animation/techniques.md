@@ -236,7 +236,7 @@ Terminal typing effect using `tl.call()` to update text content character by cha
   <span class="cursor" style="width:11px;height:22px;background:#333;display:inline-block;"></span>
 </div>
 <script>
-  var CMD = "npx hyperframes init";
+  var CMD = "npx @kenectai/cli init";
   var typed = document.getElementById("typed-text");
 
   // Cursor blinks

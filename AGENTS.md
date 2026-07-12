@@ -1,13 +1,13 @@
-# Hyperframes
+# KENECT AI
 
-Open-source video rendering framework: write HTML, render video.
+Open-source video rendering framework (KENECT AI fork of HyperFrames, Apache-2.0): write HTML, render video.
 
 ## Skills
 
 This repo ships AI agent skills via [vercel-labs/skills](https://github.com/vercel-labs/skills). Install them before writing compositions — they encode framework-specific patterns that generic docs don't cover.
 
 ```bash
-npx skills add heygen-com/hyperframes
+npx skills add sthuthillc/kenectai
 ```
 
 **Creation workflows** route through one entry skill — read `/hyperframes` first: it orients you to the whole surface and maps "make me a…" intent — usually a video, but also a navigable deck (`/slideshow`) or a composition port (`/remotion-to-hyperframes`) — to a concrete workflow. Consult it before invoking a specific workflow:
@@ -50,8 +50,8 @@ Always lint and format changed files before committing. Lefthook pre-commit hook
 After creating or editing any `.html` composition:
 
 ```bash
-npx hyperframes lint       # Static HTML structure check
-npx hyperframes check      # Browser gate (headless Chrome — runtime errors, layout, motion, WCAG contrast)
+npx @kenectai/cli lint       # Static HTML structure check
+npx @kenectai/cli check      # Browser gate (headless Chrome — runtime errors, layout, motion, WCAG contrast)
 ```
 
 Both must pass before previewing or considering work complete.

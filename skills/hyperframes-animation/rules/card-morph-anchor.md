@@ -264,4 +264,4 @@ Always **measure the target element with `getBoundingClientRect()`** before the 
 
 - `/hyperframes-animation` — timeline + multi-property tween reference
 - `/hyperframes-core` — composition wiring, `data-*` attributes
-- `/hyperframes-cli` — `hyperframes lint` to verify scene structure
+- `/hyperframes-cli` — `kenectai lint` to verify scene structure

@@ -15,10 +15,10 @@ When the composition is animation-driven, run the checks before you reach for `p
 ## lint
 
 ```bash
-npx hyperframes lint                  # current directory
-npx hyperframes lint ./my-project     # specific project
-npx hyperframes lint --verbose        # info-level findings
-npx hyperframes lint --json           # machine-readable
+npx @kenectai/cli lint                  # current directory
+npx @kenectai/cli lint ./my-project     # specific project
+npx @kenectai/cli lint --verbose        # info-level findings
+npx @kenectai/cli lint --json           # machine-readable
 ```
 
 Lints `index.html` and all files in `compositions/`. Reports errors (must fix), warnings (should fix), and info (with `--verbose`). Catches missing `data-composition-id`, overlapping tracks on the same `data-track-index`, unregistered timelines, and GSAP/CSS transform conflicts.
@@ -34,17 +34,17 @@ A non-empty result is a defect. Then `snapshot` each scene that has a video and 
 ## check
 
 ```bash
-npx hyperframes check                    # current directory: the full browser gate
-npx hyperframes check ./my-project       # specific project
-npx hyperframes check --json             # agent-readable envelope {ok, lint, runtime, layout, motion, contrast, snapshots}
-npx hyperframes check --snapshots        # also write overview frames (annotated) + per-finding crops
-npx hyperframes check --samples 15       # denser timeline sweep (default 9)
-npx hyperframes check --at 1.5,4,7.25    # explicit hero-frame timestamps
-npx hyperframes check --at-transitions   # also sample every tween start/end boundary
-npx hyperframes check --tolerance 4      # allowed overflow px before reporting (default 2)
-npx hyperframes check --timeout 5000     # ms for the initial settle (default 3000)
-npx hyperframes check --no-contrast      # skip the WCAG audit while iterating
-npx hyperframes check --strict           # exit non-zero on warnings too (default: only errors)
+npx @kenectai/cli check                    # current directory: the full browser gate
+npx @kenectai/cli check ./my-project       # specific project
+npx @kenectai/cli check --json             # agent-readable envelope {ok, lint, runtime, layout, motion, contrast, snapshots}
+npx @kenectai/cli check --snapshots        # also write overview frames (annotated) + per-finding crops
+npx @kenectai/cli check --samples 15       # denser timeline sweep (default 9)
+npx @kenectai/cli check --at 1.5,4,7.25    # explicit hero-frame timestamps
+npx @kenectai/cli check --at-transitions   # also sample every tween start/end boundary
+npx @kenectai/cli check --tolerance 4      # allowed overflow px before reporting (default 2)
+npx @kenectai/cli check --timeout 5000     # ms for the initial settle (default 3000)
+npx @kenectai/cli check --no-contrast      # skip the WCAG audit while iterating
+npx @kenectai/cli check --strict           # exit non-zero on warnings too (default: only errors)
 ```
 
 One command, one Chrome boot. `check` runs the linter first and skips the browser entirely when lint reports errors. Then it loads the bundled composition once, wires runtime listeners before navigation, and sweeps one seek grid running every audit per sample:
@@ -68,8 +68,8 @@ Every finding carries a selector, the element's `data-*` identity, the compositi
 **Opt-in pipeline gates** (used by orchestrators; off by default):
 
 ```bash
-npx hyperframes check --caption-zone "x0=0;y0=.82;x1=1;y1=1;severity=error;seek=.25,1"
-npx hyperframes check --frame-check     # media (img/svg/video/canvas) out-of-frame detection
+npx @kenectai/cli check --caption-zone "x0=0;y0=.82;x1=1;y1=1;severity=error;seek=.25,1"
+npx @kenectai/cli check --frame-check     # media (img/svg/video/canvas) out-of-frame detection
 ```
 
 `--caption-zone` takes fractional band geometry (`x0/y0/x1/y1` required, 0-1 fractions of the composition's own canvas, portrait included) with optional `severity` and comma-separated `seek` fractions; it flags content whose center sits inside the band. `--frame-check` reports media elements breaching the canvas beyond `max(120px, 6% of the min canvas dimension)`.
@@ -106,23 +106,23 @@ Drop a `*.motion.json` sidecar next to the composition (matching the html basena
 ## snapshot
 
 ```bash
-npx hyperframes snapshot                       # 5 key frames as PNG
-npx hyperframes snapshot ./my-project          # specific project
-npx hyperframes snapshot --frames 10           # evenly-spaced N frames
+npx @kenectai/cli snapshot                       # 5 key frames as PNG
+npx @kenectai/cli snapshot ./my-project          # specific project
+npx @kenectai/cli snapshot --frames 10           # evenly-spaced N frames
 ```
 
 Captures still PNGs from the composition for visual diffing, thumbnails, or attaching to a PR. Faster than rendering a video when you only need a few hero frames. Output lands in the project's snapshots directory. Not deprecated: it remains the standalone capture utility, while `check --snapshots` covers the gate's needs (overview frames annotated with labeled finding boxes, plus `finding-NN-<code>.png` crops for every error finding with a bbox).
 
 ### Zooming into a reported finding
 
-`hyperframes check --snapshots` already writes a `finding-NN-<code>.png` crop for every error finding that carries a bbox, but the same zoom is available standalone once you know what to look at:
+`kenectai check --snapshots` already writes a `finding-NN-<code>.png` crop for every error finding that carries a bbox, but the same zoom is available standalone once you know what to look at:
 
 ```bash
-npx hyperframes check --snapshots               # reports a finding, e.g. content_overlap on "#cta"
-npx hyperframes snapshot --zoom "#cta"           # crop the element to verify the defect, at 3x density
-npx hyperframes snapshot --zoom "100,50,400,300" --zoom-scale 2   # or an exact pixel region
+npx @kenectai/cli check --snapshots               # reports a finding, e.g. content_overlap on "#cta"
+npx @kenectai/cli snapshot --zoom "#cta"           # crop the element to verify the defect, at 3x density
+npx @kenectai/cli snapshot --zoom "100,50,400,300" --zoom-scale 2   # or an exact pixel region
 # fix the composition HTML, then re-check:
-npx hyperframes check
+npx @kenectai/cli check
 ```
 
 `--zoom` takes a CSS selector or an exact `x,y,w,h` pixel region and always produces a real high-density crop (a raised `deviceScaleFactor`, never CSS zoom or a viewport resize), so the composition's layout — and its render determinism — is untouched. A selector matching nothing is a loud error, not a silent full-frame fallback, and a frame where the target has no visible box (collapsed or animated off-canvas) is skipped with a note instead of written as a sliver.

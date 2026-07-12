@@ -87,7 +87,7 @@ Save to the path the main agent specified (usually `compositions/beat-N-name.htm
 ## Step 3: Lint
 
 ```bash
-npx hyperframes lint .
+npx @kenectai/cli lint .
 ```
 
 Fix ALL errors. Zero errors required.
@@ -95,7 +95,7 @@ Fix ALL errors. Zero errors required.
 ## Step 4: Snapshot and verify
 
 ```bash
-npx hyperframes snapshot . --frames 3
+npx @kenectai/cli snapshot . --frames 3
 ```
 
 **READ the contact sheet** (`snapshots/contact-sheet.jpg`). For each frame:

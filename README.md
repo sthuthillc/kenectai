@@ -7,14 +7,14 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/hyperframes"><img src="https://img.shields.io/npm/v/hyperframes.svg?style=flat" alt="npm version"></a>
-  <a href="https://www.npmjs.com/package/hyperframes"><img src="https://img.shields.io/npm/dm/hyperframes.svg?style=flat" alt="npm downloads"></a>
+  <a href="https://www.npmjs.com/package/@kenectai/cli"><img src="https://img.shields.io/npm/v/%40kenectai%2Fcli.svg?style=flat" alt="npm version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%3E%3D22-brightgreen" alt="Node.js"></a>
-  <a href="https://discord.gg/EbK98HBPdk"><img src="https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white" alt="Discord"></a>
 </p>
 
-<p align="center"><b>Write HTML. Render video. Built for agents.</b></p>
+<p align="center"><b>KENECT AI — Write HTML. Render video. Built for agents.</b></p>
+
+<p align="center"><i>A fork of <a href="https://github.com/heygen-com/hyperframes">HyperFrames</a> (Apache-2.0) by HeyGen.</i></p>
 
 <p align="center">
   <a href="https://hyperframes.heygen.com/quickstart">Quickstart</a> |
@@ -29,7 +29,7 @@
   <img src="docs/public/images/hyperframes-logo-motion-1280-trimmed.webp" alt="HyperFrames demo: HTML code on the left transforms into a rendered video on the right" width="800">
 </p>
 
-HyperFrames is an open-source framework for turning HTML, CSS, media, and seekable animations into deterministic MP4 videos. Use it locally with the CLI, from AI coding agents with skills, or as the rendering core behind hosted authoring workflows.
+KENECT AI is an open-source framework for turning HTML, CSS, media, and seekable animations into deterministic MP4 videos — a fork of HeyGen's HyperFrames with a Google Cloud-hosted backend. Use it locally with the CLI, from AI coding agents with skills, or as the rendering core behind hosted authoring workflows.
 
 ## Quick Start
 
@@ -38,10 +38,10 @@ HyperFrames is an open-source framework for turning HTML, CSS, media, and seekab
 Install the HyperFrames skills, then describe the video you want:
 
 ```bash
-npx skills add heygen-com/hyperframes --full-depth --yes
+npx skills add sthuthillc/kenectai --full-depth --yes
 ```
 
-> `--full-depth` does a full clone of the repo's current `main`. Without it, `skills add` fetches the skills.sh registry blob, which lags `main` by hours — you'd get an older copy of a skill. (`hyperframes skills update` already installs full-depth.)
+> `--full-depth` does a full clone of the repo's current `main`. Without it, `skills add` fetches the skills.sh registry blob, which lags `main` by hours — you'd get an older copy of a skill. (`kenectai skills update` already installs full-depth.)
 
 Try a prompt like:
 
@@ -53,9 +53,9 @@ The skills teach agents the HyperFrames production loop: plan the video, write v
 
 HyperFrames ships 20 skills agents load on demand. Read `/hyperframes` first — it's the router and capability map; it picks a workflow for any "make me a…" request — video, deck, or composition port — and points to the domain skills below.
 
-Run `npx skills add heygen-com/hyperframes --full-depth` for the interactive picker, `npx skills add heygen-com/hyperframes --all --full-depth` to install all 20 at once (skips the picker), or `npx skills add heygen-com/hyperframes --skill <name> --full-depth` for just one (bare name, no leading `/`). Keep `--full-depth` — it installs the current `main`; without it `skills add` fetches the skills.sh blob, which lags by hours.
+Run `npx skills add sthuthillc/kenectai --full-depth` for the interactive picker, `npx skills add sthuthillc/kenectai --all --full-depth` to install all 20 at once (skips the picker), or `npx skills add sthuthillc/kenectai --skill <name> --full-depth` for just one (bare name, no leading `/`). Keep `--full-depth` — it installs the current `main`; without it `skills add` fetches the skills.sh blob, which lags by hours.
 
-Installs stay lean after that: `npx hyperframes init` keeps the **core set** fresh (the router, the `hyperframes-*` domain skills, and `media-use` — plus whatever is already installed; `/figma` stays on demand) and never expands a partial install; the creation workflows install **on demand** — the router runs `npx hyperframes skills update <workflow>` before entering one. Nothing re-pulls the full set behind your back.
+Installs stay lean after that: `npx @kenectai/cli init` keeps the **core set** fresh (the router, the `hyperframes-*` domain skills, and `media-use` — plus whatever is already installed; `/figma` stays on demand) and never expands a partial install; the creation workflows install **on demand** — the router runs `npx @kenectai/cli skills update <workflow>` before entering one. Nothing re-pulls the full set behind your back.
 
 ### Router
 
@@ -99,10 +99,10 @@ For visual design handoff workflows, see the [Claude Design guide](https://hyper
 ### Manually with the CLI
 
 ```bash
-npx hyperframes init my-video
+npx @kenectai/cli init my-video
 cd my-video
-npx hyperframes preview      # preview in browser with live reload
-npx hyperframes render       # render to MP4
+npx @kenectai/cli preview      # preview in browser with live reload
+npx @kenectai/cli render       # render to MP4
 ```
 
 **Requirements:** Node.js 22+, FFmpeg
@@ -239,9 +239,9 @@ HyperFrames is the open-source rendering engine, plus a growing set of tools aro
 Install ready-to-use blocks and components:
 
 ```bash
-npx hyperframes add flash-through-white   # shader transition
-npx hyperframes add instagram-follow      # social overlay
-npx hyperframes add data-chart            # animated chart
+npx @kenectai/cli add flash-through-white   # shader transition
+npx @kenectai/cli add instagram-follow      # social overlay
+npx @kenectai/cli add data-chart            # animated chart
 ```
 
 Browse the catalog at [hyperframes.heygen.com/catalog](https://hyperframes.heygen.com/catalog/blocks/data-chart).
@@ -300,7 +300,7 @@ Full documentation: [hyperframes.heygen.com/introduction](https://hyperframes.he
 HyperFrames is used in production at [HeyGen](https://www.heygen.com), with community examples from teams like [tldraw](https://tldraw.com), [TanStack](https://tanstack.com), and others in [ADOPTERS.md](ADOPTERS.md). Open a PR if your team is using HyperFrames.
 
 - Questions and ideas: [Discord](https://discord.gg/EbK98HBPdk)
-- Bugs and feature requests: [GitHub Issues](https://github.com/heygen-com/hyperframes/issues)
+- Bugs and feature requests: [GitHub Issues](https://github.com/sthuthillc/kenectai/issues)
 - Security reports: [SECURITY.md](SECURITY.md)
 - Contributions: [CONTRIBUTING.md](CONTRIBUTING.md)
 
@@ -325,7 +325,7 @@ git lfs install
 If you only need source files, you can skip LFS content:
 
 ```bash
-GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/heygen-com/hyperframes.git
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/sthuthillc/kenectai.git
 ```
 
 ## License

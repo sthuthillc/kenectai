@@ -224,4 +224,4 @@ Pair with `sine-wave-loop` after expansion lands — keeps elements alive instea
 
 - `/hyperframes-animation` — timeline + stagger
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

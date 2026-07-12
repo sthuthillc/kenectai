@@ -5,7 +5,7 @@
 The top-level `registry.json` lists all available items:
 
 ```bash
-curl -s https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry/registry.json
+curl -s https://raw.githubusercontent.com/sthuthillc/kenectai/main/registry/registry.json
 ```
 
 Each entry has `name` and `type` (`hyperframes:example`, `hyperframes:block`, or `hyperframes:component`).
@@ -38,7 +38,7 @@ Where `<type-dir>` is `examples`, `blocks`, or `components`.
 
 ### Blocks
 
-For an always-current list run `npx hyperframes catalog --type block`. The tables below group the 97 blocks by category. **Block name ≠ shader name**: shader-transition blocks (e.g. `domain-warp-dissolve`) wrap a HyperShader runtime whose internal name omits the `-dissolve`/`-warp` suffix — see the showcase HTML installed alongside the block for the canonical name.
+For an always-current list run `npx @kenectai/cli catalog --type block`. The tables below group the 97 blocks by category. **Block name ≠ shader name**: shader-transition blocks (e.g. `domain-warp-dissolve`) wrap a HyperShader runtime whose internal name omits the `-dissolve`/`-warp` suffix — see the showcase HTML installed alongside the block for the canonical name.
 
 #### Shader transitions (14)
 
@@ -182,7 +182,7 @@ A code/terminal window that **types a code or shell session per-character**. The
 
 #### Code Animations (9)
 
-The richer, motion-first counterpart to the static `code-snippet-*` window themes above: each is a self-contained 1920×1080 block (~5–8s) with a paused, deterministic GSAP timeline that _animates_ code — typing, diffing, morphing, spotlighting, or GPU hero reveals — rather than typing a fixed snippet inside editor/terminal chrome. **Reuse-first**: `npx hyperframes add <name>`, then customize the baked code/diff content in place; hand-author only when no block covers the motion you need.
+The richer, motion-first counterpart to the static `code-snippet-*` window themes above: each is a self-contained 1920×1080 block (~5–8s) with a paused, deterministic GSAP timeline that _animates_ code — typing, diffing, morphing, spotlighting, or GPU hero reveals — rather than typing a fixed snippet inside editor/terminal chrome. **Reuse-first**: `npx @kenectai/cli add <name>`, then customize the baked code/diff content in place; hand-author only when no block covers the motion you need.
 
 **DOM / text reveal (6):**
 

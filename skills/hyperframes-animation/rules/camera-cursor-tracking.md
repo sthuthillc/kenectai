@@ -243,4 +243,4 @@ finalWorldX = Math.min(INITIAL_OFFSET, trackingOffset)
 
 - `/hyperframes-animation` — timeline + tween API
 - `/hyperframes-core` — composition wiring + `data-*` attributes
-- `/hyperframes-cli` — `hyperframes lint` to validate the registry key + duration
+- `/hyperframes-cli` — `kenectai lint` to validate the registry key + duration

@@ -5,7 +5,7 @@ Named sound effects, produced by the shared audio engine (`scripts/audio.mjs` �
 - **HeyGen credential present → retrieve every cue** from HeyGen's audio library (`/v3/audio/sounds`, `type=sound_effects`, `min_score=0.4`). Search-and-download, **not** generation. The bundled library is NOT consulted.
 - **No credential → the bundled 21-file library** (`assets/sfx/` + `manifest.json`): match each cue name, copy the matched file into the project. Offline, deterministic, free.
 
-There is no `npx hyperframes sfx` command. SFX is never generated — it is retrieved (online) or taken from the bundled library (offline).
+There is no `npx @kenectai/cli sfx` command. SFX is never generated — it is retrieved (online) or taken from the bundled library (offline).
 
 ## Cues — request → meta
 

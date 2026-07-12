@@ -7,7 +7,7 @@ fonts, and the GSAP-driven composition workflow) is **adapted from** the open-so
 > https://github.com/notedit/vtake-skills
 
 Adaptations for this repo: renamed to `talking-head-recut`; transcription repointed to
-local Whisper via `hyperframes transcribe` (dropping the third-party `@notedit/vtake`
+local Whisper via `kenectai transcribe` (dropping the third-party `@notedit/vtake`
 CLI and the `vtake.app` proxy); audio/metadata extraction inlined with `ffmpeg`/`ffprobe`;
 the fixed third-party brand outro removed in favour of an optional, neutral outro;
 artifacts aligned to the `videos/<project>/` convention.

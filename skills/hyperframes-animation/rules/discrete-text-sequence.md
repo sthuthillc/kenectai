@@ -270,4 +270,4 @@ else textEl.style.color = "{mutedColor}"; // mid-edit dim
 
 - `/hyperframes-animation` — onUpdate-driven discrete state lookup
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

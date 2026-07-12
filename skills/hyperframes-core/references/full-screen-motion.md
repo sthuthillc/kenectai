@@ -55,7 +55,7 @@ Stacking opaque scene divs means every scene change has to repaint the entire fr
 - **Content scenes have transparent backgrounds.** Whatever you put in the shared `#bg` shows through.
 - **Drive global state from the shared layer.** Hue shifts, vignettes, grain, film-look filters — animate them once on the shared layer, not per-scene.
 - **Do not animate visibility on `.clip` elements.** HyperFrames already shows/hides clips based on `data-start` and `data-duration`. Animating `display` / `visibility` on the clip itself races with the framework's own show/hide. Animate a _child wrapper_ inside the clip instead.
-- **Verify intentional overflow with snapshots.** Before adding `data-layout-allow-overflow` to silence an inspect warning, run `npx hyperframes snapshot` and confirm the overflow is what you want.
+- **Verify intentional overflow with snapshots.** Before adding `data-layout-allow-overflow` to silence an inspect warning, run `npx @kenectai/cli snapshot` and confirm the overflow is what you want.
 
 ## When Not to Use This Pattern
 

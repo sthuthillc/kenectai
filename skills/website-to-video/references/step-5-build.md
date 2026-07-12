@@ -305,8 +305,8 @@ the skill lives outside it — run this to find it:
 
 Read that file end to end. It has your full workflow, all rules, easing vocabulary,
 and file references. Follow its workflow exactly:
-  build → lint (`npx hyperframes lint .`)
-        → snapshot (`npx hyperframes snapshot . --frames 3`)
+  build → lint (`npx @kenectai/cli lint .`)
+        → snapshot (`npx @kenectai/cli snapshot . --frames 3`)
         → view contact sheet AND read snapshots/descriptions.md
         → fix issues
 

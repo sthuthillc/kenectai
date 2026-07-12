@@ -50,7 +50,7 @@ document.getElementById("title").textContent = title;
   - `enum` — **required** `options: [{ "value": "...", "label": "..." }, ...]`
 - Always provide useful `default` values so preview works without CLI overrides.
 - Use `data-variable-values='{"title":"Pro"}'` on sub-composition hosts for per-instance overrides.
-- Use `npx hyperframes render --variables '{"title":"Q4 Report"}'` or `--variables-file` for render-time overrides.
+- Use `npx @kenectai/cli render --variables '{"title":"Q4 Report"}'` or `--variables-file` for render-time overrides.
 - Add `--strict-variables` in CI: turns undeclared keys, type mismatches, and enum values not in `options` into errors instead of warnings.
 - Read values once during init, not on every animation tick — variables don't change mid-render.
 - Media color grading can use exact variable references inside `data-color-grading` JSON. Use `$gradingPreset` or `${gradingIntensity}` as the whole field value; the runtime resolves it from the current composition's variables before applying shader adjustments, finishing details, blur/pixelate effects, and custom LUTs.

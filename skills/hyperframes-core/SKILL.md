@@ -72,7 +72,7 @@ Surfaced here; full rationale in the linked reference. Do not violate:
 
 Use `hyperframes-cli` for command details
 
-- [ ] `npx hyperframes check` passes (0 findings across lint, runtime, layout, motion, and contrast)
-- [ ] Projects with sub-compositions: `npx hyperframes snapshot --at <midpoints>` and eyeball each frame
-- [ ] `npx hyperframes preview` for review (the user can edit anything in Studio's timeline)
-- [ ] `npx hyperframes render` only after the user approves
+- [ ] `npx @kenectai/cli check` passes (0 findings across lint, runtime, layout, motion, and contrast)
+- [ ] Projects with sub-compositions: `npx @kenectai/cli snapshot --at <midpoints>` and eyeball each frame
+- [ ] `npx @kenectai/cli preview` for review (the user can edit anything in Studio's timeline)
+- [ ] `npx @kenectai/cli render` only after the user approves

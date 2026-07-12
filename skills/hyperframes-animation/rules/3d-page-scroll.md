@@ -224,4 +224,4 @@ Pick one and use it across all scrolls in the scene — mixing easings within on
 
 - `/hyperframes-animation` — timeline + ease reference; `y:` tween basics
 - `/hyperframes-core` — composition wiring, `data-*` attributes
-- `/hyperframes-cli` — `hyperframes lint` to verify the registry key + duration
+- `/hyperframes-cli` — `kenectai lint` to verify the registry key + duration

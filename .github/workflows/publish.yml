@@ -25,12 +25,14 @@ jobs:
     permissions:
       contents: write
       id-token: write
+    # Repository guard: never attempt to publish from a fork of this repo.
     # Run on tag push, manual dispatch, OR when a release/* PR is merged
     if: >-
-      github.event_name == 'push' ||
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.pull_request.merged == true &&
-       startsWith(github.event.pull_request.head.ref, 'release/v'))
+      github.repository == 'sthuthillc/kenectai' &&
+      (github.event_name == 'push' ||
+       github.event_name == 'workflow_dispatch' ||
+       (github.event.pull_request.merged == true &&
+        startsWith(github.event.pull_request.head.ref, 'release/v')))
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
@@ -124,40 +126,13 @@ jobs:
             fi
           }
 
-          publish_pkg "@hyperframes/parsers" "@hyperframes/parsers"
-          publish_pkg "@hyperframes/lint" "@hyperframes/lint"
-          publish_pkg "@hyperframes/studio-server" "@hyperframes/studio-server"
-          publish_pkg "@hyperframes/core" "@hyperframes/core"
-          publish_pkg "@hyperframes/sdk" "@hyperframes/sdk"
-          publish_pkg "@hyperframes/engine" "@hyperframes/engine"
-          publish_pkg "@hyperframes/player" "@hyperframes/player"
-          publish_pkg "@hyperframes/producer" "@hyperframes/producer"
-          publish_pkg "@hyperframes/shader-transitions" "@hyperframes/shader-transitions"
-          publish_pkg "@hyperframes/studio" "@hyperframes/studio"
-          publish_pkg "@hyperframes/aws-lambda" "@hyperframes/aws-lambda"
-          publish_pkg "@hyperframes/gcp-cloud-run" "@hyperframes/gcp-cloud-run"
-
-          # CLI is @hyperframes/cli in the monorepo but published as unscoped "hyperframes" on npm.
-          # Rewrite the name in package.json before publishing, then use npm publish directly
-          # since pnpm --filter won't match the rewritten name.
-          if npm view "hyperframes@${VERSION}" version >/dev/null 2>&1; then
-            echo "⏭️  hyperframes@${VERSION} already published — skipping"
-          else
-            node -e "
-              const fs = require('fs');
-              const p = 'packages/cli/package.json';
-              const pkg = JSON.parse(fs.readFileSync(p, 'utf8'));
-              pkg.name = 'hyperframes';
-              fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + '\n');
-            "
-            echo "📦 Publishing hyperframes@${VERSION}..."
-            if (cd packages/cli && npm publish --access public --tag "$DIST_TAG"); then
-              echo "✅ hyperframes@${VERSION} published"
-            else
-              echo "❌ hyperframes@${VERSION} failed to publish"
-              FAILED=1
-            fi
-          fi
+          # Only the CLI publishes for now. The library packages still carry
+          # the upstream @hyperframes/* scope (Apache-2.0 fork); their npm
+          # names belong to upstream, so publishing them from this repo is
+          # disabled until they are renamed to a scope this org owns. The CLI
+          # bundles its workspace deps at build time (tsup), so it has no
+          # runtime dependency on those packages.
+          publish_pkg "@kenectai/cli" "@kenectai/cli"
 
           if [ "$FAILED" -ne 0 ]; then
             echo "::error::One or more packages failed to publish"

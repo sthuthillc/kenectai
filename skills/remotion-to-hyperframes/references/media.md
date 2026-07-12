@@ -118,7 +118,7 @@ animated dimensions, the GSAP tween animates them — see [timing.md](timing.md)
 When HF detects a nested iframe in a composition, it auto-falls back to
 **screenshot mode** rather than the deterministic BeginFrame mode. This
 costs render performance but produces visibly-correct output. See
-[hyperframes-vs-remotion.mdx](https://github.com/heygen-com/hyperframes/blob/main/docs/guides/hyperframes-vs-remotion.mdx)
+[hyperframes-vs-remotion.mdx](https://github.com/sthuthillc/kenectai/blob/main/docs/guides/hyperframes-vs-remotion.mdx)
 for details.
 
 ## `delayRender()` / `continueRender()`

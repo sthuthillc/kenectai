@@ -213,7 +213,7 @@ Requires `perspective` on the parent.
 
 ### From real ASR transcripts
 
-For real ASR-driven scenes, replace hardcoded TIMINGS with transcript JSON (each entry has `word`, `start_ms`, `end_ms`). Convert to seconds and feed in identically. The shape `{ [wordKey]: { start, end } }` is the same whether hand-authored or derived from `hyperframes transcribe`.
+For real ASR-driven scenes, replace hardcoded TIMINGS with transcript JSON (each entry has `word`, `start_ms`, `end_ms`). Convert to seconds and feed in identically. The shape `{ [wordKey]: { start, end } }` is the same whether hand-authored or derived from `kenectai transcribe`.
 
 ## How to Choose Values
 
@@ -280,7 +280,7 @@ Ease family — discrete choice:
 ## Pairs with HF skills
 
 - `/hyperframes-animation` — single driver, multi-element envelope
-- `/media-use` — `hyperframes transcribe` outputs real ASR data
+- `/media-use` — `kenectai transcribe` outputs real ASR data
 - `/media-use` — pair with caption rendering
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

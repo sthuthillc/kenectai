@@ -295,4 +295,4 @@ For a flat morph between two same-shape states, drop the scale and keep only opa
 
 - `/hyperframes-animation` — two coordinated tweens with overlap
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

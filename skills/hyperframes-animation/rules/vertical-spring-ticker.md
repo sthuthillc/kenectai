@@ -236,4 +236,4 @@ For dramatic "spin then land" feel, group several fast spring steps (`STEP_SPACI
 
 - `/hyperframes-animation` — additive spring tweens via shared onUpdate
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

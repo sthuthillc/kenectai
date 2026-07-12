@@ -2,12 +2,12 @@
 // auto-detected from env, is the one documented in ../SKILL.md:
 //
 //   1. HeyGen (Starfish)  — $HEYGEN_API_KEY / $HYPERFRAMES_API_KEY / ~/.heygen.
-//        Direct v3 REST (NOT `hyperframes tts`, which in the published build is
+//        Direct v3 REST (NOT `kenectai tts`, which in the published build is
 //        Kokoro-only and silently ignores a HeyGen key). Returns word_timestamps
 //        in the same call, so no separate transcribe pass.
 //   2. ElevenLabs         — $ELEVENLABS_API_KEY + `pip install elevenlabs`. No
 //        word timings → caller chains transcribeWav().
-//   3. Kokoro-82M (local) — always available, via the published `hyperframes tts`
+//   3. Kokoro-82M (local) — always available, via the published `kenectai tts`
 //        CLI. No word timings → caller chains transcribeWav().
 //
 // "HeyGen available" is decided by CREDENTIAL presence (heygenCredential), never
@@ -40,7 +40,7 @@ export function pickProvider(userProvider) {
       throw new Error(`invalid provider "${userProvider}" (heygen | elevenlabs | kokoro)`);
     if (userProvider === "heygen" && !heygenAvailable())
       throw new Error(
-        "provider=heygen but no HeyGen credentials (set $HEYGEN_API_KEY or run `npx hyperframes auth login`)",
+        "provider=heygen but no HeyGen credentials (set $HEYGEN_API_KEY or run `npx @kenectai/cli auth login`)",
       );
     if (userProvider === "elevenlabs" && !process.env.ELEVENLABS_API_KEY)
       throw new Error("provider=elevenlabs but $ELEVENLABS_API_KEY is not set");
@@ -253,7 +253,7 @@ export async function synthesizeOne({
   if (provider === "heygen") return synthesizeHeygen({ text, voiceId, lang, speed, wavAbs });
   if (provider === "elevenlabs") {
     // The Python helper writes straight to wavAbs; unlike heygen (transcodeToWav)
-    // and kokoro (the `hyperframes tts` CLI), it does NOT create the parent dir,
+    // and kokoro (the `kenectai tts` CLI), it does NOT create the parent dir,
     // so on a fresh project (no assets/voice/ yet) the save fails and the line is
     // silently dropped as "TTS failed - omitted". Create it first, like the other
     // providers do. Guarded so a mkdir failure (EACCES/EROFS) returns
@@ -279,7 +279,7 @@ export async function synthesizeOne({
   const args = ["hyperframes", "tts", writeTmpText(text), "--voice", voiceId, "--output", wavRel];
   if (lang !== "en") args.push("--lang", lang);
   const r = await spawnP("npx", args, { cwd: hyperframesDir });
-  return synthResult(r, wavAbs, "kokoro (npx hyperframes tts)");
+  return synthResult(r, wavAbs, "kokoro (npx @kenectai/cli tts)");
 }
 
 // Shape a spawn result into { ok, words, error }, naming why on failure so the

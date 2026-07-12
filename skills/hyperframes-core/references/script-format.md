@@ -46,4 +46,4 @@ A header block, then one section per spoken line.
 
 ## To TTS
 
-Feed each line's spoken text to `npx hyperframes tts` (pin `--voice` / `--provider` from the header; capture word timestamps for captions). Real per-word timing replaces the `**Time:**` guides. CLI contract → `media-use/audio/references/tts.md`.
+Feed each line's spoken text to `npx @kenectai/cli tts` (pin `--voice` / `--provider` from the header; capture word timestamps for captions). Real per-word timing replaces the `**Time:**` guides. CLI contract → `media-use/audio/references/tts.md`.

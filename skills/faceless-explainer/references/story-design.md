@@ -8,7 +8,7 @@ This file defines the story: what the video teaches, in what order, and why each
 
 Read these inputs before writing:
 
-1. `hyperframes.json` — locked brief: angle, length, aspect ratio, language.
+1. `kenectai.json` — locked brief: angle, length, aspect ratio, language.
 2. `frame.md` — tone, mood, design system, and register.
 3. `capture/extracted/visible-text.txt` — the article / notes / topic / brief (the source of **information**).
 4. `user_script.txt` and `VO_MODE`, when the user pasted a script.

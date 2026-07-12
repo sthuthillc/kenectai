@@ -220,4 +220,4 @@ The `REVEAL_THRESHOLD` separates "scrambled" from "revealed" — by the time the
 
 - `/hyperframes-animation` — timeline + per-char stagger + `onUpdate`
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

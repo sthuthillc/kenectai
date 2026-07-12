@@ -304,4 +304,4 @@ document
 
 - `/hyperframes-animation` — single driver, reverse-search dispatch
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

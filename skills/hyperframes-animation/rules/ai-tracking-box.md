@@ -379,4 +379,4 @@ After tracking, the camera (via [viewport-change](viewport-change.md)) zooms int
 
 - `/hyperframes-animation` — onUpdate writing multi-element positions
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

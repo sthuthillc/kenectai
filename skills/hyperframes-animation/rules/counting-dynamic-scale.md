@@ -280,4 +280,4 @@ For 3 stats counting in parallel, share the SAME ease and duration so they finis
 
 - `/hyperframes-animation` — timeline + `onUpdate` API
 - `/hyperframes-core` — composition wiring, `data-*` attributes
-- `/hyperframes-cli` — `hyperframes lint` to verify scene
+- `/hyperframes-cli` — `kenectai lint` to verify scene

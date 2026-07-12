@@ -347,4 +347,4 @@ tl.to(
 
 - `/hyperframes-animation` — coordinated multi-target tweens via array
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

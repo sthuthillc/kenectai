@@ -14,7 +14,7 @@ Animated **data-viz** from data. Asset-free (the "input" is the data). "One char
 
 ## Build (reuse-first)
 
-Reuse `data-chart`: `npx hyperframes add data-chart` → edit the data arrays + scales + headline/labels + palette in place (its data is baked in the script, not a `--variables` flag). Axes hidden by default; show muted only when magnitude is the message. Determinism: drive any animation from the seek clock, never wall-clock.
+Reuse `data-chart`: `npx @kenectai/cli add data-chart` → edit the data arrays + scales + headline/labels + palette in place (its data is baked in the script, not a `--variables` flag). Axes hidden by default; show muted only when magnitude is the message. Determinism: drive any animation from the seek clock, never wall-clock.
 
 ## Dashboard-skeleton variant
 

@@ -293,4 +293,4 @@ tl.to(
 
 - `/hyperframes-animation` — `back.out` ease + multi-tween coordination
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

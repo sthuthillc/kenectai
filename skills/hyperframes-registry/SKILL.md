@@ -1,11 +1,11 @@
 ---
 name: hyperframes-registry
-description: Install and wire registry blocks and components into HyperFrames compositions. Use when running hyperframes add, installing a block or component, wiring an installed item into index.html, or working with hyperframes.json. Covers the add command, install locations, block sub-composition wiring, component snippet merging, registry discovery, and authoring a new block or component to contribute upstream (idea → scaffold → validate → PR).
+description: Install and wire registry blocks and components into HyperFrames compositions. Use when running hyperframes add, installing a block or component, wiring an installed item into index.html, or working with kenectai.json. Covers the add command, install locations, block sub-composition wiring, component snippet merging, registry discovery, and authoring a new block or component to contribute upstream (idea → scaffold → validate → PR).
 ---
 
 # HyperFrames Registry
 
-The registry provides reusable blocks and components installable via `hyperframes add <name>`.
+The registry provides reusable blocks and components installable via `kenectai add <name>`.
 
 - **Blocks** — standalone sub-compositions (own dimensions, duration, timeline). Included via `data-composition-src` in a host composition.
 - **Components** — effect snippets (no own dimensions). Pasted directly into a host composition's HTML.
@@ -13,27 +13,27 @@ The registry provides reusable blocks and components installable via `hyperframe
 ## Quick reference
 
 ```bash
-hyperframes add data-chart              # install a block
-hyperframes add grain-overlay           # install a component
-hyperframes add shimmer-sweep --dir .   # target a specific project
-hyperframes add data-chart --json       # machine-readable output
-hyperframes add data-chart --no-clipboard  # skip clipboard (CI/headless)
+kenectai add data-chart              # install a block
+kenectai add grain-overlay           # install a component
+kenectai add shimmer-sweep --dir .   # target a specific project
+kenectai add data-chart --json       # machine-readable output
+kenectai add data-chart --no-clipboard  # skip clipboard (CI/headless)
 ```
 
 After install, the CLI prints which files were written and a snippet to paste into your host composition. The snippet is a starting point — you'll need to add `data-composition-id` (must match the block's internal composition ID), `data-start`, and `data-track-index` attributes when wiring blocks.
 
-Note: `hyperframes add` only works for blocks and components. For examples, use `hyperframes init <dir> --example <name>` instead.
+Note: `kenectai add` only works for blocks and components. For examples, use `kenectai init <dir> --example <name>` instead.
 
 ## Install locations
 
 Blocks install to `compositions/<name>.html` by default.
 Components install to `compositions/components/<name>.html` by default.
 
-These paths are configurable in `hyperframes.json`:
+These paths are configurable in `kenectai.json`:
 
 ```json
 {
-  "registry": "https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry",
+  "registry": "https://raw.githubusercontent.com/sthuthillc/kenectai/main/registry",
   "paths": {
     "blocks": "compositions",
     "components": "compositions/components",
@@ -89,7 +89,7 @@ Browse available items:
 
 ```bash
 # Read the registry manifest
-curl -s https://raw.githubusercontent.com/heygen-com/hyperframes/main/registry/registry.json
+curl -s https://raw.githubusercontent.com/sthuthillc/kenectai/main/registry/registry.json
 ```
 
 Each item's `registry-item.json` contains: name, type, title, description, tags, dimensions (blocks only), duration (blocks only), and file list.

@@ -97,21 +97,21 @@ Apply the correct template based on type. See [templates.md](templates.md) for c
 ### Step 4: Validate
 
 ```bash
-hyperframes lint                    # 0 errors required
-hyperframes check --no-contrast  # 0 console errors required
+kenectai lint                    # 0 errors required
+kenectai check --no-contrast  # 0 console errors required
 ```
 
 ### Step 5: Preview
 
 ```bash
 # Render preview video
-hyperframes render -o preview.mp4
+kenectai render -o preview.mp4
 
 # Snapshot for visual QA
-hyperframes snapshot --at "1.0,3.0,5.0,7.0"
+kenectai snapshot --at "1.0,3.0,5.0,7.0"
 
 # Publish to hyperframes.dev for review
-npx hyperframes publish
+npx @kenectai/cli publish
 ```
 
 **Catalog preview image** — The catalog card uses a PNG at `docs/images/catalog/{kind}/{name}.png` (where `{kind}` is `blocks` or `components`). Generate it from a snapshot, then:
@@ -139,7 +139,7 @@ npx oxfmt registry/{kind}/{name}/*.html
 npx tsx scripts/generate-catalog-pages.ts
 
 # 5. Publish to hyperframes.dev so reviewers can preview
-npx hyperframes publish
+npx @kenectai/cli publish
 
 # 6. Stage everything
 git add registry/{kind}/{name}/ registry/registry.json docs/catalog/
@@ -156,11 +156,11 @@ gh pr create --title "feat(registry): {name}" --body "preview: {hyperframes.dev-
 
 ## Quality Gate
 
-- [ ] `hyperframes lint` → 0 errors
-- [ ] `hyperframes check` → 0 console errors
+- [ ] `kenectai lint` → 0 errors
+- [ ] `kenectai check` → 0 console errors
 - [ ] `npx oxfmt --check` passes
 - [ ] `registry/registry.json` updated with new entry
 - [ ] `scripts/generate-catalog-pages.ts` run (docs page generated)
-- [ ] `npx hyperframes publish` run (claim your project URL)
+- [ ] `npx @kenectai/cli publish` run (claim your project URL)
 - [ ] Preview MP4 attached to PR (external) or catalog PNG uploaded (internal)
 - [ ] All IDs unique and prefixed

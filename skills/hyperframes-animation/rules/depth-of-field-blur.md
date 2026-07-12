@@ -310,4 +310,4 @@ tl.to(
 
 - `/hyperframes-animation` — tweening a CSS custom property + multi-tween coordination
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

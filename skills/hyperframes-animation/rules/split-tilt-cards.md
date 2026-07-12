@@ -274,4 +274,4 @@ For 3 cards, the center card stays flat (`rotateY 0`) and the outer two tilt inw
 
 - `/hyperframes-animation` — timeline + `yoyo` for the idle bob
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

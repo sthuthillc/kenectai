@@ -1,15 +1,15 @@
-# Hyperframes
+# KENECT AI
 
-Open-source video rendering framework: write HTML, render video.
+Open-source video rendering framework (KENECT AI fork of HyperFrames, Apache-2.0): write HTML, render video.
 
 ## Skills
 
 This repo ships 20 AI agent skills via [vercel-labs/skills](https://github.com/vercel-labs/skills). Install them before writing compositions — they encode framework-specific patterns that generic docs don't cover.
 
 ```bash
-npx skills add heygen-com/hyperframes --full-depth              # interactive picker
-npx skills add heygen-com/hyperframes --all --full-depth        # install all 20 (skips picker)
-npx skills add heygen-com/hyperframes --skill <name> --full-depth  # just one (bare name, no leading slash)
+npx skills add sthuthillc/kenectai --full-depth              # interactive picker
+npx skills add sthuthillc/kenectai --all --full-depth        # install all 20 (skips picker)
+npx skills add sthuthillc/kenectai --skill <name> --full-depth  # just one (bare name, no leading slash)
 ```
 
 Keep `--full-depth`: it installs the current `main`. Without it, `skills add` fetches the skills.sh registry blob, which lags `main` by hours (you'd get a stale skill). `hyperframes skills update` already uses full-depth.
@@ -80,8 +80,8 @@ Always lint and format changed files before committing. Lefthook pre-commit hook
 After creating or editing any `.html` composition:
 
 ```bash
-npx hyperframes lint       # Static HTML structure check
-npx hyperframes check      # Browser gate (headless Chrome — runtime errors, layout, motion, WCAG contrast)
+npx @kenectai/cli lint       # Static HTML structure check
+npx @kenectai/cli check      # Browser gate (headless Chrome — runtime errors, layout, motion, WCAG contrast)
 ```
 
 Both must pass before previewing or considering work complete.

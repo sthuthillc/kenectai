@@ -274,4 +274,4 @@ Intruder displaces multiple aligned cards, each victim getting a slightly delaye
 
 - `/hyperframes-animation` — single driver, multi-value onUpdate
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

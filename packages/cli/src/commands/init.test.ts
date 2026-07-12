@@ -33,11 +33,13 @@ function expectScaffoldedScripts(target: string): void {
   const pkg = JSON.parse(readFileSync(join(target, "package.json"), "utf-8")) as {
     scripts?: Record<string, string>;
   };
+  // Direct-from-source runs have no __CLI_VERSION__ define, so init scaffolds
+  // the dev-mode specifier ("kenectai", not "@kenectai/cli@<version>").
   expect(pkg.scripts).toMatchObject({
-    dev: "npx --yes hyperframes preview",
-    check: "npx --yes hyperframes check",
-    render: "npx --yes hyperframes render",
-    publish: "npx --yes hyperframes publish",
+    dev: "npx --yes kenectai preview",
+    check: "npx --yes kenectai check",
+    render: "npx --yes kenectai render",
+    publish: "npx --yes kenectai publish",
   });
   expect(Object.keys(pkg.scripts ?? {}).sort()).toEqual(["check", "dev", "publish", "render"]);
 }

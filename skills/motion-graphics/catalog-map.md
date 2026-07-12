@@ -1,6 +1,6 @@
 # Director → catalog block map (reuse-first)
 
-The Builder's **default is to compose existing HF catalog blocks, not hand-author.** `npx hyperframes add <block>` drops a block's source into `compositions/`; the Builder then **customizes in place** — most blocks bake their content/data into their own script (only a few expose CSS-var `params`), so reuse = **add + edit**, not pure variable injection. Hand-author only (a) gaps no block covers and (b) the asset-fusion affordance binding.
+The Builder's **default is to compose existing HF catalog blocks, not hand-author.** `npx @kenectai/cli add <block>` drops a block's source into `compositions/`; the Builder then **customizes in place** — most blocks bake their content/data into their own script (only a few expose CSS-var `params`), so reuse = **add + edit**, not pure variable injection. Hand-author only (a) gaps no block covers and (b) the asset-fusion affordance binding.
 
 After classifying intent → category, the **Director names the block(s) + what to customize** in the shot-plan IR:
 
@@ -26,7 +26,7 @@ After classifying intent → category, the **Director names the block(s) + what 
 
 ## Reuse mechanics
 
-- `npx hyperframes add <block>` → source lands in `compositions/<block>.html`; inline it or reference via `data-composition-src`; customize content/data/palette/positions in place.
+- `npx @kenectai/cli add <block>` → source lands in `compositions/<block>.html`; inline it or reference via `data-composition-src`; customize content/data/palette/positions in place.
 - Blocks ship at fixed canvases (1920×1080 / 1080×1920 / 1080×1080) — match or adapt.
 - Blocks already follow the HF contract (paused timeline, seek) — keep it.
 

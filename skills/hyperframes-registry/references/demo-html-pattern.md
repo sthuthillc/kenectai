@@ -51,4 +51,4 @@ Blocks are already standalone compositions that can be rendered directly. Only c
 
 ## Demos are not installed
 
-The `demo.html` is NOT installed by `hyperframes add` — it exists only in the registry for preview generation and as a reference.
+The `demo.html` is NOT installed by `kenectai add` — it exists only in the registry for preview generation and as a reference.

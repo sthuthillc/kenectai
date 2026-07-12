@@ -3,7 +3,7 @@ import { existsSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
-// Local voiceover via the packaged Kokoro-82M TTS (the `hyperframes tts` CLI),
+// Local voiceover via the packaged Kokoro-82M TTS (the `kenectai tts` CLI),
 // the free/private default now that HeyGen TTS costs wallet credits. Kokoro runs
 // on-device (CPU, faster-than-realtime, bundled voices, native word timestamps),
 // so no key and no per-call charge. When Kokoro is not set up, this returns null
@@ -38,7 +38,7 @@ export async function localTtsGenerate(intent, ctx) {
       stdio: ["ignore", "pipe", "pipe"],
     });
   } catch (err) {
-    // `hyperframes tts` prints its "kokoro-onnx not installed" hint to stdout
+    // `kenectai tts` prints its "kokoro-onnx not installed" hint to stdout
     // (clack UI), so read both streams and surface the actionable enable-command
     // rather than a bare "Command failed": otherwise resolve silently falls
     // through to the PAID HeyGen TTS upsell when free local voice was one pip away.

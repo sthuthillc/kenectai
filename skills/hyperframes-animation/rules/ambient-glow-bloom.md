@@ -302,4 +302,4 @@ Angle `{sweepGradient}` (e.g. a 105° linear gradient) and let the band travel l
 
 - `/hyperframes-animation` — `onUpdate` writing opacity/transform + bounded sine breathe
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

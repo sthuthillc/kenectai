@@ -57,7 +57,7 @@ Generic seek-safety + structure live in `hyperframes-core` (read it; not restate
 
 ## Self-check before finishing (you do NOT run the CLI)
 
-You **can't** meaningfully run `hyperframes lint` / `validate` / `inspect` here: they operate on the **assembled project** (the `index.html` graph / bundle), and your frame isn't wired in yet — so they report on _other_ files, not yours (a false green). The **orchestrator** runs them at **Step 6, after assembly** (the correct unit), and **re-dispatches you with the finding** if your frame fails (see **Retry** above). So get it right on write: re-read your file against this checklist before finishing — the codes in parens are `hyperframes lint`'s and what the orchestrator may cite back (the rules behind them live in `hyperframes-core`):
+You **can't** meaningfully run `kenectai lint` / `validate` / `inspect` here: they operate on the **assembled project** (the `index.html` graph / bundle), and your frame isn't wired in yet — so they report on _other_ files, not yours (a false green). The **orchestrator** runs them at **Step 6, after assembly** (the correct unit), and **re-dispatches you with the finding** if your frame fails (see **Retry** above). So get it right on write: re-read your file against this checklist before finishing — the codes in parens are `kenectai lint`'s and what the orchestrator may cite back (the rules behind them live in `hyperframes-core`):
 
 - `missing_template_wrapper` / `missing_composition_id` — root is `<template>`-wrapped and carries `data-composition-id="<frame_id>"`.
 - **Template transport** — every `<style>` and `<script>` block, including the GSAP load, lives inside `<template>`.

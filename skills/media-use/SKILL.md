@@ -57,7 +57,7 @@ Surface an opportunity only when a concrete signal is present:
 | Image that is a placeholder, tiny, or upscaled-looking | a better `image` (and/or upscale — see `references/operations.md`)                          |
 | Hard scene cuts / transitions with no sound            | transition `sfx`                                                                            |
 | A piece over ~10s with no music bed                    | `bgm`                                                                                       |
-| Footage that reads under/over-exposed or color-cast    | a corrective `grade` (analyze with `grade --for`, preview with `hyperframes grade-compare`) |
+| Footage that reads under/over-exposed or color-cast    | a corrective `grade` (analyze with `grade --for`, preview with `kenectai grade-compare`) |
 
 Rules that keep this a help, not nagware:
 
@@ -165,7 +165,7 @@ The deterministic floor still runs automatically: an identical (case/whitespace-
 
 Use `grade` when you need the actual HyperFrames `data-color-grading` value to paste onto an `<img>` or `<video>`. Core presets and params-backed library looks resolve locally; future CDN-backed library looks require network unless already frozen:
 
-**Never `cat`/read a `.cube` file into context.** A 3D LUT is ~size^3 lines of raw numbers (33^3 ≈ 36k lines at the default size). It bloats context and carries zero human/agent-legible signal. To understand or choose a LUT, use `hyperframes grade-compare` to see it rendered, or `cube-validate.mjs` for a one-line `{ok,size}` check. Read `.media/index.md` or `luts/index.json` for the description. Never read the LUT body itself.
+**Never `cat`/read a `.cube` file into context.** A 3D LUT is ~size^3 lines of raw numbers (33^3 ≈ 36k lines at the default size). It bloats context and carries zero human/agent-legible signal. To understand or choose a LUT, use `kenectai grade-compare` to see it rendered, or `cube-validate.mjs` for a one-line `{ok,size}` check. Read `.media/index.md` or `luts/index.json` for the description. Never read the LUT body itself.
 
 ```bash
 node <SKILL_DIR>/scripts/resolve.mjs --type grade --intent "warm daylight" --project . --json
@@ -224,7 +224,7 @@ node <SKILL_DIR>/scripts/resolve.mjs --type lut --from custom.cube --project .
 
 Parametric math (`buildCube`) cannot reproduce real film stocks or emulsion looks. Use a CDN-backed scanned `.cube` entry or ingest a real scanned `.cube` for those.
 
-For visual selection, list reusable looks with `resolve --type grade --candidates`, write the promising entries to a `grades.json`, run `hyperframes grade-compare --for <frame> --grades grades.json`, then commit the winner with `resolve -t grade` as the final `data-color-grading` block.
+For visual selection, list reusable looks with `resolve --type grade --candidates`, write the promising entries to a `grades.json`, run `kenectai grade-compare --for <frame> --grades grades.json`, then commit the winner with `resolve -t grade` as the final `data-color-grading` block.
 
 Smart grade is `grade --for <media>`. It runs local `ffmpeg`/`ffprobe` signalstats, merges a bounded `adjust` suggestion into the returned block, and prints the measured evidence to stderr. Stdout remains valid JSON under `--json`; the suggestion is a starting point for the agent to tune, not an automatic neutralization of intentional color.
 
@@ -381,7 +381,7 @@ private, on-device path instead of or ahead of HeyGen for that type. Only
 | `codex`            | image gen upsell (ChatGPT sub)                                                  | Codex CLI, logged in via ChatGPT (owns its own auth)                                                            |
 | `parakeet-mlx`     | local transcription (default ASR, best)                                         | `uv venv ~/.venvs/parakeet && VIRTUAL_ENV=~/.venvs/parakeet uv pip install parakeet-mlx`                        |
 | `ltx-2-mlx`        | local video gen                                                                 | `git clone https://github.com/dgrauet/ltx-2-mlx && cd ltx-2-mlx && uv sync --all-extras`                        |
-| `npx hyperframes`  | Kokoro TTS (voice), whisper.cpp (transcribe fallback), remove-background        | bundled with the hyperframes CLI                                                                                |
+| `npx @kenectai/cli`  | Kokoro TTS (voice), whisper.cpp (transcribe fallback), remove-background        | bundled with the hyperframes CLI                                                                                |
 
 The RAM-graded local-model shortlist + exact per-tier install/invoke lives in
 `scripts/lib/local-models.mjs` (the agent can read `describeModelLadder(cap, specs)`

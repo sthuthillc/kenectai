@@ -6,7 +6,7 @@ This file defines the story: what the video explains, in what order, and why eac
 
 ## Read first
 
-1. `hyperframes.json` — locked brief: angle (archetype), audience, length, aspect, language.
+1. `kenectai.json` — locked brief: angle (archetype), audience, length, aspect, language.
 2. `frame.md` — tone, type, design system (the shipped preset is **claude**: warm editorial, a serif that thinks, scarce coral, a navy code surface).
 3. `capture/extracted/visible-text.txt` — the assembled PR brief: title, meta (`base ← head · +N/−M across F files`), people, body, commits, changed files, and a budget-bounded set of **representative diff hunks**. This is your source of **information**.
 4. `capture/diff.patch` — the full unified diff, for deeper hunk selection than the brief's excerpt.

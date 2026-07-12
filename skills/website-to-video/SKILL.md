@@ -3,7 +3,7 @@ name: website-to-video
 description: "Capture a general website/URL and turn it into a video OF the site — tour, showcase, or social clip built from captured screenshots and the site's own brand assets. Use for portfolio / blog / docs / landing-page showcases. Not a product launch or promo, even from a URL (/product-launch-video). Unclear → /hyperframes."
 ---
 
-> **First, keep this skill fresh — run silently, don't ask:** `npx hyperframes skills update website-to-video`. A fast no-op when everything is current; otherwise it refreshes this skill plus the core domain skills it depends on before you rely on them.
+> **First, keep this skill fresh — run silently, don't ask:** `npx @kenectai/cli skills update website-to-video`. A fast no-op when everything is current; otherwise it refreshes this skill plus the core domain skills it depends on before you rely on them.
 
 > **media-use**: Before sourcing audio/images/logos, call `/media-use` to resolve BGM/SFX/images from the HeyGen catalog and brand logos from their official sources. Run `--adopt` first to register existing assets. See `/media-use` skill.
 
@@ -40,7 +40,7 @@ If you find yourself reasoning "auto mode says bias toward action, so I'll skip 
 
 Capture the site, then read the extracted data to understand the **brand and product** — what it does, who it's for, what voice it speaks in, what mood it lives in. The captured assets are a brand toolkit for later, not the building blocks the video is made from.
 
-**Show sign-in status before the brief** — run `npx hyperframes auth status` and **relay its output verbatim (don't paraphrase or rewrite it).** It reports whether voice/BGM will use HeyGen or local engines and, when not signed in, how to sign in. **If not signed in, STOP and wait for the user to choose — sign in, or say "go"/"offline" to continue with local engines — before asking the brief or anything else.** Treat it as a real decision point, not a passing note; don't fold the choice into the brief question, and don't write keys into a per-repo `.env`. (In autonomous mode, note the status and continue offline.) See `../media-use` → Preflight for the canonical guidance.
+**Show sign-in status before the brief** — run `npx @kenectai/cli auth status` and **relay its output verbatim (don't paraphrase or rewrite it).** It reports whether voice/BGM will use HeyGen or local engines and, when not signed in, how to sign in. **If not signed in, STOP and wait for the user to choose — sign in, or say "go"/"offline" to continue with local engines — before asking the brief or anything else.** Treat it as a real decision point, not a passing note; don't fold the choice into the brief question, and don't write keys into a per-repo `.env`. (In autonomous mode, note the status and continue offline.) See `../media-use` → Preflight for the canonical guidance.
 
 **Gate:** Site summary printed — strategy-first (what the product does, who it's for, brand voice) before the asset / color / font inventory; sign-in status was shown (signed in, or continuing offline).
 
@@ -93,7 +93,7 @@ If Step 2 said no narration — ask about background music, then skip to Step 5.
 **Read:** The `hyperframes` skill (load it — every rule matters)
 **Read:** [references/step-5-build.md](references/step-5-build.md)
 
-Build index.html and compositions following the architecture and pacing chosen in the storyboard (Step 3). Sub-agents run `hyperframes lint` and `hyperframes snapshot` on each beat before reporting back.
+Build index.html and compositions following the architecture and pacing chosen in the storyboard (Step 3). Sub-agents run `kenectai lint` and `kenectai snapshot` on each beat before reporting back.
 
 **Gate:** Every `compositions/beat-N.html` has been read top-to-bottom by the main agent against DESIGN.md and STORYBOARD.md. The per-beat checklist lives in [step-5-build.md](references/step-5-build.md).
 
@@ -107,7 +107,7 @@ Lint, validate, take snapshots scaled to video length (formula: `max(beats × 3,
 
 **Deliver something you're proud of.** Before handing off, ask yourself: would I post this on social media with my name on it? If not, fix what's wrong.
 
-**Gate:** `npx hyperframes check` pass with zero errors, and the final response includes the active Studio project URL.
+**Gate:** `npx @kenectai/cli check` pass with zero errors, and the final response includes the active Studio project URL.
 
 ---
 

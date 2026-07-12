@@ -4,7 +4,7 @@ Components are effect snippets — HTML, CSS, and optionally JS that you merge d
 
 ## General process
 
-1. Run `hyperframes add <component-name>`
+1. Run `kenectai add <component-name>`
 2. Open the installed file (e.g., `compositions/components/grain-overlay.html`)
 3. Read the comment header for usage instructions
 4. Copy the parts into your host composition:
@@ -36,4 +36,4 @@ See `examples/add-component.md` for the full shimmer-sweep walkthrough (HTML wra
 - Components inherit the host composition's dimensions and duration
 - Place component HTML at the appropriate z-index relative to your content
 - Read the comment header in each snippet for customizable values
-- Run `hyperframes lint` after wiring to catch structural issues
+- Run `kenectai lint` after wiring to catch structural issues

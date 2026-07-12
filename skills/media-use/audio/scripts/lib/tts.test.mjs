@@ -151,7 +151,7 @@ test("synthesizeHeygen reports wav transcode failures", async () => {
 });
 
 test("synthResult names a non-zero subprocess exit", () => {
-  const res = synthResult({ status: 2 }, "/tmp/none.wav", "kokoro (npx hyperframes tts)");
+  const res = synthResult({ status: 2 }, "/tmp/none.wav", "kokoro (npx @kenectai/cli tts)");
   assert.equal(res.ok, false);
   assert.match(res.error, /kokoro .* exited with status 2/);
 });

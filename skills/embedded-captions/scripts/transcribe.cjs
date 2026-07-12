@@ -119,7 +119,7 @@ function main() {
   const out = path.join(project, "transcript.json");
 
   // already in our schema? skip — but validate the SHAPE, not just the keys:
-  // `hyperframes init` drops a whisper.cpp segment/token-format transcript.json
+  // `kenectai init` drops a whisper.cpp segment/token-format transcript.json
   // (offsets-in-ms, nested tokens) that can carry a `words` key yet poison the
   // compilers. Only a word-level {text,start,end} array counts as normalized.
   try {

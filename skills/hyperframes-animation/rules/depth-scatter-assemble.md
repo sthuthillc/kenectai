@@ -300,4 +300,4 @@ For `logo-assemble-lockup`, give back layers a larger `|Z_FAR|` and a longer `AS
 
 - `/hyperframes-animation` — timeline + `onUpdate` API (the shared-progress tumble-swap)
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

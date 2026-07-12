@@ -30,7 +30,7 @@ bash scripts/prepare.sh   <project>      # matte ∥ transcribe ∥ safe-zones (
 #    (a still works too:  remove-background portrait.jpg -o person.png)
 
 # 2) The verbatim word timings that drive the flowing caption
-npx hyperframes transcribe subject.mp4 --model small            # → transcript.json
+npx @kenectai/cli transcribe subject.mp4 --model small            # → transcript.json
 #    shape: [{ "id":"w0","text":"Hello","start":0.0,"end":0.5 }, …]
 ```
 

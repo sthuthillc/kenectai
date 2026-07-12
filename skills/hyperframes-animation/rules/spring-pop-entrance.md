@@ -271,4 +271,4 @@ When a popped element then **holds** an ongoing slot (a constellation node, a pe
 
 - `/hyperframes-animation` — `power3.out` settle (smooth default), `fromTo` entrances, deterministic stagger
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

@@ -1,15 +1,16 @@
 name: Sync skills to ClawHub
 
-# Publishes changed skills under skills/ to ClawHub (https://clawhub.ai/heygen-com)
-# whenever they land on main. `clawhub sync` only publishes skills whose content
-# changed vs. the registry, auto-bumping the patch version — unchanged skills are
-# a no-op, so this is safe to run on every push.
+# Publishes changed skills under skills/ to ClawHub. `clawhub sync` only
+# publishes skills whose content changed vs. the registry, auto-bumping the
+# patch version — unchanged skills are a no-op.
+#
+# Manual-dispatch only in this fork: the upstream workflow auto-published to
+# HeyGen's ClawHub org (clawhub.ai/heygen-com) on every push to main. Restore
+# the push trigger (branches: [main], paths: skills/**) once a CLAWHUB_TOKEN
+# for this org's own ClawHub account is configured in repo secrets and the
+# --owner flag below is updated.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "skills/**"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -45,7 +46,7 @@ jobs:
       - name: Authenticate
         env:
           CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
-        run: clawhub login --token "$CLAWHUB_TOKEN" --no-input --label "hyperframes CI"
+        run: clawhub login --token "$CLAWHUB_TOKEN" --no-input --label "kenectai CI"
 
       - name: Sync skills
         env:
@@ -53,7 +54,7 @@ jobs:
         run: |
           FLAGS=(
             --all
-            --owner heygen-com
+            --owner sthuthillc
             --bump patch
             --changelog "Synced from ${GITHUB_SHA:0:7} (${GITHUB_REF_NAME})"
             --source-repo "$GITHUB_REPOSITORY"

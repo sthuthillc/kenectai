@@ -25,7 +25,7 @@ import { track } from "./lib/telemetry.mjs";
 //
 // Parakeet v3 covers English + 25 European languages. For other languages, or
 // when parakeet-mlx is not installed, it falls back to the packaged whisper.cpp
-// (`hyperframes transcribe`, 99 languages). `--engine` forces one.
+// (`kenectai transcribe`, 99 languages). `--engine` forces one.
 
 const { values: args } = parseArgs({
   options: {

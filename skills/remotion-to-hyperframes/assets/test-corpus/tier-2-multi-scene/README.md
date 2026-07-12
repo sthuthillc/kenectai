@@ -40,7 +40,7 @@ right time. Remotion does this implicitly by virtue of `<Sequence>`'s durationIn
 cd remotion-src && npm install && npm run render
 
 # 3. Render HyperFrames translation
-cd ../hf-src && npx hyperframes render --output ../hf.mp4
+cd ../hf-src && npx @kenectai/cli render --output ../hf.mp4
 
 # 4. Compare
 ../../../scripts/render_diff.sh ./remotion-src/out/baseline.mp4 ./hf.mp4 ./diff

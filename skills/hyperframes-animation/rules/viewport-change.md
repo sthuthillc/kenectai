@@ -346,4 +346,4 @@ Crossfade between two camera modes via a 0→1 weight tween. At weight 0, mode A
 
 - `/hyperframes-animation` — single tween writing composite transform
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

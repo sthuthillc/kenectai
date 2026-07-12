@@ -19,7 +19,7 @@ This is still a SOFT discipline. Story truth comes first: **never invent, bend, 
 
 ## Read first
 
-1. `hyperframes.json` — locked brief: angle, length, aspect ratio, language.
+1. `kenectai.json` — locked brief: angle, length, aspect ratio, language.
 2. `frame.md` — tone, mood, design system, brand register.
 3. `capture/extracted/visible-text.txt` — product facts, page copy, positioning, proof, CTA.
 4. `capture/extracted/asset-descriptions.md` — the ONLY source for the captured asset inventory.

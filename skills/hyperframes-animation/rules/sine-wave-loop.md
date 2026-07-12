@@ -275,4 +275,4 @@ For HF (`onUpdate` doesn't expose frame directly), use the tween's `phase` value
 
 - `/hyperframes-animation` — `onUpdate` writing transform
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

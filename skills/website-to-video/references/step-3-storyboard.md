@@ -132,10 +132,10 @@ ls registry/blocks/ 2>/dev/null | grep -E 'chromatic|cinematic|cross-warp|domain
 ls registry/blocks/ 2>/dev/null | grep vfx || echo "No VFX blocks installed"
 
 # 3. Browse what's available to install
-npx hyperframes catalog --type block 2>/dev/null | head -40
+npx @kenectai/cli catalog --type block 2>/dev/null | head -40
 ```
 
-There might be VFX blocks available (vfx-liquid-glass, vfx-iphone-device, vfx-shatter, vfx-portal, etc.), use them for hero treatments instead of basic perspective tilt. You need to install any you want with `npx hyperframes add <name>`. Don't use too many shaders — maximum 2 per video unless user wants differently.
+There might be VFX blocks available (vfx-liquid-glass, vfx-iphone-device, vfx-shatter, vfx-portal, etc.), use them for hero treatments instead of basic perspective tilt. You need to install any you want with `npx @kenectai/cli add <name>`. Don't use too many shaders — maximum 2 per video unless user wants differently.
 
 **Shader transitions — block name ≠ shader name.** When you run the commands above and see `domain-warp-dissolve` in `registry/blocks/`, the HyperShader runtime name is `domain-warp` (without "-dissolve"). After installing a block, open its showcase HTML (`compositions/<block-name>.html`) and find the actual shader name used in `HyperShader.init()`. That is what you put in the storyboard. Then delete the showcase file — it's a demo only and will pollute your compositions/ directory with lint warnings.
 
@@ -226,7 +226,7 @@ Plan your storyboard within these constraints. If you describe "the MacBook stay
 
 ### Device Mockups: Use the Registry Block
 
-If the storyboard calls for a MacBook or iPhone mockup, use the pre-built `vfx-iphone-device` registry block — it has both **iPhone 15 Pro Max AND MacBook Pro** GLTF models with live HTML-in-Canvas screens, camera choreography, and glass lens morphing. Install with `npx hyperframes add vfx-iphone-device`.
+If the storyboard calls for a MacBook or iPhone mockup, use the pre-built `vfx-iphone-device` registry block — it has both **iPhone 15 Pro Max AND MacBook Pro** GLTF models with live HTML-in-Canvas screens, camera choreography, and glass lens morphing. Install with `npx @kenectai/cli add vfx-iphone-device`.
 
 Do NOT hand-code a Three.js device scene from scratch. The registry block handles UV mapping, screen textures, lighting, and camera angles correctly. Hand-coded versions consistently produce broken screen textures, wrong UV flipping, and path resolution bugs. Use the block.
 

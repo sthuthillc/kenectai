@@ -13,7 +13,7 @@ For implementation patterns (working code), see `techniques.md`. This file is th
 - **Deterministic:** No `Math.random()`, no `Date.now()`, no `requestAnimationFrame`, no `repeat: -1`. The render engine seeks to exact timestamps.
 - **Timeline contract:** `window.__timelines["composition-id"] = tl` must be set synchronously. The timeline length defines the composition duration.
 - **Sub-compositions:** External `.html` files loaded via `data-composition-src`. Auto-nested timelines, scoped CSS, scoped scripts.
-- **Linter:** 60+ rules. Run `npx hyperframes lint` before render. Catches missing timelines, overlapping clips, broken paths, GSAP errors.
+- **Linter:** 60+ rules. Run `npx @kenectai/cli lint` before render. Catches missing timelines, overlapping clips, broken paths, GSAP errors.
 
 ## Table of Contents
 
@@ -423,7 +423,7 @@ window.addEventListener("hf-seek", (e) => {
 
 warm-grain, play-mode, swiss-grid, vignelli, decision-tree, kinetic-type, product-promo, nyt-graph
 
-Install: `npx hyperframes add <name>` for blocks/components, `hyperframes init <dir> --example <name>` for examples.
+Install: `npx @kenectai/cli add <name>` for blocks/components, `kenectai init <dir> --example <name>` for examples.
 
 ---
 
@@ -451,12 +451,12 @@ Install: `npx hyperframes add <name>` for blocks/components, `hyperframes init <
 | docs              | Print bundled markdown topics (data-attributes, examples, rendering, gsap, troubleshooting, compositions)                                                                                                                                                                                                                |
 | doctor            | Environment checklist (Node, CPU, memory, disk, FFmpeg, FFprobe, Chrome, Docker)                                                                                                                                                                                                                                         |
 | upgrade           | npm update check + optional global install                                                                                                                                                                                                                                                                               |
-| skills            | Run `npx skills add heygen-com/hyperframes --all`                                                                                                                                                                                                                                                                        |
+| skills            | Run `npx skills add sthuthillc/kenectai --all`                                                                                                                                                                                                                                                                        |
 | telemetry         | enable/disable/status                                                                                                                                                                                                                                                                                                    |
 | snapshot          | PNG screenshots at timeline timestamps                                                                                                                                                                                                                                                                                   |
 | capture           | Capture URL → site assets + screenshots + design tokens (uses Puppeteer + optional Gemini vision)                                                                                                                                                                                                                        |
 
-### Website capture (`hyperframes capture <url>`)
+### Website capture (`kenectai capture <url>`)
 
 Detects these libraries on captured sites (for context labeling): GSAP / ScrollTrigger, Three.js, Lottie, Anime.js, PixiJS, Babylon.js, Rive, Matter.js, Lenis, Framer Motion, Tailwind CSS, WebGL (shader fingerprinting). Captured outputs feed the website-to-video skill workflow.
 
@@ -602,9 +602,9 @@ Compositions support typed runtime variables:
 Access via `window.__hyperframes.getVariables()`. Override at render time:
 
 ```bash
-npx hyperframes render --variables '{"brand":"Linear","primary":"#5E6AD2"}'
-npx hyperframes render --variables-file vars.json
-npx hyperframes render --strict-variables  # error if unused / mismatched
+npx @kenectai/cli render --variables '{"brand":"Linear","primary":"#5E6AD2"}'
+npx @kenectai/cli render --variables-file vars.json
+npx @kenectai/cli render --strict-variables  # error if unused / mismatched
 ```
 
 `validateVariables()` checks values against declarations at the CLI/tooling boundary.

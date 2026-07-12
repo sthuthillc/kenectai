@@ -270,4 +270,4 @@ const offsetY = (viewportCenter.y - (tRect.top + tRect.height / 2)) / phase.scal
 
 - `/hyperframes-animation` — multi-phase tween + drift onUpdate
 - `/hyperframes-core` — composition wiring, scene wrapper
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

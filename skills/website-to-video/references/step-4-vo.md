@@ -28,7 +28,7 @@ Generate a 2-sentence test clip NOW using the script's opening lines. Measure th
 
 ```bash
 # Quick Kokoro test (2 sentences):
-npx hyperframes tts "First sentence. Second sentence." --voice af_nova --output /tmp/test-tts.wav
+npx @kenectai/cli tts "First sentence. Second sentence." --voice af_nova --output /tmp/test-tts.wav
 # Measure: seconds ÷ words × total script words = estimated full audio length
 ```
 
@@ -123,7 +123,7 @@ After the provider is selected, audition at least 2 voices with the first senten
 **Kokoro (free, local):**
 
 ```bash
-npx hyperframes tts SCRIPT.md --voice af_nova --output narration.wav
+npx @kenectai/cli tts SCRIPT.md --voice af_nova --output narration.wav
 ```
 
 No API key, no MCP needed. Runs locally. Use `--list` to see all 54 available voices.
@@ -144,7 +144,7 @@ Generate the full script as `narration.wav` (or `.mp3`) in the project directory
 
 1. **Try again** — kill the process, run the same command again (transient failures are common)
 2. **Try different flags** — smaller model (`--model tiny.en`), different voice, shorter test sentence first
-3. **Try a different tool for the same task** — if `hyperframes transcribe` hangs, run `whisper-cli` directly on the audio
+3. **Try a different tool for the same task** — if `kenectai transcribe` hangs, run `whisper-cli` directly on the audio
 4. **Switch provider entirely** — if ElevenLabs is down, try HeyGen or Kokoro. If Kokoro hangs, try ElevenLabs.
 
 Never sit idle for 10 minutes hoping a stuck process will finish.
@@ -178,7 +178,7 @@ No separate transcription step needed.
 **If you used ElevenLabs or Kokoro:**
 
 ```bash
-npx hyperframes transcribe narration.wav
+npx @kenectai/cli transcribe narration.wav
 ```
 
 Produces `transcript.json` with `[{ text, start, end }]` for every word. These timestamps are the source of truth for all beat durations.

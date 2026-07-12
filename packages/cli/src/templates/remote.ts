@@ -46,7 +46,7 @@ export async function listRemoteTemplates(): Promise<RemoteTemplateInfo[]> {
  * items gets a complete install rather than silently dropping its deps.
  *
  * Every resolved item is compatibility-gated up front (same gate as
- * `hyperframes add`), so an incompatible template — or any of its deps —
+ * `kenectai add`), so an incompatible template — or any of its deps —
  * aborts before a single file is written.
  */
 export async function fetchRemoteTemplate(templateId: string, destDir: string): Promise<void> {

@@ -286,7 +286,7 @@ hf_render_dir() {
 # Link a project's assets into a shadow render dir EXCEPT the files we manage
 # (the HTML we override + render outputs/intermediates). Links every other entry by
 # its real name, so the shadow resolves whatever media the HTML references — including
-# the ORIGINAL video filename `hyperframes init` scaffolds (e.g. clip.mp4), not just a
+# the ORIGINAL video filename `kenectai init` scaffolds (e.g. clip.mp4), not just a
 # fixed allow-list. Prevents the shadow-render 404 → silent/frozen output → abort.
 link_assets() {  # <project> <shadow>
   local proj="$1" sh="$2" b

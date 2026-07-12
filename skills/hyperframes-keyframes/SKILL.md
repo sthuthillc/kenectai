@@ -3,7 +3,7 @@ name: hyperframes-keyframes
 description: >
   Use when a HyperFrames composition needs seek-safe 2D/3D keyframes, GSAP
   timelines, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw,
-  text trails, 3D depth, or `hyperframes keyframes` diagnostics.
+  text trails, 3D depth, or `kenectai keyframes` diagnostics.
   Don't use for broad scene strategy, brand design, media sourcing, captions, or
   general video planning.
 ---
@@ -21,7 +21,7 @@ Use `references/keyframe-patterns.md` only when choosing implementation mechanis
 1. Identify the animated subject, visible states, final state, and runtime.
 2. Choose the smallest mechanism that proves the prompt. Read `references/keyframe-patterns.md` only if the mechanism is unclear.
 3. Author seek-safe keyframes in the declared runtime. Build synchronously and register the runtime instance.
-4. Verify with lint, validate, `hyperframes keyframes`, one focused `--shot`, and snapshots at proof times.
+4. Verify with lint, validate, `kenectai keyframes`, one focused `--shot`, and snapshots at proof times.
 5. If proof fails, fix the source keyframes and rerun the smallest failing diagnostic before rendering.
 
 ## Contract
@@ -182,15 +182,15 @@ Keyframe camera position, camera target, object transform, material opacity, sha
 ## CLI Proof
 
 ```bash
-npx hyperframes lint
-npx hyperframes check
-npx hyperframes keyframes .
-npx hyperframes keyframes . --json
-npx hyperframes keyframes . --runtime all
-npx hyperframes keyframes . --selector "<selector>" --shot "<file>" --samples <n>
-npx hyperframes keyframes . --selector "<selector>" --shot "<file>" --layout strip --from <t0> --to <t1>
-npx hyperframes keyframes . --shot "<file>" --ghost --angle <angle>
-npx hyperframes snapshot . --at <times>
+npx @kenectai/cli lint
+npx @kenectai/cli check
+npx @kenectai/cli keyframes .
+npx @kenectai/cli keyframes . --json
+npx @kenectai/cli keyframes . --runtime all
+npx @kenectai/cli keyframes . --selector "<selector>" --shot "<file>" --samples <n>
+npx @kenectai/cli keyframes . --selector "<selector>" --shot "<file>" --layout strip --from <t0> --to <t1>
+npx @kenectai/cli keyframes . --shot "<file>" --ghost --angle <angle>
+npx @kenectai/cli snapshot . --at <times>
 ```
 
 Choose `<selector>` for the real animated subject.

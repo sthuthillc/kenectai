@@ -5,9 +5,9 @@ Catch-all reference for commands that don't fit the main dev loop.
 ## info
 
 ```bash
-npx hyperframes info                   # project metadata
-npx hyperframes info ./my-video        # specific project
-npx hyperframes info --json
+npx @kenectai/cli info                   # project metadata
+npx @kenectai/cli info ./my-video        # specific project
+npx @kenectai/cli info --json
 ```
 
 Prints **project** metadata: name, resolution, duration, element counts by type, track count, and total project size. Project-level — not environment. For environment health use `doctor`.
@@ -15,10 +15,10 @@ Prints **project** metadata: name, resolution, duration, element counts by type,
 ## upgrade
 
 ```bash
-npx hyperframes upgrade                # check + interactive prompt
-npx hyperframes upgrade --check        # check and exit, no prompt (agent-friendly)
-npx hyperframes upgrade --check --json # machine-readable: current / latest / updateAvailable
-npx hyperframes upgrade --yes          # print upgrade commands without prompting
+npx @kenectai/cli upgrade                # check + interactive prompt
+npx @kenectai/cli upgrade --check        # check and exit, no prompt (agent-friendly)
+npx @kenectai/cli upgrade --check --json # machine-readable: current / latest / updateAvailable
+npx @kenectai/cli upgrade --yes          # print upgrade commands without prompting
 ```
 
 Compares the installed CLI version against npm latest.
@@ -26,10 +26,10 @@ Compares the installed CLI version against npm latest.
 ## compositions, docs
 
 ```bash
-npx hyperframes compositions           # list compositions in project
-npx hyperframes compositions --json
-npx hyperframes docs                   # list available topics
-npx hyperframes docs rendering         # print one topic inline in the terminal
+npx @kenectai/cli compositions           # list compositions in project
+npx @kenectai/cli compositions --json
+npx @kenectai/cli docs                   # list available topics
+npx @kenectai/cli docs rendering         # print one topic inline in the terminal
 ```
 
 `compositions` lists every `data-composition-id` in the project (including sub-comps) with duration, resolution, and element count.
@@ -39,10 +39,10 @@ npx hyperframes docs rendering         # print one topic inline in the terminal
 ## benchmark
 
 ```bash
-npx hyperframes benchmark              # run the preset matrix in current project
-npx hyperframes benchmark ./my-video   # specific project
-npx hyperframes benchmark --runs 5     # repeat each config N times (default 3)
-npx hyperframes benchmark --json
+npx @kenectai/cli benchmark              # run the preset matrix in current project
+npx @kenectai/cli benchmark ./my-video   # specific project
+npx @kenectai/cli benchmark --runs 5     # repeat each config N times (default 3)
+npx @kenectai/cli benchmark --json
 ```
 
 Renders the project with 5 preset configurations — `30fps draft 2w`, `30fps standard 2w`, `30fps high 2w`, `30fps standard 4w`, `60fps standard 4w` — and prints a comparison of render speed and output file size. Use it to find the fastest acceptable preset for your machine. Not a single-render-with-stage-breakdown.
@@ -50,9 +50,9 @@ Renders the project with 5 preset configurations — `30fps draft 2w`, `30fps st
 ## telemetry
 
 ```bash
-npx hyperframes telemetry status      # show telemetry state
-npx hyperframes telemetry disable     # disable anonymous usage telemetry
-npx hyperframes telemetry enable      # re-enable telemetry
+npx @kenectai/cli telemetry status      # show telemetry state
+npx @kenectai/cli telemetry disable     # disable anonymous usage telemetry
+npx @kenectai/cli telemetry enable      # re-enable telemetry
 ```
 
 Telemetry is anonymous usage counters only. Disable globally with `HYPERFRAMES_NO_TELEMETRY=1` if env-var control is preferred over the subcommand.
@@ -65,9 +65,9 @@ Events include two fingerprint properties used to distinguish managed-sandbox ru
 ## Asset Preprocessing
 
 ```bash
-npx hyperframes tts
-npx hyperframes transcribe
-npx hyperframes remove-background
+npx @kenectai/cli tts
+npx @kenectai/cli transcribe
+npx @kenectai/cli remove-background
 ```
 
 These produce assets (narration audio, word-level transcripts, transparent video) that get dropped into a composition. Each may download its own model on first run.

@@ -368,4 +368,4 @@ Replace face images with flags / emoji / iconography. Reads as "global community
 
 - `/hyperframes-animation` — staggered spring entries + SVG dash draw
 - `/hyperframes-core` — composition wiring
-- `/hyperframes-cli` — `hyperframes lint`
+- `/hyperframes-cli` — `kenectai lint`

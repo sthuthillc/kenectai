@@ -3,7 +3,7 @@ name: talking-head-recut
 description: Package an existing talking-head / interview / podcast video with timed, designed GRAPHIC OVERLAY cards — kinetic titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript, on a 16:9 / 9:16 / 4:5 canvas of your choice; the clip plays untouched underneath. Trigger on "graphic overlays", "on-screen graphics", "package / dress up my video". Not plain subtitles (/embedded-captions). Unclear → /hyperframes.
 ---
 
-> **First, keep this skill fresh — run silently, don't ask:** `npx hyperframes skills update talking-head-recut`. A fast no-op when everything is current; otherwise it refreshes this skill plus the core domain skills it depends on before you rely on them.
+> **First, keep this skill fresh — run silently, don't ask:** `npx @kenectai/cli skills update talking-head-recut`. A fast no-op when everything is current; otherwise it refreshes this skill plus the core domain skills it depends on before you rely on them.
 
 # Talking Head Recut
 
@@ -36,11 +36,11 @@ Inspectable intermediate files in the work directory:
 
 ```bash
 # hyperframes — transcription (local Whisper) + rendering the assembled HTML to MP4
-npx hyperframes --help
+npx @kenectai/cli --help
 ```
 
 This skill runs entirely on the **hyperframes** CLI plus system `ffmpeg` / `ffprobe`.
-Transcription is local **Whisper** via `hyperframes transcribe` — no third-party
+Transcription is local **Whisper** via `kenectai transcribe` — no third-party
 service, API key, or rate-limited proxy.
 
 ## Workflow
@@ -48,7 +48,7 @@ service, API key, or rate-limited proxy.
 ### 1. Check Environment
 
 ```bash
-npx hyperframes doctor          # ffmpeg, headless browser, render deps
+npx @kenectai/cli doctor          # ffmpeg, headless browser, render deps
 # confirm bundled assets:
 ls "<SKILL_DIR>/assets/fonts" "<SKILL_DIR>/assets/vendor/gsap.min.js"
 ```
@@ -58,9 +58,9 @@ Required:
 - `ffmpeg` / `ffprobe` (system)
 - `<SKILL_DIR>/assets/fonts/*.woff2`, `<SKILL_DIR>/assets/vendor/gsap.min.js` (bundled inside this skill, staged to work dir in Step 9)
 
-Transcription needs no key — `hyperframes transcribe` runs Whisper locally (Step 4).
+Transcription needs no key — `kenectai transcribe` runs Whisper locally (Step 4).
 
-Strongly recommended on macOS for `hyperframes render`:
+Strongly recommended on macOS for `kenectai render`:
 
 ```bash
 export PRODUCER_BROWSER_GPU_MODE=hardware
@@ -95,7 +95,7 @@ fraction evaluated, e.g. `30000/1001 → 29.97`) + `audio.mp3`.
 ### 4. Transcribe
 
 ```bash
-npx hyperframes transcribe "$WORK_DIR/audio.mp3" -d "$WORK_DIR" --json --model small.en
+npx @kenectai/cli transcribe "$WORK_DIR/audio.mp3" -d "$WORK_DIR" --json --model small.en
 ```
 
 Local **Whisper** — no API key, no proxy, no rate limit. Writes a word-level
@@ -1155,13 +1155,13 @@ decides where the actual visible card sits.
 
 ```bash
 cd "$WORK_DIR"
-PRODUCER_BROWSER_GPU_MODE=hardware npx hyperframes render public \
+PRODUCER_BROWSER_GPU_MODE=hardware npx @kenectai/cli render public \
   --skill=talking-head-recut \
   -o output.mp4 \
   --fps 30
 ```
 
-`hyperframes render <dir>` reads `<dir>/index.html` and produces the MP4.
+`kenectai render <dir>` reads `<dir>/index.html` and produces the MP4.
 The flag `PRODUCER_BROWSER_GPU_MODE=hardware` (or `--browser-gpu`) is
 strongly recommended on macOS — software-only Chrome rendering times out
 on most laptops.
@@ -1170,7 +1170,7 @@ For a sanity check before the full render, capture a single frame at a
 specific timestamp:
 
 ```bash
-npx hyperframes snapshot public --at 5    # → public/snapshots/frame-00-at-5s.png (a single --at ignores --out)
+npx @kenectai/cli snapshot public --at 5    # → public/snapshots/frame-00-at-5s.png (a single --at ignores --out)
 ```
 
 ### 11. Report Results
@@ -1189,7 +1189,7 @@ Tell the user:
 **Optional live preview (on request only).** The clip plays unchanged inside `public/index.html` with the overlays on top, so it previews faithfully. **Don't open it during the run.** When the user asks, start a long-lived server **after** render and report the URL:
 
 ```bash
-(cd "$WORK_DIR/public" && npx hyperframes preview)   # or `npx hyperframes play` for a shareable link
+(cd "$WORK_DIR/public" && npx @kenectai/cli preview)   # or `npx @kenectai/cli play` for a shareable link
 ```
 
 Do not delete the work directory unless the user asks.

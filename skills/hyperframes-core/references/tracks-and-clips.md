@@ -18,7 +18,7 @@ Add `class="clip"` to authored visual clips so tooling and examples can find the
 
 `data-track-index` controls **temporal overlap**, not paint order:
 
-- **Two clips on the same `data-track-index`** must NOT overlap in time. `hyperframes lint` flags this.
+- **Two clips on the same `data-track-index`** must NOT overlap in time. `kenectai lint` flags this.
 - **Visual layering (front/back)** is controlled by CSS `z-index`, not by track index.
 
 A clip on track `5` is not "above" a clip on track `1` — it's just on a different audio/visual lane in time. Use CSS for layering, tracks for sequencing.

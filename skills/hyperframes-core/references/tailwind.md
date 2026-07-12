@@ -4,7 +4,7 @@ HyperFrames `init --tailwind` uses the Tailwind browser runtime pinned by the sc
 
 ## When To Use
 
-- The project was scaffolded with `npx hyperframes init --tailwind`.
+- The project was scaffolded with `npx @kenectai/cli init --tailwind`.
 - `index.html` contains `window.__tailwindReady`.
 - The task asks for Tailwind utility classes, `@theme`, custom utilities, or v3-to-v4 fixes in a composition.
 - Rendered frames have missing Tailwind styles or frame-0 flashes.
@@ -104,20 +104,20 @@ v4 + render-mode footguns. Every bullet is a hard rule:
 ## Validation
 
 ```bash
-npx hyperframes check
+npx @kenectai/cli check
 
 # Render proof — frame 0 must NOT flash unstyled content. Preview alone can hide this.
-npx hyperframes render . --workers 1 --quality draft --output tailwind-proof.mp4
+npx @kenectai/cli render . --workers 1 --quality draft --output tailwind-proof.mp4
 ```
 
 ## Quick Debug Checklist
 
 When Tailwind styles don't apply in a render, check in order:
 
-1. Project scaffolded with `npx hyperframes init --tailwind`?
+1. Project scaffolded with `npx @kenectai/cli init --tailwind`?
 2. `index.html` `<head>` has `<script src="…@tailwindcss/browser@4.2.4…">` (not `cdn.tailwindcss.com`)?
 3. `window.__tailwindReady` Promise present in `<head>`?
 4. No v3 directives (`@tailwind base/components/utilities`) in the file?
 5. Tokens moved from `tailwind.config.js` to `@theme` (or `@config` reference for v3 migration)?
 6. Every render-critical class appears as a complete static token (no `bg-${color}-500` style assembly)?
-7. Re-run `npx hyperframes check`, then the render proof above.
+7. Re-run `npx @kenectai/cli check`, then the render proof above.

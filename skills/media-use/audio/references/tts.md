@@ -1,8 +1,8 @@
 # Text To Speech
 
-`npx hyperframes tts` auto-detects a provider from env vars; explicit override via `--provider`.
+`npx @kenectai/cli tts` auto-detects a provider from env vars; explicit override via `--provider`.
 
-> **Run the Preflight first — no credential is not a green light to silently use the local voice.** Before generating a voiceover, complete the sign-in **Preflight** (see `../SKILL.md` → Preflight): run `npx hyperframes auth status`, recommend signing in, and **STOP for the user's choice** (sign in for HeyGen voices, or continue offline with local Kokoro). This applies to a one-off "generate a voiceover" request just as much as inside a full workflow.
+> **Run the Preflight first — no credential is not a green light to silently use the local voice.** Before generating a voiceover, complete the sign-in **Preflight** (see `../SKILL.md` → Preflight): run `npx @kenectai/cli auth status`, recommend signing in, and **STOP for the user's choice** (sign in for HeyGen voices, or continue offline with local Kokoro). This applies to a one-off "generate a voiceover" request just as much as inside a full workflow.
 
 ## Provider chain
 
@@ -14,20 +14,20 @@
 
 ```bash
 # Auto-detect (HeyGen if key set, else ElevenLabs, else Kokoro)
-npx hyperframes tts "Welcome to HyperFrames" -o narration.wav
+npx @kenectai/cli tts "Welcome to HyperFrames" -o narration.wav
 
 # Pin the provider explicitly
-npx hyperframes tts "Hello" --provider kokoro
-npx hyperframes tts "Hello" --provider heygen --voice <heygen-uuid>
-npx hyperframes tts "Hello" --provider elevenlabs --voice 21m00Tcm4TlvDq8ikWAM
+npx @kenectai/cli tts "Hello" --provider kokoro
+npx @kenectai/cli tts "Hello" --provider heygen --voice <heygen-uuid>
+npx @kenectai/cli tts "Hello" --provider elevenlabs --voice 21m00Tcm4TlvDq8ikWAM
 
 # HeyGen path: capture word timestamps in one call (skips a Whisper pass)
-npx hyperframes tts "Hi there" --words narration.words.json
+npx @kenectai/cli tts "Hi there" --words narration.words.json
 ```
 
 ## Self-contained HeyGen (no CLI) — `scripts/heygen-tts.mjs`
 
-The published `hyperframes tts` CLI synthesizes locally with Kokoro only. When you
+The published `kenectai tts` CLI synthesizes locally with Kokoro only. When you
 want HeyGen specifically — best quality **plus** word timestamps in one call — use
 the skill's bundled script, which calls the HeyGen v3 REST API directly and needs
 no CLI provider plumbing:
@@ -40,10 +40,10 @@ walks up ≤5 dirs) → `~/.heygen/credentials` (shared with heygen-cli;
 `X-HeyGen-Source: cli`. OAuth CLI users can consume the web-plan free allowance
 (10 min/month) before paid usage; API keys follow normal API billing. If the
 only credential is an expired OAuth token it stops with a hint to run
-`npx hyperframes auth refresh`.
+`npx @kenectai/cli auth refresh`.
 
 ```bash
-# Only needed if you haven't run `npx hyperframes auth login`:
+# Only needed if you haven't run `npx @kenectai/cli auth login`:
 export HEYGEN_API_KEY=...   # or put it in a project .env
 
 # Synthesize + capture word timestamps in one call (skips a Whisper pass)
@@ -84,7 +84,7 @@ Default `af_heart`. Curated picks:
 | Documentation     | `bf_emma`, `bm_george` |
 | Casual / social   | `af_heart`, `af_sky`   |
 
-Run `npx hyperframes tts --list` for the bundled set.
+Run `npx @kenectai/cli tts --list` for the bundled set.
 
 ## Multilingual (Kokoro voice prefix → language)
 
@@ -103,8 +103,8 @@ The first letter of a Kokoro voice ID picks the phonemizer language; `--lang` ov
 | `z`    | Mandarin             |
 
 ```bash
-npx hyperframes tts "La reunión empieza a las nueve" --voice ef_dora --provider kokoro
-npx hyperframes tts "Today is a nice day" --voice af_heart --provider kokoro
+npx @kenectai/cli tts "La reunión empieza a las nueve" --voice ef_dora --provider kokoro
+npx @kenectai/cli tts "Today is a nice day" --voice af_heart --provider kokoro
 ```
 
 Valid `--lang` codes (only needed to override the voice's auto-detected language): `en-us`, `en-gb`, `es`, `fr-fr`, `hi`, `it`, `pt-br`, `ja`, `zh`.
@@ -135,4 +135,4 @@ When `--words <path>` is passed to a HeyGen call, the file is written in the sam
 ]
 ```
 
-For ElevenLabs / Kokoro, run `npx hyperframes transcribe narration.wav --model small.en` to get the same shape.
+For ElevenLabs / Kokoro, run `npx @kenectai/cli transcribe narration.wav --model small.en` to get the same shape.
