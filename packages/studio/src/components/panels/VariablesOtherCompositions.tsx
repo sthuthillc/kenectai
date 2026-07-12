@@ -7,7 +7,7 @@
  */
 
 import { useCallback, useState, type MutableRefObject } from "react";
-import type { Composition, CompositionVariable } from "@hyperframes/sdk";
+import type { Composition, CompositionVariable } from "@kenectai/sdk";
 import {
   useEditVariablesInFile,
   useProjectCompositionVariables,

@@ -23,7 +23,7 @@ RUN bun run --cwd packages/parsers build \
     && bun run --cwd packages/engine build \
     && (cd packages/producer && bunx tsx scripts/generate-font-data.ts) \
     && bun run --cwd packages/producer build
-RUN bun run --filter @hyperframes/gcp-cloud-run build
+RUN bun run --filter @kenectai/gcp-cloud-run build
 RUN bun run --filter @kenectai/api build
 
 WORKDIR /app/packages/kenect-api

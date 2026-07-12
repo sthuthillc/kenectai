@@ -15,7 +15,7 @@
  * Telemetry-only — never writes to disk, never affects the user-visible edit.
  */
 
-import type { Composition, JsonPatchOp } from "@hyperframes/sdk";
+import type { Composition, JsonPatchOp } from "@kenectai/sdk";
 import type { PatchOperation } from "./sourcePatcher";
 import { STUDIO_SDK_RESOLVER_SHADOW_ENABLED } from "../components/editor/manualEditingAvailability";
 import { patchOpsToSdkEditOps } from "./sdkOpMapping";

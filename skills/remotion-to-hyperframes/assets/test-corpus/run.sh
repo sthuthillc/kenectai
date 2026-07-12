@@ -14,7 +14,7 @@
 #   - ffmpeg, ffprobe, python3 on PATH
 #   - node 22 (for the HF CLI)
 #   - npm (for Remotion installs)
-#   - HF CLI built at packages/cli/dist/cli.js (run `bun run --filter @hyperframes/cli build`
+#   - HF CLI built at packages/cli/dist/cli.js (run `bun run --filter @kenectai/cli build`
 #     in the repo root if missing)
 #
 # Output:
@@ -46,7 +46,7 @@ trap 'rm -rf "$RESULTS_DIR"' EXIT
 require_render_tier_tools() {
   if [[ ! -f "$HF_CLI" ]]; then
     echo "error: HF CLI not built at $HF_CLI" >&2
-    echo "       Run 'bun run --filter @hyperframes/cli build' in $REPO_ROOT" >&2
+    echo "       Run 'bun run --filter @kenectai/cli build' in $REPO_ROOT" >&2
     return 2
   fi
   if ! command -v ffmpeg >/dev/null 2>&1; then

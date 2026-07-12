@@ -77,13 +77,13 @@ import { buildDockerRunArgs, resolveDockerPlatform } from "../utils/dockerRunArg
 import { normalizeErrorMessage } from "../utils/errorMessage.js";
 import { runEnvironmentChecks } from "../browser/preflight.js";
 import { chromeLaunchRemediation } from "../browser/linuxDeps.js";
-import type { ProducerLogger, RenderJob } from "@hyperframes/producer";
+import type { ProducerLogger, RenderJob } from "@kenectai/producer";
 import {
   MAX_VP9_CPU_USED,
   MIN_VP9_CPU_USED,
   isVideoFrameFormat,
   type VideoFrameFormat,
-} from "@hyperframes/engine";
+} from "@kenectai/engine";
 import {
   normalizeResolutionFlag,
   checkOutputResolutionCompatibility,
@@ -94,7 +94,7 @@ import {
   type OutputResolutionIssueKind,
   type Fps,
   type FpsParseResult,
-} from "@hyperframes/core";
+} from "@kenectai/core";
 
 const VALID_QUALITY = new Set(["draft", "standard", "high"]);
 
@@ -709,7 +709,7 @@ export default defineCommand({
     if (!quiet) {
       try {
         const renderTarget = entryFile ? resolve(project.dir, entryFile) : project.indexPath;
-        const { slideshowIslandRegex } = await import("@hyperframes/core/slideshow");
+        const { slideshowIslandRegex } = await import("@kenectai/core/slideshow");
         if (slideshowIslandRegex("i").test(readFileSync(renderTarget, "utf8"))) {
           console.log(
             c.warn("⚠") +

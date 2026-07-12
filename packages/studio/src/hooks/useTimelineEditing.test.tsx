@@ -2,7 +2,7 @@
 
 import React, { act, useRef } from "react";
 import { createRoot } from "react-dom/client";
-import { openComposition } from "@hyperframes/sdk";
+import { openComposition } from "@kenectai/sdk";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { usePlayerStore, type TimelineElement } from "../player";
 import { useElementLifecycleOps } from "./useElementLifecycleOps";

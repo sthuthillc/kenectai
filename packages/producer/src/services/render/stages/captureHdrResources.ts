@@ -34,8 +34,8 @@ import {
   queryElementStacking,
   resampleRgb48leObjectFit,
   runFfmpeg,
-} from "@hyperframes/engine";
-import { fpsToFfmpegArg, fpsToNumber } from "@hyperframes/core";
+} from "@kenectai/engine";
+import { fpsToFfmpegArg, fpsToNumber } from "@kenectai/core";
 import type { ProducerLogger } from "../../../logger.js";
 import type { HdrImageBuffer, HdrVideoFrameSource } from "../../hdrCompositor.js";
 import type { HdrDiagnostics, RenderJob } from "../../renderOrchestrator.js";

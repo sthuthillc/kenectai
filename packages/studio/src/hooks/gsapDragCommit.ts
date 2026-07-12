@@ -2,7 +2,7 @@
  * Low-level drag commit helpers for GSAP position mutations.
  * Extracted from gsapRuntimeBridge.ts to keep file sizes under the 600-line limit.
  */
-import type { GsapAnimation } from "@hyperframes/core/gsap-parser";
+import type { GsapAnimation } from "@kenectai/core/gsap-parser";
 import type { DomEditSelection } from "../components/editor/domEditingTypes";
 import {
   STUDIO_ORIGINAL_WIDTH_ATTR,

@@ -16,7 +16,7 @@ import { mkdtempSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { HeadObjectCommand, S3Client } from "@aws-sdk/client-s3";
-import { hashProjectDir } from "@hyperframes/producer/distributed";
+import { hashProjectDir } from "@kenectai/producer/distributed";
 import { formatS3Uri, tarDirectory, uploadFileToS3 } from "../s3Transport.js";
 
 /** Options for {@link deploySite}. */

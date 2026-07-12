@@ -1,5 +1,5 @@
 {
-  "name": "@hyperframes/lint",
+  "name": "@kenectai/lint",
   "version": "0.7.53",
   "repository": {
     "type": "git",
@@ -53,7 +53,7 @@
     "prepublishOnly": "echo skip"
   },
   "dependencies": {
-    "@hyperframes/parsers": "workspace:*",
+    "@kenectai/parsers": "workspace:*",
     "htmlparser2": "^10.1.0",
     "linkedom": "^0.18.12",
     "postcss": "^8.5.8"

@@ -78,7 +78,7 @@ export default defineCommand({
     const slideshowPath = resolveSlideshowPath();
     if (!playerPath || !slideshowPath) {
       clack.log.error(
-        "@hyperframes/player not found. Run `bun run --cwd packages/player build` first.",
+        "@kenectai/player not found. Run `bun run --cwd packages/player build` first.",
       );
       process.exitCode = 1;
       return;
@@ -87,7 +87,7 @@ export default defineCommand({
     // The deck must carry a slideshow island; the presenter view is meaningless
     // without one. Extract it here so we can inline it into the wrapper page.
     const indexHtml = readFileSync(project.indexPath, "utf-8");
-    const { slideshowIslandRegex } = await import("@hyperframes/core/slideshow");
+    const { slideshowIslandRegex } = await import("@kenectai/core/slideshow");
     const islandMatch = slideshowIslandRegex("i").exec(indexHtml);
     if (!islandMatch?.[1]) {
       clack.log.error(
@@ -112,7 +112,7 @@ export default defineCommand({
 
     const { Hono } = await import("hono");
     const { createAdaptorServer } = await import("@hono/node-server");
-    const { isSafePath } = await import("@hyperframes/core/studio-api");
+    const { isSafePath } = await import("@kenectai/core/studio-api");
 
     const app = new Hono();
 

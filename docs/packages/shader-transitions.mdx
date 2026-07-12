@@ -1,23 +1,23 @@
 ---
-title: "@hyperframes/shader-transitions"
+title: "@kenectai/shader-transitions"
 description: "WebGL shader transitions for HyperFrames scenes and compositions."
 ---
 
 The shader transitions package adds GPU-accelerated scene-to-scene transitions to HyperFrames compositions. It captures scene samples, uploads them as WebGL textures, and drives fragment-shader compositing from a GSAP timeline.
 
 ```bash
-npm install @hyperframes/shader-transitions
+npm install @kenectai/shader-transitions
 ```
 
 You can also load the browser global build directly:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@hyperframes/shader-transitions/dist/index.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@kenectai/shader-transitions/dist/index.global.js"></script>
 ```
 
 ## When to Use
 
-**Use `@hyperframes/shader-transitions` when you need to:**
+**Use `@kenectai/shader-transitions` when you need to:**
 - Add shader-based scene transitions such as domain warp, whip pan, glitch, iris, light leak, or thermal distortion
 - Attach GPU transitions to an existing GSAP timeline
 - Build a transition picker or validation UI around the available shader registry
@@ -42,7 +42,7 @@ You can also load the browser global build directly:
 ## Quick Start
 
 ```typescript
-import { init } from "@hyperframes/shader-transitions";
+import { init } from "@kenectai/shader-transitions";
 
 const timeline = init({
   bgColor: "#0a0a0a",
@@ -99,7 +99,7 @@ If WebGL is unavailable, the package falls back to normal timeline playback with
 Use `SHADER_NAMES` when you need a typed list:
 
 ```typescript
-import { SHADER_NAMES } from "@hyperframes/shader-transitions";
+import { SHADER_NAMES } from "@kenectai/shader-transitions";
 ```
 
 ## Configuration
@@ -134,7 +134,7 @@ During producer renders, shader transitions use a deterministic page-side compos
 ## Related Packages
 
 <CardGroup cols={2}>
-  <Card title="@hyperframes/producer" icon="video" href="/packages/producer">
+  <Card title="@kenectai/producer" icon="video" href="/packages/producer">
     Renders compositions that include shader transitions.
   </Card>
   <Card title="Transition Catalog" icon="sparkles" href="/catalog/blocks/transitions-distortion">

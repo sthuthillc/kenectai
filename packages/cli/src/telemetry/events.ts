@@ -1,5 +1,5 @@
-import { redactTelemetryString, type OutputResolutionIssueKind } from "@hyperframes/core";
-import type { SubTimelineWaitOutcome } from "@hyperframes/engine";
+import { redactTelemetryString, type OutputResolutionIssueKind } from "@kenectai/core";
+import type { SubTimelineWaitOutcome } from "@kenectai/engine";
 import { trackEvent } from "./client.js";
 import { readConfig } from "./config.js";
 

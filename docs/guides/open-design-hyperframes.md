@@ -37,7 +37,7 @@ od:
 > as a one-shot.**
 
 This skill teaches Open Design to emit a **valid first draft** of a
-[HyperFrames](https://github.com/heygen-com/hyperframes) composition — plain
+[HyperFrames](https://github.com/sthuthillc/kenectai) composition — plain
 HTML + CSS + a paused GSAP timeline. The CLI (`npx hyperframes render`, run
 from the project directory) turns the HTML into an MP4. You author the HTML;
 the user runs the render locally.
@@ -45,7 +45,7 @@ the user runs the render locally.
 **HyperFrames replaces the default video-artifact workflow.** Do NOT emit a
 React/Babel composition, do NOT call other prototype skills, do NOT use the
 sandboxed iframe's wall-clock playback for timing decisions. Plain HTML +
-GSAP only. Treat the [`claude-design-hyperframes.md`](https://github.com/heygen-com/hyperframes/blob/main/docs/guides/claude-design-hyperframes.md)
+GSAP only. Treat the [`claude-design-hyperframes.md`](https://github.com/sthuthillc/kenectai/blob/main/docs/guides/claude-design-hyperframes.md)
 companion document as the **upstream spec for HyperFrames structural rules** —
 the rules below condense it to what Open Design needs at emission time, but
 that file is the source of truth for shader catalogs, skeleton variants, and
@@ -83,7 +83,7 @@ refine immediately** — no structural fixes needed.
 - Scene content that tells the story (headlines, stats, copy, imagery)
 - Structural validity (passes `npx hyperframes lint` with zero errors)
 - Appropriate shader choices for the mood (use the catalog at
-  [hyperframes.heygen.com/catalog](https://hyperframes.heygen.com/catalog))
+  [docs.kenectai.com/catalog](https://docs.kenectai.com/catalog))
 - Reasonable scene count and durations for the video type
 
 ### What the coding agent polishes after you
@@ -397,7 +397,7 @@ npx hyperframes render      # writes MP4
 - **No wall-clock JS animations** — `setTimeout`, `setInterval`,
   `requestAnimationFrame`-driven animation breaks deterministic seeking. GSAP
   timeline only. (Library-clock animations like Anime.js, Motion One, and
-  Lottie are supported via [HyperFrames' Frame Adapter](https://hyperframes.heygen.com/concepts/frame-adapters)
+  Lottie are supported via [HyperFrames' Frame Adapter](https://docs.kenectai.com/concepts/frame-adapters)
   pattern, but stick to GSAP for first-draft handoffs unless the brief
   requires another runtime.)
 
@@ -406,7 +406,7 @@ npx hyperframes render      # writes MP4
 ## When to defer to the Claude Design instructions
 
 For these advanced areas, treat
-[`claude-design-hyperframes.md`](https://github.com/heygen-com/hyperframes/blob/main/docs/guides/claude-design-hyperframes.md)
+[`claude-design-hyperframes.md`](https://github.com/sthuthillc/kenectai/blob/main/docs/guides/claude-design-hyperframes.md)
 as the canonical reference and follow its patterns verbatim:
 
 - The full skeleton catalog (Skeletons A–D)

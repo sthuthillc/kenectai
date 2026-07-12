@@ -2,10 +2,10 @@
 #
 # One container image, three roles (plan / renderChunk / assemble). Cloud
 # Workflows POSTs a JSON body with an `Action` field; `dist/server.js`
-# dispatches to the matching `@hyperframes/producer/distributed` primitive.
+# dispatches to the matching `@kenectai/producer/distributed` primitive.
 #
 # Build context is the REPOSITORY ROOT (not this package dir) because the
-# package depends on the `@hyperframes/producer` workspace and renders with
+# package depends on the `@kenectai/producer` workspace and renders with
 # the same chrome-headless-shell + fonts + ffmpeg the production renderer
 # uses. The example smoke script and `hyperframes cloudrun deploy` both
 # build with the repo root as context:
@@ -125,7 +125,7 @@ ENV PORT=8080
 EXPOSE 8080
 
 WORKDIR /app/packages/gcp-cloud-run
-# Run under bun, not node. The repo is bun-native and `@hyperframes/producer`'s
+# Run under bun, not node. The repo is bun-native and `@kenectai/producer`'s
 # bundled `distributed.js` relies on a `require` being available at runtime
 # (its esbuild interop shim); bun provides one in ESM, bare `node` does not.
 CMD ["bun", "dist/server.js"]

@@ -83,7 +83,7 @@ export {
 
 // Parsers — GSAP helpers. The AST parser (parseGsapScriptAcorn and write ops)
 // is browser-safe; mutation helpers are in gsapWriterAcorn.
-export type { GsapAnimation, GsapMethod, ParsedGsap } from "@hyperframes/parsers";
+export type { GsapAnimation, GsapMethod, ParsedGsap } from "@kenectai/parsers";
 
 export {
   serializeGsapAnimations,
@@ -91,9 +91,9 @@ export {
   validateCompositionGsap,
   keyframesToGsapAnimations,
   gsapAnimationsToKeyframes,
-} from "@hyperframes/parsers";
+} from "@kenectai/parsers";
 
-export type { ParsedHtml, CompositionMetadata } from "@hyperframes/parsers";
+export type { ParsedHtml, CompositionMetadata } from "@kenectai/parsers";
 
 export {
   parseHtml,
@@ -102,7 +102,7 @@ export {
   removeElementFromHtml,
   validateCompositionHtml,
   extractCompositionMetadata,
-} from "@hyperframes/parsers";
+} from "@kenectai/parsers";
 
 // Generators
 export type { SerializeOptions } from "./generators/hyperframes";
@@ -141,8 +141,8 @@ export {
   MEDIA_DURATION_CLAMP_EPSILON_SECONDS,
 } from "./compiler/timingCompiler";
 
-// Lint moved to @hyperframes/lint. Import lint APIs from @hyperframes/lint
-// directly, or via the back-compat stub at @hyperframes/core/lint. Not
+// Lint moved to @kenectai/lint. Import lint APIs from @kenectai/lint
+// directly, or via the back-compat stub at @kenectai/core/lint. Not
 // re-exported here — doing so would cycle core's main entry through the lint
 // package (which imports core utilities back).
 export {

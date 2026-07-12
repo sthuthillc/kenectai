@@ -2,7 +2,7 @@
  * commitWholePropertyOffset — extracted from gsapDragCommit.ts to keep file
  * sizes under the 600-line limit (mirrors gsapDragPositionCommit.ts).
  */
-import type { GsapAnimation } from "@hyperframes/core/gsap-parser";
+import type { GsapAnimation } from "@kenectai/core/gsap-parser";
 import type { DomEditSelection } from "../components/editor/domEditingTypes";
 import { resolveTweenStart, resolveTweenDuration } from "../utils/globalTimeCompiler";
 import { roundTo3 } from "../utils/rounding";

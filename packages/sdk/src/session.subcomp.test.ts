@@ -12,8 +12,8 @@
 
 import { describe, it, expect } from "vitest";
 import { parseHTML } from "linkedom";
-import { ensureHfIds } from "@hyperframes/core/hf-ids";
-import { RUNTIME_BOOTSTRAP_ATTR } from "@hyperframes/core";
+import { ensureHfIds } from "@kenectai/core/hf-ids";
+import { RUNTIME_BOOTSTRAP_ATTR } from "@kenectai/core";
 import { resolveScoped, findById, isNewHostBoundary, bareId } from "./engine/model.js";
 import { parseMutable } from "./engine/model.js";
 import { buildRoots, flatElements } from "./document.js";
@@ -633,7 +633,7 @@ describe("getRootElements", () => {
 
 describe("serialize({ stripRuntime })", () => {
   const RUNTIME_SCRIPT =
-    '<script data-hyperframes-preview-runtime="1" src="https://cdn.jsdelivr.net/npm/@hyperframes/core/dist/hyperframe.runtime.iife.js"></script>';
+    '<script data-hyperframes-preview-runtime="1" src="https://cdn.jsdelivr.net/npm/@kenectai/core/dist/hyperframe.runtime.iife.js"></script>';
 
   it("keeps the embedded runtime script by default", async () => {
     const html = `<!DOCTYPE html><html><head>${RUNTIME_SCRIPT}</head><body><div data-hf-id="hf-a"></div></body></html>`;
@@ -649,7 +649,7 @@ describe("serialize({ stripRuntime })", () => {
     expect(out).toContain('data-hf-id="hf-a"');
   });
 
-  it("re-exports RUNTIME_BOOTSTRAP_ATTR from @hyperframes/core, matching the marker generators stamp", async () => {
+  it("re-exports RUNTIME_BOOTSTRAP_ATTR from @kenectai/core, matching the marker generators stamp", async () => {
     expect(RUNTIME_BOOTSTRAP_ATTR).toBe("data-hyperframes-preview-runtime");
     // The fixture's marker attribute above is authored by hand — confirm it's not
     // drifted from the real constant a generator would actually stamp.

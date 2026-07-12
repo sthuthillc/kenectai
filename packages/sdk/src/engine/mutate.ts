@@ -52,10 +52,10 @@ import {
   patchRemove,
 } from "./patches.js";
 import { upsertCssRule } from "./cssWriter.js";
-import { mintHfId, EXCLUDED_TAGS } from "@hyperframes/core/hf-ids";
-import { EDIT_BASE_X_ATTR, EDIT_BASE_Y_ATTR } from "@hyperframes/core/runtime/position-edits";
-import { parseGsapScriptAcornForWrite } from "@hyperframes/core/gsap-parser-acorn";
-import type { GsapAnimation } from "@hyperframes/core/gsap-parser";
+import { mintHfId, EXCLUDED_TAGS } from "@kenectai/core/hf-ids";
+import { EDIT_BASE_X_ATTR, EDIT_BASE_Y_ATTR } from "@kenectai/core/runtime/position-edits";
+import { parseGsapScriptAcornForWrite } from "@kenectai/core/gsap-parser-acorn";
+import type { GsapAnimation } from "@kenectai/core/gsap-parser";
 import {
   addAnimationToScript,
   addAnimationWithKeyframesToScript,
@@ -76,7 +76,7 @@ import {
   updateArcSegmentInScript,
   removeArcPathFromScript,
   unrollDynamicAnimations,
-} from "@hyperframes/core/gsap-writer-acorn";
+} from "@kenectai/core/gsap-writer-acorn";
 import { deriveKeyframeBackfillDefaults } from "./keyframeBackfill.js";
 import {
   readVariableDefault,
@@ -88,13 +88,13 @@ import {
 import {
   isCompositionVariable,
   isScalarVariableValue as isScalar,
-} from "@hyperframes/core/variables";
-import type { CompositionVariable } from "@hyperframes/core/variables";
+} from "@kenectai/core/variables";
+import type { CompositionVariable } from "@kenectai/core/variables";
 import {
   URI_BEARING_ATTRS,
   DANGEROUS_URI_SCHEMES,
   DANGEROUS_DATA_URI,
-} from "@hyperframes/core/html-attr-safety";
+} from "@kenectai/core/html-attr-safety";
 
 export interface MutationResult {
   forward: JsonPatchOp[];

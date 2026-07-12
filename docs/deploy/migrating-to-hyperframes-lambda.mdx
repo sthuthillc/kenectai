@@ -88,7 +88,7 @@ The default policy doc emitted by `hyperframes lambda policies user/role` uses `
 ## Migration checklist
 
 1. **Inventory** the compositions you want to migrate. Filter out anything that needs HDR — that stays on your current framework for now. webm renders distributed via closed-GOP VP9 + concat-copy (see the webm section above).
-2. **Translate** each composition to plain HTML. The `[Concepts](/concepts)` page covers the data-attribute conventions; installing the skills (`npx skills add heygen-com/hyperframes`) makes Claude / Cursor / Codex aware of them too — start at `/hyperframes`, which routes to `/hyperframes-core` for the composition contract.
+2. **Translate** each composition to plain HTML. The `[Concepts](/concepts)` page covers the data-attribute conventions; installing the skills (`npx skills add sthuthillc/kenectai`) makes Claude / Cursor / Codex aware of them too — start at `/hyperframes`, which routes to `/hyperframes-core` for the composition contract.
 3. **Wire** the new composition into your build pipeline alongside the old one. HyperFrames doesn't need an external bundler — you can `npx hyperframes preview` against the HTML directly.
 4. **Deploy** in a separate AWS account or with a `--stack-name=hyperframes-staging` first. Run a real render with `--wait`; verify the output bytes.
 5. **Add the policy** to your CI. `hyperframes lambda policies user > infra/iam/hyperframes.json` then `hyperframes lambda policies validate infra/iam/hyperframes.json` on every PR.
@@ -96,7 +96,7 @@ The default policy doc emitted by `hyperframes lambda policies user/role` uses `
 
 ## Non-Lambda runtimes
 
-If you don't want Lambda specifically, the same `@hyperframes/producer/distributed` primitives run anywhere Node + Chrome + ffmpeg + S3 are available. A reference Dockerfile lives at `examples/k8s-jobs/Dockerfile.example` for adopters running on:
+If you don't want Lambda specifically, the same `@kenectai/producer/distributed` primitives run anywhere Node + Chrome + ffmpeg + S3 are available. A reference Dockerfile lives at `examples/k8s-jobs/Dockerfile.example` for adopters running on:
 
 - Google Cloud Run Jobs
 - Azure Container Apps Jobs

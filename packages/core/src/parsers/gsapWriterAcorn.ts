@@ -1,2 +1,2 @@
-/** @deprecated Import from @hyperframes/parsers/gsap-writer-acorn */
-export * from "@hyperframes/parsers/gsap-writer-acorn";
+/** @deprecated Import from @kenectai/parsers/gsap-writer-acorn */
+export * from "@kenectai/parsers/gsap-writer-acorn";

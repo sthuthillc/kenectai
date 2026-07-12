@@ -3,7 +3,7 @@
  * No React, no side-effects — fully unit-testable.
  */
 
-import type { SlideshowManifest, SlideRef, SlideHotspot } from "@hyperframes/core/slideshow";
+import type { SlideshowManifest, SlideRef, SlideHotspot } from "@kenectai/core/slideshow";
 
 // ── Scene shape used by the panel UI ──────────────────────────────────────
 

@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import type { GsapAnimation } from "@hyperframes/core/gsap-parser";
-import type { Composition } from "@hyperframes/sdk";
+import type { GsapAnimation } from "@kenectai/core/gsap-parser";
+import type { Composition } from "@kenectai/sdk";
 import type { DomEditSelection } from "../components/editor/domEditingTypes";
 import { executeOptimistic } from "../utils/optimisticUpdate";
 import {

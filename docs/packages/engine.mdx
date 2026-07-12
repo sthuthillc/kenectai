@@ -1,12 +1,12 @@
 ---
-title: "@hyperframes/engine"
+title: "@kenectai/engine"
 description: "Seekable page-to-video capture engine using Chrome's BeginFrame API."
 ---
 
 The engine package provides the low-level video capture pipeline: it loads an HTML page in headless Chrome, seeks to each frame independently, and captures pixel buffers using Chrome's `HeadlessExperimental.beginFrame` API. This is the layer that makes Hyperframes rendering deterministic.
 
 ```bash
-npm install @hyperframes/engine
+npm install @kenectai/engine
 ```
 
 ## When to Use
@@ -15,7 +15,7 @@ npm install @hyperframes/engine
   **Most users should NOT use the engine directly.** Use the [CLI](/packages/cli) (`npx hyperframes render`) or the [producer](/packages/producer) package instead — they handle runtime injection, audio mixing, and encoding for you.
 </Warning>
 
-**Use `@hyperframes/engine` when you need to:**
+**Use `@kenectai/engine` when you need to:**
 - Build a custom rendering pipeline with full control over frame capture
 - Integrate Hyperframes capture into an existing video processing system
 - Capture individual frames (e.g., for thumbnails or sprite sheets) without encoding to video
@@ -53,8 +53,8 @@ This approach guarantees [deterministic rendering](/concepts/determinism): the s
 ## Configuration
 
 ```typescript
-import { resolveConfig, DEFAULT_CONFIG } from '@hyperframes/engine';
-import type { EngineConfig } from '@hyperframes/engine';
+import { resolveConfig, DEFAULT_CONFIG } from '@kenectai/engine';
+import type { EngineConfig } from '@kenectai/engine';
 
 // Use defaults
 const config = DEFAULT_CONFIG;
@@ -93,7 +93,7 @@ import {
   captureFrameToBuffer,
   getCompositionDuration,
   closeCaptureSession,
-} from '@hyperframes/engine';
+} from '@kenectai/engine';
 
 // 1. Create a capture session (serverUrl, outputDir, options)
 const session = await createCaptureSession(serverUrl, outputDir, {
@@ -130,7 +130,7 @@ import {
   releaseBrowser,
   resolveHeadlessShellPath,
   buildChromeArgs,
-} from '@hyperframes/engine';
+} from '@kenectai/engine';
 
 // Acquire a browser instance (creates or reuses from pool)
 const browser = await acquireBrowser();
@@ -154,7 +154,7 @@ import {
   detectGpuEncoder,
   getEncoderPreset,
   ENCODER_PRESETS,
-} from '@hyperframes/engine';
+} from '@kenectai/engine';
 
 // Get format-aware encoder settings
 const mp4Preset = getEncoderPreset('standard', 'mp4');
@@ -193,7 +193,7 @@ When encoding for transparency, use `format: "webm"` with `getEncoderPreset()`. 
 For memory-efficient encoding without writing frames to disk:
 
 ```typescript
-import { spawnStreamingEncoder } from '@hyperframes/engine';
+import { spawnStreamingEncoder } from '@kenectai/engine';
 
 const encoder = await spawnStreamingEncoder({
   outputPath: './output.mp4',
@@ -219,7 +219,7 @@ import {
   getFrameAtTime,
   createFrameLookupTable,
   FrameLookupTable,
-} from '@hyperframes/engine';
+} from '@kenectai/engine';
 
 // Parse video elements from HTML
 const videos = parseVideoElements(html);
@@ -235,7 +235,7 @@ const frame = lookup.getFrame('video-1', 5.0);
 ### Audio Processing
 
 ```typescript
-import { parseAudioElements, processCompositionAudio } from '@hyperframes/engine';
+import { parseAudioElements, processCompositionAudio } from '@kenectai/engine';
 
 // Parse audio elements from HTML
 const audioElements = parseAudioElements(html);
@@ -252,7 +252,7 @@ import {
   distributeFrames,
   executeParallelCapture,
   getSystemResources,
-} from '@hyperframes/engine';
+} from '@kenectai/engine';
 
 // Check system resources
 const resources = getSystemResources();
@@ -272,7 +272,7 @@ const results = await executeParallelCapture(tasks);
 Serve composition files over HTTP for the browser to load:
 
 ```typescript
-import { createFileServer } from '@hyperframes/engine';
+import { createFileServer } from '@kenectai/engine';
 
 const server = await createFileServer({ root: './my-video', port: 0 });
 // server.url, server.port
@@ -295,8 +295,8 @@ import {
   analyzeCompositionHdr,
   getHdrEncoderColorParams,
   DEFAULT_HDR10_MASTERING,
-} from '@hyperframes/engine';
-import type { HdrTransfer, HdrEncoderColorParams, HdrMasteringMetadata } from '@hyperframes/engine';
+} from '@kenectai/engine';
+import type { HdrTransfer, HdrEncoderColorParams, HdrMasteringMetadata } from '@kenectai/engine';
 
 // Classify a single source from its ffprobe color space
 isHdrColorSpace(colorSpace);          // boolean — true for BT.2020 / PQ / HLG
@@ -330,7 +330,7 @@ import {
   initHdrReadback,
   uploadAndReadbackHdrFrame,
   float16ToPqRgb,
-} from '@hyperframes/engine';
+} from '@kenectai/engine';
 
 // Launch headed Chrome with WebGPU enabled
 const { browser, page } = await launchHdrBrowser({ width: 1920, height: 1080 });

@@ -1,4 +1,4 @@
-import type { ResolvedSlideshow, ResolvedSlide } from "@hyperframes/core/slideshow";
+import type { ResolvedSlideshow, ResolvedSlide } from "@kenectai/core/slideshow";
 
 export interface PlayerPort {
   seek(t: number): void;

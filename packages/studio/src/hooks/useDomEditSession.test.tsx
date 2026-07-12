@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import { describe, expect, it, vi } from "vitest";
 import { shouldUseSdkCutover } from "../utils/sdkCutover";
 import type { PatchOperation } from "../utils/sourcePatcher";
-import type { Composition } from "@hyperframes/sdk";
+import type { Composition } from "@kenectai/sdk";
 import type { UseDomEditSessionParams } from "./useDomEditSession";
 
 const styleOp = (property: string, value: string): PatchOperation => ({

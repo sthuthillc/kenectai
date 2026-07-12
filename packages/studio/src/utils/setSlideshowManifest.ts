@@ -16,14 +16,14 @@
  * can call persistSlideshowManifest on a fresh composition.
  */
 
-import type { SlideshowManifest } from "@hyperframes/core/slideshow";
+import type { SlideshowManifest } from "@kenectai/core/slideshow";
 import {
   SLIDESHOW_ISLAND_TYPE,
   SLIDESHOW_MANIFEST_VERSION,
   parseSlideshowManifest,
   slideshowIslandRegex,
-} from "@hyperframes/core/slideshow";
-import type { Composition } from "@hyperframes/sdk";
+} from "@kenectai/core/slideshow";
+import type { Composition } from "@kenectai/sdk";
 import type { CutoverDeps } from "./sdkCutover";
 import { persistSdkSerialize } from "./sdkCutover";
 

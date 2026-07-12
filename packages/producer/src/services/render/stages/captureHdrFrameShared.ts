@@ -20,7 +20,7 @@ import {
   decodePng,
   queryElementStacking,
   removeDomLayerMask,
-} from "@hyperframes/engine";
+} from "@kenectai/engine";
 import type { ProducerLogger } from "../../../logger.js";
 import {
   type HdrCompositeContext,

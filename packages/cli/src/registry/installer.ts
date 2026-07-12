@@ -8,7 +8,7 @@
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
-import type { FileTarget, RegistryItem } from "@hyperframes/core";
+import type { FileTarget, RegistryItem } from "@kenectai/core";
 import { fetchItemFile, DEFAULT_REGISTRY_URL } from "./remote.js";
 
 export interface InstallOptions {

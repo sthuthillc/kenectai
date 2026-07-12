@@ -2,7 +2,7 @@ import {
   parseSlideshowManifest,
   resolveSlideshow,
   type ResolvedSlideshow,
-} from "@hyperframes/core/slideshow";
+} from "@kenectai/core/slideshow";
 import { SlideshowController, type PlayerPort } from "./SlideshowController";
 import {
   SlideshowChannel,

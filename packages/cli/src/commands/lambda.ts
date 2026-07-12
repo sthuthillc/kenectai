@@ -5,16 +5,16 @@
  * `runXxx(args)` async function. The subcommand surface is intentionally
  * thin glue: argument parsing + help text here; the actual work
  * (`renderToLambda` / `getRenderProgress` / `deploySite` / SAM driver)
- * lives in `@hyperframes/aws-lambda/sdk`.
+ * lives in `@kenectai/aws-lambda/sdk`.
  */
 
 import { defineCommand } from "citty";
-import type { DistributedFormat } from "@hyperframes/aws-lambda/sdk";
+import type { DistributedFormat } from "@kenectai/aws-lambda/sdk";
 import {
   type CanvasResolution,
   VALID_CANVAS_RESOLUTIONS,
   normalizeResolutionFlag,
-} from "@hyperframes/core";
+} from "@kenectai/core";
 import type { Example } from "./_examples.js";
 import { c } from "../ui/colors.js";
 import { readAllowedCompositionFpsFromDir } from "../utils/compositionFps.js";
@@ -216,7 +216,7 @@ export default defineCommand({
     const regionFlag = args.region as string | undefined;
     if (regionFlag) process.env.AWS_REGION = regionFlag;
 
-    // The lambda subverbs dynamic-import `@hyperframes/aws-lambda` at call
+    // The lambda subverbs dynamic-import `@kenectai/aws-lambda` at call
     // time. We keep aws-lambda as a workspace devDependency (not a runtime
     // dep) so the published CLI install stays small for users who don't
     // deploy to Lambda. Subverbs other than `policies` need aws-lambda;
@@ -231,15 +231,15 @@ export default defineCommand({
     ]);
     if (verbsNeedingSDK.has(subcommand)) {
       try {
-        await import("@hyperframes/aws-lambda/sdk");
+        await import("@kenectai/aws-lambda/sdk");
       } catch (err) {
         if ((err as NodeJS.ErrnoException).code === "ERR_MODULE_NOT_FOUND") {
           console.error(
-            `${c.error("@hyperframes/aws-lambda is not installed.")} The ${c.accent(`hyperframes lambda ${subcommand}`)} command needs it at runtime.\n` +
+            `${c.error("@kenectai/aws-lambda is not installed.")} The ${c.accent(`hyperframes lambda ${subcommand}`)} command needs it at runtime.\n` +
               `Install it alongside the CLI:\n` +
-              `  ${c.accent("npm install -g @hyperframes/aws-lambda")}\n` +
+              `  ${c.accent("npm install -g @kenectai/aws-lambda")}\n` +
               `Or, for an opt-in dev setup:\n` +
-              `  ${c.accent("npm install @hyperframes/aws-lambda")}`,
+              `  ${c.accent("npm install @kenectai/aws-lambda")}`,
           );
           process.exit(1);
         }

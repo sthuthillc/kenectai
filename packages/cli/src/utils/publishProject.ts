@@ -2,7 +2,7 @@ import { basename, dirname, join, posix, relative, resolve } from "node:path";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { parseHTML } from "linkedom";
 import AdmZip from "adm-zip";
-import { CSS_URL_RE, isNonRelativeUrl, isPathInside } from "@hyperframes/core";
+import { CSS_URL_RE, isNonRelativeUrl, isPathInside } from "@kenectai/core";
 
 const IGNORED_DIRS = new Set([".git", "node_modules", "dist", ".next", "coverage"]);
 const IGNORED_FILES = new Set([".DS_Store", "Thumbs.db"]);

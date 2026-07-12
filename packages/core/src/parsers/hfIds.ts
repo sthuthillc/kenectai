@@ -1,2 +1,2 @@
-/** @deprecated Import from @hyperframes/parsers/hf-ids */
-export * from "@hyperframes/parsers/hf-ids";
+/** @deprecated Import from @kenectai/parsers/hf-ids */
+export * from "@kenectai/parsers/hf-ids";

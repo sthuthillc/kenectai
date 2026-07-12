@@ -3,7 +3,7 @@ import { BeatStrip, BeatBackgroundLines } from "./BeatStrip";
 import { TimelineClip } from "./TimelineClip";
 import { TimelineClipDiamonds } from "./TimelineClipDiamonds";
 import { TimelineRuler } from "./TimelineRuler";
-import type { MusicBeatAnalysis } from "@hyperframes/core/beats";
+import type { MusicBeatAnalysis } from "@kenectai/core/beats";
 import { PlayheadIndicator } from "./PlayheadIndicator";
 import {
   getTimelineEditCapabilities,

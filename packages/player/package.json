@@ -1,5 +1,5 @@
 {
-  "name": "@hyperframes/player",
+  "name": "@kenectai/player",
   "version": "0.7.53",
   "description": "Embeddable web component for HyperFrames compositions",
   "repository": {
@@ -34,7 +34,7 @@
     "perf": "bun run tests/perf/index.ts"
   },
   "dependencies": {
-    "@hyperframes/core": "workspace:*"
+    "@kenectai/core": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "^1.1.0",

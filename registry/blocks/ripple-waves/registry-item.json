@@ -1,5 +1,5 @@
 {
-  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "$schema": "https://docs.kenectai.com/schema/registry-item.json",
   "name": "ripple-waves",
   "type": "hyperframes:block",
   "title": "Ripple Waves",

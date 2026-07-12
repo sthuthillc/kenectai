@@ -19,7 +19,7 @@
 #
 # Why a sandbox (and not `npx skills add heygen-com/hyperframes#test/skills-fresh`):
 #   `skills add` only copies skills/. The capture tool you changed lives in
-#   packages/cli (the @hyperframes/cli package), so an online skills-only install
+#   packages/cli (the @kenectai/cli package), so an online skills-only install
 #   would pull this branch's skills but the PUBLISHED CLI's old capture. This
 #   script builds + file:-links the local CLI so capture comes from the branch too.
 #

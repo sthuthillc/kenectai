@@ -2049,7 +2049,7 @@ describe("dropInvalidSlides — phantom slide filtering", () => {
     sceneId: string,
     start: number,
     end: number,
-  ): import("@hyperframes/core/slideshow").ResolvedSlide {
+  ): import("@kenectai/core/slideshow").ResolvedSlide {
     return { sceneId, start, end, fragments: [], hotspots: [] };
   }
 

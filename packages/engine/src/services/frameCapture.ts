@@ -11,7 +11,7 @@
 import { type Browser, type Page, type Viewport, type ConsoleMessage } from "puppeteer-core";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
-import { quantizeTimeToFrame, fpsToNumber } from "@hyperframes/core";
+import { quantizeTimeToFrame, fpsToNumber } from "@kenectai/core";
 
 // ── Extracted modules ───────────────────────────────────────────────────────
 import {
@@ -837,7 +837,7 @@ export async function createCaptureSession(
   // wrappers around named functions. Empirically, this happens with:
   //   - tsx (its esbuild loader runs with keepNames=true), used by the
   //     producer's parity-harness, ad-hoc dev scripts, and the
-  //     `bun run --filter @hyperframes/engine test` Vitest path.
+  //     `bun run --filter @kenectai/engine test` Vitest path.
   //   - any tsup/esbuild build that explicitly enables keepNames.
   //
   // The HeyGen CLI (`packages/cli`) bundles this engine via tsup with

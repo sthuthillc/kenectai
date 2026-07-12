@@ -19,7 +19,7 @@ import {
   formatVariableValidationIssue,
   validateVariables,
   type VariableValidationIssue,
-} from "@hyperframes/core";
+} from "@kenectai/core";
 import { ensureDOMParser } from "./dom.js";
 import { c } from "../ui/colors.js";
 import { errorBox } from "../ui/format.js";
@@ -180,7 +180,7 @@ export function loadProjectVariableSchema(indexPath: string): ProjectVariableSch
   }
   // extractCompositionMetadata uses DOMParser, which Node doesn't ship.
   // Same pattern as `compositions.ts` and other CLI commands that touch
-  // @hyperframes/core's HTML parsers.
+  // @kenectai/core's HTML parsers.
   ensureDOMParser();
   return extractCompositionMetadata(html).variables;
 }

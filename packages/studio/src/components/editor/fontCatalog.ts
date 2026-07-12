@@ -115,7 +115,7 @@ export const COMMON_LOCAL_FONT_FAMILIES = [
   "Monaco",
 ] as const;
 
-import { resolveAliasDisplayName } from "@hyperframes/core/fonts/aliases";
+import { resolveAliasDisplayName } from "@kenectai/core/fonts/aliases";
 
 /**
  * Resolves the render-time canonical font for a local font family name.

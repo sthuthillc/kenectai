@@ -12,7 +12,7 @@ const mocks = vi.hoisted(() => ({
   serverClose: vi.fn(async () => undefined),
 }));
 
-vi.mock("@hyperframes/core/compiler", () => ({
+vi.mock("@kenectai/core/compiler", () => ({
   bundleToSingleHtml: vi.fn(async () => "<html></html>"),
 }));
 

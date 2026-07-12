@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "$id": "https://docs.kenectai.com/schema/registry-item.json",
   "title": "Hyperframes Registry Item",
   "description": "Manifest for a single distributable item (example, block, or component).",
   "type": "object",

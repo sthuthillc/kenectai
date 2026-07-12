@@ -8,7 +8,7 @@
  * Reads GSAP runtime values only (no CSS offset — it applies separately via translate).
  */
 import { useCallback } from "react";
-import type { GsapAnimation, GsapPercentageKeyframe } from "@hyperframes/core/gsap-parser";
+import type { GsapAnimation, GsapPercentageKeyframe } from "@kenectai/core/gsap-parser";
 import type { DomEditSelection } from "../components/editor/domEditingTypes";
 import { usePlayerStore } from "../player/store/playerStore";
 import { fetchParsedAnimations, getAnimationsForElement } from "./useGsapTweenCache";

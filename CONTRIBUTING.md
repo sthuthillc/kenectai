@@ -23,9 +23,9 @@ bun run format:check   # Check formatting
 ### Running Tests
 
 ```bash
-bun run --filter @hyperframes/core test          # Core unit tests (vitest)
-bun run --filter @hyperframes/engine test        # Engine unit tests (vitest)
-bun run --filter @hyperframes/core test:hyperframe-runtime-ci  # Runtime contract tests
+bun run --filter @kenectai/core test          # Core unit tests (vitest)
+bun run --filter @kenectai/engine test        # Engine unit tests (vitest)
+bun run --filter @kenectai/core test:hyperframe-runtime-ci  # Runtime contract tests
 ```
 
 ### Linting & Formatting
@@ -126,10 +126,10 @@ The script wipes `docs/catalog/` before regenerating, so deleted items are autom
 
 | Package                 | Description                                 |
 | ----------------------- | ------------------------------------------- |
-| `@hyperframes/core`     | Types, HTML generation, runtime, linter     |
-| `@hyperframes/engine`   | Seekable page-to-video capture engine       |
-| `@hyperframes/producer` | Full rendering pipeline (capture + encode)  |
-| `@hyperframes/studio`   | Composition editor UI                       |
+| `@kenectai/core`     | Types, HTML generation, runtime, linter     |
+| `@kenectai/engine`   | Seekable page-to-video capture engine       |
+| `@kenectai/producer` | Full rendering pipeline (capture + encode)  |
+| `@kenectai/studio`   | Composition editor UI                       |
 | `hyperframes`           | CLI for creating, previewing, and rendering |
 
 ## Releasing (Maintainers)
@@ -164,7 +164,7 @@ bun run set-version 0.2.0-rc.1       # release candidate (--tag rc)
 bun run set-version 0.2.0            # final stable release (--tag latest)
 ```
 
-Consumers install pre-releases with `npm install @hyperframes/core@alpha` (or `@beta`, `@rc`). The `latest` tag is never touched by pre-releases, so `npm install @hyperframes/core` always gets the last stable version.
+Consumers install pre-releases with `npm install @kenectai/core@alpha` (or `@beta`, `@rc`). The `latest` tag is never touched by pre-releases, so `npm install @kenectai/core` always gets the last stable version.
 
 Pre-releases also create GitHub Releases marked as **pre-release**.
 

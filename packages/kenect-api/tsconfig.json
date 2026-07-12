@@ -10,8 +10,8 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "@hyperframes/gcp-cloud-run/sdk": ["../gcp-cloud-run/src/sdk/index.ts"],
-      "@hyperframes/producer/distributed": ["../producer/src/distributed.ts"]
+      "@kenectai/gcp-cloud-run/sdk": ["../gcp-cloud-run/src/sdk/index.ts"],
+      "@kenectai/producer/distributed": ["../producer/src/distributed.ts"]
     }
   },
   "include": ["src/**/*"],

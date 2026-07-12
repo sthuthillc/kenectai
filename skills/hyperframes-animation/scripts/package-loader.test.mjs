@@ -15,20 +15,20 @@ test("hyperframesPackageSpec: env override wins", async () => {
   process.env[ENV] = "9.9.9";
   try {
     const { hyperframesPackageSpec } = await import("./package-loader.mjs");
-    assert.equal(hyperframesPackageSpec("@hyperframes/producer"), "@hyperframes/producer@9.9.9");
+    assert.equal(hyperframesPackageSpec("@kenectai/producer"), "@kenectai/producer@9.9.9");
   } finally {
     if (prev === undefined) delete process.env[ENV];
     else process.env[ENV] = prev;
   }
 });
 
-// (b) resolvable version (in-repo) pins the bundled hyperframes/@hyperframes/cli version.
+// (b) resolvable version (in-repo) pins the bundled hyperframes/@kenectai/cli version.
 test("hyperframesPackageSpec: resolvable in-repo version pins it", async () => {
   const prev = process.env[ENV];
   delete process.env[ENV];
   try {
     const { hyperframesPackageSpec } = await import("./package-loader.mjs");
-    const spec = hyperframesPackageSpec("@hyperframes/producer");
+    const spec = hyperframesPackageSpec("@kenectai/producer");
     assert.match(spec, /^@hyperframes\/producer@\d+\.\d+\.\d+/);
   } finally {
     if (prev !== undefined) process.env[ENV] = prev;
@@ -47,13 +47,13 @@ test("hyperframesPackageSpec: unresolvable falls back to @latest without throwin
       probe,
       [
         'import { hyperframesPackageSpec } from "./package-loader.mjs";',
-        'process.stdout.write(hyperframesPackageSpec("@hyperframes/producer"));',
+        'process.stdout.write(hyperframesPackageSpec("@kenectai/producer"));',
         "",
       ].join("\n"),
     );
     const res = spawnSync(process.execPath, [probe], { cwd: dir, encoding: "utf8" });
     assert.equal(res.status, 0, res.stderr);
-    assert.equal(res.stdout.trim(), "@hyperframes/producer@latest");
+    assert.equal(res.stdout.trim(), "@kenectai/producer@latest");
     assert.match(res.stderr, /using @latest/);
     assert.match(res.stderr, new RegExp(ENV));
   } finally {

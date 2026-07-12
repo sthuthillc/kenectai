@@ -1,17 +1,17 @@
 ---
 title: "Utilities & Constants"
-description: "History module, persist queue, document utilities, constants, and error types exported from @hyperframes/sdk."
+description: "History module, persist queue, document utilities, constants, and error types exported from @kenectai/sdk."
 ---
 
-This page covers everything exported from `@hyperframes/sdk` that is not covered in [`openComposition`](/sdk/reference/open-composition), the [`Composition` interface](/sdk/reference/composition), [edit operations](/sdk/reference/edit-operations), [types](/sdk/reference/types), or [adapters](/sdk/reference/adapters).
+This page covers everything exported from `@kenectai/sdk` that is not covered in [`openComposition`](/sdk/reference/open-composition), the [`Composition` interface](/sdk/reference/composition), [edit operations](/sdk/reference/edit-operations), [types](/sdk/reference/types), or [adapters](/sdk/reference/adapters).
 
 ---
 
 ## History Module
 
 ```typescript
-import { createHistory } from "@hyperframes/sdk";
-import type { HistoryModule, HistoryOptions, HistoryEntry } from "@hyperframes/sdk";
+import { createHistory } from "@kenectai/sdk";
+import type { HistoryModule, HistoryOptions, HistoryEntry } from "@kenectai/sdk";
 ```
 
 Optional undo/redo module that wires onto a `Composition` session via the `"patch"` event. Standalone sessions created by `openComposition()` attach a history module automatically — you only need `createHistory` directly when you are building a host application that manages its own undo stack, or when you want non-default coalesce/depth settings.
@@ -25,7 +25,7 @@ function createHistory(session: Composition, opts?: HistoryOptions): HistoryModu
 Subscribes to `session.on('patch')` and builds an undo/redo stack. Coalesces rapid same-operation bursts on the same element into a single undo entry so a slider drag produces one undo step, not hundreds.
 
 ```typescript
-import { openComposition, createHistory } from "@hyperframes/sdk";
+import { openComposition, createHistory } from "@kenectai/sdk";
 
 // Custom history — host controls undo/redo buttons
 const comp = await openComposition(html, { history: false });
@@ -117,8 +117,8 @@ Entries are internal to the history module — you do not create them directly. 
 ## Persist Queue
 
 ```typescript
-import { createPersistQueue } from "@hyperframes/sdk";
-import type { PersistQueueModule, PersistQueueOptions } from "@hyperframes/sdk";
+import { createPersistQueue } from "@kenectai/sdk";
+import type { PersistQueueModule, PersistQueueOptions } from "@kenectai/sdk";
 ```
 
 Optional module that subscribes to `"change"` events on a session and schedules async writes through a `PersistAdapter`. One write is in flight at a time; the latest HTML always wins (last-write-wins coalescing). Standalone sessions wired with a `persist` adapter attach this automatically via `openComposition()`. Use `createPersistQueue` directly only when you are building an embedded host that owns persistence separately from the SDK session.
@@ -134,8 +134,8 @@ function createPersistQueue(
 ```
 
 ```typescript
-import { openComposition, createPersistQueue } from "@hyperframes/sdk";
-import { createFsAdapter } from "@hyperframes/sdk/adapters/fs";
+import { openComposition, createPersistQueue } from "@kenectai/sdk";
+import { createFsAdapter } from "@kenectai/sdk/adapters/fs";
 
 const adapt = createFsAdapter({ root: "./project" });
 const comp = await openComposition(html, { history: false });
@@ -191,7 +191,7 @@ interface PersistQueueOptions {
 ## Document Utilities
 
 ```typescript
-import { buildDocument, buildRoots, flatElements } from "@hyperframes/sdk";
+import { buildDocument, buildRoots, flatElements } from "@kenectai/sdk";
 ```
 
 Low-level utilities for building the `SdkDocument` model and `HyperFramesElement` trees from parsed HTML. These are the same functions the SDK uses internally on every `openComposition()` call. You rarely need them directly — they are exposed for hosts that parse HTML outside of a session, or for testing.
@@ -221,7 +221,7 @@ function flatElements(roots: readonly HyperFramesElement[]): HyperFramesElement[
 Returns every element from `roots` and all their descendants in document order (depth-first pre-order). Useful for searching across the full element tree without writing your own recursive walk.
 
 ```typescript
-import { buildDocument, flatElements } from "@hyperframes/sdk";
+import { buildDocument, flatElements } from "@kenectai/sdk";
 
 const doc = buildDocument(html);
 const all = flatElements(doc.roots);
@@ -233,7 +233,7 @@ const images = all.filter((el) => el.tag === "img");
 ## Id & Scope Utilities
 
 ```typescript
-import { resolveScoped, findById, bareId, escapeHfId, isNewHostBoundary } from "@hyperframes/sdk";
+import { resolveScoped, findById, bareId, escapeHfId, isNewHostBoundary } from "@kenectai/sdk";
 ```
 
 Low-level id-resolution helpers used internally by dispatch, patch replay, and query — exposed for hosts building their own DOM-facing tooling against the same document model.
@@ -283,7 +283,7 @@ Returns `true` when `el` is the root of an inlined sub-composition — that is, 
 ## Variable Utilities
 
 ```typescript
-import { readVariableDefault } from "@hyperframes/sdk";
+import { readVariableDefault } from "@kenectai/sdk";
 ```
 
 ### readVariableDefault
@@ -301,9 +301,9 @@ Read a declared variable's current `default` value directly from the document's 
 ### ORIGIN\_APPLY\_PATCHES
 
 ```typescript
-import { ORIGIN_APPLY_PATCHES } from "@hyperframes/sdk";
+import { ORIGIN_APPLY_PATCHES } from "@kenectai/sdk";
 
-const ORIGIN_APPLY_PATCHES = "@hyperframes/sdk:applyPatches";
+const ORIGIN_APPLY_PATCHES = "@kenectai/sdk:applyPatches";
 ```
 
 Reserved origin tag emitted by `applyPatches()` and by the history module's `undo()` / `redo()` methods. Host patch listeners **must** skip this origin to avoid undo loops:
@@ -315,12 +315,12 @@ comp.on("patch", ({ origin, patches }) => {
 });
 ```
 
-The value is a namespaced string rather than a `Symbol` so it survives realm boundaries — `postMessage`, structured clone, and JSON serialization all preserve it correctly. T3 embedded hosts that forward patch events across frames or workers rely on this property. The namespace prefix (`@hyperframes/sdk:`) makes accidental collision with a host-chosen origin string negligible.
+The value is a namespaced string rather than a `Symbol` so it survives realm boundaries — `postMessage`, structured clone, and JSON serialization all preserve it correctly. T3 embedded hosts that forward patch events across frames or workers rely on this property. The namespace prefix (`@kenectai/sdk:`) makes accidental collision with a host-chosen origin string negligible.
 
 ### ORIGIN\_LOCAL
 
 ```typescript
-import { ORIGIN_LOCAL } from "@hyperframes/sdk";
+import { ORIGIN_LOCAL } from "@kenectai/sdk";
 
 const ORIGIN_LOCAL = "local";
 ```
@@ -334,7 +334,7 @@ Default origin applied when you call typed methods (`setText`, `setStyle`, …) 
 ### UnsupportedOpError
 
 ```typescript
-import { UnsupportedOpError } from "@hyperframes/sdk";
+import { UnsupportedOpError } from "@kenectai/sdk";
 ```
 
 Thrown by `dispatch()` when an op type is not handled by the current engine version. The `code` property is stable and part of the public API contract — switch on it rather than the message string.
@@ -361,7 +361,7 @@ comp.setGsapTween(id, { ease: "power2.out" });
 ## resolveNearestHfElement
 
 ```typescript
-import { resolveNearestHfElement } from "@hyperframes/sdk";
+import { resolveNearestHfElement } from "@kenectai/sdk";
 
 function resolveNearestHfElement(
   el: Element | null,
@@ -378,10 +378,10 @@ This is a pure function (no `window` or DOM API calls beyond `getAttribute`) and
 ## resolveElementAffordances
 
 ```typescript
-import { resolveElementAffordances } from "@hyperframes/sdk/editing";
+import { resolveElementAffordances } from "@kenectai/sdk/editing";
 ```
 
-Determines which editing operations are available for a live element given its current DOM state and model. Imported from the `@hyperframes/sdk/editing` subpath. Full documentation is in the [Editing Affordances guide](/sdk/guides/editing-affordances).
+Determines which editing operations are available for a live element given its current DOM state and model. Imported from the `@kenectai/sdk/editing` subpath. Full documentation is in the [Editing Affordances guide](/sdk/guides/editing-affordances).
 
 ---
 

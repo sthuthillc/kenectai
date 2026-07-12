@@ -40,8 +40,8 @@ import {
   initializeSession,
   isTransientBrowserError,
   probeBeginFrameLiveness,
-} from "@hyperframes/engine";
-import { fpsToNumber } from "@hyperframes/core";
+} from "@kenectai/engine";
+import { fpsToNumber } from "@kenectai/core";
 import type { CompiledComposition } from "../../htmlCompiler.js";
 import {
   discoverMediaFromBrowser,

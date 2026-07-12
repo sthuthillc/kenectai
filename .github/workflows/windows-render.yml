@@ -440,11 +440,11 @@ jobs:
         # Enumerate the packages we want to test instead of negating —
         # `bun run --filter "!a" --filter "!b"` composes as a union (any
         # package matching either negation runs), not an intersection.
-        # That meant `@hyperframes/producer` was effectively still being
+        # That meant `@kenectai/producer` was effectively still being
         # tested on Windows, which is what we explicitly want skipped
         # (Docker / LFS-baseline tooling).
-        run: bun run --filter @hyperframes/core --filter @hyperframes/engine --filter @hyperframes/player --filter @hyperframes/cli --filter @hyperframes/studio --filter @hyperframes/shader-transitions test
+        run: bun run --filter @kenectai/core --filter @kenectai/engine --filter @kenectai/player --filter @kenectai/cli --filter @kenectai/studio --filter @kenectai/shader-transitions test
 
       - name: Run runtime contract test
         shell: pwsh
-        run: bun run --filter "@hyperframes/core" test:hyperframe-runtime-ci
+        run: bun run --filter "@kenectai/core" test:hyperframe-runtime-ci

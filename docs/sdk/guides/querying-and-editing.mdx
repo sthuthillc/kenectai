@@ -53,7 +53,7 @@ Both bare ids (top-level elements) and scoped ids (sub-composition elements) are
 Returns an array of `scopedId` strings for every element that matches all supplied `FindQuery` fields. All fields are optional; an empty query matches everything (equivalent to `getElements().map(el => el.scopedId)`).
 
 ```typescript
-import type { FindQuery } from "@hyperframes/sdk";
+import type { FindQuery } from "@kenectai/sdk";
 
 // By tag
 const imgIds = comp.find({ tag: "img" });

@@ -58,7 +58,7 @@ Topics: `data-attributes`, `gsap`, `compositions`, `rendering`, `examples`, `tro
 **For full documentation**, discover pages via the machine-readable index — do NOT guess URLs:
 
 ```
-https://hyperframes.heygen.com/llms.txt
+https://docs.kenectai.com/llms.txt
 ```
 
 ## Project Structure

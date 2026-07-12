@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { SUPPORTED_PROPS } from "@hyperframes/parsers/gsap-constants";
+import { SUPPORTED_PROPS } from "@kenectai/parsers/gsap-constants";
 import { buildTweenSummary } from "./gsapAnimationHelpers";
 import { PROP_LABELS } from "./gsapAnimationConstants";
-import type { GsapAnimation } from "@hyperframes/parsers/gsap-parser";
+import type { GsapAnimation } from "@kenectai/parsers/gsap-parser";
 
 function anim(overrides: Partial<GsapAnimation>): GsapAnimation {
   return {

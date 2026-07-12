@@ -10,7 +10,7 @@
 //     [--frames N] [--out <dir>] [--min-duration S] [--width W] [--height H] [--fps N]
 //
 // Env:
-//   HYPERFRAMES_SKILL_PKG_VERSION — pin the @hyperframes/producer version used
+//   HYPERFRAMES_SKILL_PKG_VERSION — pin the @kenectai/producer version used
 //     when bootstrapping (global skill installs cannot infer it; falls back to
 //     @latest with a warning otherwise).
 
@@ -25,10 +25,10 @@ const {
   closeCaptureSession,
   getCompositionDuration,
 } = (
-  await importPackagesOrBootstrap(["@hyperframes/producer"], {
-    npmPackages: [hyperframesPackageSpec("@hyperframes/producer")],
+  await importPackagesOrBootstrap(["@kenectai/producer"], {
+    npmPackages: [hyperframesPackageSpec("@kenectai/producer")],
   })
-)["@hyperframes/producer"];
+)["@kenectai/producer"];
 
 // ─── CLI ─────────────────────────────────────────────────────────────────────
 

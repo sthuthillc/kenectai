@@ -18,7 +18,7 @@
 import { readFileSync, renameSync, writeFileSync } from "fs";
 import { randomBytes } from "crypto";
 import type { AudioVolumeKeyframe } from "./audioMixer.types.js";
-import { normaliseEnvelope } from "@hyperframes/core/media-volume-envelope";
+import { normaliseEnvelope } from "@kenectai/core/media-volume-envelope";
 
 const PCM_FORMAT = 1; // WAVE_FORMAT_PCM
 const SUPPORTED_BITS = 16;

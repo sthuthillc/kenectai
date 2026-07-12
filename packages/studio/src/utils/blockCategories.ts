@@ -2,7 +2,7 @@ import {
   type BlockCategory,
   BLOCK_CATEGORIES,
   resolveBlockCategory,
-} from "@hyperframes/core/registry";
+} from "@kenectai/core/registry";
 
 export type { BlockCategory };
 export { BLOCK_CATEGORIES, resolveBlockCategory };

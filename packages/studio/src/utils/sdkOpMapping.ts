@@ -9,7 +9,7 @@
  * batches style changes naturally). One SDK op is emitted per non-style op.
  */
 
-import type { EditOp } from "@hyperframes/sdk";
+import type { EditOp } from "@kenectai/sdk";
 import type { PatchOperation } from "./sourcePatcher";
 
 export function patchOpsToSdkEditOps(hfId: string, ops: PatchOperation[]): EditOp[] {

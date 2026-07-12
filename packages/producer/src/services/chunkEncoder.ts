@@ -1,5 +1,5 @@
 /**
- * Re-exported from @hyperframes/engine.
+ * Re-exported from @kenectai/engine.
  * @see engine/src/services/chunkEncoder.ts for implementation.
  */
 export {
@@ -13,4 +13,4 @@ export {
   type EncodeResult,
   type MuxResult,
   type GpuEncoder,
-} from "@hyperframes/engine";
+} from "@kenectai/engine";

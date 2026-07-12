@@ -1,7 +1,7 @@
 /**
  * Embedded studio server for `hyperframes preview` outside the monorepo.
  *
- * Uses the shared studio API module from @hyperframes/core/studio-api,
+ * Uses the shared studio API module from @kenectai/core/studio-api,
  * providing a CLI-specific adapter for single-project, in-process rendering.
  */
 
@@ -29,10 +29,10 @@ import {
   type ResolvedProject,
   type RenderJobState,
   type BackgroundRemovalRender,
-} from "@hyperframes/studio-server";
-import { getElementScreenshotClip } from "@hyperframes/studio-server/screenshot-clip";
-import type { ScreenshotClip } from "@hyperframes/studio-server/screenshot-clip";
-import type { RenderJob } from "@hyperframes/producer";
+} from "@kenectai/studio-server";
+import { getElementScreenshotClip } from "@kenectai/studio-server/screenshot-clip";
+import type { ScreenshotClip } from "@kenectai/studio-server/screenshot-clip";
+import type { RenderJob } from "@kenectai/producer";
 
 const STUDIO_MANUAL_EDITS_PATH = ".hyperframes/studio-manual-edits.json";
 const REMOTE_GIF_IMG_SRC_RE =
@@ -41,7 +41,7 @@ const REMOTE_GIF_IMG_SRC_RE =
 async function loadStudioProducer() {
   return isDevMode()
     ? await import("../../../producer/src/index.js")
-    : await import("@hyperframes/producer");
+    : await import("@kenectai/producer");
 }
 
 // ── Path resolution ─────────────────────────────────────────────────────────
@@ -176,7 +176,7 @@ async function getThumbnailBrowser(): Promise<import("puppeteer-core").Browser |
   _thumbnailBrowserInitializing = (async () => {
     try {
       const { ensureBrowser } = await import("../browser/manager.js");
-      const { acquireBrowser, buildChromeArgs } = await import("@hyperframes/engine");
+      const { acquireBrowser, buildChromeArgs } = await import("@kenectai/engine");
 
       try {
         const b = await ensureBrowser({ preferManagedChrome: true });
@@ -215,7 +215,7 @@ export async function closeThumbnailBrowser(): Promise<void> {
   const browser = _thumbnailBrowser;
   _thumbnailBrowser = null;
   _thumbnailBrowserInitializing = null;
-  const { releaseBrowser } = await import("@hyperframes/engine");
+  const { releaseBrowser } = await import("@kenectai/engine");
   await releaseBrowser(browser).catch(() => {});
 }
 
@@ -306,7 +306,7 @@ export function createStudioServer(options: StudioServerOptions): StudioServer {
 
     async bundle(dir: string): Promise<string | null> {
       try {
-        const { bundleToSingleHtml } = await import("@hyperframes/core/compiler");
+        const { bundleToSingleHtml } = await import("@kenectai/core/compiler");
         // Studio dev server: ask the bundler for an empty `src=""` placeholder so
         // we can point it at our hot-reloadable local runtime endpoint. Inlining
         // ~150 KB of runtime body on every preview render would defeat browser
@@ -352,7 +352,7 @@ export function createStudioServer(options: StudioServerOptions): StudioServer {
     },
 
     async lint(html: string, opts?: { filePath?: string }) {
-      const { lintHyperframeHtml } = await import("@hyperframes/lint");
+      const { lintHyperframeHtml } = await import("@kenectai/lint");
       return await lintHyperframeHtml(html, opts);
     },
 

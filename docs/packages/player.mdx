@@ -1,17 +1,17 @@
 ---
-title: "@hyperframes/player"
+title: "@kenectai/player"
 description: "Embeddable web component for playing HyperFrames compositions in any web page."
 ---
 
 The player package provides a `<hyperframes-player>` custom element that embeds a HyperFrames composition anywhere — in any framework or plain HTML. Zero dependencies, 3KB gzipped.
 
 ```bash
-npm install @hyperframes/player
+npm install @kenectai/player
 ```
 
 ## When to Use
 
-**Use `@hyperframes/player` when you need to:**
+**Use `@kenectai/player` when you need to:**
 - Embed a rendered composition in a website, dashboard, or app
 - Add a video-like player to a landing page or product demo
 - Show compositions in documentation or blog posts
@@ -26,7 +26,7 @@ npm install @hyperframes/player
 ### Via CDN
 
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/@hyperframes/player"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@kenectai/player"></script>
 
 <hyperframes-player
   src="./my-composition/index.html"
@@ -40,13 +40,13 @@ npm install @hyperframes/player
 If you need a classic `<script>` tag instead of ESM, use the explicit global build:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@hyperframes/player/dist/hyperframes-player.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@kenectai/player/dist/hyperframes-player.global.js"></script>
 ```
 
 ### Via npm
 
 ```js
-import '@hyperframes/player';
+import '@kenectai/player';
 ```
 
 ```html
@@ -123,7 +123,7 @@ player.addEventListener('error', (e) => console.error(e.detail.message));
 ### React
 
 ```jsx
-import '@hyperframes/player';
+import '@kenectai/player';
 
 function VideoPreview({ src }) {
   return (
@@ -144,7 +144,7 @@ function VideoPreview({ src }) {
 </template>
 
 <script setup>
-import '@hyperframes/player';
+import '@kenectai/player';
 const compositionUrl = './compositions/intro.html';
 </script>
 ```
@@ -152,7 +152,7 @@ const compositionUrl = './compositions/intro.html';
 ### Programmatic
 
 ```js
-import '@hyperframes/player';
+import '@kenectai/player';
 
 const player = document.createElement('hyperframes-player');
 player.src = './my-composition/index.html';
@@ -176,10 +176,10 @@ iframe.contentDocument.querySelectorAll('[data-composition-id]');
 iframe.contentWindow.__timelines;
 ```
 
-This is the canonical way to bridge the player into editor tools like [`@hyperframes/studio`](/packages/studio). The studio exports a `resolveIframe` helper that handles both direct iframe refs and web-component refs:
+This is the canonical way to bridge the player into editor tools like [`@kenectai/studio`](/packages/studio). The studio exports a `resolveIframe` helper that handles both direct iframe refs and web-component refs:
 
 ```ts
-import { useTimelinePlayer, resolveIframe } from '@hyperframes/studio';
+import { useTimelinePlayer, resolveIframe } from '@kenectai/studio';
 
 const { iframeRef } = useTimelinePlayer();
 const player = document.createElement('hyperframes-player');
@@ -195,9 +195,9 @@ iframeRef.current = resolveIframe(player);
 If you prefer JSX over imperative element creation, attach a ref to the web component and resolve the iframe inside an effect:
 
 ```tsx
-import '@hyperframes/player';
-import type { HyperframesPlayer } from '@hyperframes/player';
-import { useTimelinePlayer, resolveIframe } from '@hyperframes/studio';
+import '@kenectai/player';
+import type { HyperframesPlayer } from '@kenectai/player';
+import { useTimelinePlayer, resolveIframe } from '@kenectai/studio';
 
 function StudioPreview({ src }: { src: string }) {
   const { iframeRef, onIframeLoad } = useTimelinePlayer();
@@ -218,7 +218,7 @@ function StudioPreview({ src }: { src: string }) {
 ```
 
 <Warning>
-  **Common gotcha** — if you pass the `<hyperframes-player>` element itself (not `iframeElement`) into a hook or API that expects an `<iframe>`, every `.contentWindow` / `.contentDocument` access returns `null` because the iframe lives inside the player's Shadow DOM. Timeline seek, play, pause, and DOM inspection all silently no-op. **Always extract `iframeElement` first**, or use `resolveIframe` from `@hyperframes/studio` which handles both iframe and web-component hosts transparently.
+  **Common gotcha** — if you pass the `<hyperframes-player>` element itself (not `iframeElement`) into a hook or API that expects an `<iframe>`, every `.contentWindow` / `.contentDocument` access returns `null` because the iframe lives inside the player's Shadow DOM. Timeline seek, play, pause, and DOM inspection all silently no-op. **Always extract `iframeElement` first**, or use `resolveIframe` from `@kenectai/studio` which handles both iframe and web-component hosts transparently.
 </Warning>
 
 ## Architecture

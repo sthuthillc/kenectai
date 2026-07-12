@@ -278,9 +278,9 @@
     "happy-dom",
     "ffmpeg-static",
     "ffprobe-static",
-    "@hyperframes/core",
-    "@hyperframes/studio",
-    "@hyperframes/producer",
+    "@kenectai/core",
+    "@kenectai/studio",
+    "@kenectai/producer",
     "@fontsource/archivo-black",
     "@fontsource/eb-garamond",
     "@fontsource/ibm-plex-mono",
@@ -329,7 +329,7 @@
       "packages/parsers/src/gsapWriterParity.acorn.test.ts",
       "packages/parsers/src/htmlParser.roundtrip.test.ts",
       "packages/parsers/src/htmlParser.test.ts",
-      // @hyperframes/studio-server test files: parallel arrange/act/assert test cases
+      // @kenectai/studio-server test files: parallel arrange/act/assert test cases
       // (pre-existing structure from when studio-api lived in packages/core/src/studio-api/).
       "packages/studio-server/src/routes/files.test.ts",
       "packages/studio-server/src/routes/render.test.ts",
@@ -346,7 +346,7 @@
       "packages/studio-server/src/helpers/sourceMutation.test.ts",
       "packages/studio-server/src/helpers/studioMotionRenderScript.test.ts",
       "packages/studio-server/src/helpers/subComposition.test.ts",
-      // @hyperframes/lint rule test files: parallel arrange/act/assert test cases
+      // @kenectai/lint rule test files: parallel arrange/act/assert test cases
       // (pre-existing structure from when lint lived in packages/core/src/lint/).
       "packages/lint/src/rules/adapters.test.ts",
       "packages/lint/src/rules/captions.test.ts",
@@ -491,7 +491,7 @@
       // generated table's shape test; this is dev tooling, not shipped runtime.
       "packages/cli/scripts/sync-agent-dirs.ts",
       // Files modified only for import-path updates (one-line changes to switch
-      // from @hyperframes/core/* subpaths to the new packages). Their complexity
+      // from @kenectai/core/* subpaths to the new packages). Their complexity
       // is pre-existing; the line-shift fingerprint problem makes fallow treat
       // the violations as new even though no logic changed.
       "packages/cli/src/server/studioServer.ts",

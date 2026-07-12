@@ -1,4 +1,4 @@
-import { type HdrTransfer, convertTransfer } from "@hyperframes/engine";
+import { type HdrTransfer, convertTransfer } from "@kenectai/engine";
 
 export interface HdrImageTransferCache {
   getConverted(

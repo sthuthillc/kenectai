@@ -1,4 +1,4 @@
-import type { RegistryItem } from "@hyperframes/core";
+import type { RegistryItem } from "@kenectai/core";
 import { compareVersions } from "compare-versions";
 import { VERSION } from "../version.js";
 

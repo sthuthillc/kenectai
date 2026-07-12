@@ -4,7 +4,7 @@
  */
 
 import { useState, useCallback, useId } from "react";
-import type { SlideRef, SlideHotspot, SlideSequence } from "@hyperframes/core/slideshow";
+import type { SlideRef, SlideHotspot, SlideSequence } from "@kenectai/core/slideshow";
 import type { DomEditSelection } from "../editor/domEditing";
 import type { SceneInfo } from "./slideshowPanelHelpers";
 import { generateId } from "../../utils/generateId";

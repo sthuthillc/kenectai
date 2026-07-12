@@ -1,5 +1,5 @@
 {
-  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "$schema": "https://docs.kenectai.com/schema/registry-item.json",
   "name": "ui-3d-reveal",
   "type": "hyperframes:block",
   "title": "3D UI Reveal",

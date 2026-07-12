@@ -84,7 +84,7 @@ export interface PlanHashInput {
   fontSnapshotSha: string;
   /** Canonical-JSON serialization of `meta/encoder.json` (LockedRenderConfig). */
   encoderConfigCanonicalJson: string;
-  /** `@hyperframes/producer` package version that produced the plan. */
+  /** `@kenectai/producer` package version that produced the plan. */
   producerVersion: string;
   /** ffmpeg `--version` line (e.g. "ffmpeg version 6.1.1"). */
   ffmpegVersion: string;

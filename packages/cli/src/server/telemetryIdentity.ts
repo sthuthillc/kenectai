@@ -13,7 +13,7 @@
 // behaves exactly as if opened standalone.
 //
 // Kept out of studioServer.ts so it can be unit-tested without pulling in the
-// server's heavy render dependencies (@hyperframes/producer, engine, …).
+// server's heavy render dependencies (@kenectai/producer, engine, …).
 // ---------------------------------------------------------------------------
 
 import { readConfig } from "../telemetry/config.js";

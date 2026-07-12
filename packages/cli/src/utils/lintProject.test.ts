@@ -2,7 +2,7 @@ import { describe, it, expect, afterEach } from "vitest";
 import { mkdirSync, mkdtempSync, writeFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import type { HyperframeLintFinding } from "@hyperframes/core/lint";
+import type { HyperframeLintFinding } from "@kenectai/core/lint";
 import { lintProject, shouldBlockRender } from "./lintProject.js";
 
 function tmpProject(name: string): string {

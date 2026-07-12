@@ -1,5 +1,5 @@
 // ── Composition data types ───────────────────────────────────────────────────
-// Moved from @hyperframes/core/core.types in the parsers extraction refactor.
+// Moved from @kenectai/core/core.types in the parsers extraction refactor.
 // These are the types produced and consumed by the parser pipeline.
 
 export interface Asset {

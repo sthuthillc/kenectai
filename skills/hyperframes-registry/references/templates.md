@@ -319,7 +319,7 @@ Copy-paste starter templates for each component type. These embed the proven pat
 
 ```json
 {
-  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "$schema": "https://docs.kenectai.com/schema/registry-item.json",
   "name": "BLOCKNAME",
   "type": "hyperframes:block",
   "title": "Human-Readable Title",
@@ -341,7 +341,7 @@ Copy-paste starter templates for each component type. These embed the proven pat
 
 ```json
 {
-  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "$schema": "https://docs.kenectai.com/schema/registry-item.json",
   "name": "COMPONENTNAME",
   "type": "hyperframes:component",
   "title": "Human-Readable Title",

@@ -1,7 +1,7 @@
 import { parseCssColor, type ParsedColor } from "./colorValue";
 import { COMMON_LOCAL_FONT_FAMILIES } from "./fontCatalog";
 import type { DomEditSelection } from "./domEditing";
-import type { GsapAnimation } from "@hyperframes/parsers/gsap-parser";
+import type { GsapAnimation } from "@kenectai/parsers/gsap-parser";
 import type { TimelineElement } from "../../player";
 import { roundToCenti } from "../../utils/rounding";
 

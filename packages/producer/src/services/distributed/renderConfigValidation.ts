@@ -1,8 +1,8 @@
 /**
  * Cloud-agnostic validation of a serializable `DistributedRenderConfig`.
  *
- * The distributed-render adapters (`@hyperframes/aws-lambda`,
- * `@hyperframes/gcp-cloud-run`, …) all need to fail fast on shape errors
+ * The distributed-render adapters (`@kenectai/aws-lambda`,
+ * `@kenectai/gcp-cloud-run`, …) all need to fail fast on shape errors
  * *before* they start a cloud execution — a caller staring at a runtime
  * failure minutes into a Step Functions / Cloud Workflows run shouldn't have
  * to dig through execution history to learn they passed an unsupported
@@ -17,7 +17,7 @@
  * needs the actual planner.
  */
 
-import { VIDEO_FRAME_FORMATS, isVideoFrameFormat } from "@hyperframes/engine";
+import { VIDEO_FRAME_FORMATS, isVideoFrameFormat } from "@kenectai/engine";
 import { type DistributedFormat } from "./shared.js";
 import { type DistributedRenderConfig } from "./plan.js";
 

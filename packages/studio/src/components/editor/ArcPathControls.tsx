@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import type { ArcPathConfig, ArcPathSegment } from "@hyperframes/core/gsap-parser";
+import type { ArcPathConfig, ArcPathSegment } from "@kenectai/core/gsap-parser";
 import { SliderControl } from "./propertyPanelPrimitives";
 import { LABEL } from "./propertyPanelHelpers";
 import { P } from "./panelTokens";

@@ -1,6 +1,6 @@
 // storyboard.mjs — vendored lenient parser for STORYBOARD.md.
 //
-// Faithful plain-JS port of @hyperframes/core/storyboard
+// Faithful plain-JS port of @kenectai/core/storyboard
 // (packages/core/src/storyboard/parseStoryboard.ts). Vendored because skills
 // ship standalone: installed via `npx skills add`, a skill's scripts can't reach
 // the monorepo's core package, and the core export points at .ts source that

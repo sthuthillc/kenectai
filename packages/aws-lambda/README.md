@@ -1,4 +1,4 @@
-# @hyperframes/aws-lambda
+# @kenectai/aws-lambda
 
 AWS Lambda adapter for HyperFrames distributed rendering. Ships three
 things together:
@@ -28,9 +28,9 @@ smoke flow; the SDK + CDK are the supported public surface for adopters.
 ┌──────────────────────────────────────────────────────────────────┐
 │ One Lambda function (this package's `dist/handler.zip`)          │
 │   handler.mjs                                                    │
-│     ├─ Action="plan"        → @hyperframes/producer/distributed  │
-│     ├─ Action="renderChunk" → @hyperframes/producer/distributed  │
-│     └─ Action="assemble"    → @hyperframes/producer/distributed  │
+│     ├─ Action="plan"        → @kenectai/producer/distributed  │
+│     ├─ Action="renderChunk" → @kenectai/producer/distributed  │
+│     └─ Action="assemble"    → @kenectai/producer/distributed  │
 │   bin/ffmpeg                — ffmpeg-static                      │
 │   node_modules/@sparticuz/chromium/ — Lambda-optimised Chromium  │
 └──────────────────────────────────────────────────────────────────┘
@@ -116,7 +116,7 @@ After deploying the stack (via the SAM template, CDK construct below, or
 your own CFN of choice), drive renders from Node:
 
 ```ts
-import { deploySite, getRenderProgress, renderToLambda } from "@hyperframes/aws-lambda";
+import { deploySite, getRenderProgress, renderToLambda } from "@kenectai/aws-lambda";
 
 // One-time upload per project version.
 const site = await deploySite({
@@ -164,7 +164,7 @@ transfer.
 
 ```ts
 import { App, Stack } from "aws-cdk-lib";
-import { HyperframesRenderStack } from "@hyperframes/aws-lambda/cdk";
+import { HyperframesRenderStack } from "@kenectai/aws-lambda/cdk";
 
 const app = new App();
 const stack = new Stack(app, "MyApp");
@@ -181,7 +181,7 @@ new CfnOutput(stack, "StateMachineArn", { value: render.stateMachine.stateMachin
 
 `aws-cdk-lib` and `constructs` are **optional peer dependencies**: SDK-only
 consumers don't pull them at runtime. The construct itself imports from
-`@hyperframes/aws-lambda/cdk`.
+`@kenectai/aws-lambda/cdk`.
 
 ## What's still ahead
 

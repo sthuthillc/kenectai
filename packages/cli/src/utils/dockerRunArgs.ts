@@ -7,7 +7,7 @@
  * a test in `dockerRunArgs.test.ts` — that combination is what catches
  * silent-drop regressions like the one that lost `--hdr` historically.
  */
-import { fpsToFfmpegArg, type Fps } from "@hyperframes/core";
+import { fpsToFfmpegArg, type Fps } from "@kenectai/core";
 
 export interface DockerRunArgsInput {
   imageTag: string;
@@ -32,7 +32,7 @@ export interface DockerRunArgsInput {
 
 export interface DockerRenderOptions {
   /**
-   * Frame rate as an exact rational; see `Fps` in @hyperframes/core. The
+   * Frame rate as an exact rational; see `Fps` in @kenectai/core. The
    * docker-run arg builder serializes this back to a `--fps` string
    * (`"30"` or `"30000/1001"`) which the in-container CLI re-parses with
    * `parseFps`, so the rational survives the host → container hop.

@@ -9,7 +9,7 @@
  *   <base>/<type-dir>/<name>/registry-item.json
  *   <base>/<type-dir>/<name>/<file.path>    → individual files referenced by the item
  *
- * `<type-dir>` comes from ITEM_TYPE_DIRS in @hyperframes/core.
+ * `<type-dir>` comes from ITEM_TYPE_DIRS in @kenectai/core.
  */
 
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -21,7 +21,7 @@ import {
   type ItemType,
   type RegistryItem,
   type RegistryManifest,
-} from "@hyperframes/core";
+} from "@kenectai/core";
 
 export const DEFAULT_REGISTRY_URL =
   "https://raw.githubusercontent.com/sthuthillc/kenectai/main/registry";

@@ -1,7 +1,7 @@
 import { defineCommand } from "citty";
 import { existsSync, readFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { resolve, join, dirname } from "node:path";
-import { findMusicAudioSrc, audioRelPathForSrc, serializeBeats } from "@hyperframes/core/beats";
+import { findMusicAudioSrc, audioRelPathForSrc, serializeBeats } from "@kenectai/core/beats";
 import type { Example } from "./_examples.js";
 import { resolveProject, type ProjectDir } from "../utils/project.js";
 import { analyzeBeatsHeadless, type HeadlessBeatResult } from "../beats/headlessAnalyzer.js";

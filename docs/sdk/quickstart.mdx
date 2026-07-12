@@ -10,7 +10,7 @@ This guide walks you through the core SDK loop from scratch. You will open a com
 <Steps>
   <Step title="Install the package">
     ```bash
-    npm install @hyperframes/sdk
+    npm install @kenectai/sdk
     ```
   </Step>
 
@@ -18,7 +18,7 @@ This guide walks you through the core SDK loop from scratch. You will open a com
     `openComposition` parses the HTML, stamps any elements that lack `data-hf-id` attributes, and returns a `Composition` session.
 
     ```typescript
-    import { openComposition } from "@hyperframes/sdk";
+    import { openComposition } from "@kenectai/sdk";
 
     const html = `<div class="clip" data-start="0" data-duration="5"
                     data-hf-id="hf-title">Launch day</div>`;
@@ -98,11 +98,11 @@ This guide walks you through the core SDK loop from scratch. You will open a com
 
 The headless pattern above is fine for one-shot transforms. When you want the SDK to autosave after every edit, pass a `PersistAdapter`.
 
-The filesystem adapter (`@hyperframes/sdk/adapters/fs`) writes to a local directory and keeps a rolling version history.
+The filesystem adapter (`@kenectai/sdk/adapters/fs`) writes to a local directory and keeps a rolling version history.
 
 ```typescript
-import { openComposition } from "@hyperframes/sdk";
-import { createFsAdapter } from "@hyperframes/sdk/adapters/fs";
+import { openComposition } from "@kenectai/sdk";
+import { createFsAdapter } from "@kenectai/sdk/adapters/fs";
 import { readFile } from "node:fs/promises";
 
 // Load the current HTML from disk (or use a template string on first run).

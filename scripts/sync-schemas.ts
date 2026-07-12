@@ -1,8 +1,8 @@
 #!/usr/bin/env tsx
 /**
  * Mirror JSON Schemas from `packages/core/schemas/` into `docs/schema/` so
- * Mintlify serves them at `https://hyperframes.heygen.com/schema/*`. The core
- * copies stay authoritative — they're exported from `@hyperframes/core` for
+ * Mintlify serves them at `https://docs.kenectai.com/schema/*`. The core
+ * copies stay authoritative — they're exported from `@kenectai/core` for
  * npm consumers — and this script is the single contract that prevents the
  * docs mirror from drifting.
  *

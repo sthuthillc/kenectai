@@ -186,10 +186,10 @@ hyperframes lambda render-batch ./my-template --batch ./users.jsonl \
 
 ## Programmatic via SDK
 
-The same surface is available from TypeScript via `@hyperframes/aws-lambda/sdk`. Deploy the site once and parallel-render the batch:
+The same surface is available from TypeScript via `@kenectai/aws-lambda/sdk`. Deploy the site once and parallel-render the batch:
 
 ```typescript
-import { deploySite, renderToLambda } from "@hyperframes/aws-lambda/sdk";
+import { deploySite, renderToLambda } from "@kenectai/aws-lambda/sdk";
 
 const users = [
   { name: "Alice", accentColor: "#ff0000" },
@@ -239,7 +239,7 @@ which exceeds the 262144-byte (256 KiB) limit for Standard workflows.
 Variables are for typed data (strings, numbers, structured records);
 media assets (images, audio, video) should be passed as URL references
 the composition resolves at render time, not inlined as base64. See
-https://hyperframes.heygen.com/deploy/templates-on-lambda#working-with-large-variables
+https://docs.kenectai.com/deploy/templates-on-lambda#working-with-large-variables
 for the URL-your-assets convention.
 ```
 
@@ -277,7 +277,7 @@ In the composition, the script that wires variables into the DOM uses the URL di
 
 The same constraint applies to Remotion's `inputProps` — if you're migrating from `@remotion/lambda`, your payloads should already be structured this way.
 
-If your typed-data payload genuinely exceeds 256 KiB (e.g. a long structured record per render with no media), [file an issue](https://github.com/heygen-com/hyperframes/issues/new) — there's a clean path via S3-hosted variable files, but we want to see real demand before designing the API.
+If your typed-data payload genuinely exceeds 256 KiB (e.g. a long structured record per render with no media), [file an issue](https://github.com/sthuthillc/kenectai/issues/new) — there's a clean path via S3-hosted variable files, but we want to see real demand before designing the API.
 
 ## Cost and scale
 
@@ -317,4 +317,4 @@ Remotion's `inputProps` has the same 256 KiB constraint and the same "URL your a
 - **TypeScript types generated from `data-composition-variables`**: `hyperframes types generate <projectDir>` is sketched and may land in v1.5; it would let SDK callers `import type { Variables } from "./template/variables"` for autocomplete + typecheck.
 - **HDR template support**: HDR mp4 is currently distributed-mode-rejected (in-process only). The next v1.5 item is unblocking HDR for distributed renders so templates can produce wide-gamut output.
 
-If your template pipeline hits a wall the docs don't cover, [file an issue on GitHub](https://github.com/heygen-com/hyperframes/issues/new) — the batch surface is new and the feedback loop on it is short.
+If your template pipeline hits a wall the docs don't cover, [file an issue on GitHub](https://github.com/sthuthillc/kenectai/issues/new) — the batch surface is new and the feedback loop on it is short.

@@ -5,7 +5,7 @@ import {
   STUDIO_HEIGHT_PROP,
   STUDIO_MANUAL_EDIT_GESTURE_ATTR,
 } from "./draftMarkers.js";
-import { parseStartExpression } from "@hyperframes/core/runtime/start-expression";
+import { parseStartExpression } from "@kenectai/core/runtime/start-expression";
 
 export type DraftPayload =
   | { type: "move"; hfId: string; dx: number; dy: number }

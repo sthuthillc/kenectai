@@ -1,5 +1,5 @@
 {
-  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "$schema": "https://docs.kenectai.com/schema/registry-item.json",
   "name": "lt-stack-bars",
   "type": "hyperframes:block",
   "title": "Lower Third — Stack Bars",

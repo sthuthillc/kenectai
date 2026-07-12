@@ -1,4 +1,4 @@
-import type { RenderJob, RenderPerfSummary } from "@hyperframes/producer";
+import type { RenderJob, RenderPerfSummary } from "@kenectai/producer";
 import type { RenderObservabilityTelemetryPayload } from "./events.js";
 
 type RenderObservabilitySummary = NonNullable<RenderPerfSummary["observability"]>;

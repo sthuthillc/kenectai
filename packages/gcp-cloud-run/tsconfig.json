@@ -10,8 +10,8 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "@hyperframes/producer": ["../producer/src/index.ts"],
-      "@hyperframes/producer/distributed": ["../producer/src/distributed.ts"]
+      "@kenectai/producer": ["../producer/src/index.ts"],
+      "@kenectai/producer/distributed": ["../producer/src/distributed.ts"]
     }
   },
   "include": ["src/**/*"],

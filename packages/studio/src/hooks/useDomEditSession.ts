@@ -6,7 +6,7 @@ import type { EditHistoryKind } from "../utils/editHistory";
 import type { RightPanelTab } from "../utils/studioHelpers";
 import type { PatchTarget } from "../utils/sourcePatcher";
 import type { SidebarTab } from "../components/sidebar/LeftSidebar";
-import type { Composition } from "@hyperframes/sdk";
+import type { Composition } from "@kenectai/sdk";
 import { sdkCutoverPersist, sdkDeletePersist } from "../utils/sdkCutover";
 import { runResolverShadow, recordResolverParity } from "../utils/sdkResolverShadow";
 import { useAskAgentModal } from "./useAskAgentModal";

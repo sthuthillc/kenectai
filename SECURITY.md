@@ -23,4 +23,4 @@ We will acknowledge receipt within 48 hours and aim to provide a fix or mitigati
 
 ## Scope
 
-This policy applies to all packages in the `@hyperframes/*` npm scope and the code in this repository.
+This policy applies to all packages in the `@kenectai/*` npm scope and the code in this repository.

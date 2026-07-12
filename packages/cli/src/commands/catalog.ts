@@ -10,7 +10,7 @@ export const examples: Example[] = [
 ];
 
 import * as clack from "@clack/prompts";
-import { type ItemType } from "@hyperframes/core";
+import { type ItemType } from "@kenectai/core";
 import { c } from "../ui/colors.js";
 import { listRegistryItems, loadAllItems } from "../registry/resolver.js";
 import { loadProjectConfig, DEFAULT_PROJECT_CONFIG } from "../utils/projectConfig.js";

@@ -1,1 +1,1 @@
-declare module "@hyperframes/player";
+declare module "@kenectai/player";

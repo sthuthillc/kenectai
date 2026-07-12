@@ -9,9 +9,9 @@ import { fitEasesFromVelocity } from "../utils/velocityEaseFitter";
 import { smoothGestureKeyframes } from "../utils/gestureSmoother";
 import { usePlayerStore } from "../player";
 import type { DomEditSelection } from "../components/editor/domEditing";
-import type { GsapAnimation } from "@hyperframes/core/gsap-parser";
+import type { GsapAnimation } from "@kenectai/core/gsap-parser";
 import { roundTo3 } from "../utils/rounding";
-import { classifyPropertyGroup } from "@hyperframes/core/gsap-parser";
+import { classifyPropertyGroup } from "@kenectai/core/gsap-parser";
 
 type RecordedKeyframe = {
   percentage: number;

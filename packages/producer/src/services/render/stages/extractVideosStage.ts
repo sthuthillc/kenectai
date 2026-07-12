@@ -43,8 +43,8 @@ import {
   extractMediaMetadata,
   isHdrColorSpace,
   resolveProjectRelativeSrc,
-} from "@hyperframes/engine";
-import { fpsToNumber } from "@hyperframes/core";
+} from "@kenectai/engine";
+import { fpsToNumber } from "@kenectai/core";
 import {
   collectVideoMetadataHints,
   collectVideoReadinessSkipIds,

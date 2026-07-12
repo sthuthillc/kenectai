@@ -113,7 +113,7 @@ async function main() {
   // `play`. resolvePlayerPath/resolveSlideshowPath look for these alongside the
   // built CLI (dist/<name>.global.js), so they must ship in the package — the
   // monorepo-dev fallback paths don't exist once installed from npm. Without
-  // this, `npx hyperframes present` fails with "@hyperframes/player not found".
+  // this, `npx hyperframes present` fails with "@kenectai/player not found".
   const playerDist = join(REPO_ROOT, "packages", "player", "dist");
   const playerGlobals = [
     [join(playerDist, "hyperframes-player.global.js"), join(DIST, "hyperframes-player.global.js")],

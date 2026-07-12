@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
-import type { RegistryItem, RegistryManifest } from "@hyperframes/core";
+import type { RegistryItem, RegistryManifest } from "@kenectai/core";
 import {
   listRegistryItems,
   loadAllItems,
@@ -8,7 +8,7 @@ import {
 } from "./resolver.js";
 
 const MANIFEST: RegistryManifest = {
-  $schema: "https://hyperframes.heygen.com/schema/registry.json",
+  $schema: "https://docs.kenectai.com/schema/registry.json",
   name: "test",
   homepage: "https://example.com",
   items: [

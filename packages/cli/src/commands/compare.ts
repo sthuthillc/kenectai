@@ -270,7 +270,7 @@ async function renderCompareVariant(
   opts: { atSeconds: number; framePath: string; timeoutMs: number },
 ): Promise<{ framePath: string; renderReadyTimedOut: boolean }> {
   try {
-    const { bundleToSingleHtml } = await import("@hyperframes/core/compiler");
+    const { bundleToSingleHtml } = await import("@kenectai/core/compiler");
     const html = await bundleToSingleHtml(variant.projectDir);
     const server = await serveStaticProjectHtml(variant.projectDir, html);
     try {

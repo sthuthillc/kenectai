@@ -19,8 +19,8 @@ import {
   type BackgroundRemovalRender,
   createBackgroundRemovalJob,
   createProjectSignature,
-} from "@hyperframes/studio-server";
-import type { RegistryItem } from "@hyperframes/core/registry";
+} from "@kenectai/studio-server";
+import type { RegistryItem } from "@kenectai/core/registry";
 import { createRetryingModuleLoader, ensureProducerDist } from "./vite.producer";
 import { createStudioDevRenderBodyScripts } from "./vite.studioMotion";
 import { generateThumbnail, findSystemChrome } from "./vite.browser";
@@ -69,7 +69,7 @@ export function createViteAdapter(dataDir: string, server: ViteDevServer): Studi
   const getBundler = async () => {
     if (!_bundler) {
       try {
-        const mod = await server.ssrLoadModule("@hyperframes/core/compiler");
+        const mod = await server.ssrLoadModule("@kenectai/core/compiler");
         _bundler = (dir, options) => mod.bundleToSingleHtml(dir, options);
       } catch (err) {
         console.warn("[Studio] Failed to load compiler, previews will use raw HTML:", err);
@@ -88,10 +88,10 @@ export function createViteAdapter(dataDir: string, server: ViteDevServer): Studi
         });
         if (built) {
           console.warn(
-            "[Studio] @hyperframes/producer dist missing; building producer package for local renders...",
+            "[Studio] @kenectai/producer dist missing; building producer package for local renders...",
           );
         }
-        const producerPkg = "@hyperframes/producer";
+        const producerPkg = "@kenectai/producer";
         return await import(/* @vite-ignore */ producerPkg);
       });
     }
@@ -197,7 +197,7 @@ export function createViteAdapter(dataDir: string, server: ViteDevServer): Studi
     },
 
     async lint(html: string, opts?: { filePath?: string }) {
-      const mod = await server.ssrLoadModule("@hyperframes/core/lint");
+      const mod = await server.ssrLoadModule("@kenectai/core/lint");
       return await mod.lintHyperframeHtml(html, opts);
     },
 

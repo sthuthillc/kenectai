@@ -10,7 +10,7 @@ import {
   getRenderProgress,
   renderToCloudRun,
   type SerializableDistributedRenderConfig,
-} from "@hyperframes/gcp-cloud-run/sdk";
+} from "@kenectai/gcp-cloud-run/sdk";
 import { registerOAuthRoutes, resolveBearerIdentity } from "./oauthServer.js";
 
 const ZIP_CONTENT_TYPE = "application/zip";

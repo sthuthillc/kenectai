@@ -9,7 +9,7 @@
  *   - It plumbs S3 download/upload calls in the correct order.
  *
  * The real OSS primitives are NOT exercised here — they live in
- * `@hyperframes/producer/distributed` and have their own coverage in
+ * `@kenectai/producer/distributed` and have their own coverage in
  * `packages/producer`. The Lambda handler is thin glue; this file pins
  * the glue's contract.
  */
@@ -18,7 +18,7 @@ import { afterEach, beforeEach, describe, expect, it, mock } from "bun:test";
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { AssembleResult, ChunkResult, PlanResult } from "@hyperframes/producer/distributed";
+import type { AssembleResult, ChunkResult, PlanResult } from "@kenectai/producer/distributed";
 import type { AssembleEvent, LambdaEvent, PlanEvent, RenderChunkEvent } from "./events.js";
 import { handler, unwrapEvent } from "./handler.js";
 
@@ -186,11 +186,11 @@ describe("handler dispatch", () => {
     const result = await handler(event, {
       s3: s3 as unknown as import("@aws-sdk/client-s3").S3Client,
       primitives: {
-        plan: planMock as unknown as typeof import("@hyperframes/producer/distributed").plan,
+        plan: planMock as unknown as typeof import("@kenectai/producer/distributed").plan,
         renderChunk:
-          renderChunkMock as unknown as typeof import("@hyperframes/producer/distributed").renderChunk,
+          renderChunkMock as unknown as typeof import("@kenectai/producer/distributed").renderChunk,
         assemble:
-          assembleMock as unknown as typeof import("@hyperframes/producer/distributed").assemble,
+          assembleMock as unknown as typeof import("@kenectai/producer/distributed").assemble,
       },
       tmpRoot,
       skipChromeResolution: true,
@@ -259,11 +259,11 @@ describe("handler dispatch", () => {
       await handler(event, {
         s3: s3 as unknown as import("@aws-sdk/client-s3").S3Client,
         primitives: {
-          plan: planMock as unknown as typeof import("@hyperframes/producer/distributed").plan,
+          plan: planMock as unknown as typeof import("@kenectai/producer/distributed").plan,
           renderChunk:
-            renderChunkMock as unknown as typeof import("@hyperframes/producer/distributed").renderChunk,
+            renderChunkMock as unknown as typeof import("@kenectai/producer/distributed").renderChunk,
           assemble:
-            assembleMock as unknown as typeof import("@hyperframes/producer/distributed").assemble,
+            assembleMock as unknown as typeof import("@kenectai/producer/distributed").assemble,
         },
         tmpRoot,
       });
@@ -323,11 +323,11 @@ describe("handler dispatch", () => {
     const result = await handler(event, {
       s3: s3 as unknown as import("@aws-sdk/client-s3").S3Client,
       primitives: {
-        plan: planMock as unknown as typeof import("@hyperframes/producer/distributed").plan,
+        plan: planMock as unknown as typeof import("@kenectai/producer/distributed").plan,
         renderChunk:
-          renderChunkMock as unknown as typeof import("@hyperframes/producer/distributed").renderChunk,
+          renderChunkMock as unknown as typeof import("@kenectai/producer/distributed").renderChunk,
         assemble:
-          assembleMock as unknown as typeof import("@hyperframes/producer/distributed").assemble,
+          assembleMock as unknown as typeof import("@kenectai/producer/distributed").assemble,
       },
       tmpRoot,
       skipChromeResolution: true,
@@ -373,11 +373,11 @@ describe("handler dispatch", () => {
       await handler(event, {
         s3: s3 as unknown as import("@aws-sdk/client-s3").S3Client,
         primitives: {
-          plan: planMock as unknown as typeof import("@hyperframes/producer/distributed").plan,
+          plan: planMock as unknown as typeof import("@kenectai/producer/distributed").plan,
           renderChunk:
-            renderChunkMock as unknown as typeof import("@hyperframes/producer/distributed").renderChunk,
+            renderChunkMock as unknown as typeof import("@kenectai/producer/distributed").renderChunk,
           assemble:
-            assembleMock as unknown as typeof import("@hyperframes/producer/distributed").assemble,
+            assembleMock as unknown as typeof import("@kenectai/producer/distributed").assemble,
         },
         tmpRoot,
         skipChromeResolution: true,
@@ -429,12 +429,12 @@ describe("handler dispatch", () => {
       primitives: {
         plan: mock(async () => {
           throw new Error("should not be called");
-        }) as unknown as typeof import("@hyperframes/producer/distributed").plan,
+        }) as unknown as typeof import("@kenectai/producer/distributed").plan,
         renderChunk: mock(async () => {
           throw new Error("should not be called");
-        }) as unknown as typeof import("@hyperframes/producer/distributed").renderChunk,
+        }) as unknown as typeof import("@kenectai/producer/distributed").renderChunk,
         assemble:
-          assembleMock as unknown as typeof import("@hyperframes/producer/distributed").assemble,
+          assembleMock as unknown as typeof import("@kenectai/producer/distributed").assemble,
       },
       tmpRoot,
       skipChromeResolution: true,

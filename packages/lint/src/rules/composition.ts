@@ -7,7 +7,7 @@ import {
   truncateSnippet,
   WINDOW_TIMELINE_ASSIGN_PATTERN,
 } from "../utils";
-import { COMPOSITION_VARIABLE_TYPES } from "@hyperframes/parsers/composition";
+import { COMPOSITION_VARIABLE_TYPES } from "@kenectai/parsers/composition";
 
 // Agent guidance thresholds: warning-only nudges for files/tracks that become hard
 // to inspect and revise reliably in a single composition.

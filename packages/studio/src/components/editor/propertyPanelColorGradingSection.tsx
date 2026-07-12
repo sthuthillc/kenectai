@@ -14,7 +14,7 @@ import {
   serializeHfColorGrading,
   type HfColorGradingTarget,
   type NormalizedHfColorGrading,
-} from "@hyperframes/core/color-grading";
+} from "@kenectai/core/color-grading";
 import { Compare, Palette, RotateCcw } from "../../icons/SystemIcons";
 import {
   addStudioPendingEditFlushListener,

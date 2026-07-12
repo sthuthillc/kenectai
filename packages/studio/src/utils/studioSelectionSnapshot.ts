@@ -1,4 +1,4 @@
-import type { StudioSelectionSnapshot } from "@hyperframes/studio-server";
+import type { StudioSelectionSnapshot } from "@kenectai/studio-server";
 import type { DomEditSelection } from "../components/editor/domEditing";
 
 function round3(value: number): number {

@@ -1,8 +1,8 @@
-import { openComposition } from "@hyperframes/sdk";
+import { openComposition } from "@kenectai/sdk";
 import { createFileAdapter } from "./fileAdapter.js";
-import type { Composition, GsapTweenSpec, PreviewAdapter, FindQuery } from "@hyperframes/sdk";
-import { parseGsapScriptAcorn } from "@hyperframes/core/gsap-parser-acorn";
-import type { GsapAnimation } from "@hyperframes/core";
+import type { Composition, GsapTweenSpec, PreviewAdapter, FindQuery } from "@kenectai/sdk";
+import { parseGsapScriptAcorn } from "@kenectai/core/gsap-parser-acorn";
+import type { GsapAnimation } from "@kenectai/core";
 // fallow-ignore-next-line unresolved-imports
 import gsapRaw from "gsap/dist/gsap.min.js?raw";
 
@@ -12,7 +12,7 @@ const DEMO_HTML = `
 <div data-hf-id="hf-stage" data-hf-root style="width:1280px;height:720px;background:#111827;position:relative;" data-duration="6">
   <style>.badge{background:#3b82f6;border-radius:6px;}</style>
   <div data-hf-id="hf-headline" style="position:absolute;top:200px;left:140px;font-size:72px;font-weight:700;color:#f9fafb;font-family:system-ui,sans-serif;">SDK Playground</div>
-  <div data-hf-id="hf-sub" style="position:absolute;top:300px;left:142px;font-size:28px;color:#9ca3af;font-family:system-ui,sans-serif;">@hyperframes/sdk &middot; Phase 3b</div>
+  <div data-hf-id="hf-sub" style="position:absolute;top:300px;left:142px;font-size:28px;color:#9ca3af;font-family:system-ui,sans-serif;">@kenectai/sdk &middot; Phase 3b</div>
   <div data-hf-id="hf-badge" class="badge" style="position:absolute;top:390px;left:142px;padding:10px 24px;font-size:20px;font-weight:600;color:#fff;font-family:system-ui,sans-serif;">v0.6</div>
   <script>
 var tl = gsap.timeline({ paused: true });

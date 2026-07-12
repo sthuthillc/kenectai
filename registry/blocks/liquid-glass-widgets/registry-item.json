@@ -1,5 +1,5 @@
 {
-  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "$schema": "https://docs.kenectai.com/schema/registry-item.json",
   "name": "liquid-glass-widgets",
   "type": "hyperframes:block",
   "title": "Liquid Glass Widgets",

@@ -1,17 +1,17 @@
 ---
-title: "@hyperframes/gcp-cloud-run"
+title: "@kenectai/gcp-cloud-run"
 description: "Google Cloud Run and Workflows adapter for distributed HyperFrames rendering."
 ---
 
 The GCP Cloud Run package runs HyperFrames' distributed render primitives on Google Cloud. It ships a Cloud Run HTTP service, a Node client SDK, and a Terraform module for provisioning the bucket, service, workflow, and service accounts.
 
 ```bash
-npm install @hyperframes/gcp-cloud-run
+npm install @kenectai/gcp-cloud-run
 ```
 
 ## When to Use
 
-**Use `@hyperframes/gcp-cloud-run` when you need to:**
+**Use `@kenectai/gcp-cloud-run` when you need to:**
 - Render large compositions on Google Cloud infrastructure
 - Orchestrate `plan`, `renderChunk`, and `assemble` through Cloud Workflows
 - Store project archives, chunk outputs, and final videos in GCS
@@ -31,9 +31,9 @@ npm install @hyperframes/gcp-cloud-run
 
 | Import | Description |
 |--------|-------------|
-| `@hyperframes/gcp-cloud-run` | Server handler, event types, GCS transport, and client SDK exports |
-| `@hyperframes/gcp-cloud-run/server` | Cloud Run HTTP service entry point |
-| `@hyperframes/gcp-cloud-run/sdk` | Lightweight Node SDK for deploying sites, starting renders, polling progress, and estimating cost |
+| `@kenectai/gcp-cloud-run` | Server handler, event types, GCS transport, and client SDK exports |
+| `@kenectai/gcp-cloud-run/server` | Cloud Run HTTP service entry point |
+| `@kenectai/gcp-cloud-run/sdk` | Lightweight Node SDK for deploying sites, starting renders, polling progress, and estimating cost |
 
 The published package also includes `terraform/` and a `Dockerfile` for deployment.
 
@@ -53,7 +53,7 @@ Cloud Workflows invokes one Cloud Run service with different `Action` values:
   </Step>
 </Steps>
 
-The service is intentionally close to the AWS Lambda adapter: thin cloud transport around the same `@hyperframes/producer/distributed` primitives.
+The service is intentionally close to the AWS Lambda adapter: thin cloud transport around the same `@kenectai/producer/distributed` primitives.
 
 ## Deploying
 
@@ -63,8 +63,8 @@ Build and push the container, then apply the Terraform module:
 gcloud builds submit . \
   --tag REGION-docker.pkg.dev/PROJECT/REPO/hyperframes-render:TAG
 
-terraform -chdir=node_modules/@hyperframes/gcp-cloud-run/terraform init
-terraform -chdir=node_modules/@hyperframes/gcp-cloud-run/terraform apply \
+terraform -chdir=node_modules/@kenectai/gcp-cloud-run/terraform init
+terraform -chdir=node_modules/@kenectai/gcp-cloud-run/terraform apply \
   -var project_id=PROJECT \
   -var region=us-central1 \
   -var image=REGION-docker.pkg.dev/PROJECT/REPO/hyperframes-render:TAG
@@ -75,7 +75,7 @@ Terraform outputs the bucket name, service URL, workflow name, and region needed
 ## Using the SDK
 
 ```typescript
-import { getRenderProgress, renderToCloudRun } from "@hyperframes/gcp-cloud-run/sdk";
+import { getRenderProgress, renderToCloudRun } from "@kenectai/gcp-cloud-run/sdk";
 
 const handle = await renderToCloudRun({
   projectDir: "./my-composition",
@@ -104,7 +104,7 @@ Pass `projectDir` for one-shot uploads, or call `deploySite()` separately and re
   <Card title="GCP Cloud Run Deployment" icon="cloud" href="/deploy/gcp-cloud-run">
     End-to-end deployment details and smoke-test notes.
   </Card>
-  <Card title="@hyperframes/producer" icon="video" href="/packages/producer">
+  <Card title="@kenectai/producer" icon="video" href="/packages/producer">
     The distributed primitives that the Cloud Run service executes.
   </Card>
 </CardGroup>

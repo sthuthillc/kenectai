@@ -1,4 +1,4 @@
-import type { StoryboardGlobals } from "@hyperframes/core/storyboard";
+import type { StoryboardGlobals } from "@kenectai/core/storyboard";
 
 export interface StoryboardDirectionProps {
   globals: StoryboardGlobals;

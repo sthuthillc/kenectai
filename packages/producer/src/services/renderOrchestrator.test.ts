@@ -2,15 +2,15 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join, win32 } from "node:path";
 import { tmpdir } from "node:os";
-import type { CaptureOptions, EngineConfig, ExtractedFrames } from "@hyperframes/engine";
-import { executeParallelCapture, mergeWorkerFrames } from "@hyperframes/engine";
+import type { CaptureOptions, EngineConfig, ExtractedFrames } from "@kenectai/engine";
+import { executeParallelCapture, mergeWorkerFrames } from "@kenectai/engine";
 import type { CompiledComposition } from "./htmlCompiler.js";
 
 // Replace only the two engine functions the adaptive-retry loop uses to touch
 // disk; everything else (distributeFrames, types, etc.) stays real so the loop
 // runs for real against a temp framesDir.
-vi.mock("@hyperframes/engine", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@hyperframes/engine")>();
+vi.mock("@kenectai/engine", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@kenectai/engine")>();
   return { ...actual, executeParallelCapture: vi.fn(), mergeWorkerFrames: vi.fn() };
 });
 

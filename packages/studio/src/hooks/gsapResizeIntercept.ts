@@ -5,7 +5,7 @@
  * frame can't jump. Split from gsapRuntimeBridge, which owns the shared
  * group-tween resolution used by the drag/resize/rotate intercepts.
  */
-import type { GsapAnimation, PropertyGroupName } from "@hyperframes/core/gsap-parser";
+import type { GsapAnimation, PropertyGroupName } from "@kenectai/core/gsap-parser";
 import type { DomEditSelection } from "../components/editor/domEditingTypes";
 import { clearStudioBoxSize } from "../components/editor/manualEdits";
 import { setElementGsapPosition } from "../utils/elementGsap";

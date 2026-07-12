@@ -10,7 +10,7 @@
  */
 
 import { useMemo, useState } from "react";
-import type { Composition, CompositionVariable } from "@hyperframes/sdk";
+import type { Composition, CompositionVariable } from "@kenectai/sdk";
 import type { DomEditSelection } from "../editor/domEditingTypes";
 
 import { VARIABLES_INPUT_CLASS } from "./VariablesValueControls";

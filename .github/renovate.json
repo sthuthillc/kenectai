@@ -36,7 +36,7 @@
     },
     {
       "enabled": false,
-      "matchPackageNames": ["/^@hyperframes//"]
+      "matchPackageNames": ["/^@kenectai//"]
     }
   ]
 }

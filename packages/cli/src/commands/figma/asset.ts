@@ -22,7 +22,7 @@ import {
   type FigmaAssetFormat,
   type FigmaClient,
   type FigmaManifestRecord,
-} from "@hyperframes/core/figma";
+} from "@kenectai/core/figma";
 import { existsSync } from "node:fs";
 import { join, relative } from "node:path";
 import { downloadRender } from "./download.js";

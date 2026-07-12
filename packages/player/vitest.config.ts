@@ -9,7 +9,7 @@ const coreRoot = resolve(fileURLToPath(new URL("../core/src", import.meta.url)))
 export default defineConfig({
   resolve: {
     alias: {
-      "@hyperframes/core/slideshow": resolve(coreRoot, "slideshow/index.ts"),
+      "@kenectai/core/slideshow": resolve(coreRoot, "slideshow/index.ts"),
     },
   },
   test: {

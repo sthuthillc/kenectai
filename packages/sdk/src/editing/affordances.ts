@@ -5,7 +5,7 @@
  * touches getComputedStyle and only resolves meaningfully against a laid-out DOM.
  */
 
-import { resolveEditingAffordances, type EditingAffordances } from "@hyperframes/core/editing";
+import { resolveEditingAffordances, type EditingAffordances } from "@kenectai/core/editing";
 import type { HyperFramesElement } from "../types.js";
 
 export interface AffordanceContext {

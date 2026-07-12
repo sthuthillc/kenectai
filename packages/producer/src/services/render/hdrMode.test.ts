@@ -6,7 +6,7 @@
  */
 
 import { describe, expect, it, vi } from "vitest";
-import type { ExtractionResult, VideoColorSpace } from "@hyperframes/engine";
+import type { ExtractionResult, VideoColorSpace } from "@kenectai/engine";
 import { resolveEffectiveHdrMode } from "./hdrMode.js";
 
 function makeLog() {

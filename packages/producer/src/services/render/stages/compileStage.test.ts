@@ -21,7 +21,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import type { EngineConfig } from "@hyperframes/engine";
+import type { EngineConfig } from "@kenectai/engine";
 import { runCompileStage, type CompileStageInput } from "./compileStage.js";
 import type { RenderJob } from "../../renderOrchestrator.js";
 

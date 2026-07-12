@@ -8,7 +8,7 @@
  * `toAbsoluteTime` + the element's clip start/duration. `scanAllRuntimeKeyframes`
  * does that conversion itself when given a `clipById` map.
  */
-import { buildArcPath, type ArcPathConfig } from "@hyperframes/core/gsap-parser-acorn";
+import { buildArcPath, type ArcPathConfig } from "@kenectai/core/gsap-parser-acorn";
 import { parsePercentageKeyframes, toAbsoluteTime } from "./gsapShared";
 import { roundTo3 } from "../utils/rounding";
 

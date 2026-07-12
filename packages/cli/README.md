@@ -120,11 +120,11 @@ npx hyperframes upgrade --check --json  # machine-readable for agents
 
 ## Documentation
 
-Full documentation: [hyperframes.heygen.com/packages/cli](https://hyperframes.heygen.com/packages/cli)
+Full documentation: [docs.kenectai.com/packages/cli](https://docs.kenectai.com/packages/cli)
 
 ## Related packages
 
-- [`@hyperframes/core`](../core) — types, parsers, frame adapters
-- [`@hyperframes/engine`](../engine) — rendering engine
-- [`@hyperframes/producer`](../producer) — render pipeline
-- [`@hyperframes/studio`](../studio) — composition editor UI
+- [`@kenectai/core`](../core) — types, parsers, frame adapters
+- [`@kenectai/engine`](../engine) — rendering engine
+- [`@kenectai/producer`](../producer) — render pipeline
+- [`@kenectai/studio`](../studio) — composition editor UI

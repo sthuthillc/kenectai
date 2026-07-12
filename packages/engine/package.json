@@ -1,5 +1,5 @@
 {
-  "name": "@hyperframes/engine",
+  "name": "@kenectai/engine",
   "version": "0.7.53",
   "description": "Seekable web page to video rendering engine (Puppeteer + FFmpeg)",
   "repository": {
@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.13.0",
-    "@hyperframes/core": "workspace:^",
+    "@kenectai/core": "workspace:^",
     "hono": "^4.6.0",
     "linkedom": "^0.18.12",
     "puppeteer": "^25.2.1",

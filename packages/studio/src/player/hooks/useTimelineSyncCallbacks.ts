@@ -82,7 +82,7 @@ export function useTimelineSyncCallbacks({
 
       try {
         const iframeWin = iframeRef.current?.contentWindow as
-          | (Window & { __clipTree?: import("@hyperframes/core/runtime/clipTree").ClipTree })
+          | (Window & { __clipTree?: import("@kenectai/core/runtime/clipTree").ClipTree })
           | null;
         const clipTree = iframeWin?.__clipTree;
         const parentMap = new Map<string, string>();

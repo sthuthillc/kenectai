@@ -19,7 +19,7 @@ import {
 } from "./editor/manualEditingAvailability";
 import { Tooltip } from "./ui";
 import { Scissors } from "../icons/SystemIcons";
-import type { GsapAnimation } from "@hyperframes/core/gsap-parser";
+import type { GsapAnimation } from "@kenectai/core/gsap-parser";
 import type { DomEditSelection } from "./editor/domEditingTypes";
 import { canSplitElement } from "../utils/timelineElementSplit";
 import { canAddBeatAt, addBeatAtCompositionTime } from "../utils/beatEditActions";

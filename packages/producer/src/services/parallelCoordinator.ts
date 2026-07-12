@@ -1,5 +1,5 @@
 /**
- * Re-exported from @hyperframes/engine.
+ * Re-exported from @kenectai/engine.
  * @see engine/src/services/parallelCoordinator.ts for implementation.
  */
 export {
@@ -11,4 +11,4 @@ export {
   type WorkerTask,
   type WorkerResult,
   type ParallelProgress,
-} from "@hyperframes/engine";
+} from "@kenectai/engine";

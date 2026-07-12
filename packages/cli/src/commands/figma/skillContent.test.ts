@@ -18,7 +18,7 @@ describe("figma SKILL.md telemetry beacons", () => {
     expect(SKILL_MD).toContain("figma-motion");
     expect(SKILL_MD).toContain("figma-shaders");
     expect(SKILL_MD).toContain("figma-storyboard");
-    expect(SKILL_MD).toContain("hyperframes events");
+    expect(SKILL_MD).toContain("@kenectai/cli events");
   });
 
   it("instructs the completion beacon with an outcome", () => {

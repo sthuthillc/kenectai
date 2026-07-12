@@ -17,7 +17,7 @@
  * step's memory; chunk results stay well under 1 KB so the orchestration
  * can hold one per Map iteration).
  *
- * These shapes are intentionally identical to `@hyperframes/aws-lambda`'s
+ * These shapes are intentionally identical to `@kenectai/aws-lambda`'s
  * `events.ts` apart from the URI scheme (`gs://` vs `s3://`): the wire
  * contract is the adapter's, the primitives underneath are shared.
  */
@@ -25,9 +25,9 @@
 import type {
   DistributedFormat,
   SerializableDistributedRenderConfig,
-} from "@hyperframes/producer/distributed";
+} from "@kenectai/producer/distributed";
 
-export type { SerializableDistributedRenderConfig } from "@hyperframes/producer/distributed";
+export type { SerializableDistributedRenderConfig } from "@kenectai/producer/distributed";
 
 /** Discriminator for the three roles the one Cloud Run image fulfills. */
 export type CloudRunAction = "plan" | "renderChunk" | "assemble";

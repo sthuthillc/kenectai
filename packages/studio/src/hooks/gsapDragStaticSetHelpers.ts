@@ -1,4 +1,4 @@
-import type { GsapAnimation } from "@hyperframes/core/gsap-parser";
+import type { GsapAnimation } from "@kenectai/core/gsap-parser";
 import { resolveTweenDuration } from "../utils/globalTimeCompiler";
 import type { RuntimeTweenChange, SetPatchProps } from "./gsapRuntimePatch";
 

@@ -1,5 +1,5 @@
 /**
- * `@hyperframes/aws-lambda` — Lambda adapter for the HyperFrames
+ * `@kenectai/aws-lambda` — Lambda adapter for the HyperFrames
  * distributed render pipeline.
  *
  * Two surfaces, one package:
@@ -16,9 +16,9 @@
  * The CDK L2 construct lives at the `./cdk` subpath export so SDK-only
  * consumers don't pull `aws-cdk-lib` into their runtime graph:
  *
- *     import { HyperframesRenderStack } from "@hyperframes/aws-lambda/cdk";
+ *     import { HyperframesRenderStack } from "@kenectai/aws-lambda/cdk";
  *
- * The package is NOT a dependency of `@hyperframes/producer`; consumers
+ * The package is NOT a dependency of `@kenectai/producer`; consumers
  * install it separately.
  */
 

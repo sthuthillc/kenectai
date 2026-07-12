@@ -1,2 +1,2 @@
-/** @deprecated Import from @hyperframes/studio-server/draft-markers */
-export * from "@hyperframes/studio-server/draft-markers";
+/** @deprecated Import from @kenectai/studio-server/draft-markers */
+export * from "@kenectai/studio-server/draft-markers";

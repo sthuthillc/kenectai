@@ -1,7 +1,7 @@
 import { memo } from "react";
 import type { TimelineTheme } from "./timelineTheme";
 import { GUTTER, RULER_H, formatTimelineTickLabel } from "./timelineLayout";
-import type { MusicBeatAnalysis } from "@hyperframes/core/beats";
+import type { MusicBeatAnalysis } from "@kenectai/core/beats";
 
 interface TimelineRulerProps {
   major: number[];

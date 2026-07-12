@@ -20,7 +20,7 @@ import {
 } from "./timeline-adapters.js";
 
 const RUNTIME_CDN_URL =
-  "https://cdn.jsdelivr.net/npm/@hyperframes/core/dist/hyperframe.runtime.iife.js";
+  "https://cdn.jsdelivr.net/npm/@kenectai/core/dist/hyperframe.runtime.iife.js";
 
 export interface ProbeResult {
   duration: number;

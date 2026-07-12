@@ -1,5 +1,5 @@
 {
-  "name": "@hyperframes/sdk",
+  "name": "@kenectai/sdk",
   "version": "0.7.53",
   "description": "Headless, framework-neutral HyperFrames composition editing engine",
   "repository": {
@@ -70,8 +70,8 @@
     "typecheck:examples": "tsc --noEmit -p tsconfig.check.json"
   },
   "dependencies": {
-    "@hyperframes/core": "workspace:*",
-    "@hyperframes/parsers": "workspace:*",
+    "@kenectai/core": "workspace:*",
+    "@kenectai/parsers": "workspace:*",
     "linkedom": "^0.18.12"
   },
   "devDependencies": {

@@ -3,8 +3,8 @@ import { streamSSE } from "hono/streaming";
 import { existsSync, readFileSync, mkdirSync, unlinkSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import type { StudioApiAdapter, RenderJobState } from "../types.js";
-import { VALID_CANVAS_RESOLUTIONS, type CanvasResolution } from "@hyperframes/parsers";
-import { parseFps } from "@hyperframes/core";
+import { VALID_CANVAS_RESOLUTIONS, type CanvasResolution } from "@kenectai/parsers";
+import { parseFps } from "@kenectai/core";
 import { resolveWithinProject } from "../helpers/safePath.js";
 import { isVariablesPayload, VARIABLES_PAYLOAD_ERROR } from "../helpers/variablesPayload.js";
 

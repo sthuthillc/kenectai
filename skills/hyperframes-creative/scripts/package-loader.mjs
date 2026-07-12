@@ -116,7 +116,7 @@ function readBundledHyperframesVersion() {
 function readPackageVersion(packageJsonPath) {
   try {
     const manifest = JSON.parse(readFileSync(packageJsonPath, "utf8"));
-    if (manifest.name === "hyperframes" || manifest.name === "@hyperframes/cli") {
+    if (manifest.name === "hyperframes" || manifest.name === "@kenectai/cli") {
       return typeof manifest.version === "string" ? manifest.version : null;
     }
   } catch {

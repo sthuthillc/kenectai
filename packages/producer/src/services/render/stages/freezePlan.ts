@@ -13,7 +13,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 
-import type { Fps } from "@hyperframes/core";
+import type { Fps } from "@kenectai/core";
 import {
   canonicalJsonStringify,
   computePlanHash,

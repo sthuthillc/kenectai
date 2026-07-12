@@ -7,7 +7,7 @@
       "devDependencies": {
         "@commitlint/cli": "^20.5.0",
         "@commitlint/config-conventional": "^20.5.0",
-        "@hyperframes/player": "workspace:*",
+        "@kenectai/player": "workspace:*",
         "@types/node": "^25.0.10",
         "concurrently": "^8.2.0",
         "fallow": "^2.75.0",
@@ -21,12 +21,12 @@
       },
     },
     "packages/aws-lambda": {
-      "name": "@hyperframes/aws-lambda",
+      "name": "@kenectai/aws-lambda",
       "version": "0.7.53",
       "dependencies": {
         "@aws-sdk/client-s3": "^3.700.0",
         "@aws-sdk/client-sfn": "^3.700.0",
-        "@hyperframes/producer": "workspace:^",
+        "@kenectai/producer": "workspace:^",
         "@sparticuz/chromium": "148.0.0",
         "ffmpeg-static": "^5.2.0",
         "ffprobe-static": "^3.1.0",
@@ -78,14 +78,14 @@
       },
       "devDependencies": {
         "@clack/prompts": "^1.1.0",
-        "@hyperframes/aws-lambda": "workspace:*",
-        "@hyperframes/core": "workspace:*",
-        "@hyperframes/engine": "workspace:*",
-        "@hyperframes/gcp-cloud-run": "workspace:*",
-        "@hyperframes/lint": "workspace:*",
-        "@hyperframes/producer": "workspace:*",
-        "@hyperframes/studio": "workspace:*",
-        "@hyperframes/studio-server": "workspace:*",
+        "@kenectai/aws-lambda": "workspace:*",
+        "@kenectai/core": "workspace:*",
+        "@kenectai/engine": "workspace:*",
+        "@kenectai/gcp-cloud-run": "workspace:*",
+        "@kenectai/lint": "workspace:*",
+        "@kenectai/producer": "workspace:*",
+        "@kenectai/studio": "workspace:*",
+        "@kenectai/studio-server": "workspace:*",
         "@types/adm-zip": "^0.5.7",
         "@types/fontkit": "^2.0.9",
         "@types/mime-types": "^3.0.1",
@@ -102,13 +102,13 @@
       },
     },
     "packages/core": {
-      "name": "@hyperframes/core",
+      "name": "@kenectai/core",
       "version": "0.7.53",
       "dependencies": {
         "@chenglou/pretext": "^0.0.5",
-        "@hyperframes/lint": "workspace:*",
-        "@hyperframes/parsers": "workspace:*",
-        "@hyperframes/studio-server": "workspace:*",
+        "@kenectai/lint": "workspace:*",
+        "@kenectai/parsers": "workspace:*",
+        "@kenectai/studio-server": "workspace:*",
         "bpm-detective": "^2.0.5",
         "linkedom": "^0.18.12",
         "postcss": "^8.5.8",
@@ -127,11 +127,11 @@
       },
     },
     "packages/engine": {
-      "name": "@hyperframes/engine",
+      "name": "@kenectai/engine",
       "version": "0.7.53",
       "dependencies": {
         "@hono/node-server": "^1.13.0",
-        "@hyperframes/core": "workspace:^",
+        "@kenectai/core": "workspace:^",
         "hono": "^4.6.0",
         "linkedom": "^0.18.12",
         "puppeteer": "^25.2.1",
@@ -145,13 +145,13 @@
       },
     },
     "packages/gcp-cloud-run": {
-      "name": "@hyperframes/gcp-cloud-run",
+      "name": "@kenectai/gcp-cloud-run",
       "version": "0.7.53",
       "dependencies": {
         "@google-cloud/storage": "^7.14.0",
         "@google-cloud/workflows": "^4.2.0",
         "@hono/node-server": "^1.13.0",
-        "@hyperframes/producer": "workspace:^",
+        "@kenectai/producer": "workspace:^",
         "hono": "^4.6.0",
         "puppeteer-core": "^25.2.1",
         "tar": "^7.4.3",
@@ -170,7 +170,7 @@
       "dependencies": {
         "@google-cloud/storage": "^7.14.0",
         "@hono/node-server": "^1.13.0",
-        "@hyperframes/gcp-cloud-run": "workspace:^",
+        "@kenectai/gcp-cloud-run": "workspace:^",
         "adm-zip": "^0.5.16",
         "hono": "^4.6.0",
       },
@@ -184,10 +184,10 @@
       },
     },
     "packages/lint": {
-      "name": "@hyperframes/lint",
+      "name": "@kenectai/lint",
       "version": "0.7.53",
       "dependencies": {
-        "@hyperframes/parsers": "workspace:*",
+        "@kenectai/parsers": "workspace:*",
         "htmlparser2": "^10.1.0",
         "linkedom": "^0.18.12",
         "postcss": "^8.5.8",
@@ -201,7 +201,7 @@
       },
     },
     "packages/parsers": {
-      "name": "@hyperframes/parsers",
+      "name": "@kenectai/parsers",
       "version": "0.7.53",
       "dependencies": {
         "@babel/parser": "^7.27.0",
@@ -212,7 +212,7 @@
         "recast": "^0.23.11",
       },
       "devDependencies": {
-        "@hyperframes/core": "workspace:*",
+        "@kenectai/core": "workspace:*",
         "@types/node": "^25.0.10",
         "tsup": "^8.0.0",
         "tsx": "^4.21.0",
@@ -221,10 +221,10 @@
       },
     },
     "packages/player": {
-      "name": "@hyperframes/player",
+      "name": "@kenectai/player",
       "version": "0.7.53",
       "dependencies": {
-        "@hyperframes/core": "workspace:*",
+        "@kenectai/core": "workspace:*",
       },
       "devDependencies": {
         "@types/bun": "^1.1.0",
@@ -236,7 +236,7 @@
       },
     },
     "packages/producer": {
-      "name": "@hyperframes/producer",
+      "name": "@kenectai/producer",
       "version": "0.7.53",
       "dependencies": {
         "@fontsource/archivo-black": "^5.2.8",
@@ -251,11 +251,11 @@
         "@fontsource/outfit": "^5.2.8",
         "@fontsource/space-mono": "^5.2.9",
         "@hono/node-server": "^1.13.0",
-        "@hyperframes/core": "workspace:^",
-        "@hyperframes/engine": "workspace:^",
-        "@hyperframes/lint": "workspace:^",
-        "@hyperframes/parsers": "workspace:^",
-        "@hyperframes/studio-server": "workspace:^",
+        "@kenectai/core": "workspace:^",
+        "@kenectai/engine": "workspace:^",
+        "@kenectai/lint": "workspace:^",
+        "@kenectai/parsers": "workspace:^",
+        "@kenectai/studio-server": "workspace:^",
         "hono": "^4.6.0",
         "linkedom": "^0.18.12",
         "postcss": "^8.4.0",
@@ -271,7 +271,7 @@
         "@fontsource/poppins": "^5.2.7",
         "@fontsource/roboto": "^5.2.10",
         "@fontsource/source-code-pro": "^5.2.7",
-        "@hyperframes/aws-lambda": "workspace:*",
+        "@kenectai/aws-lambda": "workspace:*",
         "@types/node": "^25.0.10",
         "@webgpu/types": "^0.1.69",
         "esbuild": "^0.25.12",
@@ -281,11 +281,11 @@
       },
     },
     "packages/sdk": {
-      "name": "@hyperframes/sdk",
+      "name": "@kenectai/sdk",
       "version": "0.7.53",
       "dependencies": {
-        "@hyperframes/core": "workspace:*",
-        "@hyperframes/parsers": "workspace:*",
+        "@kenectai/core": "workspace:*",
+        "@kenectai/parsers": "workspace:*",
         "linkedom": "^0.18.12",
       },
       "devDependencies": {
@@ -296,11 +296,11 @@
       },
     },
     "packages/sdk-playground": {
-      "name": "@hyperframes/sdk-playground",
+      "name": "@kenectai/sdk-playground",
       "version": "0.6.106",
       "dependencies": {
-        "@hyperframes/core": "workspace:*",
-        "@hyperframes/sdk": "workspace:*",
+        "@kenectai/core": "workspace:*",
+        "@kenectai/sdk": "workspace:*",
         "gsap": "^3.15.0",
       },
       "devDependencies": {
@@ -308,7 +308,7 @@
       },
     },
     "packages/shader-transitions": {
-      "name": "@hyperframes/shader-transitions",
+      "name": "@kenectai/shader-transitions",
       "version": "0.7.53",
       "dependencies": {
         "html2canvas": "^1.4.1",
@@ -320,7 +320,7 @@
       },
     },
     "packages/studio": {
-      "name": "@hyperframes/studio",
+      "name": "@kenectai/studio",
       "version": "0.7.53",
       "dependencies": {
         "@codemirror/autocomplete": "^6.20.1",
@@ -334,11 +334,11 @@
         "@codemirror/state": "^6.6.0",
         "@codemirror/theme-one-dark": "^6.1.2",
         "@codemirror/view": "6.40.0",
-        "@hyperframes/core": "workspace:*",
-        "@hyperframes/parsers": "workspace:*",
-        "@hyperframes/player": "workspace:*",
-        "@hyperframes/sdk": "workspace:*",
-        "@hyperframes/studio-server": "workspace:*",
+        "@kenectai/core": "workspace:*",
+        "@kenectai/parsers": "workspace:*",
+        "@kenectai/player": "workspace:*",
+        "@kenectai/sdk": "workspace:*",
+        "@kenectai/studio-server": "workspace:*",
         "@phosphor-icons/react": "^2.1.10",
         "bpm-detective": "^2.0.5",
         "dompurify": "^3.2.4",
@@ -347,7 +347,7 @@
         "mediabunny": "^1.45.3",
       },
       "devDependencies": {
-        "@hyperframes/producer": "workspace:*",
+        "@kenectai/producer": "workspace:*",
         "@types/react": "19",
         "@types/react-dom": "19",
         "@vitejs/plugin-react": "^4.0.0",
@@ -368,11 +368,11 @@
       },
     },
     "packages/studio-server": {
-      "name": "@hyperframes/studio-server",
+      "name": "@kenectai/studio-server",
       "version": "0.7.53",
       "dependencies": {
-        "@hyperframes/core": "workspace:*",
-        "@hyperframes/parsers": "workspace:*",
+        "@kenectai/core": "workspace:*",
+        "@kenectai/parsers": "workspace:*",
         "hono": "^4.0.0",
         "linkedom": "^0.18.12",
         "postcss": "^8.5.8",
@@ -734,32 +734,6 @@
 
     "@hono/node-server": ["@hono/node-server@1.19.14", "", { "peerDependencies": { "hono": "^4" } }, "sha512-GwtvgtXxnWsucXvbQXkRgqksiH2Qed37H9xHZocE5sA3N8O8O8/8FA3uclQXxXVzc9XBZuEOMK7+r02FmSpHtw=="],
 
-    "@hyperframes/aws-lambda": ["@hyperframes/aws-lambda@workspace:packages/aws-lambda"],
-
-    "@hyperframes/core": ["@hyperframes/core@workspace:packages/core"],
-
-    "@hyperframes/engine": ["@hyperframes/engine@workspace:packages/engine"],
-
-    "@hyperframes/gcp-cloud-run": ["@hyperframes/gcp-cloud-run@workspace:packages/gcp-cloud-run"],
-
-    "@hyperframes/lint": ["@hyperframes/lint@workspace:packages/lint"],
-
-    "@hyperframes/parsers": ["@hyperframes/parsers@workspace:packages/parsers"],
-
-    "@hyperframes/player": ["@hyperframes/player@workspace:packages/player"],
-
-    "@hyperframes/producer": ["@hyperframes/producer@workspace:packages/producer"],
-
-    "@hyperframes/sdk": ["@hyperframes/sdk@workspace:packages/sdk"],
-
-    "@hyperframes/sdk-playground": ["@hyperframes/sdk-playground@workspace:packages/sdk-playground"],
-
-    "@hyperframes/shader-transitions": ["@hyperframes/shader-transitions@workspace:packages/shader-transitions"],
-
-    "@hyperframes/studio": ["@hyperframes/studio@workspace:packages/studio"],
-
-    "@hyperframes/studio-server": ["@hyperframes/studio-server@workspace:packages/studio-server"],
-
     "@img/colour": ["@img/colour@1.1.0", "", {}, "sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ=="],
 
     "@img/sharp-darwin-arm64": ["@img/sharp-darwin-arm64@0.34.5", "", { "optionalDependencies": { "@img/sharp-libvips-darwin-arm64": "1.2.4" }, "os": "darwin", "cpu": "arm64" }, "sha512-imtQ3WMJXbMY4fxb/Ndp6HBTNVtWCUI0WdobyheGf5+ad6xX8VIDO8u2xE4qc/fr08CKG/7dDseFtn6M6g/r3w=="],
@@ -830,7 +804,33 @@
 
     "@kenectai/api": ["@kenectai/api@workspace:packages/kenect-api"],
 
+    "@kenectai/aws-lambda": ["@kenectai/aws-lambda@workspace:packages/aws-lambda"],
+
     "@kenectai/cli": ["@kenectai/cli@workspace:packages/cli"],
+
+    "@kenectai/core": ["@kenectai/core@workspace:packages/core"],
+
+    "@kenectai/engine": ["@kenectai/engine@workspace:packages/engine"],
+
+    "@kenectai/gcp-cloud-run": ["@kenectai/gcp-cloud-run@workspace:packages/gcp-cloud-run"],
+
+    "@kenectai/lint": ["@kenectai/lint@workspace:packages/lint"],
+
+    "@kenectai/parsers": ["@kenectai/parsers@workspace:packages/parsers"],
+
+    "@kenectai/player": ["@kenectai/player@workspace:packages/player"],
+
+    "@kenectai/producer": ["@kenectai/producer@workspace:packages/producer"],
+
+    "@kenectai/sdk": ["@kenectai/sdk@workspace:packages/sdk"],
+
+    "@kenectai/sdk-playground": ["@kenectai/sdk-playground@workspace:packages/sdk-playground"],
+
+    "@kenectai/shader-transitions": ["@kenectai/shader-transitions@workspace:packages/shader-transitions"],
+
+    "@kenectai/studio": ["@kenectai/studio@workspace:packages/studio"],
+
+    "@kenectai/studio-server": ["@kenectai/studio-server@workspace:packages/studio-server"],
 
     "@lezer/common": ["@lezer/common@1.5.2", "", {}, "sha512-sxQE460fPZyU3sdc8lafxiPwJHBzZRy/udNFynGQky1SePYBdhkBl1kOagA9uT3pxR8K09bOrmTUqA9wb/PjSQ=="],
 

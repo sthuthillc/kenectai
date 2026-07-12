@@ -3,18 +3,18 @@
  *
  * The cloud-agnostic config-shape validation (`validateDistributedRenderConfig`,
  * `validateVariablesPayload`, `InvalidConfigError`) lives in
- * `@hyperframes/producer/distributed` and is shared with the other adapters.
+ * `@kenectai/producer/distributed` and is shared with the other adapters.
  * This module re-exports those and adds the one piece specific to Step
  * Functions: the 256 KiB Standard-workflow execution-input size cap.
  */
 
-import { InvalidConfigError } from "@hyperframes/producer/distributed";
+import { InvalidConfigError } from "@kenectai/producer/distributed";
 
 export {
   InvalidConfigError,
   validateDistributedRenderConfig,
   validateVariablesPayload,
-} from "@hyperframes/producer/distributed";
+} from "@kenectai/producer/distributed";
 
 /**
  * Hard cap on Step Functions Standard workflow execution input — 256 KiB per
@@ -32,7 +32,7 @@ export const MAX_STEP_FUNCTIONS_INPUT_BYTES = 256 * 1024;
 
 /** Pointer to the docs section that explains the URL-your-assets convention. */
 const LARGE_VARIABLES_DOCS_URL =
-  "https://hyperframes.heygen.com/deploy/templates-on-lambda#working-with-large-variables";
+  "https://docs.kenectai.com/deploy/templates-on-lambda#working-with-large-variables";
 
 /**
  * Validate that the serialized Step Functions execution input fits inside the

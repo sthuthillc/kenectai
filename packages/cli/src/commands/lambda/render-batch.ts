@@ -27,8 +27,8 @@ import type {
   DistributedFormat,
   SerializableDistributedRenderConfig,
   SiteHandle,
-} from "@hyperframes/aws-lambda/sdk";
-import type { CanvasResolution } from "@hyperframes/core";
+} from "@kenectai/aws-lambda/sdk";
+import type { CanvasResolution } from "@kenectai/core";
 import { c } from "../../ui/colors.js";
 import { errorBox } from "../../ui/format.js";
 import {
@@ -42,8 +42,8 @@ import { requireStack } from "./state.js";
 
 // Dynamic-import the SDK so tsup keeps it out of the static-import head of
 // the CLI bundle. See sites.ts loadSDK() for the full rationale.
-async function loadSDK(): Promise<typeof import("@hyperframes/aws-lambda/sdk")> {
-  return import("@hyperframes/aws-lambda/sdk");
+async function loadSDK(): Promise<typeof import("@kenectai/aws-lambda/sdk")> {
+  return import("@kenectai/aws-lambda/sdk");
 }
 
 /** Arguments accepted by `hyperframes lambda render-batch`. */

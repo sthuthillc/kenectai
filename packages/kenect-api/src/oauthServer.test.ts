@@ -13,7 +13,7 @@ import { createKenectApiApp, type KenectApiEnv } from "./server.js";
 // The render SDK points at unbuilt workspace dist files; the OAuth tests
 // never touch the render routes, so stub it out (vi.mock is hoisted
 // above the server import).
-vi.mock("@hyperframes/gcp-cloud-run/sdk", () => ({
+vi.mock("@kenectai/gcp-cloud-run/sdk", () => ({
   renderToCloudRun: () => {
     throw new Error("renderToCloudRun is not available in oauth tests");
   },

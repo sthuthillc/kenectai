@@ -22,7 +22,7 @@ import { withEvenDimensionPad } from "../utils/evenDimensions.js";
 import { formatFfmpegError, runFfmpeg } from "../utils/runFfmpeg.js";
 import { getFfmpegBinary } from "../utils/ffmpegBinaries.js";
 import { extractAudioMetadata } from "../utils/ffprobe.js";
-import { type Fps, fpsToFfmpegArg } from "@hyperframes/core";
+import { type Fps, fpsToFfmpegArg } from "@kenectai/core";
 import type { EncoderOptions, EncodeResult, MuxResult } from "./chunkEncoder.types.js";
 import { appendVp9CpuUsedArg } from "./vp9Options.js";
 

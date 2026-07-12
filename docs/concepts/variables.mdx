@@ -334,10 +334,10 @@ At render time, the CLI validates `--variables` against the schema and reports i
 
 ## Inspecting Variables Programmatically
 
-If you are building tooling on top of `@hyperframes/core`, the variable declarations are readable without rendering:
+If you are building tooling on top of `@kenectai/core`, the variable declarations are readable without rendering:
 
 ```typescript
-import { extractCompositionMetadata } from "@hyperframes/core";
+import { extractCompositionMetadata } from "@kenectai/core";
 import { readFileSync } from "node:fs";
 
 const html = readFileSync("compositions/card.html", "utf8");

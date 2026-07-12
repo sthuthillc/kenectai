@@ -15,7 +15,7 @@ import {
   safeParseManifest,
   makeSlideshowNotesController,
 } from "./SlideshowPanel";
-import type { SlideshowManifest } from "@hyperframes/core/slideshow";
+import type { SlideshowManifest } from "@kenectai/core/slideshow";
 
 // ── toggleMainLineSlide ────────────────────────────────────────────────────
 

@@ -25,9 +25,9 @@ Templates with [variables](/concepts/variables) work on the same Lambda stack �
 ┌──────────────────────────────────────────────────────────────────┐
 │ One Lambda function (packages/aws-lambda/dist/handler.zip)       │
 │   handler.mjs                                                    │
-│     ├─ Action="plan"        → @hyperframes/producer/distributed  │
-│     ├─ Action="renderChunk" → @hyperframes/producer/distributed  │
-│     └─ Action="assemble"    → @hyperframes/producer/distributed  │
+│     ├─ Action="plan"        → @kenectai/producer/distributed  │
+│     ├─ Action="renderChunk" → @kenectai/producer/distributed  │
+│     └─ Action="assemble"    → @kenectai/producer/distributed  │
 │   bin/ffmpeg                — ffmpeg-static                      │
 │   node_modules/@sparticuz/chromium/ — Lambda-optimised Chromium  │
 └──────────────────────────────────────────────────────────────────┘
@@ -38,7 +38,7 @@ Templates with [variables](/concepts/variables) work on the same Lambda stack �
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-The Lambda handler is a thin dispatch: parse the Step Functions event, download inputs from S3 into `/tmp`, call the OSS primitive from `@hyperframes/producer/distributed`, upload outputs back, return a small JSON result. Everything heavy — capture, encode, audio mix — happens inside the OSS primitives.
+The Lambda handler is a thin dispatch: parse the Step Functions event, download inputs from S3 into `/tmp`, call the OSS primitive from `@kenectai/producer/distributed`, upload outputs back, return a small JSON result. Everything heavy — capture, encode, audio mix — happens inside the OSS primitives.
 
 ## Prerequisites
 
@@ -47,13 +47,13 @@ The Lambda handler is a thin dispatch: parse the Step Functions event, download 
 | AWS credentials | The CLI and the deploy step both call AWS APIs. | Env vars, `~/.aws/credentials`, SSO, or IMDS — any chain the AWS SDK for JavaScript v3 would resolve. |
 | AWS SAM CLI | `hyperframes lambda deploy/destroy` shells out to `sam deploy`/`sam delete`. | [Install guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html) |
 | `bun` | Used to build `packages/aws-lambda/dist/handler.zip` at deploy time. | `npm install -g bun` or [bun.sh](https://bun.sh) |
-| HyperFrames repo checkout | `lambda deploy` builds the Lambda handler ZIP from source. Adopters who deploy outside a checkout can set `HYPERFRAMES_REPO_ROOT` to point at one. | `git clone https://github.com/heygen-com/hyperframes` |
+| HyperFrames repo checkout | `lambda deploy` builds the Lambda handler ZIP from source. Adopters who deploy outside a checkout can set `HYPERFRAMES_REPO_ROOT` to point at one. | `git clone https://github.com/sthuthillc/kenectai` |
 
 ## Three deployment paths
 
 ### Path 1 — `hyperframes lambda` CLI (recommended)
 
-The CLI is a thin wrapper around the SAM template + the `@hyperframes/aws-lambda` SDK. For most adopters this is the right starting point.
+The CLI is a thin wrapper around the SAM template + the `@kenectai/aws-lambda` SDK. For most adopters this is the right starting point.
 
 ```bash
 hyperframes lambda deploy \
@@ -118,11 +118,11 @@ The SAM template's own default for `ReservedConcurrency` is `-1` (unreserved, ac
 
 ### Path 3 — CDK construct
 
-For users already running CDK, the `@hyperframes/aws-lambda` package exports a `HyperframesRenderStack` L2 construct that emits the same topology as the SAM template:
+For users already running CDK, the `@kenectai/aws-lambda` package exports a `HyperframesRenderStack` L2 construct that emits the same topology as the SAM template:
 
 ```ts
 import { App, CfnOutput, Stack } from "aws-cdk-lib";
-import { HyperframesRenderStack } from "@hyperframes/aws-lambda/cdk";
+import { HyperframesRenderStack } from "@kenectai/aws-lambda/cdk";
 
 const app = new App();
 const stack = new Stack(app, "MyApp");
@@ -137,7 +137,7 @@ new CfnOutput(stack, "RenderBucketName", { value: render.bucket.bucketName });
 new CfnOutput(stack, "StateMachineArn", { value: render.stateMachine.stateMachineArn });
 ```
 
-`aws-cdk-lib` and `constructs` are declared as **optional peer dependencies** of `@hyperframes/aws-lambda`, so consumers who only need the SDK don't pay the CDK import cost.
+`aws-cdk-lib` and `constructs` are declared as **optional peer dependencies** of `@kenectai/aws-lambda`, so consumers who only need the SDK don't pay the CDK import cost.
 
 The construct exposes `.bucket`, `.renderFunction`, and `.stateMachine` so you can wire dashboards, SNS topics, or other AWS resources alongside it without re-deriving ARNs.
 

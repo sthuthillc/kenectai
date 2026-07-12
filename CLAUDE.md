@@ -47,7 +47,7 @@ Atomic capabilities the creation workflows compose against — pull one when you
 
 When adding a new skill, or substantially renaming / repurposing an existing one, update all agent-facing discoverability surfaces in lockstep:
 
-1. The skill list above (CLAUDE.md) AND the workflow list in the root `AGENTS.md` (it carries workflows only, no domain-skill section) AND the `## Skills` section in `README.md` AND `docs/guides/skills.mdx` (rendered at [hyperframes.heygen.com/guides/skills](https://hyperframes.heygen.com/guides/skills)). Out-of-date entries silently kill discovery.
+1. The skill list above (CLAUDE.md) AND the workflow list in the root `AGENTS.md` (it carries workflows only, no domain-skill section) AND the `## Skills` section in `README.md` AND `docs/guides/skills.mdx` (rendered at [docs.kenectai.com/guides/skills](https://docs.kenectai.com/guides/skills)). Out-of-date entries silently kill discovery.
 2. The scaffolded project template `packages/cli/src/templates/_shared/CLAUDE.md` + `AGENTS.md` — written into every `hyperframes init` project, so a stale entry there ships to users. The two template files must stay byte-identical.
 3. If the skill changes the routing surface for "make a video" requests, also update the capability map and intent router in `skills/hyperframes/SKILL.md` — that's the canonical router agents read first.
 4. Mirror the Router / Creation workflows / Domain skills grouping across all surfaces so a skill always lives in the same column.
@@ -101,7 +101,7 @@ registry/
   blocks/               → Installable sub-composition scenes (50+)
   components/           → Installable effects and snippets
   examples/             → Starter project templates
-docs/                   → Mintlify documentation site (hyperframes.heygen.com)
+docs/                   → Mintlify documentation site (docs.kenectai.com)
 skills/                 → AI agent skill definitions
 ```
 
@@ -116,5 +116,5 @@ skills/                 → AI agent skill definitions
 
 ## Documentation
 
-- Docs: https://hyperframes.heygen.com/introduction
-- Catalog (50+ blocks): https://hyperframes.heygen.com/catalog/blocks/data-chart
+- Docs: https://docs.kenectai.com/introduction
+- Catalog (50+ blocks): https://docs.kenectai.com/catalog/blocks/data-chart

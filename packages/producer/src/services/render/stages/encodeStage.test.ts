@@ -31,7 +31,7 @@ const runFfmpegMock = mock(async () => ({
   durationMs: 1,
 }));
 
-mock.module("@hyperframes/engine", () => ({
+mock.module("@kenectai/engine", () => ({
   DEFAULT_CONFIG: { ffmpegEncodeTimeout: 600_000 },
   encodeFramesChunkedConcat: encodeFramesChunkedConcatMock,
   encodeFramesFromDir: encodeFramesFromDirMock,

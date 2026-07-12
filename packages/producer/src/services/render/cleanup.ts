@@ -9,7 +9,7 @@ import {
   type CaptureSession,
   type SubTimelineWaitOutcome,
   closeCaptureSession,
-} from "@hyperframes/engine";
+} from "@kenectai/engine";
 import type { FileServerHandle } from "../fileServer.js";
 import { defaultLogger, type ProducerLogger } from "../../logger.js";
 import type { HdrDiagnostics, RenderJob } from "../renderOrchestrator.js";

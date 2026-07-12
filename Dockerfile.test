@@ -99,11 +99,11 @@ COPY packages/engine/ packages/engine/
 COPY packages/producer/ packages/producer/
 
 # Build workspace packages so "node" export conditions resolve to built dist
-RUN bun run --filter '@hyperframes/{parsers,lint,studio-server}' build \
+RUN bun run --filter '@kenectai/{parsers,lint,studio-server}' build \
     && bun run --cwd packages/core build
 
 # Build core runtime artifacts (needed by renderer)
-RUN bun run --filter @hyperframes/core build:hyperframes-runtime:modular
+RUN bun run --filter @kenectai/core build:hyperframes-runtime:modular
 
 # Generate embedded font data (deterministicFonts.ts imports this at runtime)
 RUN cd packages/producer && bunx tsx scripts/generate-font-data.ts

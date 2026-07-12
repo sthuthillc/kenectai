@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { setFrameStatus, setFrameVoiceover, type FrameStatus } from "@hyperframes/core/storyboard";
+import { setFrameStatus, setFrameVoiceover, type FrameStatus } from "@kenectai/core/storyboard";
 import type { StoryboardFrameView } from "../../hooks/useStoryboard";
 import { useFileManagerContext } from "../../contexts/FileManagerContext";
 import { useViewMode } from "../../contexts/ViewModeContext";

@@ -154,7 +154,7 @@ export async function openSettledCompositionPage(
   const { ensureBrowser } = await import("../browser/manager.js");
   const browser = await ensureBrowser();
   const puppeteer = await import("puppeteer-core");
-  const { buildChromeArgs } = await import("@hyperframes/engine");
+  const { buildChromeArgs } = await import("@kenectai/engine");
 
   let chromeBrowser: Browser | undefined;
   try {

@@ -11,8 +11,8 @@
 
 // Browser-safe subpath — the core/parsers root entries pull Node-only modules
 // and would break browser bundles that include the SDK (e.g. Studio).
-import { parseCompositionVariables } from "@hyperframes/core/variables";
-import type { CompositionVariable } from "@hyperframes/core/variables";
+import { parseCompositionVariables } from "@kenectai/core/variables";
+import type { CompositionVariable } from "@kenectai/core/variables";
 
 // Exported so the SDK index can re-export it (kept from #2098's surface).
 export type VariableDecl = { id: string; default?: unknown; [key: string]: unknown };

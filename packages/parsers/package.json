@@ -1,5 +1,5 @@
 {
-  "name": "@hyperframes/parsers",
+  "name": "@kenectai/parsers",
   "version": "0.7.53",
   "repository": {
     "type": "git",
@@ -161,7 +161,7 @@
     "recast": "^0.23.11"
   },
   "devDependencies": {
-    "@hyperframes/core": "workspace:*",
+    "@kenectai/core": "workspace:*",
     "@types/node": "^25.0.10",
     "tsup": "^8.0.0",
     "tsx": "^4.21.0",

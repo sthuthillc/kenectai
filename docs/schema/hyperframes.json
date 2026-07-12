@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://hyperframes.heygen.com/schema/hyperframes.json",
+  "$id": "https://docs.kenectai.com/schema/hyperframes.json",
   "title": "Hyperframes Project Config",
   "description": "Per-project configuration for a Hyperframes project (hyperframes.json). Tells `hyperframes add` which registry to pull items from and where to drop them in the project tree. Created by `hyperframes init`; users may edit it to point at custom registries or reshape their project layout.",
   "type": "object",
@@ -10,7 +10,7 @@
     "$schema": {
       "type": "string",
       "format": "uri",
-      "description": "JSON Schema URL — https://hyperframes.heygen.com/schema/hyperframes.json."
+      "description": "JSON Schema URL — https://docs.kenectai.com/schema/hyperframes.json."
     },
     "registry": {
       "type": "string",

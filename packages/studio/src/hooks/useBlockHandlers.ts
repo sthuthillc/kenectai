@@ -6,7 +6,7 @@ import { useCallback, useMemo, useState } from "react";
 import type { TimelineElement } from "../player";
 import { usePlayerStore } from "../player";
 import { addBlockToProject } from "../utils/blockInstaller";
-import type { BlockParam } from "@hyperframes/core/registry";
+import type { BlockParam } from "@kenectai/core/registry";
 import type { EditHistoryKind } from "../utils/editHistory";
 import type { RightPanelTab } from "../utils/studioHelpers";
 

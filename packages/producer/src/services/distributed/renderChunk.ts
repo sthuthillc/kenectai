@@ -54,7 +54,7 @@ import {
   initializeSession,
   readWebGlVendorInfoFromCanvas,
   resolveConfig,
-} from "@hyperframes/engine";
+} from "@kenectai/engine";
 import { defaultLogger } from "../../logger.js";
 import { runEncodeStage } from "../render/stages/encodeStage.js";
 import { runCaptureStage } from "../render/stages/captureStage.js";
@@ -253,11 +253,11 @@ interface PlanJson {
  */
 export { applyRuntimeEnvSnapshot } from "../render/runtimeEnvSnapshot.js";
 
-// `readWebGlVendorInfoFromCanvas` lives in `@hyperframes/engine` (it's
+// `readWebGlVendorInfoFromCanvas` lives in `@kenectai/engine` (it's
 // used both here and by `parallelCoordinator.executeWorkerTask`). Re-exported
 // from this subpath so downstream consumers that already import it from
-// `@hyperframes/producer/distributed` keep working.
-export { readWebGlVendorInfoFromCanvas } from "@hyperframes/engine";
+// `@kenectai/producer/distributed` keep working.
+export { readWebGlVendorInfoFromCanvas } from "@kenectai/engine";
 
 /**
  * Compute a deterministic SHA-256 fingerprint for the chunk's output.

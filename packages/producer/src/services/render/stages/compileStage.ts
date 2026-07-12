@@ -36,7 +36,7 @@
  */
 
 import { join } from "node:path";
-import type { EngineConfig } from "@hyperframes/engine";
+import type { EngineConfig } from "@kenectai/engine";
 import type { CompiledComposition } from "../../htmlCompiler.js";
 import { compileForRender } from "../../htmlCompiler.js";
 import type { ProducerLogger } from "../../../logger.js";

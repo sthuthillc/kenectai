@@ -10,7 +10,7 @@
  */
 
 import { join } from "node:path";
-import { fpsToNumber } from "@hyperframes/core";
+import { fpsToNumber } from "@kenectai/core";
 import {
   type BeforeCaptureHook,
   type CaptureOptions,
@@ -21,7 +21,7 @@ import {
   closeCaptureSession,
   createCaptureSession,
   initializeSession,
-} from "@hyperframes/engine";
+} from "@kenectai/engine";
 import type { CompiledComposition } from "../htmlCompiler.js";
 import type { FileServerHandle } from "../fileServer.js";
 import { defaultLogger, type ProducerLogger } from "../../logger.js";

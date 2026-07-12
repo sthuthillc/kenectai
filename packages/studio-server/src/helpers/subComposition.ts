@@ -5,8 +5,8 @@ import {
   rewriteAssetPaths,
   rewriteCssAssetUrls,
   rewriteInlineStyleAssetUrls,
-} from "@hyperframes/core";
-import { stripEmbeddedRuntimeScripts } from "@hyperframes/core/compiler";
+} from "@kenectai/core";
+import { stripEmbeddedRuntimeScripts } from "@kenectai/core/compiler";
 
 /**
  * Detect whether `html` is a full document (has `<html>`, `<head>`, or

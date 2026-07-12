@@ -16,7 +16,7 @@
  *     verbatim on the respective `success: false` results.
  */
 
-import { applyFaststart, muxVideoWithAudio } from "@hyperframes/engine";
+import { applyFaststart, muxVideoWithAudio } from "@kenectai/engine";
 import type { ProgressCallback, RenderJob } from "../../renderOrchestrator.js";
 import { updateJobStatus } from "../shared.js";
 

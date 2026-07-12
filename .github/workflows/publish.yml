@@ -126,12 +126,18 @@ jobs:
             fi
           }
 
-          # Only the CLI publishes for now. The library packages still carry
-          # the upstream @hyperframes/* scope (Apache-2.0 fork); their npm
-          # names belong to upstream, so publishing them from this repo is
-          # disabled until they are renamed to a scope this org owns. The CLI
-          # bundles its workspace deps at build time (tsup), so it has no
-          # runtime dependency on those packages.
+          publish_pkg "@kenectai/parsers" "@kenectai/parsers"
+          publish_pkg "@kenectai/lint" "@kenectai/lint"
+          publish_pkg "@kenectai/studio-server" "@kenectai/studio-server"
+          publish_pkg "@kenectai/core" "@kenectai/core"
+          publish_pkg "@kenectai/sdk" "@kenectai/sdk"
+          publish_pkg "@kenectai/engine" "@kenectai/engine"
+          publish_pkg "@kenectai/player" "@kenectai/player"
+          publish_pkg "@kenectai/producer" "@kenectai/producer"
+          publish_pkg "@kenectai/shader-transitions" "@kenectai/shader-transitions"
+          publish_pkg "@kenectai/studio" "@kenectai/studio"
+          publish_pkg "@kenectai/aws-lambda" "@kenectai/aws-lambda"
+          publish_pkg "@kenectai/gcp-cloud-run" "@kenectai/gcp-cloud-run"
           publish_pkg "@kenectai/cli" "@kenectai/cli"
 
           if [ "$FAILED" -ne 0 ]; then

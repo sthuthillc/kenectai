@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { GsapAnimation, ParsedGsap } from "@hyperframes/core/gsap-parser";
+import type { GsapAnimation, ParsedGsap } from "@kenectai/core/gsap-parser";
 import { selectElementAnimationsOrRetry } from "./useGsapAnimationFetchFallback";
 
 const anim = (targetSelector: string): GsapAnimation =>

@@ -1,11 +1,11 @@
-# @hyperframes/core
+# @kenectai/core
 
 Types, parsers, generators, compiler, linter, runtime, and frame adapters for the Hyperframes video framework.
 
 ## Install
 
 ```bash
-npm install @hyperframes/core
+npm install @kenectai/core
 ```
 
 > Most users don't need to install core directly — the [CLI](../cli), [producer](../producer), and [studio](../studio) packages depend on it internally.
@@ -27,7 +27,7 @@ npm install @hyperframes/core
 A frame adapter tells the engine how to seek your animation to a specific frame:
 
 ```typescript
-import { createGSAPFrameAdapter } from "@hyperframes/core";
+import { createGSAPFrameAdapter } from "@kenectai/core";
 
 const adapter = createGSAPFrameAdapter({
   getTimeline: () => gsap.timeline(),
@@ -38,7 +38,7 @@ const adapter = createGSAPFrameAdapter({
 Implement `FrameAdapter` for custom animation runtimes:
 
 ```typescript
-import type { FrameAdapter } from "@hyperframes/core";
+import type { FrameAdapter } from "@kenectai/core";
 
 const myAdapter: FrameAdapter = {
   id: "my-adapter",
@@ -52,7 +52,7 @@ const myAdapter: FrameAdapter = {
 ## Parsing and generating HTML
 
 ```typescript
-import { parseHtml, generateHyperframesHtml } from "@hyperframes/core";
+import { parseHtml, generateHyperframesHtml } from "@kenectai/core";
 
 const { elements, metadata } = parseHtml(htmlString);
 const html = generateHyperframesHtml(spec);
@@ -61,7 +61,7 @@ const html = generateHyperframesHtml(spec);
 ## Linting
 
 ```typescript
-import { lintHyperframeHtml } from "@hyperframes/core/lint";
+import { lintHyperframeHtml } from "@kenectai/core/lint";
 
 const result = lintHyperframeHtml(htmlString);
 // result.findings: { severity, message, elementId }[]
@@ -69,10 +69,10 @@ const result = lintHyperframeHtml(htmlString);
 
 ## Documentation
 
-Full documentation: [hyperframes.heygen.com/packages/core](https://hyperframes.heygen.com/packages/core)
+Full documentation: [docs.kenectai.com/packages/core](https://docs.kenectai.com/packages/core)
 
 ## Related packages
 
-- [`@hyperframes/engine`](../engine) — rendering engine that drives the browser
-- [`@hyperframes/producer`](../producer) — full render pipeline (capture + encode)
+- [`@kenectai/engine`](../engine) — rendering engine that drives the browser
+- [`@kenectai/producer`](../producer) — full render pipeline (capture + encode)
 - [`hyperframes`](../cli) — CLI

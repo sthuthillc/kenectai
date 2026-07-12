@@ -5,7 +5,7 @@
     "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
-      "@hyperframes/player": ["../player/src/hyperframes-player.ts"]
+      "@kenectai/player": ["../player/src/hyperframes-player.ts"]
     },
     "jsx": "react-jsx",
     "strict": true,

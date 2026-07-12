@@ -17,11 +17,11 @@
 <p align="center"><i>A fork of <a href="https://github.com/heygen-com/hyperframes">HyperFrames</a> (Apache-2.0) by HeyGen.</i></p>
 
 <p align="center">
-  <a href="https://hyperframes.heygen.com/quickstart">Quickstart</a> |
-  <a href="https://hyperframes.heygen.com/showcase">Showcase</a> |
+  <a href="https://docs.kenectai.com/quickstart">Quickstart</a> |
+  <a href="https://docs.kenectai.com/showcase">Showcase</a> |
   <a href="https://www.hyperframes.dev/">Playground</a> |
-  <a href="https://hyperframes.heygen.com/catalog/blocks/data-chart">Catalog</a> |
-  <a href="https://hyperframes.heygen.com/introduction">Docs</a> |
+  <a href="https://docs.kenectai.com/catalog/blocks/data-chart">Catalog</a> |
+  <a href="https://docs.kenectai.com/introduction">Docs</a> |
   <a href="https://discord.gg/EbK98HBPdk">Discord</a>
 </p>
 
@@ -94,7 +94,7 @@ Atomic capabilities the creation workflows compose against — pull one when you
 | `/hyperframes-registry`  | Install and wire registry blocks and components into compositions via `hyperframes add`. Authoring a new block or component to contribute upstream.                                                                                                                                                                                              |
 | `/figma`                 | Import Figma assets, tokens, components, and storyboard sections → reconstructed motion (frames read as states, not slides) (REST/CLI) plus Motion animations (MCP) and shaders (MCP source / native export) into a composition.                                                                                                                 |
 
-For visual design handoff workflows, see the [Claude Design guide](https://hyperframes.heygen.com/guides/claude-design) and [Open Design guide](https://hyperframes.heygen.com/guides/open-design).
+For visual design handoff workflows, see the [Claude Design guide](https://docs.kenectai.com/guides/claude-design) and [Open Design guide](https://docs.kenectai.com/guides/open-design).
 
 ### Manually with the CLI
 
@@ -109,7 +109,7 @@ npx @kenectai/cli render       # render to MP4
 
 ## What You Can Build
 
-Need ideas? Browse the [Showcase](https://hyperframes.heygen.com/showcase) for finished videos you can watch, read, run, and remix.
+Need ideas? Browse the [Showcase](https://docs.kenectai.com/showcase) for finished videos you can watch, read, run, and remix.
 
 - Product launch videos and feature announcements
 - PR walkthroughs with animated code diffs, narration, and captions
@@ -244,7 +244,7 @@ npx @kenectai/cli add instagram-follow      # social overlay
 npx @kenectai/cli add data-chart            # animated chart
 ```
 
-Browse the catalog at [hyperframes.heygen.com/catalog](https://hyperframes.heygen.com/catalog/blocks/data-chart).
+Browse the catalog at [docs.kenectai.com/catalog](https://docs.kenectai.com/catalog/blocks/data-chart).
 
 ## Why HyperFrames?
 
@@ -268,32 +268,32 @@ HyperFrames is inspired by [Remotion](https://www.remotion.dev). Both tools rend
 | Distributed rendering    | Local and AWS Lambda render paths     | Remotion Lambda, mature cloud renderer  |
 | License                  | Apache 2.0                            | Source-available Remotion License       |
 
-Read the full comparison in the [HyperFrames vs Remotion guide](https://hyperframes.heygen.com/guides/hyperframes-vs-remotion).
+Read the full comparison in the [HyperFrames vs Remotion guide](https://docs.kenectai.com/guides/hyperframes-vs-remotion).
 
 ## Documentation
 
-Full documentation: [hyperframes.heygen.com/introduction](https://hyperframes.heygen.com/introduction)
+Full documentation: [docs.kenectai.com/introduction](https://docs.kenectai.com/introduction)
 
-- [Quickstart](https://hyperframes.heygen.com/quickstart)
-- [Showcase](https://hyperframes.heygen.com/showcase)
-- [Guides](https://hyperframes.heygen.com/guides/gsap-animation)
-- [API Reference](https://hyperframes.heygen.com/packages/core)
-- [Catalog](https://hyperframes.heygen.com/catalog/blocks/data-chart)
-- [Examples](https://hyperframes.heygen.com/examples)
-- [AWS Lambda rendering](https://hyperframes.heygen.com/deploy/aws-lambda)
+- [Quickstart](https://docs.kenectai.com/quickstart)
+- [Showcase](https://docs.kenectai.com/showcase)
+- [Guides](https://docs.kenectai.com/guides/gsap-animation)
+- [API Reference](https://docs.kenectai.com/packages/core)
+- [Catalog](https://docs.kenectai.com/catalog/blocks/data-chart)
+- [Examples](https://docs.kenectai.com/examples)
+- [AWS Lambda rendering](https://docs.kenectai.com/deploy/aws-lambda)
 
 ## Packages
 
 | Package                                                          | Description                                                       |
 | ---------------------------------------------------------------- | ----------------------------------------------------------------- |
 | [`hyperframes`](packages/cli)                                    | CLI for creating, previewing, linting, and rendering compositions |
-| [`@hyperframes/core`](packages/core)                             | Types, parsers, generators, linter, runtime, and frame adapters   |
-| [`@hyperframes/engine`](packages/engine)                         | Seekable page-to-video capture engine using Puppeteer and FFmpeg  |
-| [`@hyperframes/producer`](packages/producer)                     | Full rendering pipeline for capture, encode, and audio mix        |
-| [`@hyperframes/studio`](packages/studio)                         | Browser-based composition editor UI                               |
-| [`@hyperframes/player`](packages/player)                         | Embeddable `<hyperframes-player>` web component                   |
-| [`@hyperframes/shader-transitions`](packages/shader-transitions) | WebGL shader transitions for compositions                         |
-| [`@hyperframes/aws-lambda`](packages/aws-lambda)                 | AWS Lambda SDK and deployment surface for distributed renders     |
+| [`@kenectai/core`](packages/core)                             | Types, parsers, generators, linter, runtime, and frame adapters   |
+| [`@kenectai/engine`](packages/engine)                         | Seekable page-to-video capture engine using Puppeteer and FFmpeg  |
+| [`@kenectai/producer`](packages/producer)                     | Full rendering pipeline for capture, encode, and audio mix        |
+| [`@kenectai/studio`](packages/studio)                         | Browser-based composition editor UI                               |
+| [`@kenectai/player`](packages/player)                         | Embeddable `<hyperframes-player>` web component                   |
+| [`@kenectai/shader-transitions`](packages/shader-transitions) | WebGL shader transitions for compositions                         |
+| [`@kenectai/aws-lambda`](packages/aws-lambda)                 | AWS Lambda SDK and deployment surface for distributed renders     |
 
 ## Community
 

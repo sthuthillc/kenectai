@@ -1,5 +1,5 @@
-import type { ParsedGsap } from "@hyperframes/core/gsap-parser";
-import type { Composition } from "@hyperframes/sdk";
+import type { ParsedGsap } from "@kenectai/core/gsap-parser";
+import type { Composition } from "@kenectai/sdk";
 import type { DomEditSelection } from "../components/editor/domEditingTypes";
 import type { EditHistoryKind } from "../utils/editHistory";
 import type { RuntimeTweenChange } from "./gsapRuntimePatch";

@@ -1,17 +1,17 @@
 ---
-title: "@hyperframes/producer"
+title: "@kenectai/producer"
 description: "Full HTML-to-video rendering pipeline with encoding, audio mixing, and Docker support."
 ---
 
 The producer package combines the [engine's](/packages/engine) frame capture with FFmpeg encoding to deliver a complete HTML-to-video rendering pipeline. It supports MP4 (h264) and WebM (VP9 with alpha transparency), and handles runtime injection, readiness gates, audio mixing, and optional Docker-based deterministic rendering.
 
 ```bash
-npm install @hyperframes/producer
+npm install @kenectai/producer
 ```
 
 ## When to Use
 
-**Use `@hyperframes/producer` when you need to:**
+**Use `@kenectai/producer` when you need to:**
 - Render compositions to MP4 or WebM programmatically from Node.js (e.g., in a backend service or CI pipeline)
 - Build a custom rendering service with fine-grained control over the pipeline
 - Run visual regression tests against golden baselines
@@ -57,7 +57,7 @@ The producer orchestrates the full render pipeline:
 The producer uses a two-step API: create a render job configuration, then execute it.
 
 ```typescript
-import { createRenderJob, executeRenderJob } from '@hyperframes/producer';
+import { createRenderJob, executeRenderJob } from '@kenectai/producer';
 
 const job = createRenderJob({
   fps: 30,
@@ -70,7 +70,7 @@ await executeRenderJob(job, './my-video', './output.mp4');
 ### Render Configuration
 
 ```typescript
-import { createRenderJob } from '@hyperframes/producer';
+import { createRenderJob } from '@kenectai/producer';
 
 const job = createRenderJob({
   fps: 30,                   // integer, or { num: 30000, den: 1001 } for NTSC
@@ -130,7 +130,7 @@ For full details on source requirements, fallback rules, and verification, see [
 ### Progress Callbacks
 
 ```typescript
-import type { ProgressCallback, RenderStatus } from '@hyperframes/producer';
+import type { ProgressCallback, RenderStatus } from '@kenectai/producer';
 
 const onProgress: ProgressCallback = (status: RenderStatus) => {
   console.log(`Status: ${status}`);
@@ -142,7 +142,7 @@ const onProgress: ProgressCallback = (status: RenderStatus) => {
 ### Cancellation
 
 ```typescript
-import { RenderCancelledError } from '@hyperframes/producer';
+import { RenderCancelledError } from '@kenectai/producer';
 
 try {
   await executeRenderJob(job);
@@ -159,7 +159,7 @@ try {
 The producer includes a built-in HTTP server for running as a rendering service:
 
 ```typescript
-import { startServer } from '@hyperframes/producer/server';
+import { startServer } from '@kenectai/producer/server';
 
 await startServer({ port: 8080 });
 ```
@@ -177,7 +177,7 @@ await startServer({ port: 8080 });
 For custom server integration, use the lower-level handlers:
 
 ```typescript
-import { createRenderHandlers, createProducerApp } from '@hyperframes/producer/server';
+import { createRenderHandlers, createProducerApp } from '@kenectai/producer/server';
 
 // Get individual request handlers
 const handlers = createRenderHandlers(options);
@@ -228,7 +228,7 @@ npx hyperframes doctor
 The CLI enables local Chrome/WebGL GPU capture automatically and supports `--no-browser-gpu` as an opt-out. When using the producer API directly, pass an engine config override:
 
 ```typescript
-import { resolveConfig } from '@hyperframes/producer';
+import { resolveConfig } from '@kenectai/producer';
 
 const job = createRenderJob({
   fps: 30,

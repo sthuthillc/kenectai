@@ -11,7 +11,7 @@ import {
   draftFromDeclaration,
   EMPTY_DRAFT,
 } from "./VariablesDeclarationForm.js";
-import type { CompositionVariable } from "@hyperframes/core/variables";
+import type { CompositionVariable } from "@kenectai/core/variables";
 
 describe("mergeDeclarationEdit", () => {
   it("preserves unmodeled keys on a same-type edit", () => {

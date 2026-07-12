@@ -1,17 +1,17 @@
 ---
-title: "@hyperframes/aws-lambda"
+title: "@kenectai/aws-lambda"
 description: "AWS Lambda and Step Functions adapter for distributed HyperFrames rendering."
 ---
 
 The AWS Lambda package runs HyperFrames' distributed render primitives on AWS. It ships the Lambda handler, a Node client SDK, and an optional CDK construct for provisioning the render stack inside an adopter's AWS account.
 
 ```bash
-npm install @hyperframes/aws-lambda
+npm install @kenectai/aws-lambda
 ```
 
 ## When to Use
 
-**Use `@hyperframes/aws-lambda` when you need to:**
+**Use `@kenectai/aws-lambda` when you need to:**
 - Render large compositions on AWS Lambda instead of one local machine
 - Fan out `plan`, `renderChunk`, and `assemble` through Step Functions
 - Store render inputs, intermediate chunks, and outputs in S3
@@ -31,12 +31,12 @@ npm install @hyperframes/aws-lambda
 
 | Import | Description |
 |--------|-------------|
-| `@hyperframes/aws-lambda` | Handler types, runtime helpers, S3 transport, and client SDK exports |
-| `@hyperframes/aws-lambda/handler` | Lambda handler entry point for Step Functions dispatch |
-| `@hyperframes/aws-lambda/sdk` | Lightweight Node SDK for deploying sites, starting renders, polling progress, and estimating cost |
-| `@hyperframes/aws-lambda/cdk` | Optional CDK construct for provisioning the render bucket, Lambda, and Step Functions stack |
+| `@kenectai/aws-lambda` | Handler types, runtime helpers, S3 transport, and client SDK exports |
+| `@kenectai/aws-lambda/handler` | Lambda handler entry point for Step Functions dispatch |
+| `@kenectai/aws-lambda/sdk` | Lightweight Node SDK for deploying sites, starting renders, polling progress, and estimating cost |
+| `@kenectai/aws-lambda/cdk` | Optional CDK construct for provisioning the render bucket, Lambda, and Step Functions stack |
 
-`aws-cdk-lib` and `constructs` are optional peer dependencies. SDK-only consumers do not need them unless they import from `@hyperframes/aws-lambda/cdk`.
+`aws-cdk-lib` and `constructs` are optional peer dependencies. SDK-only consumers do not need them unless they import from `@kenectai/aws-lambda/cdk`.
 
 ## Architecture
 
@@ -61,7 +61,7 @@ The handler uses `@sparticuz/chromium` by default, with a build-time fallback fo
 After deploying the AWS resources, use the SDK from Node:
 
 ```typescript
-import { deploySite, getRenderProgress, renderToLambda } from "@hyperframes/aws-lambda/sdk";
+import { deploySite, getRenderProgress, renderToLambda } from "@kenectai/aws-lambda/sdk";
 
 const site = await deploySite({
   projectDir: "./my-composition",
@@ -93,7 +93,7 @@ console.log(progress.status, progress.overallProgress, progress.costs.displayCos
 
 ```typescript
 import { App, Stack } from "aws-cdk-lib";
-import { HyperframesRenderStack } from "@hyperframes/aws-lambda/cdk";
+import { HyperframesRenderStack } from "@kenectai/aws-lambda/cdk";
 
 const app = new App();
 const stack = new Stack(app, "VideoRender");
@@ -125,7 +125,7 @@ The build stages Chromium, Puppeteer, FFmpeg, and the handler bundle into `packa
   <Card title="AWS Lambda Deployment" icon="cloud" href="/deploy/aws-lambda">
     End-to-end deployment details and operational notes.
   </Card>
-  <Card title="@hyperframes/producer" icon="video" href="/packages/producer">
+  <Card title="@kenectai/producer" icon="video" href="/packages/producer">
     The distributed primitives that the Lambda handler executes.
   </Card>
 </CardGroup>

@@ -55,7 +55,7 @@ function orbitStageSource(): string {
 }
 
 /** Maximum time a single-frame FFmpeg extract is allowed to run. Mirrors the
- * default applied by `@hyperframes/engine`'s `runFfmpeg` so a pathological
+ * default applied by `@kenectai/engine`'s `runFfmpeg` so a pathological
  * clip (corrupt media, stalled network mount, codec edge case) cannot wedge
  * `hyperframes snapshot` indefinitely. */
 const FFMPEG_EXTRACT_TIMEOUT_MS = 30_000;
@@ -193,7 +193,7 @@ async function captureSnapshots(
     zoomScale?: number;
   },
 ): Promise<string[]> {
-  const { bundleToSingleHtml } = await import("@hyperframes/core/compiler");
+  const { bundleToSingleHtml } = await import("@kenectai/core/compiler");
 
   const numFrames = opts.frames ?? 5;
 
@@ -311,7 +311,7 @@ async function captureSnapshots(
       let syncVideoFrameVisibility: SyncVisibilityFn | null = null;
       let extractMediaMetadata: ExtractMediaMetadataFn | null = null;
       try {
-        const engine = (await import("@hyperframes/engine")) as {
+        const engine = (await import("@kenectai/engine")) as {
           injectVideoFramesBatch: InjectFn;
           syncVideoFrameVisibility: SyncVisibilityFn;
           extractMediaMetadata: ExtractMediaMetadataFn;
@@ -325,7 +325,7 @@ async function captureSnapshots(
         // programmatic currentTime writes). Say so instead of silently
         // shipping black frames (two wild Windows reports).
         console.warn(
-          `   ${c.warn("⚠")} @hyperframes/engine unavailable — <video> elements will appear black in snapshots. Verify media via a draft render's extracted frames instead.`,
+          `   ${c.warn("⚠")} @kenectai/engine unavailable — <video> elements will appear black in snapshots. Verify media via a draft render's extracted frames instead.`,
         );
       }
       const alphaDecoderCache = new Map<string, Promise<boolean>>();

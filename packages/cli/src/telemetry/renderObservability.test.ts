@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { RenderObservabilitySummary } from "@hyperframes/producer";
+import type { RenderObservabilitySummary } from "@kenectai/producer";
 import { renderObservabilityTelemetryPayload } from "./renderObservability.js";
 
 function makeSummary(

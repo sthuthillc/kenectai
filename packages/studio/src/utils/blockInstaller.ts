@@ -1,4 +1,4 @@
-import type { RegistryItem } from "@hyperframes/core/registry";
+import type { RegistryItem } from "@kenectai/core/registry";
 import type { TimelineElement } from "../player";
 import {
   insertTimelineAssetIntoSource,

@@ -1,4 +1,4 @@
-import { ensureHfIds } from "@hyperframes/parsers/hf-ids";
+import { ensureHfIds } from "@kenectai/parsers/hf-ids";
 import {
   closeSync,
   constants,

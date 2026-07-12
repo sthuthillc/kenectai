@@ -149,7 +149,7 @@ declare global {
      * Render-time variable overrides injected by the engine when the user
      * passes `hyperframes render --variables '<json>'`. Read indirectly via
      * `window.__hyperframes.getVariables()` (or the named `getVariables`
-     * export from `@hyperframes/core`), which merges these over the
+     * export from `@kenectai/core`), which merges these over the
      * declared defaults from `<html data-composition-variables="...">`.
      */
     __hfVariables?: Record<string, unknown>;

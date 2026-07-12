@@ -15,7 +15,7 @@ import {
   normalizeHfColorGrading,
   parseCubeLut,
   serializeHfColorGrading,
-} from "@hyperframes/core";
+} from "@kenectai/core";
 import { defineCommand } from "citty";
 import sharp from "sharp";
 import type { Example } from "./_examples.js";
@@ -542,7 +542,7 @@ async function captureGradeCompareSheet(
   projectDir: string,
   timeoutMs: number,
 ): Promise<{ sheetPath: string; renderReadyTimedOut: boolean }> {
-  const { bundleToSingleHtml } = await import("@hyperframes/core/compiler");
+  const { bundleToSingleHtml } = await import("@kenectai/core/compiler");
 
   const html = await bundleToSingleHtml(projectDir);
   const server = await serveStaticProjectHtml(projectDir, html);

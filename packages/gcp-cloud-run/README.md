@@ -1,10 +1,10 @@
-# @hyperframes/gcp-cloud-run
+# @kenectai/gcp-cloud-run
 
 Google Cloud Run + Cloud Workflows adapter for HyperFrames distributed
 rendering. The OSS render primitives (`plan` → `renderChunk` × N →
 `assemble`) are pure functions over local file paths; this package is the
 deployment, orchestration, and storage glue that runs them on Google Cloud —
-the GCP counterpart to [`@hyperframes/aws-lambda`](../aws-lambda).
+the GCP counterpart to [`@kenectai/aws-lambda`](../aws-lambda).
 
 Two surfaces, one package:
 
@@ -17,7 +17,7 @@ Two surfaces, one package:
   Call these from a Node process (CI, CLI, app backend) to drive a deployed
   stack without writing GCS / Workflows boilerplate.
 
-The package is **not** a dependency of `@hyperframes/producer`; install it
+The package is **not** a dependency of `@kenectai/producer`; install it
 separately.
 
 ## Architecture
@@ -66,8 +66,8 @@ gcloud builds submit . \
   --tag REGION-docker.pkg.dev/PROJECT/REPO/hyperframes-render:TAG
 
 # 2. Apply the module.
-terraform -chdir=node_modules/@hyperframes/gcp-cloud-run/terraform init
-terraform -chdir=node_modules/@hyperframes/gcp-cloud-run/terraform apply \
+terraform -chdir=node_modules/@kenectai/gcp-cloud-run/terraform init
+terraform -chdir=node_modules/@kenectai/gcp-cloud-run/terraform apply \
   -var project_id=PROJECT \
   -var region=us-central1 \
   -var image=REGION-docker.pkg.dev/PROJECT/REPO/hyperframes-render:TAG
@@ -79,7 +79,7 @@ Terraform outputs `render_bucket_name`, `service_url`, `workflow_name`, and
 ## Using the SDK
 
 ```ts
-import { renderToCloudRun, getRenderProgress } from "@hyperframes/gcp-cloud-run/sdk";
+import { renderToCloudRun, getRenderProgress } from "@kenectai/gcp-cloud-run/sdk";
 
 const handle = await renderToCloudRun({
   projectDir: "./my-composition",

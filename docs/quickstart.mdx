@@ -10,7 +10,7 @@ Go from zero to a rendered MP4 — either by prompting your AI agent or by start
 Install the HyperFrames skills, then describe the video you want:
 
 ```bash
-npx skills add heygen-com/hyperframes
+npx skills add sthuthillc/kenectai
 ```
 
 The installer shows a picker. Select the **core set** every project needs — these register as slash commands in Claude Code (Cursor, Gemini CLI, Codex, [Google Antigravity](/guides/antigravity), and [GitHub Copilot CLI](/guides/copilot-cli) load them too):
@@ -29,13 +29,13 @@ The installer shows a picker. Select the **core set** every project needs — th
 The **workflow skills** are optional — add the ones that match your inputs, and `/hyperframes` routes to whichever you've installed: `/product-launch-video`, `/website-to-video`, `/faceless-explainer`, `/pr-to-video`, `/embedded-captions`, `/talking-head-recut`, `/motion-graphics`, `/music-to-video`, `/slideshow`, `/general-video`, `/remotion-to-hyperframes`. See the [skills catalog](/guides/skills) for the full list with one-line "use when" descriptions.
 
 <Tip>
-  To skip the picker and install everything (core + every workflow) in one shot, run `npx skills add heygen-com/hyperframes --all`.
+  To skip the picker and install everything (core + every workflow) in one shot, run `npx skills add sthuthillc/kenectai --all`.
 </Tip>
 
 These skills teach your agent how to write correct compositions, GSAP and runtime-adapter animations, Tailwind v4 browser-runtime styles, captions, and voiceovers. Invoking a slash command loads its context explicitly, which produces correct output the first time — and **starting at `/hyperframes` lets it route your request to the right workflow.**
 
 <Note>
-  Claude Design uses a different entry path. Open [`docs/guides/claude-design-hyperframes.md`](https://github.com/heygen-com/hyperframes/blob/main/docs/guides/claude-design-hyperframes.md) on GitHub, click the download button (↓) to save it, then attach to your Claude Design chat. It produces a valid first draft you can refine in any AI coding agent. See the [Claude Design guide](/guides/claude-design).
+  Claude Design uses a different entry path. Open [`docs/guides/claude-design-hyperframes.md`](https://github.com/sthuthillc/kenectai/blob/main/docs/guides/claude-design-hyperframes.md) on GitHub, click the download button (↓) to save it, then attach to your Claude Design chat. It produces a valid first draft you can refine in any AI coding agent. See the [Claude Design guide](/guides/claude-design).
 </Note>
 
 ### Try it: example prompts
@@ -47,7 +47,7 @@ Copy any of these into your agent to get started.
     > Using `/hyperframes`, create a 10-second product intro with a fade-in title over a dark background and subtle background music.
   </Card>
   <Card title="Warm start — turn existing context into a video">
-    > Take a look at this GitHub repo https://github.com/heygen-com/hyperframes and explain its uses and architecture to me using `/hyperframes`.
+    > Take a look at this GitHub repo https://github.com/sthuthillc/kenectai and explain its uses and architecture to me using `/hyperframes`.
 
     > Summarize the attached PDF into a 45-second pitch video using `/hyperframes`.
 

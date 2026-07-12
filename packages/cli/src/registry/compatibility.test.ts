@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { RegistryItem } from "@hyperframes/core";
+import type { RegistryItem } from "@kenectai/core";
 import {
   checkRegistryItemCompatibility,
   gateRegistryItemsCompatibility,

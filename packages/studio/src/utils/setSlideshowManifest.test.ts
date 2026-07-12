@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { buildSlideshowIslandHtml } from "./setSlideshowManifest";
-import { parseSlideshowManifest } from "@hyperframes/core/slideshow";
+import { parseSlideshowManifest } from "@kenectai/core/slideshow";
 import type { CutoverDeps } from "./sdkCutover";
 
 // Fix 3: vi.mock must be at module top level so Vitest can hoist them.

@@ -3,7 +3,7 @@
  * Centralises duplicated interfaces, constants, and small utilities
  * to reduce drift risk.
  */
-import type { GsapAnimation } from "@hyperframes/core/gsap-parser";
+import type { GsapAnimation } from "@kenectai/core/gsap-parser";
 import type { DomEditSelection } from "../components/editor/domEditingTypes";
 import {
   absoluteToPercentage,

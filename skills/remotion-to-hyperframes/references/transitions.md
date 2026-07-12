@@ -62,7 +62,7 @@ Convert `durationInFrames` to seconds (`/fps`).
 ## When to use HF shader-transitions
 
 For transitions Remotion presets that have visually-rich GLSL equivalents
-(iris, ripple, zoom, glitch), use HF's [shader-transitions](https://hyperframes.heygen.com/catalog/blocks)
+(iris, ripple, zoom, glitch), use HF's [shader-transitions](https://docs.kenectai.com/catalog/blocks)
 package. They produce richer output than manual GSAP transforms.
 
 ```bash

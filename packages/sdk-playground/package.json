@@ -1,5 +1,5 @@
 {
-  "name": "@hyperframes/sdk-playground",
+  "name": "@kenectai/sdk-playground",
   "version": "0.6.106",
   "private": true,
   "type": "module",
@@ -8,8 +8,8 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@hyperframes/core": "workspace:*",
-    "@hyperframes/sdk": "workspace:*",
+    "@kenectai/core": "workspace:*",
+    "@kenectai/sdk": "workspace:*",
     "gsap": "^3.15.0"
   },
   "devDependencies": {

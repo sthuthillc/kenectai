@@ -65,13 +65,13 @@ source patching model, and documented limitations.
 
 <CodeGroup>
 ```bash Core
-bun run --filter @hyperframes/core test
+bun run --filter @kenectai/core test
 ```
 ```bash Engine
-bun run --filter @hyperframes/engine test
+bun run --filter @kenectai/engine test
 ```
 ```bash Runtime Contract
-bun run --filter @hyperframes/core test:hyperframe-runtime-ci
+bun run --filter @kenectai/core test:hyperframe-runtime-ci
 ```
 ```bash Producer (Docker)
 cd packages/producer && bun run docker:build:test && bun run docker:test
@@ -88,17 +88,17 @@ bun run --filter '*' test
 
 | Package | Path | Description |
 |---------|------|-------------|
-| [`@hyperframes/core`](/packages/core) | `packages/core` | Types, HTML generation, runtime, linter |
-| [`@hyperframes/sdk`](/packages/sdk) | `packages/sdk` | Headless composition editing engine |
-| [`@hyperframes/engine`](/packages/engine) | `packages/engine` | Seekable page-to-video capture engine |
-| [`@hyperframes/player`](/packages/player) | `packages/player` | Embeddable composition player |
-| [`@hyperframes/producer`](/packages/producer) | `packages/producer` | Full rendering pipeline (capture + encode) |
-| [`@hyperframes/shader-transitions`](/packages/shader-transitions) | `packages/shader-transitions` | WebGL shader transition engine |
-| [`@hyperframes/aws-lambda`](/packages/aws-lambda) | `packages/aws-lambda` | AWS Lambda distributed rendering adapter |
-| [`@hyperframes/gcp-cloud-run`](/packages/gcp-cloud-run) | `packages/gcp-cloud-run` | GCP Cloud Run distributed rendering adapter |
-| [`@hyperframes/studio`](/packages/studio) | `packages/studio` | Composition editor UI |
+| [`@kenectai/core`](/packages/core) | `packages/core` | Types, HTML generation, runtime, linter |
+| [`@kenectai/sdk`](/packages/sdk) | `packages/sdk` | Headless composition editing engine |
+| [`@kenectai/engine`](/packages/engine) | `packages/engine` | Seekable page-to-video capture engine |
+| [`@kenectai/player`](/packages/player) | `packages/player` | Embeddable composition player |
+| [`@kenectai/producer`](/packages/producer) | `packages/producer` | Full rendering pipeline (capture + encode) |
+| [`@kenectai/shader-transitions`](/packages/shader-transitions) | `packages/shader-transitions` | WebGL shader transition engine |
+| [`@kenectai/aws-lambda`](/packages/aws-lambda) | `packages/aws-lambda` | AWS Lambda distributed rendering adapter |
+| [`@kenectai/gcp-cloud-run`](/packages/gcp-cloud-run) | `packages/gcp-cloud-run` | GCP Cloud Run distributed rendering adapter |
+| [`@kenectai/studio`](/packages/studio) | `packages/studio` | Composition editor UI |
 | [`hyperframes`](/packages/cli) | `packages/cli` | CLI for creating, previewing, and rendering |
-| `@hyperframes/sdk-playground` (private) | `packages/sdk-playground` | Local SDK playground app |
+| `@kenectai/sdk-playground` (private) | `packages/sdk-playground` | Local SDK playground app |
 
 ## What to Work On
 
@@ -144,7 +144,7 @@ All of the following must pass before your PR can be merged:
 
 ## Reporting Issues
 
-- Use [GitHub Issues](https://github.com/heygen-com/hyperframes/issues) for bug reports and feature requests
+- Use [GitHub Issues](https://github.com/sthuthillc/kenectai/issues) for bug reports and feature requests
 - Search existing issues before creating a new one
 - For bug reports, include:
   - Steps to reproduce
@@ -155,14 +155,14 @@ All of the following must pass before your PR can be merged:
 ## Community
 
 <CardGroup cols={2}>
-  <Card title="GitHub Issues" icon="github" href="https://github.com/heygen-com/hyperframes/issues">
+  <Card title="GitHub Issues" icon="github" href="https://github.com/sthuthillc/kenectai/issues">
     Report bugs, request features, and discuss ideas.
   </Card>
-  <Card title="Code of Conduct" icon="handshake" href="https://github.com/heygen-com/hyperframes/blob/main/CODE_OF_CONDUCT.md">
+  <Card title="Code of Conduct" icon="handshake" href="https://github.com/sthuthillc/kenectai/blob/main/CODE_OF_CONDUCT.md">
     Our community standards and expectations.
   </Card>
 </CardGroup>
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the [Apache 2.0 License](https://github.com/heygen-com/hyperframes/blob/main/LICENSE).
+By contributing, you agree that your contributions will be licensed under the [Apache 2.0 License](https://github.com/sthuthillc/kenectai/blob/main/LICENSE).

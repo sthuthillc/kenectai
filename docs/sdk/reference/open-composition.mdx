@@ -6,7 +6,7 @@ description: "Open a composition HTML string for editing. Returns a Composition 
 `openComposition` is the single entry point for every SDK session. It parses the composition HTML, stamps stable `hf-id` attributes on any elements that lack them, and returns a [`Composition`](/sdk/reference/composition) ready to receive edits.
 
 ```typescript
-import { openComposition } from "@hyperframes/sdk";
+import { openComposition } from "@kenectai/sdk";
 
 const comp = await openComposition(html, opts?);
 ```
@@ -37,7 +37,7 @@ The same function covers three deployment patterns. Which mode you get depends e
 <ParamField path="persist" type="PersistAdapter">
   Storage adapter for autosave. After every committed change the SDK enqueues a write to this adapter. The session fires `persist:error` events instead of throwing on write failures.
 
-  Built-in adapters: `createMemoryAdapter()` (tests/demos) and `createFsAdapter()` (Node.js). Custom adapters implement the `PersistAdapter` interface, exported from `@hyperframes/sdk`. (`createHeadlessAdapter()` is a `PreviewAdapter` for the `preview` field below — not a persist adapter.)
+  Built-in adapters: `createMemoryAdapter()` (tests/demos) and `createFsAdapter()` (Node.js). Custom adapters implement the `PersistAdapter` interface, exported from `@kenectai/sdk`. (`createHeadlessAdapter()` is a `PreviewAdapter` for the `preview` field below — not a persist adapter.)
 
   See the [persistence guide](/sdk/guides/persistence) for adapter selection and configuration.
 </ParamField>
@@ -81,7 +81,7 @@ The same function covers three deployment patterns. Which mode you get depends e
 ### Headless agent edit
 
 ```typescript
-import { openComposition } from "@hyperframes/sdk";
+import { openComposition } from "@kenectai/sdk";
 
 const comp = await openComposition(html);
 
@@ -98,8 +98,8 @@ comp.dispose();
 ### Standalone with filesystem persistence
 
 ```typescript
-import { openComposition } from "@hyperframes/sdk";
-import { createFsAdapter } from "@hyperframes/sdk/adapters/fs";
+import { openComposition } from "@kenectai/sdk";
+import { createFsAdapter } from "@kenectai/sdk/adapters/fs";
 
 const comp = await openComposition(html, {
   persist: createFsAdapter({ root: "./project" }),
@@ -118,7 +118,7 @@ comp.dispose();
 ### Embedded mode with overrides
 
 ```typescript
-import { openComposition } from "@hyperframes/sdk";
+import { openComposition } from "@kenectai/sdk";
 
 // Stored override delta for one customer
 const savedOverrides = {

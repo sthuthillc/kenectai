@@ -49,7 +49,7 @@ import {
   CANVAS_DIMENSIONS,
   normalizeResolutionFlag,
   type CanvasResolution,
-} from "@hyperframes/core";
+} from "@kenectai/core";
 
 interface VideoMeta {
   durationSeconds: number;

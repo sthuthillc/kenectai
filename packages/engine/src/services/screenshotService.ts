@@ -11,7 +11,7 @@ import { type CaptureOptions } from "../types.js";
 import {
   HF_COLOR_GRADING_CANVAS_ID_PREFIX,
   MEDIA_VISUAL_STYLE_PROPERTIES,
-} from "@hyperframes/core";
+} from "@kenectai/core";
 
 export const cdpSessionCache = new WeakMap<Page, import("puppeteer-core").CDPSession>();
 const COLOR_GRADING_SOURCE_HIDDEN_ATTR = "data-hf-color-grading-source-hidden";

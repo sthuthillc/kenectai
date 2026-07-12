@@ -71,7 +71,7 @@ registry/
   blocks/               → Installable sub-composition scenes (50+)
   components/           → Installable effects and snippets
   examples/             → Starter project templates
-docs/                   → Mintlify documentation site (hyperframes.heygen.com)
+docs/                   → Mintlify documentation site (docs.kenectai.com)
 skills/                 → AI agent skill definitions
 ```
 
@@ -86,5 +86,5 @@ skills/                 → AI agent skill definitions
 
 ## Documentation
 
-- Docs: https://hyperframes.heygen.com/introduction
-- Catalog (50+ blocks): https://hyperframes.heygen.com/catalog/blocks/data-chart
+- Docs: https://docs.kenectai.com/introduction
+- Catalog (50+ blocks): https://docs.kenectai.com/catalog/blocks/data-chart

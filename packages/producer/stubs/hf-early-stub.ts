@@ -10,7 +10,7 @@
  * Responsibilities
  * ─────────────────────────────────────────────────────────────────────────────
  *   1. Create `window.__hf` so page scripts can write to it before the bridge
- *      loads (e.g. @hyperframes/shader-transitions writes transition metadata
+ *      loads (e.g. @kenectai/shader-transitions writes transition metadata
  *      during its init() call, which runs before end-of-body scripts).
  *
  *   2. Intercept `window.gsap` assignment and batch `timeline.to/from/fromTo/set`

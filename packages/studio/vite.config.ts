@@ -65,7 +65,7 @@ function devProjectApi(): Plugin {
       let _api: { fetch: (req: Request) => Promise<Response> } | null = null;
       const getApi = async () => {
         if (!_api) {
-          const mod = await server.ssrLoadModule("@hyperframes/studio-server");
+          const mod = await server.ssrLoadModule("@kenectai/studio-server");
           const adapter = createViteAdapter(dataDir, server);
           _api = mod.createStudioApi(adapter);
         }
@@ -173,8 +173,8 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@hyperframes/player": resolve(__dirname, "../player/src/hyperframes-player.ts"),
-      "@hyperframes/studio-server/source-mutation": resolve(
+      "@kenectai/player": resolve(__dirname, "../player/src/hyperframes-player.ts"),
+      "@kenectai/studio-server/source-mutation": resolve(
         __dirname,
         "../studio-server/src/helpers/sourceMutation.ts",
       ),
@@ -192,7 +192,7 @@ export default defineConfig({
   },
   ssr: {
     // recast / @babel/parser are CommonJS and call `require("fs")`. They are
-    // reachable only server-side via the Node-only `@hyperframes/parsers/gsap-parser`
+    // reachable only server-side via the Node-only `@kenectai/parsers/gsap-parser`
     // subpath (studio-api GSAP mutations + the linter), which the dev server loads
     // through Vite SSR. Externalizing them makes SSR load the native Node modules
     // instead of esbuild-transforming the `require` into a shim that throws

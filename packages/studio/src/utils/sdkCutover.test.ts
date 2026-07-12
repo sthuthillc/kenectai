@@ -7,8 +7,8 @@ import {
   sdkGsapTweenPersist,
   sdkGsapKeyframePersist,
 } from "./sdkCutover";
-import { openComposition } from "@hyperframes/sdk";
-import { createMemoryAdapter } from "@hyperframes/sdk/adapters/memory";
+import { openComposition } from "@kenectai/sdk";
+import { createMemoryAdapter } from "@kenectai/sdk/adapters/memory";
 import type { PatchOperation } from "./sourcePatcher";
 import type { MutableRefObject } from "react";
 

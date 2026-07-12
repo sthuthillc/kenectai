@@ -24,7 +24,7 @@ describe("readRuntimeKeyframes — zero-duration set must not shadow the keyfram
   const holdSet = {
     targets: () => [el],
     // `data` is the STUDIO_HOLD_MARKER sentinel ("hf-hold") from core's gsapParser.
-    // TODO(core follow-up): re-export STUDIO_HOLD_MARKER via the @hyperframes/core/
+    // TODO(core follow-up): re-export STUDIO_HOLD_MARKER via the @kenectai/core/
     // gsap-parser subpath so this fixture can import the const instead of the literal.
     vars: { x: 0, y: 0, data: "hf-hold" },
     duration: () => 0,

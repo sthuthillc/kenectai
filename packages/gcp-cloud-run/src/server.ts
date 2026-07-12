@@ -4,7 +4,7 @@
  * One container image, three roles. Cloud Workflows POSTs a JSON body with
  * an `Action` field; the handler unwraps any `Payload`/`Input` envelope,
  * primes the runtime (Chrome path), and forwards to the matching OSS
- * primitive from `@hyperframes/producer/distributed`.
+ * primitive from `@kenectai/producer/distributed`.
  *
  * Everything heavy — capture, encode, audio mix — happens inside the OSS
  * primitives. The handler is thin glue: parse body → GCS download → call
@@ -12,7 +12,7 @@
  *
  * `dispatch()` is the testable core (inject `storage` + `primitives`); the
  * Hono app at the bottom is the HTTP shell the Dockerfile runs. The shape
- * deliberately tracks `@hyperframes/aws-lambda`'s `handler.ts` so the two
+ * deliberately tracks `@kenectai/aws-lambda`'s `handler.ts` so the two
  * adapters stay easy to diff.
  */
 
@@ -31,7 +31,7 @@ import {
   plan,
   type PlanResult,
   renderChunk,
-} from "@hyperframes/producer/distributed";
+} from "@kenectai/producer/distributed";
 import { resolveChromeExecutablePath } from "./chromium.js";
 import type {
   AssembleEvent,

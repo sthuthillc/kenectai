@@ -35,7 +35,7 @@ function resetRetryMocks() {
   closeCaptureSessionCallCount = 0;
 }
 
-mock.module("@hyperframes/engine", () => ({
+mock.module("@kenectai/engine", () => ({
   createCaptureSession: async (
     _url: string,
     _dir: string,

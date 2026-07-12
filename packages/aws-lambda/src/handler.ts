@@ -4,7 +4,7 @@
  * One Lambda function, three roles. Step Functions dispatches by setting
  * `event.Action`; the handler unwraps Map-state envelopes, primes the
  * Lambda environment (Chrome path, ffmpeg path, tmpdir), and forwards to
- * the matching OSS primitive from `@hyperframes/producer/distributed`.
+ * the matching OSS primitive from `@kenectai/producer/distributed`.
  *
  * Everything heavy — capture, encode, audio mix — happens inside the OSS
  * primitives. The handler is thin glue: parse event → S3 download → call
@@ -23,7 +23,7 @@ import {
   plan,
   type PlanResult,
   renderChunk,
-} from "@hyperframes/producer/distributed";
+} from "@kenectai/producer/distributed";
 import { resolveChromeExecutablePath } from "./chromium.js";
 import { type DistributedFormat, formatExtension } from "./formatExtension.js";
 import type {

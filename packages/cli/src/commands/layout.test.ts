@@ -16,7 +16,7 @@ import {
 // real browser or network work — exercising run()'s outer catch (the JSON
 // failure envelope) without needing headless Chrome.
 vi.mock("../utils/project.js", () => resolveProjectMock());
-vi.mock("@hyperframes/core/compiler", () => bundleToSingleHtmlFailureMock());
+vi.mock("@kenectai/core/compiler", () => bundleToSingleHtmlFailureMock());
 
 import { createInspectCommand } from "./layout.js";
 

@@ -4,7 +4,7 @@ import type {
   CompositionVariable,
   VariableUsageReport,
   VariableValidationIssue,
-} from "@hyperframes/sdk";
+} from "@kenectai/sdk";
 import type { EditHistoryKind } from "../../utils/editHistory";
 import { useStudioPlaybackContext, useStudioShellContext } from "../../contexts/StudioContext";
 import { useDomEditContext } from "../../contexts/DomEditContext";
@@ -23,7 +23,7 @@ import {
 import { PreviewValueControl } from "./VariablesValueControls";
 import { copyTextToClipboard } from "../../utils/clipboard";
 import { resolveMasterCompositionPath } from "../../utils/studioUrlState";
-import { isScalarVariableValue as isScalar } from "@hyperframes/core/variables";
+import { isScalarVariableValue as isScalar } from "@kenectai/core/variables";
 
 /** POSIX single-quote escaping so the copied command survives quotes in values. */
 function shellSingleQuote(value: string): string {

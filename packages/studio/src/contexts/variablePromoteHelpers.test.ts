@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { CompositionVariable } from "@hyperframes/sdk";
+import type { CompositionVariable } from "@kenectai/sdk";
 import type { BindAction } from "../components/panels/VariablesBindElement";
 import {
   matchAction,

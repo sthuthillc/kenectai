@@ -19,8 +19,8 @@ describe("hyperframes-core contract docs", () => {
     const skill = read("skills", "hyperframes-core", "SKILL.md");
     const brief = read("skills", "hyperframes-core", "references", "brief-contract.md");
 
-    expect(skill).toContain("`npx hyperframes check`");
-    expect(brief).toContain("`hyperframes check`");
+    expect(skill).toContain("`npx @kenectai/cli check`");
+    expect(brief).toContain("`kenectai check`");
     expect(brief).not.toContain("`lint` / `validate` / `inspect`");
   });
 });

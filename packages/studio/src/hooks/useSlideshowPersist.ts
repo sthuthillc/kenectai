@@ -1,6 +1,6 @@
 import { useCallback, type MutableRefObject } from "react";
-import type { Composition } from "@hyperframes/sdk";
-import type { SlideshowManifest } from "@hyperframes/core/slideshow";
+import type { Composition } from "@kenectai/sdk";
+import type { SlideshowManifest } from "@kenectai/core/slideshow";
 import type { EditHistoryKind } from "../utils/editHistory";
 import { persistSlideshowManifest } from "../utils/setSlideshowManifest";
 

@@ -6,7 +6,7 @@ import {
   patchElementInHtml,
   type PatchOperation,
   type SourceMutationTarget,
-} from "@hyperframes/studio-server/source-mutation";
+} from "@kenectai/studio-server/source-mutation";
 import { describe, expect, it } from "vitest";
 import {
   collectDomEditTextFields,

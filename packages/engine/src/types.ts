@@ -1,10 +1,10 @@
 /**
- * @hyperframes/engine — Protocol Types
+ * @kenectai/engine — Protocol Types
  *
  * The engine's page contract. Any web page that wants to be rendered
  * as video must expose `window.__hf` implementing the HfProtocol interface.
  */
-import type { Fps } from "@hyperframes/core";
+import type { Fps } from "@kenectai/core";
 
 /**
  * Outcome of waiting for a sub-composition's GSAP timelines to register.
@@ -42,7 +42,7 @@ export interface HfMediaElement {
 /**
  * Metadata for a shader transition between two scenes.
  *
- * Compositions using @hyperframes/shader-transitions populate
+ * Compositions using @kenectai/shader-transitions populate
  * `window.__hf.transitions` with one entry per transition so the
  * producer can pre-compute scene ranges, capture per-scene buffers,
  * and apply the transition in HDR-aware compositing.
@@ -80,7 +80,7 @@ export interface HfProtocol {
   seek(time: number): void;
   /** Optional: media elements the engine should handle */
   media?: HfMediaElement[];
-  /** Optional: shader transition metadata, populated by @hyperframes/shader-transitions */
+  /** Optional: shader transition metadata, populated by @kenectai/shader-transitions */
   transitions?: HfTransitionMeta[];
 }
 

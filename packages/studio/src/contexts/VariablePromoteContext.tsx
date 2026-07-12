@@ -8,7 +8,7 @@
  */
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import type { Composition, CompositionVariable } from "@hyperframes/sdk";
+import type { Composition, CompositionVariable } from "@kenectai/sdk";
 import type { DomEditSelection } from "../components/editor/domEditingTypes";
 import {
   applyBind,

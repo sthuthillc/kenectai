@@ -13,7 +13,7 @@ import { type FrameLookupTable } from "./videoFrameExtractor.js";
 import { injectVideoFramesBatch, syncVideoFrameVisibility } from "./screenshotService.js";
 import { type BeforeCaptureHook } from "./frameCapture.js";
 import { DEFAULT_CONFIG, type EngineConfig } from "../config.js";
-import { HF_COLOR_GRADING_CANVAS_ID_PREFIX } from "@hyperframes/core";
+import { HF_COLOR_GRADING_CANVAS_ID_PREFIX } from "@kenectai/core";
 
 export interface VideoFrameInjectorOptions extends Partial<
   Pick<EngineConfig, "frameDataUriCacheLimit" | "frameDataUriCacheBytesLimitMb">

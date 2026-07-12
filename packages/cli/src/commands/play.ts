@@ -99,7 +99,7 @@ export default defineCommand({
     const playerPath = resolvePlayerPath();
     if (!playerPath) {
       clack.log.error(
-        "@hyperframes/player not found. Run `bun run --cwd packages/player build` first.",
+        "@kenectai/player not found. Run `bun run --cwd packages/player build` first.",
       );
       process.exitCode = 1;
       return;
@@ -107,7 +107,7 @@ export default defineCommand({
 
     const { Hono } = await import("hono");
     const { createAdaptorServer } = await import("@hono/node-server");
-    const { isSafePath } = await import("@hyperframes/core/studio-api");
+    const { isSafePath } = await import("@kenectai/core/studio-api");
 
     const app = new Hono();
 

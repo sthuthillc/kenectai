@@ -25,7 +25,7 @@ This is the zero-infra alternative to running your own renderer. If you'd rather
 
 ## Authenticate
 
-Cloud rendering needs a HeyGen credential. Sign in once — the CLI stores it in `~/.heygen/credentials` (mode `0600`), and the same credential drives every `cloud` subcommand.
+Cloud rendering needs a HeyGen credential. Sign in once — the CLI stores it in `~/.kenectai/credentials` (mode `0600`), and the same credential drives every `cloud` subcommand.
 
 <Steps>
   <Step title="Sign in">
@@ -43,7 +43,7 @@ Cloud rendering needs a HeyGen credential. Sign in once — the CLI stores it in
     hyperframes auth login --api-key
 
     # Or pipe a key from stdin
-    echo "$HEYGEN_API_KEY" | hyperframes auth login --api-key
+    echo "$KENECT_API_KEY" | hyperframes auth login --api-key
     ```
   </Step>
   <Step title="Confirm you're signed in">
@@ -54,14 +54,13 @@ Cloud rendering needs a HeyGen credential. Sign in once — the CLI stores it in
   </Step>
 </Steps>
 
-The credential is **shared with the [`heygen` CLI](https://github.com/heygen-com/heygen-cli)** — sign in with one and the other picks up the session. Credentials resolve in this order (first match wins):
+The credential is **shared across KENECT AI tools** via `~/.kenectai/credentials` — sign in with one and the others pick up the session. Credentials resolve in this order (first match wins):
 
-1. `HEYGEN_API_KEY` environment variable
-2. `HYPERFRAMES_API_KEY` environment variable (hyperframes alias)
-3. `~/.heygen/credentials`
+1. `KENECT_API_KEY` environment variable
+2. `~/.kenectai/credentials` (unexpired OAuth session, else stored API key)
 
 <Note>
-  Point the CLI at a different backend with `HEYGEN_API_URL` (default `https://api.heygen.com`). Use `hyperframes auth refresh` to force-refresh an OAuth token before a long job; `hyperframes auth logout` clears the stored credential. For the keys voice, music, and capture use across the skills — and the fully local fallback — see [Authentication & API keys](/guides/authentication).
+  Point the CLI at a different backend with `KENECT_API_URL` (default `https://api.kenectai.com`). Use `hyperframes auth refresh` to force-refresh an OAuth token before a long job; `hyperframes auth logout` clears the stored credential. For the keys voice, music, and capture use across the skills — and the fully local fallback — see [Authentication & API keys](/guides/authentication).
 </Note>
 
 ## How a cloud render flows

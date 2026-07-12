@@ -1,11 +1,11 @@
-# @hyperframes/producer
+# @kenectai/producer
 
 Full HTML-to-video rendering pipeline: capture frames with Chrome's BeginFrame API, encode with FFmpeg, mix audio — all in one call.
 
 ## Install
 
 ```bash
-npm install @hyperframes/producer
+npm install @kenectai/producer
 ```
 
 **Requirements:** Node.js >= 22, Chrome/Chromium (auto-downloaded), FFmpeg
@@ -15,7 +15,7 @@ npm install @hyperframes/producer
 ### Render a video
 
 ```typescript
-import { createRenderJob, executeRenderJob } from "@hyperframes/producer";
+import { createRenderJob, executeRenderJob } from "@kenectai/producer";
 
 const job = createRenderJob({
   inputPath: "./my-composition.html",
@@ -37,7 +37,7 @@ console.log(result.outputPath); // ./output.mp4
 The producer can also run as a render server, accepting render requests over HTTP:
 
 ```typescript
-import { startServer } from "@hyperframes/producer";
+import { startServer } from "@kenectai/producer";
 
 await startServer({ port: 8080 });
 // POST /render with a RenderConfig body
@@ -72,7 +72,7 @@ The producer can render HTML compositions to formats that carry a **true alpha c
 ### Example
 
 ```typescript
-import { createRenderJob, executeRenderJob } from "@hyperframes/producer";
+import { createRenderJob, executeRenderJob } from "@kenectai/producer";
 
 const job = createRenderJob({
   inputPath: "./my-composition.html",
@@ -112,7 +112,7 @@ Don't paint a fullscreen background in your HTML. The default body background is
 For renders too large for a single machine, the producer ships a public set of distributed-render primitives. They are pure functions over local file paths — networking and orchestration live in adapter packages (Temporal, AWS Lambda + Step Functions, Cloud Run Jobs, K8s Jobs).
 
 ```typescript
-import { plan, renderChunk, assemble } from "@hyperframes/producer/distributed";
+import { plan, renderChunk, assemble } from "@kenectai/producer/distributed";
 
 // Controller-side: produce a self-contained planDir + content-addressed planHash.
 const planResult = await plan(
@@ -135,7 +135,7 @@ await assemble(
 );
 ```
 
-The three activity functions plus their result types are also re-exported from `@hyperframes/producer` so callers that pin the main package don't need a separate subpath import. Supported formats: `mp4` SDR, `mov` ProRes 4444, and `png-sequence`. webm and HDR mp4 trip a typed `FormatNotSupportedInDistributedError` — use the in-process renderer (`executeRenderJob`) for those.
+The three activity functions plus their result types are also re-exported from `@kenectai/producer` so callers that pin the main package don't need a separate subpath import. Supported formats: `mp4` SDR, `mov` ProRes 4444, and `png-sequence`. webm and HDR mp4 trip a typed `FormatNotSupportedInDistributedError` — use the in-process renderer (`executeRenderJob`) for those.
 
 ## How it works
 
@@ -147,10 +147,10 @@ The three activity functions plus their result types are also re-exported from `
 
 ## Documentation
 
-Full documentation: [hyperframes.heygen.com/packages/producer](https://hyperframes.heygen.com/packages/producer)
+Full documentation: [docs.kenectai.com/packages/producer](https://docs.kenectai.com/packages/producer)
 
 ## Related packages
 
-- [`@hyperframes/core`](../core) — types, parsers, frame adapters
-- [`@hyperframes/engine`](../engine) — lower-level capture and encode primitives
+- [`@kenectai/core`](../core) — types, parsers, frame adapters
+- [`@kenectai/engine`](../engine) — lower-level capture and encode primitives
 - [`hyperframes`](../cli) — CLI

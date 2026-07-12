@@ -24,13 +24,13 @@ import {
   CANVAS_DIMENSIONS,
   checkOutputResolutionCompatibility,
   type CanvasResolution,
-} from "@hyperframes/core";
+} from "@kenectai/core";
 import type {
   AudioElement,
   ExtractedFrames,
   ImageElement,
   VideoElement,
-} from "@hyperframes/engine";
+} from "@kenectai/engine";
 import type { CompiledComposition } from "../htmlCompiler.js";
 import { defaultLogger, type ProducerLogger } from "../../logger.js";
 import { isPathInside } from "../../utils/paths.js";

@@ -2,7 +2,7 @@
 import { describe, it, expect } from "vitest";
 import * as core from "./index.js";
 
-describe("@hyperframes/core public API exports", () => {
+describe("@kenectai/core public API exports", () => {
   describe("type-related constants and utilities", () => {
     it("exports CANVAS_DIMENSIONS", () => {
       expect(core.CANVAS_DIMENSIONS).toBeDefined();
@@ -128,10 +128,10 @@ describe("@hyperframes/core public API exports", () => {
   });
 
   describe("lint exports", () => {
-    it("exposes lintHyperframeHtml via the @hyperframes/core/lint back-compat stub", async () => {
-      // Lint moved to @hyperframes/lint; core's main entry no longer re-exports
+    it("exposes lintHyperframeHtml via the @kenectai/core/lint back-compat stub", async () => {
+      // Lint moved to @kenectai/lint; core's main entry no longer re-exports
       // it (that would cycle through the lint package). The subpath stub keeps
-      // existing @hyperframes/core/lint imports working.
+      // existing @kenectai/core/lint imports working.
       const lint = await import("./lint/index.js");
       expect(typeof lint.lintHyperframeHtml).toBe("function");
     });

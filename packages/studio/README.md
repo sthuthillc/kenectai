@@ -1,11 +1,11 @@
-# @hyperframes/studio
+# @kenectai/studio
 
 Browser-based composition editor UI for Hyperframes. Provides a visual timeline, code editor, and live preview for building video compositions.
 
 ## Install
 
 ```bash
-npm install @hyperframes/studio
+npm install @kenectai/studio
 ```
 
 ## What it does
@@ -38,9 +38,9 @@ bun run typecheck  # Type-check
 
 ## Documentation
 
-Full documentation: [hyperframes.heygen.com/packages/studio](https://hyperframes.heygen.com/packages/studio)
+Full documentation: [docs.kenectai.com/packages/studio](https://docs.kenectai.com/packages/studio)
 
 ## Related packages
 
-- [`@hyperframes/core`](../core) — types and parsers used by the editor
+- [`@kenectai/core`](../core) — types and parsers used by the editor
 - [`hyperframes`](../cli) — CLI that serves the studio via `hyperframes preview`

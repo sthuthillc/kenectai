@@ -16,7 +16,7 @@
  *     in the container image.
  *
  * Apart from the `gs://` scheme and the `@google-cloud/storage` client this
- * is the same shape as `@hyperframes/aws-lambda`'s `s3Transport.ts`.
+ * is the same shape as `@kenectai/aws-lambda`'s `s3Transport.ts`.
  */
 
 import { createWriteStream, existsSync, mkdirSync, rmSync, statSync } from "node:fs";

@@ -6,7 +6,7 @@ import { describe, expect, it, vi } from "vitest";
 import { mkdtempSync, mkdirSync, rmSync, writeFileSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { CaptureSession } from "@hyperframes/engine";
+import type { CaptureSession } from "@kenectai/engine";
 import type { FileServerHandle } from "../fileServer.js";
 import { buildRenderErrorDetails, cleanupRenderResources, safeCleanup } from "./cleanup.js";
 

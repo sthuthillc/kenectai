@@ -5,7 +5,7 @@ import type {
   LintResult,
   ResolvedProject,
   StudioSelectionResponse,
-} from "@hyperframes/studio-server";
+} from "@kenectai/studio-server";
 
 export type StudioLintResponse = LintResult;
 

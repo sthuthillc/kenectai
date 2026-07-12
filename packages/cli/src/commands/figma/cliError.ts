@@ -11,7 +11,7 @@
  * NO_TOKEN → later success is onboarding conversion.
  */
 
-import { FigmaClientError } from "@hyperframes/core/figma";
+import { FigmaClientError } from "@kenectai/core/figma";
 import { errorBox } from "../../ui/format.js";
 
 export async function withFigmaErrors(command: string, fn: () => Promise<void>): Promise<void> {

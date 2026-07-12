@@ -17,7 +17,7 @@ export default defineConfig({
   external: [
     "@google-cloud/storage",
     "@hono/node-server",
-    "@hyperframes/gcp-cloud-run",
+    "@kenectai/gcp-cloud-run",
     "adm-zip",
     "hono",
   ],

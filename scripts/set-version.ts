@@ -349,7 +349,7 @@ function printReleaseNextSteps(version: string) {
   if (isPrerelease(version)) {
     const distTag = version.replace(/^.*-([a-zA-Z]+).*$/, "$1");
     console.log(`\nThis is a pre-release — npm dist-tag will be "${distTag}" (not "latest").`);
-    console.log(`Consumers install with: npm install @hyperframes/core@${distTag}`);
+    console.log(`Consumers install with: npm install @kenectai/core@${distTag}`);
     console.log(`\nRun 'git push origin v${version}' to trigger the publish workflow.`);
   } else {
     console.log(`\nRun the following to trigger the publish workflow:`);

@@ -2,7 +2,7 @@
 /**
  * Generate Template Preview Images + Videos
  *
- * Uses @hyperframes/producer to render PNG thumbnails and short MP4 preview
+ * Uses @kenectai/producer to render PNG thumbnails and short MP4 preview
  * videos of each built-in template.
  *
  * Output: docs/images/templates/<id>.png + <id>.mp4
@@ -36,7 +36,7 @@ import {
   closeCaptureSession,
   createRenderJob,
   executeRenderJob,
-} from "@hyperframes/producer";
+} from "@kenectai/producer";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(scriptDir, "..");

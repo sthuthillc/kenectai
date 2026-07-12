@@ -21,7 +21,7 @@ const browserConsoleBuffer = ["[FrameCapture:ERROR] page.goto failed"];
 const closeCaptureSession = mock(async () => {});
 class DrawElementVerificationError extends Error {}
 
-mock.module("@hyperframes/engine", () => ({
+mock.module("@kenectai/engine", () => ({
   calculateOptimalWorkers: () => 1,
   convertTransfer: () => {},
   captureFrame: async () => {},
@@ -70,7 +70,7 @@ mock.module("@hyperframes/engine", () => ({
   writeCapturedFrame: async () => {},
 }));
 
-mock.module("@hyperframes/core", () => ({
+mock.module("@kenectai/core", () => ({
   CANVAS_DIMENSIONS: {},
   checkOutputResolutionCompatibility: () => ({ ok: true }),
   fpsToNumber: () => 30,

@@ -1,5 +1,5 @@
 import type { RefObject } from "react";
-import type { ArcPathSegment, GsapAnimation } from "@hyperframes/parsers/gsap-parser";
+import type { ArcPathSegment, GsapAnimation } from "@kenectai/parsers/gsap-parser";
 import type { DomEditSelection } from "./domEditing";
 import type { ImportedFontAsset } from "./fontAssets";
 

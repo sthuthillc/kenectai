@@ -16,7 +16,7 @@
  */
 
 import { join } from "node:path";
-import { processCompositionAudio } from "@hyperframes/engine";
+import { processCompositionAudio } from "@kenectai/engine";
 import type { CompositionMetadata } from "../shared.js";
 
 export interface AudioStageInput {

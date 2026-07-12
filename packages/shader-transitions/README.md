@@ -1,23 +1,23 @@
-# @hyperframes/shader-transitions
+# @kenectai/shader-transitions
 
 WebGL shader transitions for HyperFrames compositions. Renders GPU-accelerated scene-to-scene transitions using fragment shaders, driven by GSAP timelines.
 
 ## Install
 
 ```bash
-npm install @hyperframes/shader-transitions
+npm install @kenectai/shader-transitions
 ```
 
 Or load directly via CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@hyperframes/shader-transitions/dist/index.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@kenectai/shader-transitions/dist/index.global.js"></script>
 ```
 
 ## Usage
 
 ```typescript
-import { init } from "@hyperframes/shader-transitions";
+import { init } from "@kenectai/shader-transitions";
 
 const tl = init({
   bgColor: "#0a0a0a",
@@ -107,7 +107,7 @@ Browser previews store captured transition snapshots in IndexedDB using a key de
 Array of all available shader name strings, useful for validation or building UIs.
 
 ```typescript
-import { SHADER_NAMES } from "@hyperframes/shader-transitions";
+import { SHADER_NAMES } from "@kenectai/shader-transitions";
 // ["domain-warp", "ridged-burn", "whip-pan", ...]
 ```
 
@@ -123,8 +123,8 @@ All formats include source maps. TypeScript definitions included.
 
 ## Related packages
 
-- [`@hyperframes/core`](../core) -- types, parsers, runtime
-- [`@hyperframes/engine`](../engine) -- rendering engine
+- [`@kenectai/core`](../core) -- types, parsers, runtime
+- [`@kenectai/engine`](../engine) -- rendering engine
 - [`hyperframes`](../cli) -- CLI
 
 ## License

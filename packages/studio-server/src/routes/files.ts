@@ -27,10 +27,10 @@ import {
   findUnsafeMutationValues,
   type UnsafeMutationValue,
 } from "../helpers/finiteMutation.js";
-import type { GsapAnimation } from "@hyperframes/parsers";
-import { classifyPropertyGroup } from "@hyperframes/parsers/gsap-constants";
-import { parseGsapScriptAcorn } from "@hyperframes/parsers/gsap-parser-acorn";
-import { unrollComputedTimeline } from "@hyperframes/parsers";
+import type { GsapAnimation } from "@kenectai/parsers";
+import { classifyPropertyGroup } from "@kenectai/parsers/gsap-constants";
+import { parseGsapScriptAcorn } from "@kenectai/parsers/gsap-parser-acorn";
+import { unrollComputedTimeline } from "@kenectai/parsers";
 import {
   updateAnimationInScript,
   addAnimationToScript,
@@ -53,7 +53,7 @@ import {
   shiftPositionsInScript,
   scalePositionsInScript,
   dedupePositionWritesInScript,
-} from "@hyperframes/parsers/gsap-writer-acorn";
+} from "@kenectai/parsers/gsap-writer-acorn";
 import {
   removeElementFromHtml,
   patchElementInHtml,
@@ -88,7 +88,7 @@ function isAcornGsapWriterEnabled(): boolean {
  * for the recast write path (the default when STUDIO_SDK_CUTOVER_ENABLED is off).
  */
 async function loadGsapParser() {
-  return import("@hyperframes/parsers/gsap-parser-recast");
+  return import("@kenectai/parsers/gsap-parser-recast");
 }
 
 // ── Shared helpers ──────────────────────────────────────────────────────────
@@ -2029,7 +2029,7 @@ export function registerFileRoutes(api: Hono, adapter: StudioApiAdapter): void {
     let block = extractGsapScriptBlock(html);
     if (!block && (body.type === "add" || body.type === "add-with-keyframes")) {
       const compId = html.match(/data-composition-id="([^"]+)"/)?.[1] ?? "main";
-      const { GSAP_CDN } = await import("@hyperframes/core");
+      const { GSAP_CDN } = await import("@kenectai/core");
       const gsapCdn = `<script src="${GSAP_CDN}"></script>`;
       const bootstrap = [
         gsapCdn,

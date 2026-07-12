@@ -270,7 +270,7 @@ Ships a lane-model Studio timeline (multi-select, marquee, group move/resize, ma
   description="Released - 2026-07-09"
   tags={["Release", "Sdk", "Sdk Playground", "Studio Server"]}
 >
-Adds live-DOM sync and variable CRUD to `@hyperframes/sdk`, plus mechanical Figma motion translation with an objective fidelity gate. Also ships several render-pipeline and parser fixes (cross-realm position edits, static-frame dedup call-detection, GSAP position holds).
+Adds live-DOM sync and variable CRUD to `@kenectai/sdk`, plus mechanical Figma motion translation with an objective fidelity gate. Also ships several render-pipeline and parser fixes (cross-realm position edits, static-frame dedup call-detection, GSAP position holds).
 
 ## Features
 
@@ -898,7 +898,7 @@ This release unifies CLI and Studio telemetry identity, extends the resolver-sha
 
 - Clarify transparent WebM shows as yuv420p under ffprobe (alpha is a VP9 side-channel) ([534d6177b](https://github.com/heygen-com/hyperframes/commit/534d6177b65bfd7aadc74d1a0632410e03b1d8ac), [#1823](https://github.com/heygen-com/hyperframes/pull/1823))
 - **Sdk:** Republish SDK tab pages (Mintlify incremental deploy skipped the new files) ([bd27ea31a](https://github.com/heygen-com/hyperframes/commit/bd27ea31adcee07736f6a2c244acda77a4215975))
-- **Sdk:** Pin editing-affordances availability to @hyperframes/sdk@0.7.22 ([9140ee51b](https://github.com/heygen-com/hyperframes/commit/9140ee51b3109b97346cda083714e0b13b1270cf))
+- **Sdk:** Pin editing-affordances availability to @kenectai/sdk@0.7.22 ([9140ee51b](https://github.com/heygen-com/hyperframes/commit/9140ee51b3109b97346cda083714e0b13b1270cf))
 
 [View the full commit range](https://github.com/heygen-com/hyperframes/compare/v0.7.22...v0.7.23).
 </Update>
@@ -908,7 +908,7 @@ This release unifies CLI and Studio telemetry identity, extends the resolver-sha
   description="Released - 2026-06-30"
   tags={["Release", "Sdk", "Editing", "CLI"]}
 >
-This release makes `@hyperframes/sdk` a first-class editing engine: a new shared `resolveEditingAffordances` API (with a browser SDK adapter) tells custom editors what's editable on any element, backed by comprehensive SDK reference docs and guides. The storyboard view is now on by default, plus encode, lint, and CLI reliability fixes.
+This release makes `@kenectai/sdk` a first-class editing engine: a new shared `resolveEditingAffordances` API (with a browser SDK adapter) tells custom editors what's editable on any element, backed by comprehensive SDK reference docs and guides. The storyboard view is now on by default, plus encode, lint, and CLI reliability fixes.
 
 ## Features
 
@@ -1002,7 +1002,7 @@ This release fixes a render-correctness bug where a video or audio element ident
   description="Released - 2026-06-29"
   tags={["Release", "Core", "Studio", "Skills"]}
 >
-This release fixes the `@hyperframes/core` package by publishing the generated
+This release fixes the `@kenectai/core` package by publishing the generated
 runtime inline module required by the top-level entrypoint. It also improves
 Studio keyframe editing and retiming, refreshes bundled skills, and trims the
 README motion preview.
@@ -1058,15 +1058,15 @@ composition more directly.
   description="Released - 2026-06-27"
   tags={["Release"]}
 >
-`@hyperframes/lint` can now run **fully in the browser** — validate compositions client-side with no Node.js and no server round-trip — and it now depends only on `@hyperframes/parsers`, so installing the validator no longer pulls the studio server or other unrelated packages.
+`@kenectai/lint` can now run **fully in the browser** — validate compositions client-side with no Node.js and no server round-trip — and it now depends only on `@kenectai/parsers`, so installing the validator no longer pulls the studio server or other unrelated packages.
 
 ## Features
 
-- **Lint:** New `@hyperframes/lint/browser` entry — a node-free, client-side rule engine (`lintHyperframeHtml`, `lintMediaUrls`, `shouldBlockRender`) for browser-only editors and tools ([6aaab32c](https://github.com/heygen-com/hyperframes/commit/6aaab32ccb4de355abca8310c2d4fd69ea95e47b), [#1773](https://github.com/heygen-com/hyperframes/pull/1773))
+- **Lint:** New `@kenectai/lint/browser` entry — a node-free, client-side rule engine (`lintHyperframeHtml`, `lintMediaUrls`, `shouldBlockRender`) for browser-only editors and tools ([6aaab32c](https://github.com/heygen-com/hyperframes/commit/6aaab32ccb4de355abca8310c2d4fd69ea95e47b), [#1773](https://github.com/heygen-com/hyperframes/pull/1773))
 
 ## Internal
 
-- **Lint:** Depend only on `@hyperframes/parsers` (dropped `@hyperframes/core`); relocated the shared URL/asset-path, font-alias, and slideshow-parser utilities into `@hyperframes/parsers` with back-compat stubs in core, and hardened the CSS `url()` regex against polynomial-ReDoS ([6aaab32c](https://github.com/heygen-com/hyperframes/commit/6aaab32ccb4de355abca8310c2d4fd69ea95e47b), [#1773](https://github.com/heygen-com/hyperframes/pull/1773))
+- **Lint:** Depend only on `@kenectai/parsers` (dropped `@kenectai/core`); relocated the shared URL/asset-path, font-alias, and slideshow-parser utilities into `@kenectai/parsers` with back-compat stubs in core, and hardened the CSS `url()` regex against polynomial-ReDoS ([6aaab32c](https://github.com/heygen-com/hyperframes/commit/6aaab32ccb4de355abca8310c2d4fd69ea95e47b), [#1773](https://github.com/heygen-com/hyperframes/pull/1773))
 
 ## Docs & Examples
 
@@ -1120,9 +1120,9 @@ package set.
 
 ## Internal
 
-- Extract @hyperframes/studio-server from core ([7a4853df](https://github.com/heygen-com/hyperframes/commit/7a4853dfe6e7e55effca57314011cec322c13a23), [#1757](https://github.com/heygen-com/hyperframes/pull/1757))
-- Extract @hyperframes/lint from core ([98d0bdd7](https://github.com/heygen-com/hyperframes/commit/98d0bdd73c7551abeb6962bd82eedc1c44e3d953), [#1756](https://github.com/heygen-com/hyperframes/pull/1756))
-- Extract @hyperframes/parsers from core ([cdf9c817](https://github.com/heygen-com/hyperframes/commit/cdf9c817e1c0c396a5c24c75ea08a8dba72e3528), [#1755](https://github.com/heygen-com/hyperframes/pull/1755))
+- Extract @kenectai/studio-server from core ([7a4853df](https://github.com/heygen-com/hyperframes/commit/7a4853dfe6e7e55effca57314011cec322c13a23), [#1757](https://github.com/heygen-com/hyperframes/pull/1757))
+- Extract @kenectai/lint from core ([98d0bdd7](https://github.com/heygen-com/hyperframes/commit/98d0bdd73c7551abeb6962bd82eedc1c44e3d953), [#1756](https://github.com/heygen-com/hyperframes/pull/1756))
+- Extract @kenectai/parsers from core ([cdf9c817](https://github.com/heygen-com/hyperframes/commit/cdf9c817e1c0c396a5c24c75ea08a8dba72e3528), [#1755](https://github.com/heygen-com/hyperframes/pull/1755))
 
 [View the full commit range](https://github.com/heygen-com/hyperframes/compare/v0.7.14...v0.7.15).
 </Update>
@@ -1548,7 +1548,7 @@ global mute, editable speaker notes, and first-load navigation chrome in sync.
   description="Released - 2026-06-20"
   tags={["Release", "Core"]}
 >
-This hotfix restores the published `@hyperframes/core` subpath contract used by Studio,
+This hotfix restores the published `@kenectai/core` subpath contract used by Studio,
 SDK, and CLI consumers. Installed packages can now resolve the `beats`, `storyboard`,
 HTML attribute safety, package metadata, and clip tree entry points that already existed
 in source.
@@ -1618,7 +1618,7 @@ Full slideshow stack: schema, parser, controller, `<hyperframes-slideshow>` web 
 
 - **Examples:** Slideshow demos — airbnb deck, startup pitch, fixture ([ae404984](https://github.com/heygen-com/hyperframes/commit/ae40498433de266999031d8230a232f89f4a9cad), [#1584](https://github.com/heygen-com/hyperframes/pull/1584))
 - **Core:** Gate acorn GSAP writer behind cutover flag; keep recast default (WS-3F) ([967bf9f9](https://github.com/heygen-com/hyperframes/commit/967bf9f9ed0303154c755e3ee8f9b829f6f41174), [#1573](https://github.com/heygen-com/hyperframes/pull/1573))
-- **Publish:** Publish @hyperframes/sdk to npm ([7607a714](https://github.com/heygen-com/hyperframes/commit/7607a714a6c46407bb42cff1ed754ea8997035df), [#1587](https://github.com/heygen-com/hyperframes/pull/1587))
+- **Publish:** Publish @kenectai/sdk to npm ([7607a714](https://github.com/heygen-com/hyperframes/commit/7607a714a6c46407bb42cff1ed754ea8997035df), [#1587](https://github.com/heygen-com/hyperframes/pull/1587))
 
 [View the full commit range](https://github.com/heygen-com/hyperframes/compare/v0.6.112...v0.6.115).
 </Update>
@@ -1680,7 +1680,7 @@ Brings the AI Studio (Pacific) SDK integration surface online — object-valued 
 ## Internal
 
 - **Core:** Gate acorn GSAP writer behind cutover flag; keep recast default (WS-3F) ([967bf9f9](https://github.com/heygen-com/hyperframes/commit/967bf9f9ed0303154c755e3ee8f9b829f6f41174), [#1573](https://github.com/heygen-com/hyperframes/pull/1573))
-- **Publish:** Publish @hyperframes/sdk to npm ([7607a714](https://github.com/heygen-com/hyperframes/commit/7607a714a6c46407bb42cff1ed754ea8997035df), [#1587](https://github.com/heygen-com/hyperframes/pull/1587))
+- **Publish:** Publish @kenectai/sdk to npm ([7607a714](https://github.com/heygen-com/hyperframes/commit/7607a714a6c46407bb42cff1ed754ea8997035df), [#1587](https://github.com/heygen-com/hyperframes/pull/1587))
 
 [View the full commit range](https://github.com/heygen-com/hyperframes/compare/v0.6.112...v0.6.113).
 </Update>
@@ -2023,8 +2023,8 @@ Introduces the HyperFrames SDK (session API, undo/redo, adapters, sub-compositio
 - **CLI:** Add --at-transitions to inspect for sampling at tween boundaries ([6364281b](https://github.com/heygen-com/hyperframes/commit/6364281ba0226a97953b6be88f29efa5b6b0170d), [#1386](https://github.com/heygen-com/hyperframes/pull/1386))
 - **Lint:** Add gsap_studio_edit_blocked rule for manual timeline + GSAP element targeting ([511665b9](https://github.com/heygen-com/hyperframes/commit/511665b93ace7a22fa488d81365d229cba71c8c5), [#1345](https://github.com/heygen-com/hyperframes/pull/1345))
 - **Sdk:** Session API, optional history + persist-queue, adapters — Phase 3a complete ([7010edac](https://github.com/heygen-com/hyperframes/commit/7010edac85e9684b1cc115920e614515a5cb03a1), [#1325](https://github.com/heygen-com/hyperframes/pull/1325))
-- **Sdk:** Scaffold @hyperframes/sdk — engine layer (model, RFC 6902 patches, mutate, apply-patches) ([22bb6737](https://github.com/heygen-com/hyperframes/commit/22bb6737c546e910bfdc0bbe6f459bfe01e6bfa6), [#1324](https://github.com/heygen-com/hyperframes/pull/1324))
-- **Core:** Expose hf-ids as subpath export for @hyperframes/sdk ([2c64f996](https://github.com/heygen-com/hyperframes/commit/2c64f9969442914a2a8813cc60e5e57646742336), [#1323](https://github.com/heygen-com/hyperframes/pull/1323))
+- **Sdk:** Scaffold @kenectai/sdk — engine layer (model, RFC 6902 patches, mutate, apply-patches) ([22bb6737](https://github.com/heygen-com/hyperframes/commit/22bb6737c546e910bfdc0bbe6f459bfe01e6bfa6), [#1324](https://github.com/heygen-com/hyperframes/pull/1324))
+- **Core:** Expose hf-ids as subpath export for @kenectai/sdk ([2c64f996](https://github.com/heygen-com/hyperframes/commit/2c64f9969442914a2a8813cc60e5e57646742336), [#1323](https://github.com/heygen-com/hyperframes/pull/1323))
 
 ## Fixes
 
@@ -2473,7 +2473,7 @@ Fixes a render-ready listener race and adds Grok MCP support, a motion-blur cata
   description="Released - 2026-06-07"
   tags={["Release", "Gcp Cloud Run", "Core", "Registry"]}
 >
-Adds Google Cloud Run + Cloud Workflows as a distributed-render target (`@hyperframes/gcp-cloud-run`) — the GCP counterpart to the AWS Lambda adapter, sharing the same `plan → renderChunk → assemble` primitives. Also lands a font-resolution pipeline so compositions capture and embed their own fonts for deterministic rendering.
+Adds Google Cloud Run + Cloud Workflows as a distributed-render target (`@kenectai/gcp-cloud-run`) — the GCP counterpart to the AWS Lambda adapter, sharing the same `plan → renderChunk → assemble` primitives. Also lands a font-resolution pipeline so compositions capture and embed their own fonts for deterministic rendering.
 
 ## Features
 

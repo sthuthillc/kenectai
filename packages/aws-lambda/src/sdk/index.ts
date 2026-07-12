@@ -1,5 +1,5 @@
 /**
- * SDK subpath export — `@hyperframes/aws-lambda/sdk`.
+ * SDK subpath export — `@kenectai/aws-lambda/sdk`.
  *
  * Pulled into its own subpath so consumers that only drive Lambda renders
  * (CLI, CI scripts, adopter tooling) don't pay the cost of importing

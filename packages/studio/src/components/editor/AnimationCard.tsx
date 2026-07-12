@@ -1,6 +1,6 @@
 import { memo, useCallback, useMemo, useState } from "react";
-import type { GsapAnimation } from "@hyperframes/core/gsap-parser";
-import { SUPPORTED_EASES, SUPPORTED_PROPS } from "@hyperframes/core/gsap-constants";
+import type { GsapAnimation } from "@kenectai/core/gsap-parser";
+import { SUPPORTED_EASES, SUPPORTED_PROPS } from "@kenectai/core/gsap-constants";
 import { RESPONSIVE_GRID } from "./propertyPanelHelpers";
 import { MetricField, SelectField } from "./propertyPanelPrimitives";
 import { controlPointsForGsapEase } from "./studioMotion";

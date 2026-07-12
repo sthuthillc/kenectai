@@ -1,2 +1,2 @@
-/** @deprecated Import from @hyperframes/studio-server/manual-edits-render-script */
-export * from "@hyperframes/studio-server/manual-edits-render-script";
+/** @deprecated Import from @kenectai/studio-server/manual-edits-render-script */
+export * from "@kenectai/studio-server/manual-edits-render-script";

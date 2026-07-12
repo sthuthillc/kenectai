@@ -452,7 +452,7 @@ Run before delivering. Check with actual code, not assumptions.
         overflow: hidden;
       }
     </style>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@hyperframes/player"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@kenectai/player"></script>
   </head>
   <body>
     <hyperframes-player
@@ -496,7 +496,7 @@ Opens the HyperFrames Studio at `http://localhost:3002` with frame-accurate scru
 This project was drafted in Claude Design. To polish animations, timing, and pacing:
 
 ```bash
-npx skills add heygen-com/hyperframes   # install HyperFrames skills (one-time)
+npx skills add sthuthillc/kenectai   # install HyperFrames skills (one-time)
 npx hyperframes lint                     # verify structure (should pass with zero errors)
 npx hyperframes preview                  # open the studio for live feedback
 ```
@@ -532,8 +532,8 @@ Transition plan: s1→s2 hard cut, s2→s3 hard cut, **s3→s4 SHADER** (hero re
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1080, height=1920" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@hyperframes/core/dist/hyperframe.runtime.iife.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@hyperframes/shader-transitions/dist/index.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@kenectai/core/dist/hyperframe.runtime.iife.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@kenectai/shader-transitions/dist/index.global.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- FILL: Google Fonts link for your chosen typefaces -->
@@ -776,8 +776,8 @@ Transition plan: s1→s2 hard cut, s2→s3 hard cut, s3→s4 hard cut, **s4→s5
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1920, height=1080" />
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@hyperframes/core/dist/hyperframe.runtime.iife.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@hyperframes/shader-transitions/dist/index.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@kenectai/core/dist/hyperframe.runtime.iife.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@kenectai/shader-transitions/dist/index.global.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- FILL: Google Fonts link -->
@@ -1225,9 +1225,9 @@ tl.to("#s5-headline", { backgroundSize: "100% 30%", duration: 0.6, ease: "power2
 
 Everything critical is inlined above. These are for edge cases:
 
-- Core composition contract (data attributes, sub-comp wiring): https://github.com/heygen-com/hyperframes/blob/main/skills/hyperframes/SKILL.md
-- Motion theory (easing as emotion, direction rules): https://github.com/heygen-com/hyperframes/blob/main/skills/hyperframes/references/motion-principles.md
-- Typography (full banned list, weight contrast, OpenType): https://github.com/heygen-com/hyperframes/blob/main/skills/hyperframes/references/typography.md
-- Transitions (shader catalog, CSS transition patterns): https://github.com/heygen-com/hyperframes/blob/main/skills/hyperframes/references/transitions.md
-- Captions synced to audio: https://github.com/heygen-com/hyperframes/blob/main/skills/hyperframes/references/captions.md
-- Full docs: https://hyperframes.heygen.com/
+- Core composition contract (data attributes, sub-comp wiring): https://github.com/sthuthillc/kenectai/blob/main/skills/hyperframes/SKILL.md
+- Motion theory (easing as emotion, direction rules): https://github.com/sthuthillc/kenectai/blob/main/skills/hyperframes/references/motion-principles.md
+- Typography (full banned list, weight contrast, OpenType): https://github.com/sthuthillc/kenectai/blob/main/skills/hyperframes/references/typography.md
+- Transitions (shader catalog, CSS transition patterns): https://github.com/sthuthillc/kenectai/blob/main/skills/hyperframes/references/transitions.md
+- Captions synced to audio: https://github.com/sthuthillc/kenectai/blob/main/skills/hyperframes/references/captions.md
+- Full docs: https://docs.kenectai.com/

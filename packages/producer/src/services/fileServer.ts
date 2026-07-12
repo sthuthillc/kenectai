@@ -15,8 +15,8 @@ import { existsSync, realpathSync, statSync, createReadStream } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { Readable } from "node:stream";
 import { join, extname, resolve, sep } from "node:path";
-import { injectScriptsAtHeadStart, injectScriptsIntoHtml } from "@hyperframes/core/compiler";
-import { fpsToNumber, type Fps } from "@hyperframes/core";
+import { injectScriptsAtHeadStart, injectScriptsIntoHtml } from "@kenectai/core/compiler";
+import { fpsToNumber, type Fps } from "@kenectai/core";
 import { getVerifiedHyperframeRuntimeSource } from "./hyperframeRuntimeLoader.js";
 import { getHfEarlyStub } from "../generated/hf-early-stub-inline.js";
 import { defaultLogger, type ProducerLogger } from "../logger.js";
@@ -540,14 +540,14 @@ const HF_EARLY_STUB = getHfEarlyStub();
  *
  * When the engine is launched with `enablePageSideCompositing: true`, the
  * orchestrator injects this stub into the very top of every served HTML
- * page. The flag is read by `@hyperframes/shader-transitions`' engine-mode
+ * page. The flag is read by `@kenectai/shader-transitions`' engine-mode
  * `init()` to switch from the default opacity-flip mode (which leaves
  * shader blending to the Node side via the hf#677 layered pipeline) to a
  * page-side WebGL compositor that runs the shader inside Chrome and
  * exposes a single opaque RGB frame for the engine to capture.
  *
  * Sentinel ONLY — no logic here. The compositor itself ships inside
- * `@hyperframes/shader-transitions` and is loaded by the composition's
+ * `@kenectai/shader-transitions` and is loaded by the composition's
  * regular script bundle.
  *
  * Default OFF: when the flag is not set, behavior is byte-identical to
@@ -564,7 +564,7 @@ export const HF_PAGE_SIDE_COMPOSITING_STUB = `(function() {
  *
  * This script *patches* the existing __hf object rather than replacing it, so
  * fields written during page-script execution (e.g. transitions metadata from
- * @hyperframes/shader-transitions) are preserved through to engine query time.
+ * @kenectai/shader-transitions) are preserved through to engine query time.
  */
 const HF_BRIDGE_SCRIPT = `(function() {
   var __realSetInterval =

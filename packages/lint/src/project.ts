@@ -1,13 +1,13 @@
 export { shouldBlockRender } from "./shouldBlockRender.js";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, extname, isAbsolute, join, posix, relative, resolve } from "node:path";
-import { decodeUrlPathVariants } from "@hyperframes/parsers/composition";
-import { rewriteAssetPath } from "@hyperframes/parsers/asset-paths";
-import { checkSubCompositionUsability } from "@hyperframes/parsers/sub-composition-validity";
+import { decodeUrlPathVariants } from "@kenectai/parsers/composition";
+import { rewriteAssetPath } from "@kenectai/parsers/asset-paths";
+import { checkSubCompositionUsability } from "@kenectai/parsers/sub-composition-validity";
 import { parseHTML } from "linkedom";
 import { lintHyperframeHtml } from "./hyperframeLinter.js";
 import type { HyperframeLintFinding, HyperframeLintResult } from "./types.js";
-import type { ParsableDocumentLike } from "@hyperframes/parsers/sub-composition-validity";
+import type { ParsableDocumentLike } from "@kenectai/parsers/sub-composition-validity";
 
 /** Adapts linkedom's `parseHTML` to the `checkSubCompositionUsability` contract. */
 function parseSubCompHtml(html: string): ParsableDocumentLike {

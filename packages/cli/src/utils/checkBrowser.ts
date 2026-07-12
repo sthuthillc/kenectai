@@ -88,7 +88,7 @@ export async function runBrowserCheck(
   motion: MotionSpecResolution,
   runGrid: RunAuditGrid,
 ): Promise<CheckBrowserResult> {
-  const { bundleToSingleHtml } = await import("@hyperframes/core/compiler");
+  const { bundleToSingleHtml } = await import("@kenectai/core/compiler");
   const html = await bundleToSingleHtml(project.dir);
   const server = await serveStaticProjectHtml(project.dir, html, "Failed to bind check server");
   const drafts: RuntimeDraft[] = [];
@@ -114,7 +114,7 @@ export async function runBrowserCheck(
     // slot silently shortens the slot at render time — invisible to lint (no
     // intrinsic durations statically) and to the runtime listeners (nothing
     // errors). The session is already open, so this is one extra evaluate.
-    const { analyzeClipMediaFit } = await import("@hyperframes/engine");
+    const { analyzeClipMediaFit } = await import("@kenectai/engine");
     for (const entry of await auditClipDurations(page, analyzeClipMediaFit, options.timeout)) {
       drafts.push({ code: "clip_media_fit", severity: entry.level, message: entry.text, time: 0 });
     }
@@ -145,7 +145,7 @@ export async function captureFindingCrops(
   requests: CheckFindingCropRequest[],
 ): Promise<string[]> {
   if (requests.length === 0) return [];
-  const { bundleToSingleHtml } = await import("@hyperframes/core/compiler");
+  const { bundleToSingleHtml } = await import("@kenectai/core/compiler");
   const html = await bundleToSingleHtml(project.dir);
   const server = await serveStaticProjectHtml(project.dir, html, "Failed to bind check server");
   let chromeBrowser: import("puppeteer-core").Browser | undefined;

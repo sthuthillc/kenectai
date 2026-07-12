@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import type { GsapAnimation, ParsedGsap } from "@hyperframes/core/gsap-parser";
+import type { GsapAnimation, ParsedGsap } from "@kenectai/core/gsap-parser";
 import type { DomEditSelection } from "../components/editor/domEditing";
 import { fetchParsedAnimations, getAnimationsForElement } from "./useGsapTweenCache";
 

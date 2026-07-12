@@ -22,7 +22,7 @@ Signing in is the same OAuth step as creating an account — new users land on t
 
     ```bash
     npx hyperframes auth login --api-key            # hidden-input prompt
-    echo "$HEYGEN_API_KEY" | npx hyperframes auth login --api-key   # from stdin
+    echo "$KENECT_API_KEY" | npx hyperframes auth login --api-key   # from stdin
     ```
   </Step>
   <Step title="Confirm what's configured">
@@ -34,7 +34,7 @@ Signing in is the same OAuth step as creating an account — new users land on t
   </Step>
 </Steps>
 
-The credential lives in `~/.heygen/credentials` (mode `0600`) — no per-repo `.env` to manage. Browser OAuth is a `hyperframes auth login` feature. The separate [`heygen` CLI](https://github.com/heygen-com/heygen-cli) (its own install — there's no `npx heygen`) is API-key-only, so `heygen auth login` just stores a key you paste. Both read the same `~/.heygen/credentials`, so signing in with one carries to the other.
+The credential lives in `~/.kenectai/credentials` (mode `0600`) — no per-repo `.env` to manage. Browser OAuth is a `hyperframes auth login` feature. The separate [`heygen` CLI](https://github.com/sthuthillc/heygen-cli) (its own install — there's no `npx heygen`) is API-key-only, so `heygen auth login` just stores a key you paste. Both read the same `~/.kenectai/credentials`, so signing in with one carries to the other.
 
 <Tip>
   No account needed to try HyperFrames. With no credential, voice uses **Kokoro** and music uses **MusicGen**, both fully local and offline — see [Working offline](#working-offline).
@@ -44,11 +44,11 @@ The credential lives in `~/.heygen/credentials` (mode `0600`) — no per-repo `.
 
 The HeyGen credential drives TTS and music / SFX **retrieval**. It resolves first-match-wins:
 
-1. `HEYGEN_API_KEY` — environment variable
-2. `HYPERFRAMES_API_KEY` — alias, for parity with other tools
-3. `~/.heygen/credentials` — written by `hyperframes auth login` (or `heygen auth login`)
+1. `KENECT_API_KEY` — environment variable
+2. `KENECT_API_KEY` — alias, for parity with other tools
+3. `~/.kenectai/credentials` — written by `hyperframes auth login` (or `heygen auth login`)
 
-Point at a different config directory with `HEYGEN_CONFIG_DIR`, or a different backend with `HEYGEN_API_URL`.
+Point at a different config directory with `HEYGEN_CONFIG_DIR`, or a different backend with `KENECT_API_URL`.
 
 ## Keys by capability
 
@@ -56,7 +56,7 @@ Each capability picks the **first available provider** in order; the last is alw
 
 | Capability | Provider order | Key(s) — first match wins | Local dependency |
 |------------|----------------|---------------------------|------------------|
-| **Voice (TTS)** | HeyGen → ElevenLabs → Kokoro | `HEYGEN_API_KEY` → `HYPERFRAMES_API_KEY` → `~/.heygen` · then `ELEVENLABS_API_KEY` | Kokoro: `pip install kokoro-onnx soundfile` |
+| **Voice (TTS)** | HeyGen → ElevenLabs → Kokoro | `KENECT_API_KEY` → `KENECT_API_KEY` → `~/.heygen` · then `ELEVENLABS_API_KEY` | Kokoro: `pip install kokoro-onnx soundfile` |
 | **Music (BGM)** | HeyGen library → Lyria → MusicGen | HeyGen credential (above) · then `GEMINI_API_KEY` → `GOOGLE_API_KEY` | MusicGen: `pip install transformers torch soundfile numpy` |
 | **Sound effects** | HeyGen library → bundled library | HeyGen credential (above) | bundled — no deps |
 | **Capture descriptions** | OpenRouter → Gemini | `OPENROUTER_API_KEY` → `GEMINI_API_KEY` | — (optional; for [website-to-video](/guides/website-to-video)) |
@@ -77,9 +77,9 @@ Local engines are free and offline; HeyGen gives higher-quality voices and a pro
 
 | Variable | Used for |
 |----------|----------|
-| `HEYGEN_API_KEY` | HeyGen credential — voice + music/SFX retrieval. Highest priority. |
-| `HYPERFRAMES_API_KEY` | Alias for `HEYGEN_API_KEY`. |
-| `HEYGEN_API_URL` | API base URL (default `https://api.heygen.com`). |
+| `KENECT_API_KEY` | HeyGen credential — voice + music/SFX retrieval. Highest priority. |
+| `KENECT_API_KEY` | Alias for `KENECT_API_KEY`. |
+| `KENECT_API_URL` | API base URL (default `https://api.kenectai.com`). |
 | `HEYGEN_CONFIG_DIR` | Credentials directory (default `~/.heygen`). |
 | `ELEVENLABS_API_KEY` | ElevenLabs TTS, used when no HeyGen credential is present. |
 | `GEMINI_API_KEY` / `GOOGLE_API_KEY` | Lyria music generation (and capture descriptions). |

@@ -1,5 +1,5 @@
 /**
- * SDK document model — adaptation layer on top of @hyperframes/core.
+ * SDK document model — adaptation layer on top of @kenectai/core.
  *
  * F6 decision: SDK builds ON core, no parser duplication.
  * - ensureHfIds (from core) is the parse entry point: all construction starts here.
@@ -9,8 +9,8 @@
  */
 
 import { parseHTML } from "linkedom";
-import { ensureHfIds, isCompositionTemplate } from "@hyperframes/parsers/hf-ids";
-import { parseGsapScriptAcornForWrite } from "@hyperframes/core/gsap-parser-acorn";
+import { ensureHfIds, isCompositionTemplate } from "@kenectai/parsers/hf-ids";
+import { parseGsapScriptAcornForWrite } from "@kenectai/core/gsap-parser-acorn";
 import {
   findRoot,
   getElementStyles,

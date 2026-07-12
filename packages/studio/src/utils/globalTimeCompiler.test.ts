@@ -9,7 +9,7 @@ import {
   resolveTweenDuration,
   resolveTweenStart,
 } from "./globalTimeCompiler";
-import type { GsapAnimation } from "@hyperframes/core/gsap-parser";
+import type { GsapAnimation } from "@kenectai/core/gsap-parser";
 
 function makeAnim(overrides: Partial<GsapAnimation> = {}): GsapAnimation {
   return {

@@ -44,7 +44,7 @@ import {
   appendFileSync,
 } from "fs";
 import { parseHTML } from "linkedom";
-import { type CanvasResolution, type Fps, type FpsInput, toFps } from "@hyperframes/core";
+import { type CanvasResolution, type Fps, type FpsInput, toFps } from "@kenectai/core";
 import {
   type EngineConfig,
   resolveConfig,
@@ -74,7 +74,7 @@ import {
   isMemoryExhaustionError,
   isTransientBrowserError,
   isDrawElementVerificationError,
-} from "@hyperframes/engine";
+} from "@kenectai/engine";
 import { join, dirname, resolve } from "path";
 import { totalmem } from "node:os";
 import { randomUUID } from "crypto";
@@ -200,7 +200,7 @@ export interface RenderConfig {
    * Frame rate as an exact rational. Integer fps is `{ num: 30, den: 1 }`;
    * NTSC is `{ num: 30000, den: 1001 }`. This shape lets the orchestrator
    * pass the exact rational through to FFmpeg's `-r` / `-framerate` flags
-   * without a decimal round-trip — see `fpsToFfmpegArg` in @hyperframes/core.
+   * without a decimal round-trip — see `fpsToFfmpegArg` in @kenectai/core.
    *
    * Use `fpsToNumber(config.fps)` at any site that needs a `number` for
    * arithmetic (frame-index → time, telemetry, frame-interval ms). Decimal

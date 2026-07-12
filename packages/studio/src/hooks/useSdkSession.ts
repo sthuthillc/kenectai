@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import type { MutableRefObject } from "react";
-import { openComposition } from "@hyperframes/sdk";
-import type { Composition } from "@hyperframes/sdk";
+import { openComposition } from "@kenectai/sdk";
+import type { Composition } from "@kenectai/sdk";
 import { readStudioFileChangePath } from "../components/editor/manualEdits";
 import { isSelfWriteEcho } from "./sdkSelfWriteRegistry";
 

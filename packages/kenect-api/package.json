@@ -34,7 +34,7 @@
   "dependencies": {
     "@google-cloud/storage": "^7.14.0",
     "@hono/node-server": "^1.13.0",
-    "@hyperframes/gcp-cloud-run": "workspace:^",
+    "@kenectai/gcp-cloud-run": "workspace:^",
     "adm-zip": "^0.5.16",
     "hono": "^4.6.0"
   },

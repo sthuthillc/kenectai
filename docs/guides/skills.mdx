@@ -16,21 +16,21 @@ The skills split into three groups:
 <Steps>
   <Step title="Pick what to install (interactive picker)">
     ```bash
-    npx skills add heygen-com/hyperframes --full-depth
+    npx skills add sthuthillc/kenectai --full-depth
     ```
 
     Opens a picker so you can choose which skills to add. Keep `--full-depth`: it installs the current `main`. Without it, `skills add` fetches the skills.sh registry blob, which lags `main` by hours, so you may get an older copy of a skill. Works with [Claude Code](https://claude.ai/claude-code), [Cursor](https://cursor.sh), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [Codex CLI](https://github.com/openai/codex), [GitHub Copilot CLI](/guides/copilot-cli), and [Google Antigravity](/guides/antigravity).
   </Step>
   <Step title="Or install everything at once (skip the picker)">
     ```bash
-    npx skills add heygen-com/hyperframes --all --full-depth
+    npx skills add sthuthillc/kenectai --all --full-depth
     ```
 
     Writes every skill to your project in one shot. Recommended when you want the full set without selecting from the picker.
   </Step>
   <Step title="Or install one skill at a time">
     ```bash
-    npx skills add heygen-com/hyperframes --skill <name> --full-depth
+    npx skills add sthuthillc/kenectai --skill <name> --full-depth
     ```
 
     Pass the bare skill name (no leading `/`) — e.g. `--skill hyperframes-animation`. Useful when you want a single capability without the full set.
@@ -105,7 +105,7 @@ Atomic capabilities the creation workflows compose against — pull one when you
 
 ## Source of truth
 
-The one-line "use when" for each skill comes from its own `SKILL.md` frontmatter `description:` field in the [hyperframes repo](https://github.com/heygen-com/hyperframes/tree/main/skills). The same catalog lives in the [README's `## Skills` section](https://github.com/heygen-com/hyperframes#skills) and the repo `CLAUDE.md`; all three surfaces are kept in sync when a skill is added or renamed.
+The one-line "use when" for each skill comes from its own `SKILL.md` frontmatter `description:` field in the [hyperframes repo](https://github.com/sthuthillc/kenectai/tree/main/skills). The same catalog lives in the [README's `## Skills` section](https://github.com/sthuthillc/kenectai#skills) and the repo `CLAUDE.md`; all three surfaces are kept in sync when a skill is added or renamed.
 
 ## Next steps
 

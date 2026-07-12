@@ -14,7 +14,7 @@ The SDK's `PreviewAdapter` interface decouples the editing model from the visual
 Render the composition HTML into a same-origin `<iframe>` in your editor shell, then pass that element plus a dispatch callback to `createIframePreviewAdapter`:
 
 ```typescript
-import { openComposition, createIframePreviewAdapter } from "@hyperframes/sdk";
+import { openComposition, createIframePreviewAdapter } from "@kenectai/sdk";
 
 // Assume `compositionHtml` is the composition's source HTML string.
 const iframe = document.querySelector<HTMLIFrameElement>("#composition-frame")!;
@@ -79,7 +79,7 @@ The `opts.atTime` parameter is accepted but does not seek the GSAP timeline. It 
 If you are working with events on the iframe's `contentDocument` directly (e.g. via a `message` bridge), use the exported `resolveNearestHfElement` function. It walks up the DOM from any node until it finds a `[data-hf-id]` ancestor, skipping the root:
 
 ```typescript
-import { resolveNearestHfElement } from "@hyperframes/sdk";
+import { resolveNearestHfElement } from "@kenectai/sdk";
 
 // Inside the iframe's own document context:
 iframeDoc.addEventListener("click", (e) => {

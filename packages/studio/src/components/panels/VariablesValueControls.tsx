@@ -11,7 +11,7 @@ import type {
   ColorVariable,
   EnumVariable,
   NumberVariable,
-} from "@hyperframes/sdk";
+} from "@kenectai/sdk";
 
 export const VARIABLES_INPUT_CLASS =
   "w-full bg-neutral-900 border border-neutral-800 rounded px-2 py-1 text-[10px] text-neutral-200 focus:outline-none focus:border-neutral-700";

@@ -10,7 +10,7 @@ import { spawn } from "child_process";
 import { copyFileSync, existsSync, linkSync, mkdirSync, readdirSync, rmSync } from "fs";
 import { isAbsolute, join, posix, resolve, sep } from "path";
 import { parseHTML } from "linkedom";
-import { decodeUrlPathVariants, MEDIA_DURATION_CLAMP_EPSILON_SECONDS } from "@hyperframes/core";
+import { decodeUrlPathVariants, MEDIA_DURATION_CLAMP_EPSILON_SECONDS } from "@kenectai/core";
 import { trackChildProcess } from "../utils/processTracker.js";
 import { resolveReferencedStart, type RefResolverEl } from "./referenceResolver.js";
 import { extractMediaMetadata, type VideoMetadata } from "../utils/ffprobe.js";

@@ -3,7 +3,7 @@
  * and the SDK session so the binding-detection and id logic can be unit-tested.
  */
 
-import type { CompositionVariable } from "@hyperframes/sdk";
+import type { CompositionVariable } from "@kenectai/sdk";
 import type { BindAction } from "../components/panels/VariablesBindElement";
 
 export type PromoteChannel = { kind: "text" } | { kind: "src" } | { kind: "style"; prop: string };

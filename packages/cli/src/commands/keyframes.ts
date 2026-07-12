@@ -1,7 +1,7 @@
 import { defineCommand } from "citty";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { resolve, dirname, basename, join, relative, sep } from "node:path";
-import { parseGsapScript, type GsapAnimation } from "@hyperframes/core/gsap-parser";
+import { parseGsapScript, type GsapAnimation } from "@kenectai/core/gsap-parser";
 import type { Example } from "./_examples.js";
 import { c } from "../ui/colors.js";
 import { ensureDOMParser } from "../utils/dom.js";

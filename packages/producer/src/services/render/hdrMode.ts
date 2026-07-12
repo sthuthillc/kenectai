@@ -9,8 +9,8 @@
  * formats can carry an HDR signal.
  */
 
-import { analyzeCompositionHdr } from "@hyperframes/engine";
-import type { ExtractionResult, HdrTransfer, VideoColorSpace } from "@hyperframes/engine";
+import { analyzeCompositionHdr } from "@kenectai/engine";
+import type { ExtractionResult, HdrTransfer, VideoColorSpace } from "@kenectai/engine";
 import type { ProducerLogger } from "../../logger.js";
 import type { RenderConfig } from "../renderOrchestrator.js";
 

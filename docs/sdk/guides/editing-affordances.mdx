@@ -6,13 +6,13 @@ description: "Resolve capability flags and inspector sections for a selected ele
 `resolveElementAffordances` answers the question "what can the user do with this element right now?" given a live DOM element and its SDK model entry. It returns two objects: `capabilities` (boolean flags for each edit action) and `sections` (which inspector panels apply). You use these to conditionally render controls in your editor's detail panel rather than showing a fixed field set for all elements.
 
 <Note>
-  This API lives on the `@hyperframes/sdk/editing` subpath, available since `@hyperframes/sdk@0.7.22`. If the import fails to resolve, upgrade: `npm install @hyperframes/sdk@latest`.
+  This API lives on the `@kenectai/sdk/editing` subpath, available since `@kenectai/sdk@0.7.22`. If the import fails to resolve, upgrade: `npm install @kenectai/sdk@latest`.
 </Note>
 
 ## Import
 
 ```typescript
-import { resolveElementAffordances } from "@hyperframes/sdk/editing";
+import { resolveElementAffordances } from "@kenectai/sdk/editing";
 ```
 
 ## Signature
@@ -91,8 +91,8 @@ interface EditingSectionApplicability {
 ## End-to-end example
 
 ```typescript
-import { openComposition, createIframePreviewAdapter } from "@hyperframes/sdk";
-import { resolveElementAffordances } from "@hyperframes/sdk/editing";
+import { openComposition, createIframePreviewAdapter } from "@kenectai/sdk";
+import { resolveElementAffordances } from "@kenectai/sdk/editing";
 
 const iframe = document.querySelector<HTMLIFrameElement>("#composition-frame")!;
 const preview = createIframePreviewAdapter(iframe, (op) => comp.dispatch(op));
@@ -159,7 +159,7 @@ function renderInspector({
 
 ## Gotchas
 
-**Browser-only.** `resolveElementAffordances` calls `getComputedStyle` internally. It must not be imported or called in Node, a server action, or any non-browser path. The SDK adapter (`@hyperframes/sdk/editing`) is separate from the pure core resolver precisely to keep the Node SDK path free of browser globals.
+**Browser-only.** `resolveElementAffordances` calls `getComputedStyle` internally. It must not be imported or called in Node, a server action, or any non-browser path. The SDK adapter (`@kenectai/sdk/editing`) is separate from the pure core resolver precisely to keep the Node SDK path free of browser globals.
 
 **Needs a laid-out DOM.** `canMove` and `canResize` require a live computed `position`, `left`, and `top`. If you call `resolveElementAffordances` before the iframe finishes layout (e.g. synchronously after `srcdoc` assignment), both flags will be `false`. Wait for the iframe's `load` event or the composition's first rendered frame before resolving affordances.
 
@@ -173,7 +173,7 @@ function renderInspector({
 
 The full type definitions — `EditingAffordances`, `DomEditCapabilities`, `EditingSectionApplicability`, `AffordanceContext`, `HyperFramesElement` — are documented at [`/sdk/reference/types`](/sdk/reference/types).
 
-The pure DOM-free resolver (`resolveEditingAffordances`, `EditableElementFacts`) lives in `@hyperframes/core` and is documented at [`/packages/core`](/packages/core).
+The pure DOM-free resolver (`resolveEditingAffordances`, `EditableElementFacts`) lives in `@kenectai/core` and is documented at [`/packages/core`](/packages/core).
 
 <CardGroup cols={2}>
   <Card title="Canvas Integration" icon="frame" href="/sdk/guides/canvas-integration">

@@ -1,5 +1,5 @@
 import { useCallback, type MutableRefObject, type RefObject } from "react";
-import type { Composition } from "@hyperframes/sdk";
+import type { Composition } from "@kenectai/sdk";
 import type { TimelineElement } from "../player";
 import { sdkTimingBatchPersist } from "../utils/sdkCutover";
 import {

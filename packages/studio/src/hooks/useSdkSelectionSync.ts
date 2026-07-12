@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import type { Composition } from "@hyperframes/sdk";
+import type { Composition } from "@kenectai/sdk";
 import type { DomEditSelection } from "../components/editor/domEditing";
 
 function toHfIds(group: DomEditSelection[], primary: DomEditSelection | null): string[] {

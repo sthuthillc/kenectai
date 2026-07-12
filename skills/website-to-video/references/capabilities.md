@@ -93,7 +93,7 @@ The runtime registers these adapters in order; each implements `discover()` / `s
 
 ---
 
-## 3. Shader transitions — @hyperframes/shader-transitions
+## 3. Shader transitions — @kenectai/shader-transitions
 
 14 named WebGL fragment shaders. All share the same uniforms: `u_from`, `u_to`, `u_progress`, `u_resolution`, `u_accent`, `u_accent_dark`, `u_accent_bright`.
 
@@ -505,7 +505,7 @@ Parent audio/video elements with `data-start` are proxied; `_mirrorParentMediaTi
 
 ### Runtime auto-inject
 
-Loads `RUNTIME_CDN_URL` (`@hyperframes/core/dist/hyperframe.runtime.iife.js`) if missing `__hf`/`__player` but timelines exist.
+Loads `RUNTIME_CDN_URL` (`@kenectai/core/dist/hyperframe.runtime.iife.js`) if missing `__hf`/`__player` but timelines exist.
 
 ---
 

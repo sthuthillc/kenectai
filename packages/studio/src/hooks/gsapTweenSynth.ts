@@ -2,7 +2,7 @@ import type {
   GsapAnimation,
   GsapKeyframesData,
   GsapPercentageKeyframe,
-} from "@hyperframes/core/gsap-parser";
+} from "@kenectai/core/gsap-parser";
 import { PROPERTY_DEFAULTS } from "./gsapShared";
 
 export function deduplicateKeyframes(

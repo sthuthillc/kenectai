@@ -19,7 +19,7 @@
 // KEEP IN SYNC WITH packages/studio/src/hooks/gsapShared.ts:PROPERTY_DEFAULTS —
 // the studio (recast) and SDK (acorn) paths must derive the same defaults or
 // SDK-written keyframes drift from server-written ones (the exact bug this fixes).
-// TODO: lift the canonical table into @hyperframes/core and import from both.
+// TODO: lift the canonical table into @kenectai/core and import from both.
 const KEYFRAME_PROPERTY_DEFAULTS: Record<string, number> = {
   opacity: 1,
   x: 0,

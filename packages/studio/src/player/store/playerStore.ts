@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { MusicBeatAnalysis } from "@hyperframes/core/beats";
+import type { MusicBeatAnalysis } from "@kenectai/core/beats";
 import type { BeatEditState } from "../../utils/beatEditing";
 import type { ClipManifestClip } from "../lib/playbackTypes";
 import { readStudioUiPreferences, writeStudioUiPreferences } from "../../utils/studioUiPreferences";

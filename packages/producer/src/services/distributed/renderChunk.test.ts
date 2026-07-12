@@ -68,7 +68,7 @@ beforeAll(async () => {
   // contract is exercised.
   try {
     const { createCaptureSession, initializeSession, closeCaptureSession } =
-      await import("@hyperframes/engine");
+      await import("@kenectai/engine");
     const { createFileServer } = await import("../fileServer.js");
     const smokeDir = join(runRoot, "smoke");
     mkdirSync(join(smokeDir, "compiled"), { recursive: true });

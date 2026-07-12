@@ -321,8 +321,8 @@ describe("addGsapKeyframe", () => {
 
     // Parse the SDK-written script and compare against the recast writer fed the
     // same backfillDefaults the studio always sends (`PROPERTY_DEFAULTS[k] ?? 0`).
-    const { parseGsapScript } = await import("@hyperframes/core/gsap-parser");
-    const { addKeyframeToScript } = await import("@hyperframes/core/gsap-writer-acorn");
+    const { parseGsapScript } = await import("@kenectai/core/gsap-parser");
+    const { addKeyframeToScript } = await import("@kenectai/core/gsap-writer-acorn");
     const recast = addKeyframeToScript(KF_SCRIPT, animId, 25, { opacity: 0.3, x: 120 }, undefined, {
       opacity: 1,
       x: 0,
@@ -399,7 +399,7 @@ describe("setGsapKeyframe", () => {
     const newScript = String(result.forward[0]?.value ?? "");
 
     // The 0% and 100% keyframes should now carry `x` backfilled at its default 0.
-    const { parseGsapScript } = await import("@hyperframes/core/gsap-parser");
+    const { parseGsapScript } = await import("@kenectai/core/gsap-parser");
     const kfs = parseGsapScript(newScript)
       .animations[0]?.keyframes?.keyframes?.slice()
       .sort((a, b) => a.percentage - b.percentage);
@@ -737,7 +737,7 @@ describe("addLabel", () => {
   });
 
   it("addLabel output is not blocked by GSAP validator", async () => {
-    const { validateCompositionGsap } = await import("@hyperframes/core/gsap-parser");
+    const { validateCompositionGsap } = await import("@kenectai/core/gsap-parser");
     const parsed = fresh();
     const result = applyOp(parsed, { type: "addLabel", name: "scene1", position: 1.0 });
     const newScript = String(result.forward[0]?.value ?? "");

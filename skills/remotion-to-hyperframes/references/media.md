@@ -130,7 +130,7 @@ useEffect(() => {
 }, []);
 ```
 
-Drop. HF waits on asset readiness via the [Frame Adapter pattern](https://hyperframes.heygen.com/concepts/frame-adapters)
+Drop. HF waits on asset readiness via the [Frame Adapter pattern](https://docs.kenectai.com/concepts/frame-adapters)
 — images, videos, fonts, and Lottie animations all signal load
 completion natively. There's nothing to do at the application level.
 

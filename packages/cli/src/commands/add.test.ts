@@ -2,14 +2,14 @@ import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { RegistryItem, RegistryManifest } from "@hyperframes/core";
+import type { RegistryItem, RegistryManifest } from "@kenectai/core";
 import { AddError, buildSnippet, remapTarget, runAdd } from "./add.js";
 import { PROJECT_CONFIG_FILENAME } from "../utils/projectConfig.js";
 
 // ── Fixtures ────────────────────────────────────────────────────────────────
 
 const MANIFEST: RegistryManifest = {
-  $schema: "https://hyperframes.heygen.com/schema/registry.json",
+  $schema: "https://docs.kenectai.com/schema/registry.json",
   name: "test",
   homepage: "https://example.com",
   items: [
@@ -24,7 +24,7 @@ const MANIFEST: RegistryManifest = {
 };
 
 const BLOCK_ITEM: RegistryItem = {
-  $schema: "https://hyperframes.heygen.com/schema/registry-item.json",
+  $schema: "https://docs.kenectai.com/schema/registry-item.json",
   name: "my-block",
   type: "hyperframes:block",
   title: "My Block",
@@ -41,7 +41,7 @@ const BLOCK_ITEM: RegistryItem = {
 };
 
 const COMPONENT_ITEM: RegistryItem = {
-  $schema: "https://hyperframes.heygen.com/schema/registry-item.json",
+  $schema: "https://docs.kenectai.com/schema/registry-item.json",
   name: "my-component",
   type: "hyperframes:component",
   title: "My Component",
@@ -94,7 +94,7 @@ const FUTURE_BLOCK_ITEM: RegistryItem = {
 };
 
 const BASE_COMPONENT_ITEM: RegistryItem = {
-  $schema: "https://hyperframes.heygen.com/schema/registry-item.json",
+  $schema: "https://docs.kenectai.com/schema/registry-item.json",
   name: "base-component",
   type: "hyperframes:component",
   title: "Base Component",
@@ -124,7 +124,7 @@ const DEP_BLOCK_ITEM: RegistryItem = {
 };
 
 const EXAMPLE_ITEM: RegistryItem = {
-  $schema: "https://hyperframes.heygen.com/schema/registry-item.json",
+  $schema: "https://docs.kenectai.com/schema/registry-item.json",
   name: "my-example",
   type: "hyperframes:example",
   title: "My Example",

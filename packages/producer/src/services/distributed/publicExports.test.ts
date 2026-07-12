@@ -3,11 +3,11 @@
  *
  * Two import paths must work for adopters:
  *
- *   1. `import { plan, renderChunk, assemble } from "@hyperframes/producer"`
+ *   1. `import { plan, renderChunk, assemble } from "@kenectai/producer"`
  *      — the canonical package entry. Includes the three activity functions
  *      and their result types.
  *
- *   2. `import { plan, renderChunk, assemble } from "@hyperframes/producer/distributed"`
+ *   2. `import { plan, renderChunk, assemble } from "@kenectai/producer/distributed"`
  *      — the focused subpath, suitable for Lambda chunk-runner images that
  *      don't pull in the in-process renderer's transitive deps.
  *
@@ -16,7 +16,7 @@
  * `renderChunk.test.ts` / `assemble.test.ts`.
  *
  * We import via the workspace-relative `../../distributed.js` /
- * `../../index.js` paths rather than `"@hyperframes/producer"` because the
+ * `../../index.js` paths rather than `"@kenectai/producer"` because the
  * package resolver inside the workspace points back at `src/index.ts` —
  * either form exercises the same surface.
  */
@@ -25,7 +25,7 @@ import { describe, expect, it } from "bun:test";
 import * as distributedSubpath from "../../distributed.js";
 import * as producerIndex from "../../index.js";
 
-describe("@hyperframes/producer/distributed (subpath)", () => {
+describe("@kenectai/producer/distributed (subpath)", () => {
   it("exports the three activity functions", () => {
     expect(typeof distributedSubpath.plan).toBe("function");
     expect(typeof distributedSubpath.renderChunk).toBe("function");
@@ -66,7 +66,7 @@ describe("@hyperframes/producer/distributed (subpath)", () => {
   });
 });
 
-describe("@hyperframes/producer (main entry)", () => {
+describe("@kenectai/producer (main entry)", () => {
   it("re-exports the three activity functions", () => {
     expect(typeof producerIndex.plan).toBe("function");
     expect(typeof producerIndex.renderChunk).toBe("function");

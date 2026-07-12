@@ -1,2 +1,2 @@
-/** @deprecated Import from @hyperframes/parsers/gsap-constants */
-export * from "@hyperframes/parsers/gsap-constants";
+/** @deprecated Import from @kenectai/parsers/gsap-constants */
+export * from "@kenectai/parsers/gsap-constants";

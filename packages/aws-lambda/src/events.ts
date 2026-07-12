@@ -19,9 +19,9 @@
 import type {
   DistributedFormat,
   SerializableDistributedRenderConfig,
-} from "@hyperframes/producer/distributed";
+} from "@kenectai/producer/distributed";
 
-export type { SerializableDistributedRenderConfig } from "@hyperframes/producer/distributed";
+export type { SerializableDistributedRenderConfig } from "@kenectai/producer/distributed";
 
 /** Discriminator for the three roles the one Lambda image fulfills. */
 export type LambdaAction = "plan" | "renderChunk" | "assemble";

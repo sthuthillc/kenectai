@@ -24,7 +24,7 @@ import {
   type FileType,
   type RegistryItem,
   type RegistryManifest,
-} from "@hyperframes/core";
+} from "@kenectai/core";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(scriptDir, "..");
@@ -131,7 +131,7 @@ function buildItem(entry: LegacyTemplateEntry): RegistryItem {
   const files = collectFiles(exampleDir);
 
   return {
-    $schema: "https://hyperframes.heygen.com/schema/registry-item.json",
+    $schema: "https://docs.kenectai.com/schema/registry-item.json",
     name: entry.id,
     type: "hyperframes:example",
     title: entry.label,
@@ -151,9 +151,9 @@ function writeItem(item: RegistryItem): void {
 
 function writeRegistryManifest(items: RegistryItem[]): void {
   const manifest: RegistryManifest = {
-    $schema: "https://hyperframes.heygen.com/schema/registry.json",
+    $schema: "https://docs.kenectai.com/schema/registry.json",
     name: "hyperframes",
-    homepage: "https://hyperframes.heygen.com",
+    homepage: "https://docs.kenectai.com",
     items: items.map((item) => ({ name: item.name, type: item.type })),
   };
   writeFileSync(registryManifestPath, JSON.stringify(manifest, null, 2) + "\n", "utf-8");

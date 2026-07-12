@@ -36,7 +36,7 @@ export interface RegistryItemPreview {
 
 /** Fields common to every registry item, regardless of type. */
 interface RegistryItemBase {
-  /** JSON Schema URL — `https://hyperframes.heygen.com/schema/registry-item.json`. */
+  /** JSON Schema URL — `https://docs.kenectai.com/schema/registry-item.json`. */
   $schema?: string;
   /** Item name in kebab-case, unique within a registry. */
   name: string;
@@ -122,7 +122,7 @@ export interface RegistryManifestEntry {
 
 /** The top-level `registry.json` manifest. */
 export interface RegistryManifest {
-  /** JSON Schema URL — `https://hyperframes.heygen.com/schema/registry.json`. */
+  /** JSON Schema URL — `https://docs.kenectai.com/schema/registry.json`. */
   $schema?: string;
   /** Registry name (e.g. `hyperframes`). */
   name: string;

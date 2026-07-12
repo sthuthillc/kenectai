@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { appendAutoDetectedVideoAudio, shouldCopyExtractedFrames } from "./extractVideosStage.js";
-import type { ExtractedFrames, VideoElement } from "@hyperframes/engine";
+import type { ExtractedFrames, VideoElement } from "@kenectai/engine";
 
 function makeVideo(overrides: Partial<VideoElement> = {}): VideoElement {
   return {

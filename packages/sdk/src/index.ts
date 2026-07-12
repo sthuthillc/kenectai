@@ -23,7 +23,7 @@ export type {
 export { ORIGIN_APPLY_PATCHES, ORIGIN_LOCAL } from "./types.js";
 
 // Variable schema types — re-exported so SDK consumers (Studio, embedders)
-// can type declarations without a direct @hyperframes/core dependency.
+// can type declarations without a direct @kenectai/core dependency.
 export type {
   CompositionVariable,
   CompositionVariableType,
@@ -37,7 +37,7 @@ export type {
   ImageVariable,
   VariableValidationIssue,
   VariableUsageScan,
-} from "@hyperframes/core/variables";
+} from "@kenectai/core/variables";
 export type { VariableUsageReport } from "./types.js";
 
 export { UnsupportedOpError } from "./engine/mutate.js";
@@ -59,7 +59,7 @@ export type { PersistQueueModule, PersistQueueOptions } from "./persist-queue.js
 
 export type { PersistAdapter, PreviewAdapter, PersistVersionEntry } from "./adapters/types.js";
 
-// Concrete adapter factories (browser-safe — Node-only fs adapter: @hyperframes/sdk/adapters/fs).
+// Concrete adapter factories (browser-safe — Node-only fs adapter: @kenectai/sdk/adapters/fs).
 export { createMemoryAdapter } from "./adapters/memory.js";
 export { createHeadlessAdapter } from "./adapters/headless.js";
 export { createIframePreviewAdapter, resolveNearestHfElement } from "./adapters/iframe.js";

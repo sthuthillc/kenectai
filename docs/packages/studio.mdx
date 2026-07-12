@@ -1,17 +1,17 @@
 ---
-title: "@hyperframes/studio"
+title: "@kenectai/studio"
 description: "Visual composition editor with live preview, timeline view, and hot reload."
 ---
 
 The studio package provides a browser-based visual editor for creating and previewing Hyperframes compositions. It gives you a real-time preview of your video, a visual timeline of all clips, and player controls for seeking and playback — all updating live as you edit your HTML.
 
 ```bash
-npm install @hyperframes/studio
+npm install @kenectai/studio
 ```
 
 ## When to Use
 
-**Use `@hyperframes/studio` when you need to:**
+**Use `@kenectai/studio` when you need to:**
 - Build a custom composition editor UI (e.g., embedded in your own web application)
 - Integrate the Hyperframes preview player into a larger product
 - Extend the editor with custom panels, toolbars, or integrations
@@ -22,7 +22,7 @@ npm install @hyperframes/studio
 - Capture frames programmatically — use the [engine](/packages/engine)
 
 <Tip>
-  **For most development workflows, you do not need to install the studio directly.** Running `npx hyperframes preview` starts the studio automatically with hot reload. Install `@hyperframes/studio` only if you are embedding the editor into your own application.
+  **For most development workflows, you do not need to install the studio directly.** Running `npx hyperframes preview` starts the studio automatically with hot reload. Install `@kenectai/studio` only if you are embedding the editor into your own application.
 </Tip>
 
 ## Running the Studio
@@ -42,7 +42,7 @@ This starts the studio development server, opens your composition in the browser
 bun run dev
 
 # Or target the studio package directly
-bun run --filter @hyperframes/studio dev
+bun run --filter @kenectai/studio dev
 ```
 
 ## Package Exports
@@ -51,8 +51,8 @@ The studio has two entry points:
 
 | Import | Description |
 |--------|-------------|
-| `@hyperframes/studio` | React components, hooks, and types |
-| `@hyperframes/studio/tailwind-preset` | Tailwind CSS preset for studio styling |
+| `@kenectai/studio` | React components, hooks, and types |
+| `@kenectai/studio/tailwind-preset` | Tailwind CSS preset for studio styling |
 
 Peer dependencies: `react` (19), `react-dom` (19), `zustand` (4 or 5).
 
@@ -61,8 +61,8 @@ Peer dependencies: `react` (19), `react-dom` (19), `zustand` (4 or 5).
 ### Layout
 
 ```typescript
-import { NLELayout, NLEPreview, CompositionBreadcrumb } from '@hyperframes/studio';
-import type { CompositionLevel } from '@hyperframes/studio';
+import { NLELayout, NLEPreview, CompositionBreadcrumb } from '@kenectai/studio';
+import type { CompositionLevel } from '@kenectai/studio';
 
 // Main NLE (Non-Linear Editor) layout container
 <NLELayout>
@@ -83,8 +83,8 @@ import {
   Player,
   PlayerControls,
   Timeline,
-} from '@hyperframes/studio';
-import type { TimelineElement } from '@hyperframes/studio';
+} from '@kenectai/studio';
+import type { TimelineElement } from '@kenectai/studio';
 
 // Embed the preview player
 <Player />
@@ -99,7 +99,7 @@ import type { TimelineElement } from '@hyperframes/studio';
 ### Editor Components
 
 ```typescript
-import { SourceEditor, PropertyPanel, FileTree } from '@hyperframes/studio';
+import { SourceEditor, PropertyPanel, FileTree } from '@kenectai/studio';
 
 // Code editor (CodeMirror-based) for HTML, CSS, and JavaScript
 <SourceEditor />
@@ -114,7 +114,7 @@ import { SourceEditor, PropertyPanel, FileTree } from '@hyperframes/studio';
 ### Full Application
 
 ```typescript
-import { StudioApp } from '@hyperframes/studio';
+import { StudioApp } from '@kenectai/studio';
 
 // The complete studio application (wraps all components)
 <StudioApp />
@@ -127,7 +127,7 @@ import { StudioApp } from '@hyperframes/studio';
 Manages player state and playback control:
 
 ```typescript
-import { useTimelinePlayer } from '@hyperframes/studio';
+import { useTimelinePlayer } from '@kenectai/studio';
 
 const player = useTimelinePlayer();
 // player.play(), player.pause(), player.togglePlay(), player.seek(time)
@@ -139,7 +139,7 @@ const player = useTimelinePlayer();
 Zustand store for player state:
 
 ```typescript
-import { usePlayerStore, liveTime, formatTime } from '@hyperframes/studio';
+import { usePlayerStore, liveTime, formatTime } from '@kenectai/studio';
 
 const store = usePlayerStore();
 // Access current time, duration, playing state, etc.
@@ -153,7 +153,7 @@ const display = formatTime(liveTime.current);
 Element selection from the preview:
 
 ```typescript
-import { useElementPicker } from '@hyperframes/studio';
+import { useElementPicker } from '@kenectai/studio';
 
 const picker = useElementPicker(iframeRef);
 // picker.isPickMode, picker.pickedElement
@@ -218,7 +218,7 @@ The studio is a React application with the following structure:
 
 2. **Runtime bridge** — the studio communicates with the iframe via `postMessage` to control playback (play, pause, seek) and receive state updates (current time, duration, readiness).
 
-3. **Timeline component** — parses the composition using `@hyperframes/core` to extract clip timing data and renders the visual timeline panel.
+3. **Timeline component** — parses the composition using `@kenectai/core` to extract clip timing data and renders the visual timeline panel.
 
 4. **File watcher** — a development server (Vite-based) watches your project files and triggers hot module replacement when changes are detected.
 
@@ -228,7 +228,7 @@ The studio exports a Tailwind CSS preset for consistent styling:
 
 ```typescript
 // tailwind.config.ts
-import studioPreset from '@hyperframes/studio/tailwind-preset';
+import studioPreset from '@kenectai/studio/tailwind-preset';
 
 export default {
   presets: [studioPreset],

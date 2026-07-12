@@ -11,7 +11,7 @@
 
 import { readFileSync, type Stats } from "node:fs";
 import { resolve, sep } from "node:path";
-import { parseFps } from "@hyperframes/core";
+import { parseFps } from "@kenectai/core";
 import { errorBox } from "../ui/format.js";
 import { readCompositionFps } from "./compositionFps.js";
 

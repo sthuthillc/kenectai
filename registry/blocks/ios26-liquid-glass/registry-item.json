@@ -1,5 +1,5 @@
 {
-  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "$schema": "https://docs.kenectai.com/schema/registry-item.json",
   "name": "ios26-liquid-glass",
   "type": "hyperframes:block",
   "title": "iOS 26 Liquid Glass Home Screen",

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Build script for @hyperframes/producer (public OSS package)
+ * Build script for @kenectai/producer (public OSS package)
  *
  * Bundles src/server.ts → dist/public-server.js (standalone server).
  */
@@ -32,19 +32,19 @@ const __dirname = __cjsDirname(__filename);`,
 const workspaceAliasPlugin = {
   name: "workspace-alias",
   setup(build) {
-    build.onResolve({ filter: /^@hyperframes\/engine$/ }, () => ({
+    build.onResolve({ filter: /^@kenectai\/engine$/ }, () => ({
       path: resolve(scriptDir, "../engine/src/index.ts"),
     }));
-    build.onResolve({ filter: /^@hyperframes\/engine\/alpha-blit$/ }, () => ({
+    build.onResolve({ filter: /^@kenectai\/engine\/alpha-blit$/ }, () => ({
       path: resolve(scriptDir, "../engine/src/utils/alphaBlit.ts"),
     }));
-    build.onResolve({ filter: /^@hyperframes\/engine\/shader-transitions$/ }, () => ({
+    build.onResolve({ filter: /^@kenectai\/engine\/shader-transitions$/ }, () => ({
       path: resolve(scriptDir, "../engine/src/utils/shaderTransitions.ts"),
     }));
-    build.onResolve({ filter: /^@hyperframes\/core$/ }, () => ({
+    build.onResolve({ filter: /^@kenectai\/core$/ }, () => ({
       path: resolve(scriptDir, "../core/src/index.ts"),
     }));
-    build.onResolve({ filter: /^@hyperframes\/core\/lint$/ }, () => ({
+    build.onResolve({ filter: /^@kenectai\/core\/lint$/ }, () => ({
       path: resolve(scriptDir, "../core/src/lint/index.ts"),
     }));
   },

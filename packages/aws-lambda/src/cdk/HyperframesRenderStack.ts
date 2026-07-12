@@ -11,7 +11,7 @@
  * `aws-cdk-lib` and `constructs` are **peerDependencies**. The package
  * still type-checks (and the snapshot test still runs) because they're
  * also `devDependencies`, but adopters who only consume the SDK side of
- * `@hyperframes/aws-lambda` don't pull the CDK tree at runtime.
+ * `@kenectai/aws-lambda` don't pull the CDK tree at runtime.
  *
  * Drift from the SAM template is guarded by the snapshot test
  * (`HyperframesRenderStack.snapshot.test.ts`), which diffs the synthed
@@ -345,7 +345,7 @@ export class HyperframesRenderStack extends Construct {
  * to `packages/aws-lambda/dist/handler.zip`. The package is published with
  * `main: "./src/index.ts"`, so this path resolves correctly both in the
  * source tree (during `bun test` / local CDK synth) and in a consumer's
- * `node_modules/@hyperframes/aws-lambda/` install.
+ * `node_modules/@kenectai/aws-lambda/` install.
  */
 function defaultHandlerZipPath(): string {
   const here = dirname(fileURLToPath(import.meta.url));

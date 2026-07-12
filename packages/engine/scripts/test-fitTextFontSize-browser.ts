@@ -5,7 +5,7 @@
  * and verifies that window.__hyperframes.fitTextFontSize produces
  * correct results with real canvas measureText.
  *
- * Requires: puppeteer (dep of @hyperframes/engine)
+ * Requires: puppeteer (dep of @kenectai/engine)
  * Run: cd packages/engine && npx tsx scripts/test-fitTextFontSize-browser.ts
  */
 

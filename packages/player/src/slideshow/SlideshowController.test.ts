@@ -1,7 +1,7 @@
 // fallow-ignore-file code-duplication
 import { describe, it, expect, vi } from "vitest";
 import { SlideshowController } from "./SlideshowController";
-import type { ResolvedSlideshow } from "@hyperframes/core/slideshow";
+import type { ResolvedSlideshow } from "@kenectai/core/slideshow";
 
 function fakePlayer() {
   let cb: ((t: number) => void) | null = null;

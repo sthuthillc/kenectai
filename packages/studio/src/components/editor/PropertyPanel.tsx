@@ -15,8 +15,8 @@ import {
 } from "./propertyPanelHelpers";
 import { MetricField, Section } from "./propertyPanelPrimitives";
 import { createTransformCommitHandlers } from "./propertyPanelTransformCommit";
-import { classifyPropertyGroup } from "@hyperframes/core/gsap-parser";
-import { resolveEditingSections } from "@hyperframes/core/editing";
+import { classifyPropertyGroup } from "@kenectai/core/gsap-parser";
+import { resolveEditingSections } from "@kenectai/core/editing";
 import { MediaSection } from "./propertyPanelMediaSection";
 import { ColorGradingSection } from "./propertyPanelColorGradingSection";
 import { domEditSelectionToFacts } from "./domEditingLayers";

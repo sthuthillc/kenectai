@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState, type MutableRefObject } from "react";
-import { openComposition, type Composition, type CompositionVariable } from "@hyperframes/sdk";
+import { openComposition, type Composition, type CompositionVariable } from "@kenectai/sdk";
 import { persistSdkSerialize } from "../utils/sdkCutover";
 import type { EditHistoryKind } from "../utils/editHistory";
 

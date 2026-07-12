@@ -132,12 +132,12 @@ describe("registry types", () => {
 
   describe("schema files", () => {
     it("registry.json has the expected $id", () => {
-      expect(registrySchema.$id).toBe("https://hyperframes.heygen.com/schema/registry.json");
+      expect(registrySchema.$id).toBe("https://docs.kenectai.com/schema/registry.json");
     });
 
     it("registry-item.json has the expected $id", () => {
       expect(registryItemSchema.$id).toBe(
-        "https://hyperframes.heygen.com/schema/registry-item.json",
+        "https://docs.kenectai.com/schema/registry-item.json",
       );
     });
   });
@@ -145,9 +145,9 @@ describe("registry types", () => {
   describe("type-level sanity", () => {
     it("RegistryManifest accepts well-formed shape", () => {
       const m: RegistryManifest = {
-        $schema: "https://hyperframes.heygen.com/schema/registry.json",
+        $schema: "https://docs.kenectai.com/schema/registry.json",
         name: "hyperframes",
-        homepage: "https://hyperframes.heygen.com",
+        homepage: "https://docs.kenectai.com",
         items: [
           { name: "warm-grain", type: "hyperframes:example" },
           { name: "linkedin-post-card", type: "hyperframes:block" },

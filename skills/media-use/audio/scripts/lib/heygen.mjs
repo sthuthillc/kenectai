@@ -92,10 +92,10 @@ export function heygenAuthHeaders() {
   }
   if (cred?.expired)
     throw new Error(
-      "HeyGen OAuth token expired — run `npx @kenectai/cli auth refresh` (or `npx @kenectai/cli auth login`)",
+      "HeyGen OAuth token expired — set $HEYGEN_API_KEY, or refresh ~/.heygen/credentials with the heygen CLI",
     );
   throw new Error(
-    "no HeyGen credentials — set $HEYGEN_API_KEY, or run `npx @kenectai/cli auth login` (writes ~/.heygen/credentials)",
+    "no HeyGen credentials — set $HEYGEN_API_KEY (HeyGen platform key; the KENECT AI CLI login does not provision one)",
   );
 }
 

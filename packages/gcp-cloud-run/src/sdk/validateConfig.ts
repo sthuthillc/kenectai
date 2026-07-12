@@ -3,18 +3,18 @@
  *
  * The cloud-agnostic config-shape validation (`validateDistributedRenderConfig`,
  * `validateVariablesPayload`, `InvalidConfigError`) lives in
- * `@hyperframes/producer/distributed` and is shared with the other adapters.
+ * `@kenectai/producer/distributed` and is shared with the other adapters.
  * This module re-exports those and adds the one piece that is specific to
  * Cloud Workflows: the 512 KiB execution-argument size cap.
  */
 
-import { InvalidConfigError } from "@hyperframes/producer/distributed";
+import { InvalidConfigError } from "@kenectai/producer/distributed";
 
 export {
   InvalidConfigError,
   validateDistributedRenderConfig,
   validateVariablesPayload,
-} from "@hyperframes/producer/distributed";
+} from "@kenectai/producer/distributed";
 
 /**
  * Hard cap on Cloud Workflows execution arguments — 512 KiB per the Workflows
@@ -31,7 +31,7 @@ export const MAX_WORKFLOWS_INPUT_BYTES = 512 * 1024;
 
 /** Pointer to the docs section that explains the URL-your-assets convention. */
 const LARGE_VARIABLES_DOCS_URL =
-  "https://hyperframes.heygen.com/deploy/templates-on-lambda#working-with-large-variables";
+  "https://docs.kenectai.com/deploy/templates-on-lambda#working-with-large-variables";
 
 /**
  * Validate that the serialized Cloud Workflows execution argument fits inside

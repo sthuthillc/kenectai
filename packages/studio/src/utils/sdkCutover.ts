@@ -1,5 +1,5 @@
 import type { MutableRefObject } from "react";
-import type { Composition, GsapTweenSpec } from "@hyperframes/sdk";
+import type { Composition, GsapTweenSpec } from "@kenectai/sdk";
 import type { DomEditSelection } from "../components/editor/domEditing";
 import type { EditHistoryKind } from "./editHistory";
 import type { PatchOperation } from "./sourcePatcher";

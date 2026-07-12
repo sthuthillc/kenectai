@@ -5,7 +5,7 @@ import {
   parseSlideshowManifest,
   resolveSlideshow,
   isSceneLikeCompositionId,
-} from "@hyperframes/parsers/slideshow";
+} from "@kenectai/parsers/slideshow";
 
 type Scene = { id: string; start: number; duration: number };
 

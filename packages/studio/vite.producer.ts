@@ -23,7 +23,7 @@ export function ensureProducerDist(opts: {
   }
 
   const exec = opts.execFileSyncImpl ?? execFileSync;
-  exec("bun", ["run", "--filter", "@hyperframes/producer", "build"], {
+  exec("bun", ["run", "--filter", "@kenectai/producer", "build"], {
     cwd: resolveWorkspaceRoot(opts.studioDir),
     stdio: "pipe",
     env: opts.env,

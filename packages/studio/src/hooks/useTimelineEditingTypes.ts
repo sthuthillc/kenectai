@@ -1,5 +1,5 @@
 import type { MutableRefObject, RefObject } from "react";
-import type { Composition } from "@hyperframes/sdk";
+import type { Composition } from "@kenectai/sdk";
 import type { TimelineElement } from "../player";
 import type { EditHistoryKind } from "../utils/editHistory";
 

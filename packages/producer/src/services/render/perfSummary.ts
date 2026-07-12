@@ -3,8 +3,8 @@
  * the `perf-summary.json` debug artifact.
  */
 
-import { fpsToNumber } from "@hyperframes/core";
-import type { CapturePerfSummary, SubTimelineWaitOutcome } from "@hyperframes/engine";
+import { fpsToNumber } from "@kenectai/core";
+import type { CapturePerfSummary, SubTimelineWaitOutcome } from "@kenectai/engine";
 import type { CaptureCalibrationSample, CaptureCostEstimate } from "./captureCost.js";
 import type {
   CaptureAttemptSummary,

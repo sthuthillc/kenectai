@@ -6,7 +6,7 @@ import {
   type HfColorGradingDetailKey,
   type HfColorGradingEffectKey,
   type NormalizedHfColorGrading,
-} from "@hyperframes/core/color-grading";
+} from "@kenectai/core/color-grading";
 import { ChevronDown, ChevronRight, Plus, X } from "../../icons/SystemIcons";
 import { LUT_EXT } from "../../utils/mediaTypes";
 import { LABEL } from "./propertyPanelHelpers";

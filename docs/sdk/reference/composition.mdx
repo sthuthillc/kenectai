@@ -6,8 +6,8 @@ description: "The main editing surface returned by openComposition — query, mu
 `Composition` is the object returned by [`openComposition`](/sdk/reference/open-composition). Every SDK edit goes through this interface. Typed methods are convenience wrappers over `dispatch()`; all validation runs in `dispatch()` regardless of which entry point you use.
 
 ```typescript
-import { openComposition } from "@hyperframes/sdk";
-import type { Composition } from "@hyperframes/sdk";
+import { openComposition } from "@kenectai/sdk";
+import type { Composition } from "@kenectai/sdk";
 
 const comp: Composition = await openComposition(html);
 ```

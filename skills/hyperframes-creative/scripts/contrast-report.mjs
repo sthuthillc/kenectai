@@ -13,7 +13,7 @@
 //     [--samples N] [--out <dir>] [--width W] [--height H] [--fps N]
 //
 // Env:
-//   HYPERFRAMES_SKILL_PKG_VERSION — pin the @hyperframes/producer version used
+//   HYPERFRAMES_SKILL_PKG_VERSION — pin the @kenectai/producer version used
 //     when bootstrapping (global skill installs cannot infer it; falls back to
 //     @latest with a warning otherwise).
 //
@@ -49,8 +49,8 @@ import { hyperframesPackageSpec, importPackagesOrBootstrap } from "./package-loa
 
 // Use the producer's file server — it auto-injects the HyperFrames runtime
 // and render-seek bridge, so raw authoring HTML works without a build step.
-const packages = await importPackagesOrBootstrap(["@hyperframes/producer", "sharp"], {
-  npmPackages: [hyperframesPackageSpec("@hyperframes/producer"), "sharp@0.34.5"],
+const packages = await importPackagesOrBootstrap(["@kenectai/producer", "sharp"], {
+  npmPackages: [hyperframesPackageSpec("@kenectai/producer"), "sharp@0.34.5"],
 });
 const sharp = packages.sharp.default;
 const {
@@ -60,7 +60,7 @@ const {
   closeCaptureSession,
   captureFrameToBuffer,
   getCompositionDuration,
-} = packages["@hyperframes/producer"];
+} = packages["@kenectai/producer"];
 
 // ─── CLI ─────────────────────────────────────────────────────────────────────
 

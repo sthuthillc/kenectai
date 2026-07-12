@@ -161,7 +161,7 @@ async function collectTweenBoundaries(page: import("puppeteer-core").Page): Prom
 async function bundleProjectHtml(projectDir: string): Promise<string> {
   // `bundleToSingleHtml` now inlines the runtime IIFE by default, so the
   // previous post-bundle runtime substitution is no longer needed.
-  const { bundleToSingleHtml } = await import("@hyperframes/core/compiler");
+  const { bundleToSingleHtml } = await import("@kenectai/core/compiler");
   return bundleToSingleHtml(projectDir);
 }
 
@@ -197,7 +197,7 @@ async function runLayoutAudit(
 ): Promise<LayoutAuditResult> {
   const { ensureBrowser } = await import("../browser/manager.js");
   const puppeteer = await import("puppeteer-core");
-  const { buildChromeArgs } = await import("@hyperframes/engine");
+  const { buildChromeArgs } = await import("@kenectai/engine");
   const html = await bundleProjectHtml(projectDir);
   const server = await serveStaticProjectHtml(
     projectDir,

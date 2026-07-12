@@ -15,8 +15,8 @@
     "types": ["@webgpu/types"],
     "baseUrl": ".",
     "paths": {
-      "@hyperframes/producer": ["./src/index.ts"],
-      "@hyperframes/producer/distributed": ["./src/distributed.ts"]
+      "@kenectai/producer": ["./src/index.ts"],
+      "@kenectai/producer/distributed": ["./src/distributed.ts"]
     }
   },
   "include": ["src/**/*"],

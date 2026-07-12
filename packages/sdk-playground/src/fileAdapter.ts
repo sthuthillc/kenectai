@@ -1,5 +1,5 @@
-import type { PersistAdapter, PersistVersionEntry } from "@hyperframes/sdk/adapters/types";
-import type { PersistErrorEvent } from "@hyperframes/sdk";
+import type { PersistAdapter, PersistVersionEntry } from "@kenectai/sdk/adapters/types";
+import type { PersistErrorEvent } from "@kenectai/sdk";
 
 const API = "/api/composition";
 

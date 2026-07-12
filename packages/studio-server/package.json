@@ -1,5 +1,5 @@
 {
-  "name": "@hyperframes/studio-server",
+  "name": "@kenectai/studio-server",
   "version": "0.7.53",
   "repository": {
     "type": "git",
@@ -102,8 +102,8 @@
     "prepublishOnly": "echo skip"
   },
   "dependencies": {
-    "@hyperframes/core": "workspace:*",
-    "@hyperframes/parsers": "workspace:*",
+    "@kenectai/core": "workspace:*",
+    "@kenectai/parsers": "workspace:*",
     "hono": "^4.0.0",
     "linkedom": "^0.18.12",
     "postcss": "^8.5.8",

@@ -70,7 +70,7 @@ import {
   initializeSession,
   prepareCaptureSessionForReuse,
   spawnStreamingEncoder,
-} from "@hyperframes/engine";
+} from "@kenectai/engine";
 import type { FileServerHandle } from "../../fileServer.js";
 import type { ProducerLogger } from "../../../logger.js";
 import type { ProgressCallback, RenderJob } from "../../renderOrchestrator.js";

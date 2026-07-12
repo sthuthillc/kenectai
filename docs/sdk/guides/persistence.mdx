@@ -6,8 +6,8 @@ description: "Autosave composition edits through pluggable adapters — filesyst
 When you pass a `persist` adapter to `openComposition`, the SDK subscribes to every `change` event and schedules an async write automatically. You never call a save method after each edit — the adapter handles it.
 
 ```typescript
-import { openComposition } from "@hyperframes/sdk";
-import { createFsAdapter } from "@hyperframes/sdk/adapters/fs";
+import { openComposition } from "@kenectai/sdk";
+import { createFsAdapter } from "@kenectai/sdk/adapters/fs";
 
 const adapter = createFsAdapter({ root: "./project" });
 
@@ -62,7 +62,7 @@ The event carries `{ error: { message: string; hint?: string; cause?: unknown } 
 An in-process store — no file I/O, no Node.js required. Use it in unit tests, demos, or browser sessions where you want version history without disk access.
 
 ```typescript
-import { createMemoryAdapter } from "@hyperframes/sdk";
+import { createMemoryAdapter } from "@kenectai/sdk";
 
 const adapter = createMemoryAdapter();
 
@@ -88,11 +88,11 @@ const v1Html = await adapter.loadFrom("composition.html", versions[1].key);
 Writes to the filesystem and keeps a rolling version history under `.hf-versions/`. Node.js only — do not use in browser builds.
 
 <Note>
-  `createFsAdapter` is imported from the `@hyperframes/sdk/adapters/fs` **subpath**, not the main barrel like `createMemoryAdapter`. The fs adapter pulls in Node's `fs` module, so keeping it on a separate subpath lets browser bundles tree-shake it away — importing it from the root would drag `node:fs` into a browser build.
+  `createFsAdapter` is imported from the `@kenectai/sdk/adapters/fs` **subpath**, not the main barrel like `createMemoryAdapter`. The fs adapter pulls in Node's `fs` module, so keeping it on a separate subpath lets browser bundles tree-shake it away — importing it from the root would drag `node:fs` into a browser build.
 </Note>
 
 ```typescript
-import { createFsAdapter } from "@hyperframes/sdk/adapters/fs";
+import { createFsAdapter } from "@kenectai/sdk/adapters/fs";
 
 const adapter = createFsAdapter({
   root: "./project",   // required — directory for composition files
@@ -151,7 +151,7 @@ export interface PersistAdapter {
 **Minimal example — an HTTP / S3-style adapter:**
 
 ```typescript
-import type { PersistAdapter, PersistVersionEntry, PersistErrorEvent } from "@hyperframes/sdk";
+import type { PersistAdapter, PersistVersionEntry, PersistErrorEvent } from "@kenectai/sdk";
 
 export function createHttpAdapter(baseUrl: string): PersistAdapter {
   const errorHandlers: Array<(e: PersistErrorEvent) => void> = [];

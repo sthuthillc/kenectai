@@ -28,7 +28,7 @@
  */
 
 import { readVariablesForElement } from "./variableScope";
-import { isScalarVariableValue as isScalar } from "@hyperframes/parsers/composition";
+import { isScalarVariableValue as isScalar } from "@kenectai/parsers/composition";
 
 // data-var-src only rebinds media `src` on media elements. A user-controlled
 // variable value assigned to a src is an XSS surface on tags whose src executes

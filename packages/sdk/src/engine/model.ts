@@ -10,7 +10,7 @@ import {
   ensureHfIds,
   isCompositionTemplate,
   walkCompositionDescendants,
-} from "@hyperframes/core/hf-ids";
+} from "@kenectai/core/hf-ids";
 
 export interface ParsedDocument {
   document: Document;

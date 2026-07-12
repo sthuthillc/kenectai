@@ -19,9 +19,9 @@ It's the right choice for teams already running their backend and storage on Goo
 ┌──────────────────────────────────────────────────────────────────┐
 │ One Cloud Run service (packages/gcp-cloud-run/Dockerfile)        │
 │   dist/server.js                                                 │
-│     ├─ Action="plan"        → @hyperframes/producer/distributed  │
-│     ├─ Action="renderChunk" → @hyperframes/producer/distributed  │
-│     └─ Action="assemble"    → @hyperframes/producer/distributed  │
+│     ├─ Action="plan"        → @kenectai/producer/distributed  │
+│     ├─ Action="renderChunk" → @kenectai/producer/distributed  │
+│     └─ Action="assemble"    → @kenectai/producer/distributed  │
 └──────────────────────────────────────────────────────────────────┘
                               │ GCS download / upload
                               ▼
@@ -64,7 +64,7 @@ The target GCP project must have **billing enabled** — Cloud Run, Cloud Workfl
 import {
   renderToCloudRun,
   getRenderProgress,
-} from "@hyperframes/gcp-cloud-run/sdk";
+} from "@kenectai/gcp-cloud-run/sdk";
 
 const handle = await renderToCloudRun({
   projectDir: "./my-composition",

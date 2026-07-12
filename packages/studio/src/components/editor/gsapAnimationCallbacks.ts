@@ -1,4 +1,4 @@
-import type { ArcPathSegment } from "@hyperframes/parsers/gsap-parser";
+import type { ArcPathSegment } from "@kenectai/parsers/gsap-parser";
 
 /**
  * Edit callbacks shared by GsapAnimationSection and each AnimationCard it

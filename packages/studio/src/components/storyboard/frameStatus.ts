@@ -1,4 +1,4 @@
-import type { FrameStatus } from "@hyperframes/core/storyboard";
+import type { FrameStatus } from "@kenectai/core/storyboard";
 
 /**
  * Single source of truth for how each frame lifecycle status is presented —

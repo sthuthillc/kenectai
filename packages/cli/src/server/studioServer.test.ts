@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loadHyperframeRuntimeSource } from "@hyperframes/core";
+import { loadHyperframeRuntimeSource } from "@kenectai/core";
 import { loadRuntimeSource } from "./runtimeSource.js";
 
 describe("loadRuntimeSource", () => {

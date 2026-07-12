@@ -5,9 +5,9 @@
   "author": {
     "name": "HeyGen",
     "email": "hyperframes@heygen.com",
-    "url": "https://hyperframes.heygen.com"
+    "url": "https://docs.kenectai.com"
   },
-  "homepage": "https://hyperframes.heygen.com",
+  "homepage": "https://docs.kenectai.com",
   "repository": "https://github.com/heygen-com/hyperframes",
   "license": "Apache-2.0",
   "keywords": [
@@ -35,7 +35,7 @@
     "developerName": "HeyGen",
     "category": "Creativity",
     "capabilities": ["Read", "Write"],
-    "websiteURL": "https://hyperframes.heygen.com",
+    "websiteURL": "https://docs.kenectai.com",
     "defaultPrompt": [
       "Turn this website into a 20-second product promo",
       "Create an animated title card with kinetic type",

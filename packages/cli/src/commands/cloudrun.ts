@@ -3,7 +3,7 @@
  * Cloud Run + Cloud Workflows.
  *
  * The GCP counterpart to `hyperframes lambda`. Thin glue: argument parsing
- * + help here; the work lives in `@hyperframes/gcp-cloud-run/sdk`
+ * + help here; the work lives in `@kenectai/gcp-cloud-run/sdk`
  * (`deploySite` / `renderToCloudRun` / `getRenderProgress`) plus `terraform`
  * and `gcloud` for provisioning + the image build.
  *
@@ -22,7 +22,7 @@ import {
   type CanvasResolution,
   normalizeResolutionFlag,
   VALID_CANVAS_RESOLUTIONS,
-} from "@hyperframes/core";
+} from "@kenectai/core";
 import type { Example } from "./_examples.js";
 import { c } from "../ui/colors.js";
 import {
@@ -267,10 +267,10 @@ function stripUndefined<T extends Record<string, unknown>>(o: T): Partial<T> {
   return Object.fromEntries(Object.entries(o).filter(([, v]) => v != null)) as Partial<T>;
 }
 
-/** Resolve the Terraform module dir shipped with @hyperframes/gcp-cloud-run. */
+/** Resolve the Terraform module dir shipped with @kenectai/gcp-cloud-run. */
 function terraformDir(): string {
   const require = createRequire(import.meta.url);
-  const pkgJson = require.resolve("@hyperframes/gcp-cloud-run/package.json");
+  const pkgJson = require.resolve("@kenectai/gcp-cloud-run/package.json");
   return join(dirname(pkgJson), "terraform");
 }
 
@@ -467,7 +467,7 @@ async function runSites(args: Record<string, unknown>): Promise<void> {
     process.exit(1);
   }
   const state = readState(args);
-  const { deploySite } = await import("@hyperframes/gcp-cloud-run/sdk");
+  const { deploySite } = await import("@kenectai/gcp-cloud-run/sdk");
   const handle = await deploySite({
     projectDir: resolve(projectDir),
     bucketName: state.bucketName,
@@ -510,7 +510,7 @@ async function runRender(args: Record<string, unknown>): Promise<void> {
   const variables = resolveAndValidateVariables(args, resolve(projectDir));
   const config = buildRenderConfig(args, fps, width, height, variables);
 
-  const { renderToCloudRun, getRenderProgress } = await import("@hyperframes/gcp-cloud-run/sdk");
+  const { renderToCloudRun, getRenderProgress } = await import("@kenectai/gcp-cloud-run/sdk");
   const handle = await renderToCloudRun({
     projectDir: resolve(projectDir),
     config: config as Parameters<typeof renderToCloudRun>[0]["config"],
@@ -565,7 +565,7 @@ async function runProgress(args: Record<string, unknown>): Promise<void> {
     console.error("[cloudrun progress] usage: hyperframes cloudrun progress <executionName>");
     process.exit(1);
   }
-  const { getRenderProgress } = await import("@hyperframes/gcp-cloud-run/sdk");
+  const { getRenderProgress } = await import("@kenectai/gcp-cloud-run/sdk");
   const progress = await getRenderProgress({ executionName });
   if (args.json) {
     console.log(JSON.stringify(progress, null, 2));
@@ -641,7 +641,7 @@ async function runRenderBatch(args: Record<string, unknown>): Promise<void> {
   const state = readState(args);
   const maxConcurrent =
     parsePositiveInt(args["max-concurrent"], "--max-concurrent") ?? DEFAULT_BATCH_MAX_CONCURRENT;
-  const { deploySite, renderToCloudRun } = await import("@hyperframes/gcp-cloud-run/sdk");
+  const { deploySite, renderToCloudRun } = await import("@kenectai/gcp-cloud-run/sdk");
 
   // Upload the project once; every entry reuses the same content-addressed
   // site handle so the tar+upload cost is paid a single time.

@@ -12,7 +12,7 @@ This is exactly how a canvas embedder (for example, AI Studio) persists in-compo
 Pass the stored delta as `overrides` when you call `openComposition`. The SDK replays the override set onto the base template in one pass, so the session exposes the user's exact edited state immediately:
 
 ```typescript
-import { openComposition } from "@hyperframes/sdk";
+import { openComposition } from "@kenectai/sdk";
 
 // Stored delta — loaded from your database or storage layer.
 const storedOverrides = {
@@ -65,7 +65,7 @@ Sub-composition elements use scoped IDs — `"hf-host/hf-leaf.text"` — where t
 Variable overrides (from `setVariableValue`) live under the `var.{id}` key. Font and image values are objects, not strings:
 
 ```typescript
-import type { FontValue, ImageValue } from "@hyperframes/sdk";
+import type { FontValue, ImageValue } from "@kenectai/sdk";
 
 // Font variable — name is the CSS font-family, source is the stylesheet URL.
 const fontOverride: FontValue = {
@@ -112,7 +112,7 @@ const comp = await openComposition(templateHtml, {
 When the host pops an undo entry and needs to replay the inverse patches back into the SDK, use `applyPatches()`. The SDK applies the patches to the live document, updates the internal override set, and emits a `patch` event tagged with `ORIGIN_APPLY_PATCHES`.
 
 ```typescript
-import { ORIGIN_APPLY_PATCHES } from "@hyperframes/sdk";
+import { ORIGIN_APPLY_PATCHES } from "@kenectai/sdk";
 
 // Host undo stack entry — inversePatches came from a prior 'patch' event.
 function hostUndo(inversePatches: JsonPatchOp[]) {
@@ -133,8 +133,8 @@ See [Undo, Redo, and Patches](/sdk/guides/undo-redo-and-patches) for the full pa
 ## Full example
 
 ```typescript
-import { openComposition, ORIGIN_APPLY_PATCHES } from "@hyperframes/sdk";
-import type { JsonPatchOp, OverrideSet } from "@hyperframes/sdk";
+import { openComposition, ORIGIN_APPLY_PATCHES } from "@kenectai/sdk";
+import type { JsonPatchOp, OverrideSet } from "@kenectai/sdk";
 
 async function openUserSession(
   templateHtml: string,
