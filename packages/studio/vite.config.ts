@@ -1,9 +1,7 @@
 import { defineConfig, type Plugin } from "vite";
 import react from "@vitejs/plugin-react";
 import { readFileSync, readdirSync, existsSync, lstatSync, realpathSync } from "node:fs";
-import { join, resolve } from "node:path";
-import { readNodeRequestBody } from "./vite.request-body.js";
-import { createViteAdapter, isPathWithin } from "./vite.adapter";
+import { join, resolve, relative, isAbsolute } from "node:path";
 
 async function loadRuntimeSourceForDev(
   server: import("vite").ViteDevServer,
@@ -22,6 +20,14 @@ async function loadRuntimeSourceForDev(
 }
 
 const studioPkg = JSON.parse(readFileSync(resolve(__dirname, "package.json"), "utf-8"));
+
+function isPathWithin(parentDir: string, childPath: string): boolean {
+  const childRelativePath = relative(resolve(parentDir), resolve(childPath));
+  return (
+    childRelativePath === "" ||
+    (!childRelativePath.startsWith("..") && !isAbsolute(childRelativePath))
+  );
+}
 
 // ── Bridge Hono fetch → Node http response ───────────────────────────────────
 
@@ -66,7 +72,8 @@ function devProjectApi(): Plugin {
       const getApi = async () => {
         if (!_api) {
           const mod = await server.ssrLoadModule("@kenectai/studio-server");
-          const adapter = createViteAdapter(dataDir, server);
+          const adapterMod = await server.ssrLoadModule(resolve(__dirname, "vite.adapter.ts"));
+          const adapter = adapterMod.createViteAdapter(dataDir, server);
           _api = mod.createStudioApi(adapter);
         }
         return _api;
@@ -109,7 +116,8 @@ function devProjectApi(): Plugin {
           url.pathname = url.pathname.slice(4);
           let body: Buffer | undefined;
           if (req.method !== "GET" && req.method !== "HEAD") {
-            const bytes = await readNodeRequestBody(req);
+            const bodyMod = await server.ssrLoadModule(resolve(__dirname, "vite.request-body.ts"));
+            const bytes = await bodyMod.readNodeRequestBody(req);
             body = bytes.byteLength > 0 ? bytes : undefined;
           }
           const headers: Record<string, string> = {};
@@ -166,8 +174,8 @@ function devProjectApi(): Plugin {
   };
 }
 
-export default defineConfig({
-  plugins: [react(), devProjectApi()],
+export default defineConfig(({ command }) => ({
+  plugins: command === "serve" ? [react(), devProjectApi()] : [react()],
   define: {
     __STUDIO_VERSION__: JSON.stringify(studioPkg.version),
   },
@@ -203,4 +211,4 @@ export default defineConfig({
     exclude: ["data/**", "node_modules/**"],
     setupFiles: ["src/test-setup.ts"],
   },
-});
+}));

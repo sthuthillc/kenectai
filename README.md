@@ -1,327 +1,151 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/logo/dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="docs/logo/light.svg">
-    <img alt="KENECT AI" src="docs/logo/light.svg" width="300">
+    <img alt="KENECT AI" src="docs/logo/light.svg" width="320">
   </picture>
+</p>
+
+<h3 align="center">The video renderer your AI agent already knows how to use.</h3>
+
+<p align="center">
+  If it can be written as HTML, it can be rendered as video — deterministically,<br>
+  locally or on KENECT AI's Google Cloud backend.
 </p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@kenectai/cli"><img src="https://img.shields.io/npm/v/%40kenectai%2Fcli.svg?style=flat" alt="npm version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg" alt="License"></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/node-%3E%3D22-brightgreen" alt="Node.js"></a>
+  <a href="https://docs.kenectai.com/introduction"><img src="https://img.shields.io/badge/docs-kenectai.com-0a0a0a" alt="Docs"></a>
 </p>
 
-<p align="center"><b>KENECT AI — Write HTML. Render video. Built for agents.</b></p>
+---
 
-<p align="center"><i>A fork of <a href="https://github.com/heygen-com/hyperframes">HyperFrames</a> (Apache-2.0) by HeyGen.</i></p>
+## Why this exists
 
-<p align="center">
-  <a href="https://docs.kenectai.com/quickstart">Quickstart</a> |
-  <a href="https://docs.kenectai.com/showcase">Showcase</a> |
-  <a href="https://docs.kenectai.com/catalog/blocks/data-chart">Catalog</a> |
-  <a href="https://docs.kenectai.com/introduction">Docs</a>
-</p>
+Video tooling assumes a human at a timeline. KENECT AI assumes an **agent at a keyboard**:
 
-KENECT AI is an open-source framework for turning HTML, CSS, media, and seekable animations into deterministic MP4 videos — a fork of HeyGen's HyperFrames with a Google Cloud-hosted backend. Use it locally with the CLI, from AI coding agents with skills, or as the rendering core behind hosted authoring workflows.
+- **The source of truth is an `index.html` file.** No project format, no bundler, no React requirement. Anything that can write HTML — a person, Claude Code, Cursor, a CI job — can author a video.
+- **Every frame is reproducible.** The renderer seeks headless Chrome frame-by-frame and encodes with FFmpeg. Same input, same bytes out. That makes video safe for CI, regression tests, and automated pipelines.
+- **The knowledge ships with the tool.** Twenty agent skills encode the production patterns — pacing, motion language, captions, audio — that generic web knowledge misses.
 
-## Quick Start
+## Two ways in
 
-### With an AI coding agent
-
-Install the KENECT AI skills, then describe the video you want:
+### 1 · Point an agent at it
 
 ```bash
 npx skills add sthuthillc/kenectai --full-depth --yes
 ```
 
-> `--full-depth` does a full clone of the repo's current `main`. Without it, `skills add` fetches the skills.sh registry blob, which lags `main` by hours — you'd get an older copy of a skill. (`kenectai skills update` already installs full-depth.)
+Then ask for what you want in plain language:
 
-Try a prompt like:
+> Using `/hyperframes`, make a 15-second launch teaser for my landing page — bold typography, background music, end on the logo.
 
-> Using `/hyperframes`, create a 10-second product intro with a fade-in title, a background video, and subtle background music.
+The `/hyperframes` router reads intent and hands off to the right workflow: product promos, website tours, topic explainers, PR walkthroughs, caption/overlay passes on real footage, beat-synced music videos, slide decks, or freeform motion graphics.
 
-The skills teach agents the KENECT AI production loop: plan the video, write valid HTML, wire seekable animations, add media, lint, preview, and render. They work with Claude Code, Cursor, Gemini CLI, Codex, and other coding agents that support skills.
-
-## Skills
-
-KENECT AI ships 20 skills agents load on demand. Read `/hyperframes` first — it's the router and capability map; it picks a workflow for any "make me a…" request — video, deck, or composition port — and points to the domain skills below.
-
-Run `npx skills add sthuthillc/kenectai --full-depth` for the interactive picker, `npx skills add sthuthillc/kenectai --all --full-depth` to install all 20 at once (skips the picker), or `npx skills add sthuthillc/kenectai --skill <name> --full-depth` for just one (bare name, no leading `/`). Keep `--full-depth` — it installs the current `main`; without it `skills add` fetches the skills.sh blob, which lags by hours.
-
-Installs stay lean after that: `npx @kenectai/cli init` keeps the **core set** fresh (the router, the `hyperframes-*` domain skills, and `media-use` — plus whatever is already installed; `/figma` stays on demand) and never expands a partial install; the creation workflows install **on demand** — the router runs `npx @kenectai/cli skills update <workflow>` before entering one. Nothing re-pulls the full set behind your back.
-
-### Router
-
-| Skill          | Use when                                                                                                                                                                                                  |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/hyperframes` | **Read first** for any request to make / create / edit / animate / render a video, animation, or motion graphic. Capability map for the domain skills and intent router for the creation workflows below. |
-
-### Creation workflows
-
-| Skill                      | Use when                                                                                                                                                                                 |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/product-launch-video`    | Marketing / launching / promoting a **product** — from its URL, a brief, or a script (even if the site is only named). Up to ~3 min (sweet spot 30-90s).                                 |
-| `/website-to-video`        | Turning a **general website** into a video — site tour, portfolio / landing-page showcase, social clip from the site's own visuals.                                                      |
-| `/faceless-explainer`      | **Explaining a topic / concept** from arbitrary text — no product, no URL, no website capture; every visual is LLM-invented (typography / abstract / diagram / data-viz).                |
-| `/pr-to-video`             | A **GitHub pull request** (PR URL, `owner/repo#N` ref, or "this PR") → changelog / feature-reveal / fix / refactor explainer, read via the `gh` CLI.                                     |
-| `/embedded-captions`       | Adding **captions / subtitles** to an existing talking-head video (footage untouched) — verbatim rail, embedded climax behind the subject, or pure-cinematic embed.                      |
-| `/talking-head-recut`      | Packaging an existing talking-head / interview / podcast video with **designed graphic overlays** — lower-thirds, data callouts, kinetic titles, pull-quotes, side panels, PiP.          |
-| `/motion-graphics`         | A short, **unnarrated, design-led motion graphic** (~under 10s) — kinetic type, stat / chart hit, logo sting, lower-third, animated tweet / headline. MP4 or transparent overlay.        |
-| `/music-to-video`          | A **music track** (audio file, or video to pull audio from) → a **beat-synced** video — lyric, slideshow, or kinetic promo; music drives pacing.                                         |
-| `/slideshow`               | A **presentation / pitch deck / interactive deck** — discrete slides, fragment reveals, branching, hotspot navigation, presenter mode. Output is a navigable deck, not a rendered video. |
-| `/general-video`           | **Anything else** — longer or multi-scene pieces, brand / sizzle reel, title card, static loop, freeform composition. Input- and length-agnostic fallback.                               |
-| `/remotion-to-hyperframes` | **Porting an existing Remotion** (React) composition's source to KENECT AI HTML. One-way migration, not creation.                                                                      |
-
-### Domain skills (loaded on demand)
-
-Atomic capabilities the creation workflows compose against — pull one when you need that specific layer.
-
-| Skill                    | Covers                                                                                                                                                                                                                                                                                                                                           |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `/hyperframes-core`      | The composition contract — `data-*` timing attributes, `class="clip"`, tracks, sub-compositions, variables, framework-owned media playback, determinism rules.                                                                                                                                                                                   |
-| `/hyperframes-animation` | All animation knowledge — atomic motion rules, scene blueprints, transitions, runtime adapters (GSAP / Lottie / Three.js / Anime.js / CSS / WAAPI / TypeGPU).                                                                                                                                                                                    |
-| `/hyperframes-keyframes` | Seek-safe keyframe authoring across runtimes — GSAP timelines, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw, 3D depth — plus `hyperframes keyframes` diagnostics for rendered motion.                                                                                                                                      |
-| `/hyperframes-creative`  | Non-animation creative direction — `frame.md` / `design.md`, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns.                                                                                                                                                                                       |
-| `/media-use`             | The media OS — resolve any media need (BGM, SFX, image, icon, logo, voice, color grade, LUT) into a frozen local file or paste-ready block + ledger record, generate via TTS/music/image models when the catalog misses, transcribe, caption, remove backgrounds, and reuse assets across projects. One shared audio engine + manifest tracking. |
-| `/hyperframes-cli`       | CLI dev loop — `init`, `lint`, `check`, `snapshot`, `preview`, `render`, `publish`, `doctor`, plus AWS Lambda cloud rendering (`lambda deploy / render / progress`).                                                                                                                                                                             |
-| `/hyperframes-registry`  | Install and wire registry blocks and components into compositions via `hyperframes add`. Authoring a new block or component to contribute upstream.                                                                                                                                                                                              |
-| `/figma`                 | Import Figma assets, tokens, components, and storyboard sections → reconstructed motion (frames read as states, not slides) (REST/CLI) plus Motion animations (MCP) and shaders (MCP source / native export) into a composition.                                                                                                                 |
-
-For visual design handoff workflows, see the [Claude Design guide](https://docs.kenectai.com/guides/claude-design) and [Open Design guide](https://docs.kenectai.com/guides/open-design).
-
-### Manually with the CLI
+### 2 · Drive the CLI yourself
 
 ```bash
-npx @kenectai/cli init my-video
-cd my-video
-npx @kenectai/cli preview      # preview in browser with live reload
-npx @kenectai/cli render       # render to MP4
+npx @kenectai/cli init my-video && cd my-video
+npx @kenectai/cli preview     # live-reload preview in the browser
+npx @kenectai/cli check       # headless-Chrome quality gate
+npx @kenectai/cli render      # deterministic MP4 out
 ```
 
-**Requirements:** Node.js 22+, FFmpeg
+Requires Node.js 22+ and FFmpeg. No account needed for local rendering.
 
-## What You Can Build
+## Anatomy of a composition
 
-Need ideas? Browse the [Showcase](https://docs.kenectai.com/showcase) for finished videos you can watch, read, run, and remix.
-
-- Product launch videos and feature announcements
-- PR walkthroughs with animated code diffs, narration, and captions
-- Data visualizations, chart races, and map animations
-- Social videos with kinetic captions, overlays, and music
-- Docs-to-video, PDF-to-video, and website-to-video explainers
-- Reusable motion graphics for automated content pipelines
-
-## Frame.md
-
-**frame.md — your design system, ready for video.**
-
-Every brand has a `design.md`. None of them were written for a camera. `frame.md` is the missing translation layer: it takes your web-context design spec and inverts it for the frame — the same tokens, the same rules, but rewritten so an AI agent can compose a promo video without guessing at scale or reaching for web chrome.
-
-The output is a `DESIGN.md` superset your whole toolchain can read. Atoms stay sacred. Composition stays free. Numbers come from the script.
-
-<table>
-  <tr>
-    <td width="50%" align="center">
-      <a href="https://www.hyperframes.dev/design/biennale-yellow"><img src="https://static.heygen.ai/hyperframes-oss/docs/images/design-templates/biennale-yellow.png" alt="Biennale Yellow" width="100%"></a>
-      <br><b><a href="https://www.hyperframes.dev/design/biennale-yellow">Biennale Yellow</a></b>
-    </td>
-    <td width="50%" align="center">
-      <a href="https://www.hyperframes.dev/design/blockframe"><img src="https://static.heygen.ai/hyperframes-oss/docs/images/design-templates/blockframe.png" alt="BlockFrame" width="100%"></a>
-      <br><b><a href="https://www.hyperframes.dev/design/blockframe">BlockFrame</a></b>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center">
-      <a href="https://www.hyperframes.dev/design/blue-professional"><img src="https://static.heygen.ai/hyperframes-oss/docs/images/design-templates/blue-professional.png" alt="Blue Professional" width="100%"></a>
-      <br><b><a href="https://www.hyperframes.dev/design/blue-professional">Blue Professional</a></b>
-    </td>
-    <td width="50%" align="center">
-      <a href="https://www.hyperframes.dev/design/bold-poster"><img src="https://static.heygen.ai/hyperframes-oss/docs/images/design-templates/bold-poster.png" alt="Bold Poster" width="100%"></a>
-      <br><b><a href="https://www.hyperframes.dev/design/bold-poster">Bold Poster</a></b>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center">
-      <a href="https://www.hyperframes.dev/design/broadside"><img src="https://static.heygen.ai/hyperframes-oss/docs/images/design-templates/broadside.png" alt="Broadside" width="100%"></a>
-      <br><b><a href="https://www.hyperframes.dev/design/broadside">Broadside</a></b>
-    </td>
-    <td width="50%" align="center">
-      <a href="https://www.hyperframes.dev/design/capsule"><img src="https://static.heygen.ai/hyperframes-oss/docs/images/design-templates/capsule.png" alt="Capsule" width="100%"></a>
-      <br><b><a href="https://www.hyperframes.dev/design/capsule">Capsule</a></b>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center">
-      <a href="https://www.hyperframes.dev/design/cartesian"><img src="https://static.heygen.ai/hyperframes-oss/docs/images/design-templates/cartesian.png" alt="Cartesian" width="100%"></a>
-      <br><b><a href="https://www.hyperframes.dev/design/cartesian">Cartesian</a></b>
-    </td>
-    <td width="50%" align="center">
-      <a href="https://www.hyperframes.dev/design/cobalt-grid"><img src="https://static.heygen.ai/hyperframes-oss/docs/images/design-templates/cobalt-grid.png" alt="Cobalt Grid" width="100%"></a>
-      <br><b><a href="https://www.hyperframes.dev/design/cobalt-grid">Cobalt Grid</a></b>
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" align="center">
-      <a href="https://www.hyperframes.dev/design/coral"><img src="https://static.heygen.ai/hyperframes-oss/docs/images/design-templates/coral.png" alt="Coral" width="100%"></a>
-      <br><b><a href="https://www.hyperframes.dev/design/coral">Coral</a></b>
-    </td>
-    <td width="50%" align="center">
-      <a href="https://www.hyperframes.dev/design/creative-mode"><img src="https://static.heygen.ai/hyperframes-oss/docs/images/design-templates/creative-mode.png" alt="Creative Mode" width="100%"></a>
-      <br><b><a href="https://www.hyperframes.dev/design/creative-mode">Creative Mode</a></b>
-    </td>
-  </tr>
-</table>
-
-Browse and remix them all at [hyperframes.dev/design](https://www.hyperframes.dev/design).
-
-## How It Works
-
-Define a video as HTML. Add data attributes for timing and tracks. Use GSAP, CSS, Lottie, Three.js, Anime.js, WAAPI, or your own frame adapter for seekable animation.
+One HTML file. Timing lives in `data-*` attributes; animation lives in any seekable runtime (GSAP, CSS, Lottie, Three.js, Anime.js, WAAPI); media playback is owned by the framework so seeking stays frame-accurate.
 
 ```html
-<div id="stage" data-composition-id="launch" data-start="0" data-width="1920" data-height="1080">
-  <video
-    class="clip"
-    data-start="0"
-    data-duration="6"
-    data-track-index="0"
-    src="intro.mp4"
-    muted
-    playsinline
-  ></video>
-
-  <h1 id="title" class="clip" data-start="1" data-duration="4" data-track-index="1">Launch day</h1>
-
-  <audio
-    data-start="0"
-    data-duration="6"
-    data-track-index="2"
-    data-volume="0.5"
-    src="music.wav"
-  ></audio>
+<div id="stage" data-composition-id="teaser" data-start="0" data-width="1920" data-height="1080">
+  <video class="clip" data-start="0" data-duration="6" data-track-index="0" src="bg.mp4" muted playsinline></video>
+  <h1 id="headline" class="clip" data-start="1" data-duration="4" data-track-index="1">Ship it.</h1>
+  <audio data-start="0" data-duration="6" data-track-index="2" data-volume="0.5" src="music.wav"></audio>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
   <script>
     const tl = gsap.timeline({ paused: true });
-    tl.from("#title", { opacity: 0, y: 40, duration: 0.8 }, 1);
+    tl.from("#headline", { opacity: 0, y: 40, duration: 0.8 }, 1);
     window.__timelines = window.__timelines || {};
-    window.__timelines.launch = tl;
+    window.__timelines.teaser = tl;
   </script>
 </div>
 ```
 
-Preview instantly in the browser. Render locally or in Docker. The renderer seeks each frame in headless Chrome and encodes the result with FFmpeg, so the same input produces the same video.
+Declared variables (`data-composition-variables`) turn any composition into a template: upload once, re-render many times with different data.
 
-## KENECT AI Stack
+## Rendering surfaces
 
-KENECT AI is the open-source rendering engine, plus a growing set of tools around HTML-native video creation.
+| Surface | Command | When |
+| --- | --- | --- |
+| **Local** | `kenectai render` | Authoring loop; free; needs Chrome + FFmpeg |
+| **KENECT AI Cloud (GCP)** | `kenectai cloud render` | Zero-infra hosted rendering on Cloud Run + Workflows; sign in with `kenectai auth login` (OAuth 2.0 + PKCE) or `KENECT_API_KEY` |
+| **Your own AWS** | `kenectai lambda deploy / render` | Bring-your-own-cloud distributed rendering at batch scale |
 
-| Piece                                           | Status              | What it does                                                                                      |
-| ----------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------------- |
-| CLI                                             | Available           | Scaffold, preview, lint, inspect, and render local video projects                                 |
-| Core / Engine / Producer                        | Available           | Parse compositions, drive headless Chrome, encode video, and mix audio                            |
-| Catalog                                         | Available           | Reusable blocks and components for transitions, overlays, captions, charts, maps, and effects     |
-| Agent skills                                    | Available           | Teach coding agents the video-production patterns that generic web docs miss                      |
-| Studio                                          | Available, evolving | Browser surface for previewing and editing compositions                                           |
-| AWS Lambda rendering                            | Available           | Deploy a distributed render stack and drive renders from your laptop or CI                        |
-| [hyperframes.dev](https://www.hyperframes.dev/) | Available           | Community playground for previewing, iterating, sharing, and rendering HTML-native video projects |
-| [frame.md](https://www.hyperframes.dev/design)  | Available           | Invert your design system for the camera — a DESIGN.md superset an agent can compose video from   |
+The cloud path is upload → render → signed download URL, with `--no-wait` and webhook callbacks for fire-and-forget pipelines.
 
-## Catalog
+## Building blocks
 
-Install ready-to-use blocks and components:
+- **Catalog** — 50+ installable blocks and components (shader transitions, kinetic captions, charts, maps, device mockups, social overlays): `npx @kenectai/cli add data-chart`. Browse at [docs.kenectai.com/catalog](https://docs.kenectai.com/catalog/blocks/data-chart).
+- **Media engine** — one shared engine for TTS voiceover, background music, SFX, transcription, captions, and background removal, exposed to agents through the `/media-use` skill.
+- **frame.md** — invert a web design system for the camera: same tokens, rewritten for scale, so an agent can compose on-brand video without guessing. See the [Claude Design guide](https://docs.kenectai.com/guides/claude-design).
+- **Studio** — a browser editor for previewing and adjusting compositions (`kenectai preview` serves it).
 
-```bash
-npx @kenectai/cli add flash-through-white   # shader transition
-npx @kenectai/cli add instagram-follow      # social overlay
-npx @kenectai/cli add data-chart            # animated chart
+## The skills, at a glance
+
+<details>
+<summary><b>Creation workflows</b> — routed automatically by <code>/hyperframes</code></summary>
+
+| Skill | Turns … into video |
+| --- | --- |
+| `/product-launch-video` | A product URL, script, or brief → launch promo |
+| `/website-to-video` | Any website → site tour / showcase |
+| `/faceless-explainer` | Arbitrary text → topic explainer with invented visuals |
+| `/pr-to-video` | A GitHub PR → code-change walkthrough |
+| `/embedded-captions` | Talking-head footage → captioned footage (36 visual identities) |
+| `/talking-head-recut` | Talking-head footage → footage + designed graphic overlays |
+| `/motion-graphics` | A stat, headline, or logo → short kinetic hit |
+| `/music-to-video` | A music track → beat-synced lyric/slideshow/promo |
+| `/slideshow` | An outline → navigable presentation deck |
+| `/general-video` | Anything else → freeform composition |
+| `/remotion-to-hyperframes` | An existing Remotion project → KENECT AI HTML |
+
+</details>
+
+<details>
+<summary><b>Domain skills</b> — loaded on demand by the workflows</summary>
+
+`/hyperframes-core` (the composition contract) · `/hyperframes-animation` (motion rules + 7 runtime adapters) · `/hyperframes-keyframes` (seek-safe keyframing) · `/hyperframes-creative` (design direction) · `/media-use` (audio/image/asset resolution) · `/hyperframes-cli` (dev loop) · `/hyperframes-registry` (catalog install/authoring) · `/figma` (Figma import)
+
+</details>
+
+## Repository map
+
+```
+packages/
+  cli/                 → the kenectai CLI (@kenectai/cli)
+  core/                → composition parser, linter, runtime, frame adapters
+  engine/              → seekable page-to-video capture (Puppeteer + FFmpeg)
+  producer/            → full render pipeline: capture, encode, audio mix
+  kenect-api/          → GCP Cloud Run product API (OAuth, uploads, renders, publish)
+  gcp-cloud-run/       → distributed render adapter for Cloud Run + Workflows
+  aws-lambda/          → distributed render adapter for AWS Lambda
+  player/ studio/ sdk/ → embeddable player, browser editor, programmatic SDK
+registry/              → installable blocks, components, and starter examples
+skills/                → the 20 agent skills
+docs/                  → documentation source (docs.kenectai.com)
 ```
 
-Browse the catalog at [docs.kenectai.com/catalog](https://docs.kenectai.com/catalog/blocks/data-chart).
-
-## Why KENECT AI?
-
-- **HTML-native:** compositions are HTML files with data attributes. No React requirement, no proprietary timeline format.
-- **Agent-friendly:** agents already write HTML, and the CLI is non-interactive by default.
-- **Deterministic:** same input, same frames, same output. Built for CI, regression tests, and automated rendering.
-- **No build step:** an `index.html` composition plays as-is and can be previewed directly in the browser.
-- **Adapter-based animation:** bring GSAP, CSS animations, Lottie, Three.js, Anime.js, WAAPI, or a custom runtime.
-- **Open source:** Apache 2.0 license, with no per-render fees or commercial-use thresholds.
-
-## KENECT AI vs Remotion
-
-KENECT AI is inspired by [Remotion](https://www.remotion.dev). Both tools render video with headless Chrome and FFmpeg. The main difference is the authoring model: Remotion's bet is React components; KENECT AI' bet is plain HTML that humans and agents can both write easily.
-
-|                          | **KENECT AI**                       | **Remotion**                            |
-| ------------------------ | ------------------------------------- | --------------------------------------- |
-| Authoring                | HTML + CSS + seekable animation       | React components                        |
-| Build step               | None; `index.html` plays as-is        | Bundler required                        |
-| Agent handoff            | Plain HTML files                      | JSX / React project                     |
-| Library-clock animations | Seekable, frame-accurate via adapters | Wall-clock animation patterns need care |
-| Distributed rendering    | Local and AWS Lambda render paths     | Remotion Lambda, mature cloud renderer  |
-| License                  | Apache 2.0                            | Source-available Remotion License       |
-
-Read the full comparison in the [KENECT AI vs Remotion guide](https://docs.kenectai.com/guides/hyperframes-vs-remotion).
-
-## Documentation
-
-Full documentation: [docs.kenectai.com/introduction](https://docs.kenectai.com/introduction)
-
-- [Quickstart](https://docs.kenectai.com/quickstart)
-- [Showcase](https://docs.kenectai.com/showcase)
-- [Guides](https://docs.kenectai.com/guides/gsap-animation)
-- [API Reference](https://docs.kenectai.com/packages/core)
-- [Catalog](https://docs.kenectai.com/catalog/blocks/data-chart)
-- [Examples](https://docs.kenectai.com/examples)
-- [AWS Lambda rendering](https://docs.kenectai.com/deploy/aws-lambda)
-
-## Packages
-
-| Package                                                          | Description                                                       |
-| ---------------------------------------------------------------- | ----------------------------------------------------------------- |
-| [`hyperframes`](packages/cli)                                    | CLI for creating, previewing, linting, and rendering compositions |
-| [`@kenectai/core`](packages/core)                             | Types, parsers, generators, linter, runtime, and frame adapters   |
-| [`@kenectai/engine`](packages/engine)                         | Seekable page-to-video capture engine using Puppeteer and FFmpeg  |
-| [`@kenectai/producer`](packages/producer)                     | Full rendering pipeline for capture, encode, and audio mix        |
-| [`@kenectai/studio`](packages/studio)                         | Browser-based composition editor UI                               |
-| [`@kenectai/player`](packages/player)                         | Embeddable `<hyperframes-player>` web component                   |
-| [`@kenectai/shader-transitions`](packages/shader-transitions) | WebGL shader transitions for compositions                         |
-| [`@kenectai/aws-lambda`](packages/aws-lambda)                 | AWS Lambda SDK and deployment surface for distributed renders     |
-
-## Community
-
-HyperFrames is used in production at [HeyGen](https://www.heygen.com), with community examples from teams like [tldraw](https://tldraw.com), [TanStack](https://tanstack.com), and others in [ADOPTERS.md](ADOPTERS.md). Open a PR if your team is using HyperFrames.
-
-- Questions and ideas: [Discord](https://discord.gg/EbK98HBPdk)
-- Bugs and feature requests: [GitHub Issues](https://github.com/sthuthillc/kenectai/issues)
-- Security reports: [SECURITY.md](SECURITY.md)
-- Contributions: [CONTRIBUTING.md](CONTRIBUTING.md)
-
-## Development Note
-
-The repo uses [Git LFS](https://git-lfs.com) for golden regression-test baselines under `packages/producer/tests/**/output.mp4` (about 240 MB of `.mp4` files). If you're cloning the full repo for development, install Git LFS first:
+## Contributing & development
 
 ```bash
-# macOS
-brew install git-lfs
-
-# Ubuntu / Debian
-sudo apt install git-lfs
-
-# Windows
-winget install GitHub.GitLFS
-
-# Then, once per machine
-git lfs install
+bun install && bun run build && bun run test
 ```
 
-If you only need source files, you can skip LFS content:
+Regression-test media (~490 MB) lives in [Git LFS](https://git-lfs.com) — run `git lfs install` before cloning for development, or skip it with `GIT_LFS_SKIP_SMUDGE=1`. Lint with `bunx oxlint`, format with `bunx oxfmt`, and gate compositions with `npx @kenectai/cli check`. See [CONTRIBUTING.md](CONTRIBUTING.md); report vulnerabilities via [SECURITY.md](SECURITY.md).
 
-```bash
-GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/sthuthillc/kenectai.git
-```
+## Heritage & license
 
-## License
-
-[Apache 2.0](LICENSE)
+KENECT AI is an independent fork of [HyperFrames](https://github.com/heygen-com/hyperframes) by HeyGen, whose engine also powers projects at [tldraw](https://tldraw.com), [TanStack](https://tanstack.com), and others ([ADOPTERS.md](ADOPTERS.md)). We're grateful for that foundation. Both projects are **[Apache 2.0](LICENSE)** — no per-render fees, no commercial-use thresholds.
