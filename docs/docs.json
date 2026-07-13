@@ -34,14 +34,7 @@
       "cursor",
       "vscode",
       "windsurf",
-      "mcp",
-      {
-        "title": "Open an issue",
-        "description": "Report a bug or request a feature",
-        "icon": "github",
-        "iconType": "brands",
-        "href": "https://github.com/sthuthillc/kenectai/issues/new"
-      }
+      "mcp"
     ]
   },
   "navigation": {
@@ -384,31 +377,9 @@
             "pages": [
               "reference/html-schema"
             ]
-          },
-          {
-            "group": "Contributing",
-            "pages": [
-              "contributing",
-              "contributing/catalog",
-              "contributing/release-channels",
-              "contributing/changelog-process",
-              "contributing/testing-local-changes",
-              "contributing/studio-manual-dom-editing"
-            ]
-          },
-          {
-            "group": "Community",
-            "pages": [
-              "community/adopters"
-            ]
           }
         ]
       }
     ]
-  },
-  "footer": {
-    "socials": {
-      "github": "https://github.com/sthuthillc/kenectai"
-    }
   }
 }

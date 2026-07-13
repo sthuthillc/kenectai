@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1920, height=1080" />
+  <title>Kenect AI — Brand Hero</title>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0A0A0F; --fg: #F6F5F1; --dim: #9b9aa4;
+      --violet: #6366F1; --magenta: #D946EF; --pink: #EC4899; --teal: #2DD4BF; --sky: #0EA5E9;
+      --panel: #101017; --line: #26263a;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); overflow: hidden; }
+    #root {
+      position: relative; width: 1920px; height: 1080px; overflow: hidden;
+      background: var(--bg);
+      font-family: Outfit, Inter, -apple-system, sans-serif; color: var(--fg);
+    }
+    .clip { position: absolute; inset: 0; display: grid; place-items: center; }
+
+    /* ambient brand glow, present through the whole piece */
+    #glow {
+      position: absolute; left: 50%; top: 50%; width: 1100px; height: 620px;
+      transform: translate(-50%, -50%);
+      background:
+        radial-gradient(closest-side, rgba(99,102,241,.16), transparent 70%),
+        radial-gradient(closest-side at 30% 60%, rgba(217,70,239,.11), transparent 70%),
+        radial-gradient(closest-side at 75% 40%, rgba(45,212,191,.09), transparent 70%);
+      filter: blur(18px);
+    }
+
+    .grad-text {
+      background: linear-gradient(120deg, var(--magenta), var(--pink), var(--teal), var(--sky));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+
+    /* beat 1 — write html */
+    #b1 .stack { display: flex; flex-direction: column; align-items: center; gap: 64px; }
+    #b1 h1 { font-size: 150px; font-weight: 700; letter-spacing: -.02em; }
+    #code-panel {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 20px;
+      padding: 44px 56px; font-family: "JetBrains Mono", monospace; font-size: 40px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    }
+    #code-line { display: inline-block; white-space: nowrap; overflow: hidden; vertical-align: bottom; }
+    #code-line .tag { color: #7ad3ff; } #code-line .attr { color: var(--teal); } #code-line .str { color: #ffd479; }
+    #caret { display: inline-block; width: 20px; height: 44px; background: var(--teal); vertical-align: bottom; margin-left: 6px; }
+
+    /* beat 2 — markup renders */
+    #b2 h1 { font-size: 260px; font-weight: 700; letter-spacing: -.03em; }
+
+    /* beat 3 — render video */
+    #b3 .stack { display: flex; flex-direction: column; align-items: center; gap: 72px; }
+    #b3 h1 { font-size: 170px; font-weight: 700; letter-spacing: -.02em; }
+    #render-bar { width: 900px; height: 10px; border-radius: 5px; background: #1c1c2b; overflow: hidden; }
+    #render-fill { width: 100%; height: 100%; transform-origin: left center;
+      background: linear-gradient(90deg, var(--violet), var(--magenta), var(--teal)); }
+    #frame-count { font-family: "JetBrains Mono", monospace; font-size: 34px; color: var(--dim); letter-spacing: .1em; }
+    #frame-count b { color: var(--teal); font-weight: 700; }
+
+    /* beat 4 — value triplet */
+    #b4 .row { display: flex; gap: 90px; align-items: baseline; }
+    #b4 .val { font-size: 76px; font-weight: 700; letter-spacing: -.01em; }
+    #b4 .dot { font-size: 60px; color: var(--magenta); }
+
+    /* beat 5 — logo sting */
+    #b5 .lockup { display: flex; align-items: center; gap: 56px; }
+    #mark { position: relative; width: 220px; height: 220px; }
+    #k-bar { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); width: 54px; height: 188px; border-radius: 30px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #C7D2FE 45%, #7C86B8 100%);
+      box-shadow: inset -4px -4px 10px rgba(0,0,0,.25), inset 2px 2px 6px rgba(255,255,255,.6), 0 12px 40px rgba(0,0,0,.45); }
+    #k-diamond { position: absolute; left: 56px; top: 50%; margin-top: -70px; width: 140px; height: 140px; border-radius: 34px;
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, var(--violet) 0%, var(--magenta) 55%, var(--pink) 100%);
+      border: 14px solid var(--bg);
+      box-shadow: 0 0 80px rgba(217,70,239,.4), inset 0 4px 4px rgba(255,255,255,.35), inset 0 -20px 44px rgba(0,0,0,.28); }
+    #k-play { position: absolute; left: 104px; top: 50%; margin-top: -26px; width: 44px; height: 52px;
+      background: linear-gradient(180deg, #FFF, #E2E8F0); clip-path: polygon(0 0, 100% 50%, 0 100%);
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,.45)); }
+    .spark { position: absolute; background: linear-gradient(135deg, #5EEAD4, var(--teal) 50%, var(--sky));
+      clip-path: polygon(50% 0%, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0% 50%, 42% 42%);
+      filter: drop-shadow(0 0 18px rgba(45,212,191,.7)); }
+    #spark-a { top: -6px; right: 6px; width: 64px; height: 64px; }
+    #spark-b { top: 52px; right: -20px; width: 28px; height: 28px; }
+    #b5 .type { display: flex; flex-direction: column; }
+    #b5 .word { display: flex; align-items: baseline; gap: 26px; font-size: 170px; line-height: 1; letter-spacing: -.02em; }
+    #w-kenect { font-weight: 700; }
+    #w-ai { font-weight: 300; }
+    #tagline { margin-top: 30px; font-size: 40px; font-weight: 500; letter-spacing: .42em; color: var(--dim); }
+
+    /* loop tail */
+    #fade { position: absolute; inset: 0; background: var(--bg); opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div id="root" data-composition-id="brand-hero" data-start="0" data-width="1920" data-height="1080" data-duration="15">
+    <div id="glow"></div>
+
+    <section id="b1" class="clip" data-start="0" data-duration="3.6" data-track-index="1">
+      <div class="stack">
+        <h1 id="b1-title">Write HTML.</h1>
+        <div id="code-panel">
+          <span id="code-line"><span class="tag">&lt;h1</span> <span class="attr">class</span>=<span class="str">"clip"</span><span class="tag">&gt;</span>Ship it.<span class="tag">&lt;/h1&gt;</span></span><span id="caret"></span>
+        </div>
+      </div>
+    </section>
+
+    <section id="b2" class="clip" data-start="3.2" data-duration="3.2" data-track-index="2">
+      <h1 id="b2-title" class="grad-text">Ship it.</h1>
+    </section>
+
+    <section id="b3" class="clip" data-start="6.2" data-duration="3.6" data-track-index="3">
+      <div class="stack">
+        <h1 id="b3-title">Render <span class="grad-text">video.</span></h1>
+        <div id="render-bar"><div id="render-fill"></div></div>
+        <div id="frame-count">frame <b id="frame-n">0</b> / 450 · deterministic</div>
+      </div>
+    </section>
+
+    <section id="b4" class="clip" data-start="9.6" data-duration="2.6" data-track-index="4">
+      <div class="row">
+        <span class="val" id="v1">Agent-native</span><span class="dot" id="d1">·</span>
+        <span class="val" id="v2">Deterministic</span><span class="dot" id="d2">·</span>
+        <span class="val" id="v3">Cloud-ready</span>
+      </div>
+    </section>
+
+    <section id="b5" class="clip" data-start="12" data-duration="3" data-track-index="5">
+      <div class="lockup">
+        <div id="mark">
+          <div id="k-bar"></div>
+          <div id="k-diamond"></div>
+          <div id="k-play"></div>
+          <div id="spark-a" class="spark"></div>
+          <div id="spark-b" class="spark"></div>
+        </div>
+        <div class="type">
+          <div class="word"><span id="w-kenect">Kenect</span><span id="w-ai" class="grad-text">AI</span></div>
+          <div id="tagline">GENERATIVE VIDEO</div>
+        </div>
+      </div>
+    </section>
+
+    <div id="fade"></div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    /* beat 1 — Write HTML. (0 – 3.2) */
+    tl.from("#b1-title", { y: 70, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.15);
+    tl.from("#code-panel", { y: 40, opacity: 0, duration: 0.55, ease: "power2.out" }, 0.55);
+    tl.fromTo("#code-line", { width: 0 }, { width: "auto", duration: 1.3, ease: "steps(26)" }, 1.0);
+    tl.fromTo("#caret", { opacity: 1 }, { opacity: 0, duration: 0.4, ease: "steps(1)", repeat: 5, yoyo: true }, 0.8);
+    tl.set("#caret", { opacity: 0 }, 3.2);
+    tl.to("#b1 .stack", { scale: 0.92, opacity: 0, filter: "blur(10px)", duration: 0.5, ease: "power2.in" }, 3.0);
+
+    /* beat 2 — the markup renders (3.2 – 6.2) */
+    tl.fromTo("#b2-title",
+      { scale: 0.4, opacity: 0, filter: "blur(18px)" },
+      { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.8, ease: "back.out(1.6)" }, 3.35);
+    tl.to("#b2-title", { scale: 1.05, duration: 1.6, ease: "sine.out" }, 4.15);
+    tl.to("#b2-title", { y: -60, opacity: 0, duration: 0.5, ease: "power2.in" }, 5.85);
+
+    /* beat 3 — Render video. (6.2 – 9.6) */
+    tl.from("#b3-title", { y: 90, opacity: 0, duration: 0.7, ease: "power3.out" }, 6.4);
+    tl.from("#render-bar", { opacity: 0, duration: 0.4 }, 6.9);
+    tl.fromTo("#render-fill", { scaleX: 0 }, { scaleX: 1, duration: 2.0, ease: "power1.inOut" }, 7.0);
+    const frames = { n: 0 };
+    tl.to(frames, {
+      n: 450, duration: 2.0, ease: "power1.inOut",
+      onUpdate: () => {
+        const el = document.getElementById("frame-n");
+        if (el) el.textContent = String(Math.round(frames.n));
+      }
+    }, 7.0);
+    tl.from("#frame-count", { opacity: 0, duration: 0.4 }, 7.0);
+    tl.to("#b3 .stack", { opacity: 0, y: -50, duration: 0.45, ease: "power2.in" }, 9.25);
+
+    /* beat 4 — value triplet (9.6 – 12.0) */
+    tl.from(["#v1", "#d1", "#v2", "#d2", "#v3"],
+      { y: 60, opacity: 0, duration: 0.55, ease: "power3.out", stagger: 0.14 }, 9.8);
+    tl.to("#b4 .row", { opacity: 0, scale: 0.95, duration: 0.4, ease: "power2.in" }, 11.7);
+
+    /* beat 5 — logo sting (12.0 – 15.0) */
+    tl.from("#k-bar", { y: -320, opacity: 0, duration: 0.55, ease: "power3.out" }, 12.15);
+    tl.fromTo("#k-diamond",
+      { rotate: 165, scale: 0, opacity: 0 },
+      { rotate: 45, scale: 1, opacity: 1, duration: 0.75, ease: "back.out(1.7)" }, 12.35);
+    tl.fromTo("#k-play", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2.2)" }, 12.95);
+    tl.fromTo("#spark-a", { scale: 0, rotate: -40, opacity: 0 }, { scale: 1, rotate: 0, opacity: 1, duration: 0.45, ease: "back.out(2)" }, 13.15);
+    tl.fromTo("#spark-b", { scale: 0, opacity: 0 }, { scale: 1, opacity: 0.9, duration: 0.35, ease: "back.out(2)" }, 13.3);
+    tl.from("#w-kenect", { y: 80, opacity: 0, duration: 0.55, ease: "power3.out" }, 12.6);
+    tl.from("#w-ai", { y: 80, opacity: 0, duration: 0.55, ease: "power3.out" }, 12.75);
+    tl.fromTo("#tagline",
+      { opacity: 0, y: 26, scaleX: 1.12 },
+      { opacity: 1, y: 0, scaleX: 1, duration: 0.7, ease: "power2.out" }, 13.1);
+    tl.to("#spark-a", { scale: 1.15, duration: 0.35, ease: "sine.inOut", repeat: 3, yoyo: true }, 13.6);
+
+    /* loop tail — fade to bg so the player loop is seamless */
+    tl.to("#fade", { opacity: 1, duration: 0.45, ease: "power1.in" }, 14.5);
+
+    tl.seek(0);
+    window.__timelines["brand-hero"] = tl;
+  </script>
+</body>
+</html>
