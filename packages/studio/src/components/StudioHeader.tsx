@@ -23,47 +23,81 @@ export interface StudioHeaderProps {
 }
 
 function HyperframesLogo() {
-  // KENECT AI lockup for the dark header: K-mark in a rounded square with
-  // the brand accent, wordmark set in the UI font.
-  const height = 28;
+  // Kenect AI lockup for the dark header: silver K pillar, gradient diamond
+  // node with play glyph, teal sparks, and the Kenect AI wordmark.
+  const height = 30;
   return (
     <svg
-      width={Math.round(height * (300 / 60))}
+      width={Math.round(height * (250 / 80))}
       height={height}
-      viewBox="0 0 300 60"
+      viewBox="0 0 250 80"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      aria-label="KENECT AI"
+      aria-label="Kenect AI"
     >
-      <rect x="2" y="10" width="40" height="40" rx="9" fill="#F6F5F1" />
-      <path
-        d="M13 19v22M13 30l11-11M14.5 28.5L25 41"
-        stroke="#3CE6AC"
-        strokeWidth="4.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
+      <defs>
+        <linearGradient id="knh-bar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#FFFFFF" />
+          <stop offset=".45" stopColor="#C7D2FE" />
+          <stop offset="1" stopColor="#7C86B8" />
+        </linearGradient>
+        <linearGradient id="knh-diamond" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#6366F1" />
+          <stop offset=".55" stopColor="#D946EF" />
+          <stop offset="1" stopColor="#EC4899" />
+        </linearGradient>
+        <linearGradient id="knh-spark" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#5EEAD4" />
+          <stop offset=".5" stopColor="#2DD4BF" />
+          <stop offset="1" stopColor="#0EA5E9" />
+        </linearGradient>
+        <linearGradient id="knh-ai" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#D946EF" />
+          <stop offset=".4" stopColor="#EC4899" />
+          <stop offset=".75" stopColor="#2DD4BF" />
+          <stop offset="1" stopColor="#0EA5E9" />
+        </linearGradient>
+      </defs>
+      <rect x="8" y="16" width="14" height="48" rx="8" fill="url(#knh-bar)" />
+      <rect
+        x="22"
+        y="22"
+        width="36"
+        height="36"
+        rx="9"
+        transform="rotate(45 40 40)"
+        fill="url(#knh-diamond)"
+        stroke="#0A0A0F"
+        strokeWidth="4"
       />
-      <circle cx="33" cy="20" r="3.2" fill="#3CE6AC" />
+      <path d="M35 33l13 7-13 7z" fill="#FFFFFF" />
+      <path
+        d="M58.5 8l1.4 7.1L67 16.5l-7.1 1.4L58.5 25l-1.4-7.1L50 16.5l7.1-1.4z"
+        fill="url(#knh-spark)"
+      />
+      <path
+        d="M67 26l.8 3.7 3.7.8-3.7.8-.8 3.7-.8-3.7-3.7-.8 3.7-.8z"
+        fill="url(#knh-spark)"
+        opacity=".9"
+      />
       <text
-        x="52"
-        y="41"
-        fontFamily="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif"
-        fontSize="27"
-        fontWeight="800"
-        letterSpacing="1.5"
-        fill="#F6F5F1"
+        x="78"
+        y="53"
+        fontFamily="Outfit, Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif"
+        fontSize="38"
+        fontWeight="700"
+        letterSpacing="-1"
+        fill="#FFFFFF"
       >
-        KENECT
+        Kenect
       </text>
       <text
-        x="182"
-        y="41"
-        fontFamily="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif"
-        fontSize="27"
+        x="206"
+        y="53"
+        fontFamily="Outfit, Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif"
+        fontSize="38"
         fontWeight="300"
-        letterSpacing="1.5"
-        fill="#F6F5F1"
+        fill="url(#knh-ai)"
       >
         AI
       </text>
