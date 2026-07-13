@@ -12,6 +12,9 @@ import {
   type SerializableDistributedRenderConfig,
 } from "@kenectai/gcp-cloud-run/sdk";
 import { registerOAuthRoutes, resolveBearerIdentity } from "./oauthServer.js";
+import { GeminiClient, GeminiError } from "./gemini.js";
+import { generateFramePack } from "./products/framePack.js";
+import { CompositionLintError, generateWebsiteComposition } from "./products/websiteVideo.js";
 
 const ZIP_CONTENT_TYPE = "application/zip";
 const SIGNED_URL_TTL_MS = 15 * 60 * 1000;
@@ -32,6 +35,8 @@ export interface KenectApiEnv {
   renderServiceUrl: string;
   apiKeys: string[];
   jwtSecret: string;
+  geminiApiKey: string;
+  geminiModel: string;
 }
 
 type RenderStatus = "queued" | "rendering" | "completed" | "failed";
@@ -39,7 +44,7 @@ type RenderFormat = "mp4" | "webm" | "mov";
 type RenderQuality = "draft" | "standard" | "high";
 type RenderResolution = "1080p" | "4k";
 type RenderAspectRatio = "16:9" | "9:16" | "1:1";
-type ApiErrorStatus = 400 | 401 | 404 | 409 | 413;
+type ApiErrorStatus = 400 | 401 | 404 | 409 | 413 | 422 | 501 | 502;
 
 interface RenderRecord {
   render_id: string;
@@ -100,7 +105,17 @@ function loadEnv(): KenectApiEnv {
     renderServiceUrl: requiredEnv("KENECT_RENDER_SERVICE_URL"),
     apiKeys: splitCsv(process.env["KENECT_API_KEYS"]),
     jwtSecret: requiredEnv("KENECT_JWT_SECRET"),
+    geminiApiKey: env("GEMINI_API_KEY", ""),
+    geminiModel: env("KENECT_GEMINI_MODEL", "gemini-2.5-flash"),
   };
+}
+
+/** Product routes (frame-pack, website-video) need Gemini; other routes don't require it to boot. */
+function requireGemini(env: KenectApiEnv): GeminiClient {
+  if (!env.geminiApiKey) {
+    throw new HttpError(501, "GEMINI_API_KEY is not configured on this deployment");
+  }
+  return new GeminiClient({ apiKey: env.geminiApiKey, model: env.geminiModel });
 }
 
 function env(name: string, fallback: string): string {
@@ -165,6 +180,10 @@ function assetKey(assetId: string): string {
 
 function renderRecordKey(renderId: string): string {
   return `render-records/${renderId}.json`;
+}
+
+function productJobKey(product: string, jobId: string): string {
+  return `product-jobs/${product}/${jobId}.json`;
 }
 
 function publishedUploadKey(uploadKey: string): string {
@@ -426,6 +445,8 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
     const isPublic =
       path === "/healthz" ||
       path === "/v3/healthz" ||
+      path === "/favicon.ico" ||
+      path === "/favicon.svg" ||
       path.startsWith("/oauth/") ||
       path.startsWith("/v1/oauth/");
     if (!isPublic && !resolveBearerIdentity(c.req.header("authorization"), env.jwtSecret)) {
@@ -436,6 +457,14 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
 
   app.get("/healthz", (c) => c.json({ ok: true, service: "kenect-api" }));
   app.get("/v3/healthz", (c) => c.json({ ok: true, service: "kenect-api" }));
+  app.get("/favicon.ico", (c) => c.body(null, 204));
+  app.get("/favicon.svg", (c) =>
+    c.body(
+      '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#0A0A0F"/><path d="M17 12h10v40H17z" fill="#F6F5F1"/><path d="M31 32 50 12h-13L25 25v14l12 13h13z" fill="#2DD4BF"/></svg>',
+      200,
+      { "Content-Type": "image/svg+xml; charset=utf-8" },
+    ),
+  );
 
   app.get("/v3/users/me", (c) => {
     const identity = resolveBearerIdentity(c.req.header("authorization"), env.jwtSecret);
@@ -522,8 +551,7 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
     });
   });
 
-  const createRenderHandler = async (c: Context) => {
-    const body = parseCreateRenderRequest(await readJsonBody(c));
+  const dispatchRender = async (body: CreateRenderRequest): Promise<{ render_id: string }> => {
     const workdir = mkdtempSync(join(tmpdir(), "kenect-render-"));
     try {
       const projectDir = await materializeProjectZip(storage, env, body.project, workdir);
@@ -555,10 +583,15 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
         created_at: Math.floor(Date.now() / 1000),
       };
       await store.write(renderRecordKey(record.render_id), record);
-      return c.json({ render_id: record.render_id });
+      return { render_id: record.render_id };
     } finally {
       rmSync(workdir, { recursive: true, force: true });
     }
+  };
+
+  const createRenderHandler = async (c: Context) => {
+    const body = parseCreateRenderRequest(await readJsonBody(c));
+    return c.json(await dispatchRender(body));
   };
 
   const listRendersHandler = async (c: Context) => {
@@ -664,6 +697,147 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
   app.post("/v1/hyperframes/projects/publish/complete", completePublishHandler);
   app.post("/v1/hyperframes/projects/publish", directPublishHandler);
   app.post("/v1/hyperframes/feedback", feedbackHandler);
+
+  app.post("/v1/products/frame-pack", async (c) => {
+    const body = await readJsonBody(c);
+    const sourceText = stringField(body, "source_text");
+    if (!sourceText || sourceText.trim().length < 20) {
+      throw new HttpError(400, "source_text is required and must be at least 20 characters");
+    }
+    if (sourceText.length > 300_000) {
+      throw new HttpError(413, "source_text must be 300,000 characters or fewer");
+    }
+    const gemini = requireGemini(env);
+    const jobId = `fp_${randomUUID().replaceAll("-", "")}`;
+    const startedAt = Math.floor(Date.now() / 1000);
+    try {
+      const result = await generateFramePack(gemini, sourceText);
+      const zip = new AdmZip();
+      zip.addFile("FRAME.md", Buffer.from(result.frameMd, "utf8"));
+      zip.addFile("frame-showcase.html", Buffer.from(result.frameShowcaseHtml, "utf8"));
+      zip.addFile("README.html", Buffer.from(result.readmeHtml, "utf8"));
+      const zipKey = `products/frame-pack/${jobId}/frame-pack.zip`;
+      await storage.bucket(env.uploadBucket).file(zipKey).save(zip.toBuffer(), {
+        contentType: ZIP_CONTENT_TYPE,
+        resumable: false,
+      });
+      const [downloadUrl] = await storage
+        .bucket(env.uploadBucket)
+        .file(zipKey)
+        .getSignedUrl({ version: "v4", action: "read", expires: Date.now() + SIGNED_URL_TTL_MS });
+      await store.write(productJobKey("frame-pack", jobId), {
+        job_id: jobId,
+        product: "frame-pack",
+        status: "completed",
+        product_name: result.tokens.productName,
+        download_url: downloadUrl,
+        created_at: startedAt,
+        completed_at: Math.floor(Date.now() / 1000),
+      });
+      return c.json({
+        job_id: jobId,
+        status: "completed",
+        product_name: result.tokens.productName,
+        download_url: downloadUrl,
+        files: ["FRAME.md", "frame-showcase.html", "README.html"],
+      });
+    } catch (err) {
+      await store
+        .write(productJobKey("frame-pack", jobId), {
+          job_id: jobId,
+          product: "frame-pack",
+          status: "failed",
+          error: err instanceof Error ? err.message : String(err),
+          created_at: startedAt,
+          completed_at: Math.floor(Date.now() / 1000),
+        })
+        .catch(() => {});
+      if (err instanceof GeminiError) throw new HttpError(502, err.message);
+      throw err;
+    }
+  });
+
+  app.get("/v1/products/frame-pack/:jobId", async (c) => {
+    const record = await store.read(productJobKey("frame-pack", requiredParam(c, "jobId")));
+    if (!record) throw new HttpError(404, "job not found");
+    return c.json(record);
+  });
+
+  app.post("/v1/products/website-video", async (c) => {
+    const body = await readJsonBody(c);
+    const url = stringField(body, "url");
+    if (!url || !url.startsWith("https://")) {
+      throw new HttpError(400, "url is required and must be an HTTPS URL");
+    }
+    const durationRaw = numberField(body, "duration_s");
+    const durationS = durationRaw && durationRaw >= 8 && durationRaw <= 60 ? durationRaw : 20;
+    const title = stringField(body, "title");
+    const gemini = requireGemini(env);
+    const jobId = `wv_${randomUUID().replaceAll("-", "")}`;
+    const startedAt = Math.floor(Date.now() / 1000);
+    try {
+      const composition = await generateWebsiteComposition(gemini, url, durationS);
+      const zip = new AdmZip();
+      zip.addFile("index.html", Buffer.from(composition.html, "utf8"));
+      const renderResult = await dispatchRender({
+        project: {
+          type: "base64",
+          media_type: ZIP_CONTENT_TYPE,
+          data: zip.toBuffer().toString("base64"),
+        },
+        format: "mp4",
+        quality: "standard",
+        resolution: "1080p",
+        aspect_ratio: "16:9",
+        composition: "index.html",
+        variables: null,
+        title: title ?? composition.brandHints.title,
+        callback_id: null,
+        callback_url: null,
+      });
+      await store.write(productJobKey("website-video", jobId), {
+        job_id: jobId,
+        product: "website-video",
+        status: "rendering",
+        source_url: url,
+        render_id: renderResult.render_id,
+        repaired: composition.repaired,
+        brand_hints: composition.brandHints,
+        created_at: startedAt,
+      });
+      return c.json({
+        job_id: jobId,
+        render_id: renderResult.render_id,
+        status: "rendering",
+        poll_url: `/v3/kenectai/renders/${renderResult.render_id}`,
+        repaired: composition.repaired,
+        brand_hints: composition.brandHints,
+      });
+    } catch (err) {
+      await store
+        .write(productJobKey("website-video", jobId), {
+          job_id: jobId,
+          product: "website-video",
+          status: "failed",
+          source_url: url,
+          error: err instanceof Error ? err.message : String(err),
+          created_at: startedAt,
+          completed_at: Math.floor(Date.now() / 1000),
+        })
+        .catch(() => {});
+      if (err instanceof CompositionLintError) {
+        throw new HttpError(422, err.message);
+      }
+      if (err instanceof GeminiError) throw new HttpError(502, err.message);
+      throw err;
+    }
+  });
+
+  app.get("/v1/products/website-video/:jobId", async (c) => {
+    const record = await store.read(productJobKey("website-video", requiredParam(c, "jobId")));
+    if (!record) throw new HttpError(404, "job not found");
+    return c.json(record);
+  });
 
   async function renderDetail(
     storageClient: Storage,

@@ -90,6 +90,8 @@ const testEnv: KenectApiEnv = {
   renderServiceUrl: "https://render.test",
   apiKeys: [],
   jwtSecret: "test-secret",
+  geminiApiKey: "",
+  geminiModel: "gemini-2.5-flash",
 };
 
 function makeApp(): Hono {
