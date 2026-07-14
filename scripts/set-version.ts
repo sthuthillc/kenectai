@@ -248,7 +248,7 @@ export function missingChangelogArtifacts(version: string) {
 }
 
 export function changelogArtifacts(version: string) {
-  return [join("releases", `v${version}.md`), `docs/changelog.mdx#HyperFrames v${version}`];
+  return [join("releases", `v${version}.md`), `docs/changelog.mdx#KENECT AI v${version}`];
 }
 
 export function unreviewedChangelogArtifacts(version: string) {
