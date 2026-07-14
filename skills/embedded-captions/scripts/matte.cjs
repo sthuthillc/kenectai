@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /*
- * matte.cjs — subject matting via hyperframes' built-in `remove-background`
+ * matte.cjs — subject matting via kenectai' built-in `remove-background`
  * (rembg-equivalent u2net_human_seg, Apache-2.0, 320×320 input, ~9 fps on
  * CoreML). Replaces the previous bundled PP-MattingV2 ONNX (34 MB asset +
  * an onnxruntime inference loop in this script): one engine, zero bundled
- * weights — the model auto-downloads once (~168 MB) to ~/.cache/hyperframes/.
+ * weights — the model auto-downloads once (~168 MB) to ~/.cache/kenectai/.
  *
  * Semantics note (validated 2026-06-12 on 6 scenes + a cold-start E2E): a
  * HUMAN segmenter by intent, not surgically. Thin offset furniture (mic boom
@@ -15,7 +15,7 @@
  * front. Never assume: sample frames_fg/ before placing the hero.
  *
  * Pipeline:
- *   source.mp4 → hyperframes remove-background → ProRes 4444 .mov (lossless
+ *   source.mp4 → kenectai remove-background → ProRes 4444 .mov (lossless
  *   alpha; temp, deleted) → ffmpeg fps=<matte.fps> → frames_fg/f_%04d.png.
  *   frames_bg/ is extracted at the same rate (preview tooling reads it).
  *
@@ -23,7 +23,7 @@
  * Reads:  <project>/source.mp4 (any video in the project dir is adopted)
  * Writes: <project>/frames_fg/f_%04d.png (RGBA, subject opaque),
  *         <project>/frames_bg/f_%04d.png, <project>/matte.fps
- * Env:    HYPERFRAMES_ROOT — hyperframes checkout (default ~/Downloads/hyperframes)
+ * Env:    KENECT_ROOT — kenectai checkout (default ~/Downloads/kenectai)
  */
 const path = require("path");
 const fs = require("fs");
@@ -32,15 +32,15 @@ const cp = require("child_process");
 
 function hfCli() {
   const roots = [
-    process.env.HYPERFRAMES_ROOT,
+    process.env.KENECT_ROOT,
     path.resolve(__dirname, "..", "..", ".."), // skills/embedded-captions/scripts → repo root if in-repo
-    path.join(os.homedir(), "Downloads", "hyperframes"),
+    path.join(os.homedir(), "Downloads", "kenectai"),
   ].filter(Boolean);
   for (const root of roots) {
     const cli = path.join(root, "packages", "cli", "dist", "cli.js");
     if (fs.existsSync(cli)) return cli;
   }
-  console.error("[matte] cannot find hyperframes cli — set HYPERFRAMES_ROOT to a built checkout");
+  console.error("[matte] cannot find kenectai cli — set KENECT_ROOT to a built checkout");
   process.exit(3);
 }
 
@@ -162,7 +162,7 @@ async function main() {
     return;
   }
 
-  // 1) subject matte via hyperframes (ProRes 4444 keeps the alpha lossless).
+  // 1) subject matte via kenectai (ProRes 4444 keeps the alpha lossless).
   //    VFR sources are normalized to CFR first — remove-background trusts
   //    timestamps and emits a desynced frame count on VFR input (the ghost
   //    double-subject bug: the pasted matte runs at the wrong speed).
@@ -203,14 +203,14 @@ async function main() {
     path.join(
       os.homedir(),
       ".cache",
-      "hyperframes",
+      "kenectai",
       "background-removal",
       "models",
       "u2net_human_seg.onnx",
     ),
   );
   console.log(
-    `[matte] hyperframes remove-background (u2net_human_seg${cached ? "" : "; first run downloads ~168 MB"})… model load takes ~1-2 min with no output — not hung`,
+    `[matte] kenectai remove-background (u2net_human_seg${cached ? "" : "; first run downloads ~168 MB"})… model load takes ~1-2 min with no output — not hung`,
   );
   const r = cp.spawnSync("node", [hfCli(), "remove-background", matteSrc, "-o", mov], {
     stdio: ["ignore", "pipe", "pipe"],

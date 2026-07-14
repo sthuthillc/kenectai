@@ -22,9 +22,9 @@ const THRESH = 30 / 255; // a cell is "subject" if ≥12% covered at any sampled
 const SAMPLES = 48; // frames cached across the clip (windows aggregate the cached grids)
 
 const HF_ROOTS = [
-  process.env.HYPERFRAMES_ROOT,
+  process.env.KENECT_ROOT,
   path.resolve(__dirname, "../../.."),
-  path.join(os.homedir(), "Downloads", "hyperframes"),
+  path.join(os.homedir(), "Downloads", "kenectai"),
 ].filter(Boolean);
 let sharp = null;
 for (const root of HF_ROOTS) {
@@ -558,7 +558,7 @@ async function main() {
     process.exit(2);
   }
   if (!sharp) {
-    console.error("[safe-zones] sharp unavailable — set HYPERFRAMES_ROOT");
+    console.error("[safe-zones] sharp unavailable — set KENECT_ROOT");
     process.exit(0);
   }
 

@@ -16,7 +16,7 @@ ffmpeg -i in.mp4 -ss 00:00:12 -to 00:00:20 -c copy out.mp4   # 0:12–0:20, no r
 ```
 
 In-composition trimming usually needs **no new file**: a clip plays a sub-window
-via `data-media-start` + `data-duration` (see hyperframes-core). Only cut a
+via `data-media-start` + `data-duration` (see kenectai-core). Only cut a
 physical file when exporting/assembling outside the composition.
 
 ## Reframe / crop: change aspect ratio
@@ -78,7 +78,7 @@ engine directly.
 # install once: uv venv ~/.venvs/parakeet && VIRTUAL_ENV=~/.venvs/parakeet uv pip install parakeet-mlx
 node <SKILL_DIR>/scripts/transcribe.mjs --input talk.mp4 --out talk.transcribe.json
 
-# equivalently, the hyperframes CLI has Parakeet built in (auto-detects it, whisper fallback):
+# equivalently, the kenectai CLI has Parakeet built in (auto-detects it, whisper fallback):
 npx @kenectai/cli transcribe talk.mp4 --engine parakeet   # or --engine auto (default)
 ```
 
@@ -136,7 +136,7 @@ ffmpeg -i bgm.mp3 -i voice.wav \
   -map "[ducked]" bgm.ducked.wav
 ```
 
-Declare inside compositions. Bake only for assets leaving the hyperframes
+Declare inside compositions. Bake only for assets leaving the kenectai
 pipeline.
 
 ## Publish loudness

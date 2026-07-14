@@ -5,7 +5,7 @@
  * "which numbered strip is the target in?" — so localization = RSVP grid-index
  * (ACL 2025 long.715): pick strips on a numbered grid, reconstruct the box
  * geometrically. Zero npm deps — node + ffmpeg (both already required by
- * hyperframes). Full protocol: grounding/PROTOCOL.md.
+ * kenectai). Full protocol: grounding/PROTOCOL.md.
  *
  * THE LOOP (you read images between steps):
  *   1) node locate.mjs overlay <img> --out DIR

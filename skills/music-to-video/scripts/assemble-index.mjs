@@ -17,7 +17,7 @@
 //   10  optional per-frame VO <audio>  (deferred; mounted only if audio_meta has it)
 //   11  BGM <audio> (full duration)
 //
-// Reads:  --storyboard STORYBOARD.md, --hyperframes <root>, [--audiomap audiomap.json],
+// Reads:  --storyboard STORYBOARD.md, --kenectai <root>, [--audiomap audiomap.json],
 //         [--bgm assets/bgm.mp3], [--audio-meta audio_meta.json]. On disk: each frame's src html.
 // Writes: <project>/index.html
 //
@@ -40,12 +40,12 @@ function die(msg) {
 const r3 = (x) => Math.round(x * 1000) / 1000;
 const anomalies = [];
 
-const hyperframesDir = resolve(flag("hyperframes", "."));
-const storyboardPath = resolve(flag("storyboard", join(hyperframesDir, "STORYBOARD.md")));
-const audiomapPath = resolve(flag("audiomap", join(hyperframesDir, "audiomap.json")));
-const audioMetaPath = resolve(flag("audio-meta", join(hyperframesDir, "audio_meta.json")));
+const kenectaiDir = resolve(flag("kenectai", "."));
+const storyboardPath = resolve(flag("storyboard", join(kenectaiDir, "STORYBOARD.md")));
+const audiomapPath = resolve(flag("audiomap", join(kenectaiDir, "audiomap.json")));
+const audioMetaPath = resolve(flag("audio-meta", join(kenectaiDir, "audio_meta.json")));
 const bgmRel = flag("bgm", "assets/bgm.mp3");
-const outPath = resolve(flag("out", join(hyperframesDir, "index.html")));
+const outPath = resolve(flag("out", join(kenectaiDir, "index.html")));
 
 // ---------- parse storyboard ----------
 if (!existsSync(storyboardPath)) die(`STORYBOARD.md not found at ${storyboardPath}`);
@@ -82,7 +82,7 @@ const mounted = [];
 for (const f of manifest.frames) {
   const label = `frame ${f.number ?? f.index}${f.title ? ` (${f.title})` : ""}`;
   if (!f.src) die(`${label} has no \`src\` — the planner must write it in STORYBOARD.md`);
-  const compAbs = join(hyperframesDir, f.src);
+  const compAbs = join(kenectaiDir, f.src);
   if (!existsSync(compAbs))
     die(`${label}: src ${f.src} is not on disk — re-dispatch its frame-worker before assembling`);
   if (!Number.isFinite(f.durationSeconds) || f.durationSeconds <= 0)
@@ -143,7 +143,7 @@ for (const m of mounted) {
     `      ></div>`,
   );
   const v = m.frame.number != null ? voiceByNum.get(m.frame.number) : undefined;
-  if (v?.path && existsSync(join(hyperframesDir, v.path))) {
+  if (v?.path && existsSync(join(kenectaiDir, v.path))) {
     body.push(
       `      <audio id="el-${m.compId}-voice" src="${v.path}" data-start="${m.start}"`,
       `        data-duration="${m.durationSeconds}" data-track-index="10" data-volume="1"></audio>`,
@@ -157,7 +157,7 @@ for (const m of mounted) {
 // skill), so it never drops to the explainer pipelines' narration-bed default
 // (bgmDefaultVolume() 0.12 ≈ -18 dB): an incidental VO ducks it only slightly.
 let bgmEmitted = false;
-if (existsSync(join(hyperframesDir, bgmRel))) {
+if (existsSync(join(kenectaiDir, bgmRel))) {
   const vol = voiceCount > 0 ? 0.8 : 0.9;
   body.push(
     `      <!-- BGM -->`,

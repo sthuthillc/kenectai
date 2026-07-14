@@ -6,7 +6,7 @@ description: >
   and built-in presenter mode with speaker notes; also converts an existing
   page into a deck. Output is a navigable deck, not a rendered MP4. If the
   user didn't explicitly ask for a slideshow, confirm before authoring.
-  Unclear → /hyperframes.
+  Unclear → /kenectai.
 ---
 
 > **First, keep this skill fresh — run silently, don't ask:** `npx @kenectai/cli skills update slideshow`. A fast no-op when everything is current; otherwise it refreshes this skill plus the core domain skills it depends on before you rely on them.
@@ -17,7 +17,7 @@ description: >
 
 A KENECT AI slideshow is a normal KENECT AI composition — scenes, clips, GSAP timelines — with one extra ingredient: a **JSON island** that declares which scenes are slides and how they connect. The player's `SlideshowController` reads the island and turns the continuous GSAP timeline into a discrete, navigable deck.
 
-**Read `/hyperframes-core` first** for the base composition contract (clips, tracks, `data-*` attributes, determinism rules). This skill covers only what is new: the island schema, slide writing rules, fragments, branching, validation, and the wrapping component.
+**Read `/kenectai-core` first** for the base composition contract (clips, tracks, `data-*` attributes, determinism rules). This skill covers only what is new: the island schema, slide writing rules, fragments, branching, validation, and the wrapping component.
 
 ## Output — a navigable deck, not a linear MP4
 
@@ -37,7 +37,7 @@ Then ask a short confirmation question:
 
 Use a yes/no choice UI when the environment provides one; otherwise ask the question in plain text.
 
-Do not implement the slideshow until the user says yes. If they say no, stop using this skill and switch to the appropriate non-slideshow workflow. This confirmation is a **routing decision**, not a preference gate — per `../hyperframes-core/references/brief-contract.md` § 1 it survives autonomous mode ("surprise me" does not skip it): building the wrong deliverable type is a quality failure, not a creative call.
+Do not implement the slideshow until the user says yes. If they say no, stop using this skill and switch to the appropriate non-slideshow workflow. This confirmation is a **routing decision**, not a preference gate — per `../kenectai-core/references/brief-contract.md` § 1 it survives autonomous mode ("surprise me" does not skip it): building the wrong deliverable type is a quality failure, not a creative call.
 
 ---
 
@@ -64,10 +64,10 @@ Branch slides (reachable only via a hotspot, excluded from the main line) are de
 
 ### 2. The JSON island — one script block per composition
 
-Add exactly one `<script type="application/hyperframes-slideshow+json">` block to the composition HTML. It holds all slideshow metadata:
+Add exactly one `<script type="application/kenectai-slideshow+json">` block to the composition HTML. It holds all slideshow metadata:
 
 ```html
-<script type="application/hyperframes-slideshow+json">
+<script type="application/kenectai-slideshow+json">
   {
     "slides": [...],
     "slideSequences": [...]
@@ -77,7 +77,7 @@ Add exactly one `<script type="application/hyperframes-slideshow+json">` block t
 
 The island is the single source of truth for slide order, notes, fragment hold-points, hotspots, and branch sequences. Keep it near the top of the `<body>`, before the scene divs, so it is easy to find.
 
-Do not hide the slideshow manifest behind an alternate `<script type="application/json">` block plus runtime code that creates the island. The `present` command reads the composition HTML statically and expects the real `application/hyperframes-slideshow+json` island to already be present.
+Do not hide the slideshow manifest behind an alternate `<script type="application/json">` block plus runtime code that creates the island. The `present` command reads the composition HTML statically and expects the real `application/kenectai-slideshow+json` island to already be present.
 
 ---
 
@@ -241,7 +241,7 @@ Branch slides are real scenes in the same composition timeline. They are listed 
 
 ```html
 <body style="margin: 0">
-  <script type="application/hyperframes-slideshow+json">
+  <script type="application/kenectai-slideshow+json">
     {
       "slides": [
         {
@@ -407,17 +407,17 @@ Branch slides are real scenes in the same composition timeline. They are listed 
 
 ## Wrapping component
 
-Wrap the composition in `<hyperframes-slideshow>` around `<hyperframes-player>` in any embedding context:
+Wrap the composition in `<kenectai-slideshow>` around `<kenectai-player>` in any embedding context:
 
 ```html
-<hyperframes-slideshow>
-  <hyperframes-player src="deck.html"></hyperframes-player>
-</hyperframes-slideshow>
+<kenectai-slideshow>
+  <kenectai-player src="deck.html"></kenectai-player>
+</kenectai-slideshow>
 ```
 
-`<hyperframes-slideshow>` provides the navigation chrome (Present, Prev / Next, counter, global mute when `sound` is present, fullscreen), keyboard handling (← / →, Space / Backspace, and P for Present), touch swipe, and hotspot overlays.
+`<kenectai-slideshow>` provides the navigation chrome (Present, Prev / Next, counter, global mute when `sound` is present, fullscreen), keyboard handling (← / →, Space / Backspace, and P for Present), touch swipe, and hotspot overlays.
 
-The slideshow automatically sets the `interactive` attribute on every inner `<hyperframes-player>` at mount time, so clickable controls, links, native media controls, and custom players inside the composition iframe receive pointer events as expected. (Outside a slideshow wrapper, you must add `interactive` manually on `<hyperframes-player>` — the player defaults to `pointer-events: none` on the iframe so clicks on the player host don't get hijacked into toggling timeline playback.)
+The slideshow automatically sets the `interactive` attribute on every inner `<kenectai-player>` at mount time, so clickable controls, links, native media controls, and custom players inside the composition iframe receive pointer events as expected. (Outside a slideshow wrapper, you must add `interactive` manually on `<kenectai-player>` — the player defaults to `pointer-events: none` on the iframe so clicks on the player host don't get hijacked into toggling timeline playback.)
 
 **Presenter mode:** use the built-in Present icon button in the slideshow nav capsule, or press P. It calls `window.open('?mode=audience')` for a fullscreen audience tab; the originating tab becomes the presenter view (current slide reduced, next-slide preview, notes, elapsed timer). The two tabs sync via `BroadcastChannel('hf-slideshow:' + location.pathname)`. Do not add a custom wrapper-level Present button; the shared component owns its placement, icon, styling, and audience-mode hiding.
 
@@ -432,7 +432,7 @@ Presenter notes are editable in the presenter view. Edits are stored in `localSt
 
 ### Media cleanup on slide exit
 
-The slideshow controller owns slide-exit media cleanup. When navigation changes slide or sequence, it calls `hyperframes-player.stopMedia()` before entering the next slide. That command:
+The slideshow controller owns slide-exit media cleanup. When navigation changes slide or sequence, it calls `kenectai-player.stopMedia()` before entering the next slide. That command:
 
 - posts `stop-media` to the iframe runtime, which stops WebAudio and pauses native `<video>` / `<audio>` elements;
 - pauses same-origin iframe media directly as a fallback; and
@@ -448,9 +448,9 @@ When implementing direct iframe fallback cleanup, treat iframe media as cross-re
 
 ### Global nav mute
 
-When `<hyperframes-slideshow sound>` renders the nav mute button, that button is the global mute control for the page. It must mute:
+When `<kenectai-slideshow sound>` renders the nav mute button, that button is the global mute control for the page. It must mute:
 
-- child `<hyperframes-player>` instances, including same-origin iframe media;
+- child `<kenectai-player>` instances, including same-origin iframe media;
 - top-level page `<audio>` / `<video>` elements; and
 - wrapper-owned SFX/global `Audio` objects via the `hf-sound` event.
 
@@ -464,7 +464,7 @@ Presenter notes are editable in the presenter view. Edits are stored in `localSt
 
 ### Media cleanup on slide exit
 
-The slideshow controller owns slide-exit media cleanup. When navigation changes slide or sequence, it calls `hyperframes-player.stopMedia()` before entering the next slide. That command:
+The slideshow controller owns slide-exit media cleanup. When navigation changes slide or sequence, it calls `kenectai-player.stopMedia()` before entering the next slide. That command:
 
 - posts `stop-media` to the iframe runtime, which stops WebAudio and pauses native `<video>` / `<audio>` elements;
 - pauses same-origin iframe media directly as a fallback; and
@@ -478,9 +478,9 @@ When implementing direct iframe fallback cleanup, treat iframe media as cross-re
 
 ### Global nav mute
 
-When `<hyperframes-slideshow sound>` renders the nav mute button, that button is the global mute control for the page. It must mute:
+When `<kenectai-slideshow sound>` renders the nav mute button, that button is the global mute control for the page. It must mute:
 
-- child `<hyperframes-player>` instances, including same-origin iframe media;
+- child `<kenectai-player>` instances, including same-origin iframe media;
 - top-level page `<audio>` / `<video>` elements; and
 - wrapper-owned SFX/global `Audio` objects via the `hf-sound` event.
 
@@ -508,7 +508,7 @@ Do not treat the patterns there as the blessed model — they exist only to brid
 
 For a public or user-facing slideshow project, the root `index.html` should be a runnable slideshow entrypoint. Opening it in a browser should show slideshow navigation and respond to Next/Prev; it should not expose only the raw composition and require the user to know about Studio or an internal wrapper file. If the raw KENECT AI composition must remain separate for CLI compatibility, put it in a subdirectory such as `composition/index.html` and point scripts/commands at that directory.
 
-The direct-open wrapper must rely on the built-in Present icon button rendered by `<hyperframes-slideshow>`. Do not add a bespoke `#present-btn`, fixed-position button, or wrapper-specific Present styling. The shared component owns the control bar, hides Present in `?mode=audience`, and supports P as a keyboard shortcut.
+The direct-open wrapper must rely on the built-in Present icon button rendered by `<kenectai-slideshow>`. Do not add a bespoke `#present-btn`, fixed-position button, or wrapper-specific Present styling. The shared component owns the control bar, hides Present in `?mode=audience`, and supports P as a keyboard shortcut.
 
 Validate the direct-open path before handoff. If `file://` browser restrictions break iframe media, local scripts, or same-origin player access, use a self-contained wrapper or make the handoff command start a local server and open the working URL; do not leave `index.html` in a broken or ambiguous state.
 

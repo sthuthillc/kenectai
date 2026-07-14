@@ -1,6 +1,6 @@
 ---
 name: talking-head-recut
-description: Package an existing talking-head / interview / podcast video with timed, designed GRAPHIC OVERLAY cards — kinetic titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript, on a 16:9 / 9:16 / 4:5 canvas of your choice; the clip plays untouched underneath. Trigger on "graphic overlays", "on-screen graphics", "package / dress up my video". Not plain subtitles (/embedded-captions). Unclear → /hyperframes.
+description: Package an existing talking-head / interview / podcast video with timed, designed GRAPHIC OVERLAY cards — kinetic titles, lower-thirds, data callouts, quotes, side panels, picture-in-picture — synced to the transcript, on a 16:9 / 9:16 / 4:5 canvas of your choice; the clip plays untouched underneath. Trigger on "graphic overlays", "on-screen graphics", "package / dress up my video". Not plain subtitles (/embedded-captions). Unclear → /kenectai.
 ---
 
 > **First, keep this skill fresh — run silently, don't ask:** `npx @kenectai/cli skills update talking-head-recut`. A fast no-op when everything is current; otherwise it refreshes this skill plus the core domain skills it depends on before you rely on them.
@@ -12,10 +12,10 @@ timed, designed **graphic cards** onto it — titles, lower-thirds, data callout
 quotes, side panels, picture-in-picture — synced to what's being said. The agent
 designs the cards (timing + content) and **writes each card's HTML directly in the
 conversation**, then assembles a single composition HTML and renders it to MP4 via
-`hyperframes`. There is no fixed archetype list and no prescribed card structure —
+`kenectai`. There is no fixed archetype list and no prescribed card structure —
 the overlays emerge from what the transcript actually says.
 
-> **Confirm the route before you build.** This skill packages an **existing talking-head clip** with **designed graphic cards** (titles, lower-thirds, data callouts, quotes, side panels, PiP). If the user wants **plain captions / subtitles** (the spoken words as text) → `/embedded-captions`; a **single short unnarrated** element (one logo sting / lower-third) → `/motion-graphics`. **The clip plays untouched** — re-timing, recoloring, reframing, reordering, or audio is NLE editing and **out of scope**. Building from a URL / topic / PR → the creation workflows. Unsure overlays-vs-captions? **Read `/hyperframes` first.**
+> **Confirm the route before you build.** This skill packages an **existing talking-head clip** with **designed graphic cards** (titles, lower-thirds, data callouts, quotes, side panels, PiP). If the user wants **plain captions / subtitles** (the spoken words as text) → `/embedded-captions`; a **single short unnarrated** element (one logo sting / lower-third) → `/motion-graphics`. **The clip plays untouched** — re-timing, recoloring, reframing, reordering, or audio is NLE editing and **out of scope**. Building from a URL / topic / PR → the creation workflows. Unsure overlays-vs-captions? **Read `/kenectai` first.**
 
 > **Graphic-packaging sibling of `embedded-captions`.** Captions add the _spoken words_
 > as a readable subtitle; this adds _designed graphics_ on top of the playing video.
@@ -35,11 +35,11 @@ Inspectable intermediate files in the work directory:
 ## CLI Resolution
 
 ```bash
-# hyperframes — transcription (local Whisper) + rendering the assembled HTML to MP4
+# kenectai — transcription (local Whisper) + rendering the assembled HTML to MP4
 npx @kenectai/cli --help
 ```
 
-This skill runs entirely on the **hyperframes** CLI plus system `ffmpeg` / `ffprobe`.
+This skill runs entirely on the **kenectai** CLI plus system `ffmpeg` / `ffprobe`.
 Transcription is local **Whisper** via `kenectai transcribe` — no third-party
 service, API key, or rate-limited proxy.
 
@@ -297,7 +297,7 @@ Rules that apply to every channel:
 - If the user has already pre-approved defaults ("just use defaults",
   "no need to ask", "auto-pick everything"), asked you not to ask, or the
   run carries an ongoing autonomous signal ("surprise me" / "decide for me" —
-  `../hyperframes-core/references/brief-contract.md` § 1) — **skip
+  `../kenectai-core/references/brief-contract.md` § 1) — **skip
   the question entirely** and use: `recommendedRatio`, `layout="stack"`
   (safest cross-ratio default), `style` chosen from transcript tone in
   the most neutral group (editorial/data), `autoCount`. Tell the user
@@ -695,7 +695,7 @@ contains a single rooted HTML fragment that follows this contract:
 </div>
 ```
 
-**Hard rules** (`hyperframes` lint will reject violations):
+**Hard rules** (`kenectai` lint will reject violations):
 
 - Single root `<div class="card" data-card-id="{cardId}">`
 - Inline `<style>` rules MUST be prefixed with the scope selector above

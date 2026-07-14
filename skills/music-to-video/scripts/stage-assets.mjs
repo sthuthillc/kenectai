@@ -4,7 +4,7 @@
 // the user provides images/videos for asset treatments (montage.md). First-wins,
 // idempotent, safe to run twice. Never fetches remote URLs.
 //
-// Usage: node stage-assets.mjs --from <srcDir> --hyperframes <projectRoot>
+// Usage: node stage-assets.mjs --from <srcDir> --kenectai <projectRoot>
 //        [--into public]   (subdir under assets/; default copies flat into assets/)
 //
 // Copies common media extensions only; reports what landed.
@@ -27,9 +27,9 @@ if (!fromDir) die("missing --from <srcDir>");
 const fromAbs = resolve(fromDir);
 if (!existsSync(fromAbs) || !statSync(fromAbs).isDirectory())
   die(`--from is not a directory: ${fromAbs}`);
-const hyperframesDir = resolve(flag("hyperframes", "."));
+const kenectaiDir = resolve(flag("kenectai", "."));
 const into = flag("into", "");
-const destDir = join(hyperframesDir, "assets", into);
+const destDir = join(kenectaiDir, "assets", into);
 
 const MEDIA = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".mp4", ".mov", ".webm", ".m4v"]);
 

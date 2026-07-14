@@ -8,7 +8,7 @@ description: >
   headline, webpage / UI animation (scroll, cursor, callouts), or fusing a
   real image's geometry into a chart. Usually under 10s (up to ~30s), no
   narration or live-action subject; renders to MP4 or transparent overlay.
-  Longer / narrated / multi-scene → /general-video. Unclear → /hyperframes.
+  Longer / narrated / multi-scene → /general-video. Unclear → /kenectai.
 metadata:
   {
     "tags": "orchestrator, motion-graphics, kinetic-type, data-viz, logo-reveal, lower-thirds, news, tweet, webpage, asset-fusion, short-form, overlay, no-narration",
@@ -21,9 +21,9 @@ metadata:
 
 # motion-graphics — dispatch entry
 
-> **Confirm the route before Step 0.** This skill makes a **short, design-led, unnarrated motion graphic** (motion is the message; ~under 10s, no voice-over). A **longer, multi-scene, or narrated** treatment → `/general-video`; a **narrated video of a website** → `/website-to-video`; a **topic explainer** → `/faceless-explainer`; a **product promo** → `/product-launch-video`; **captions on existing footage** → `/embedded-captions`. **Out of scope**: live / at-render-time data, or footage it can't capture. Unsure motion-first-vs-narrated? **Read `/hyperframes` first.**
+> **Confirm the route before Step 0.** This skill makes a **short, design-led, unnarrated motion graphic** (motion is the message; ~under 10s, no voice-over). A **longer, multi-scene, or narrated** treatment → `/general-video`; a **narrated video of a website** → `/website-to-video`; a **topic explainer** → `/faceless-explainer`; a **product promo** → `/product-launch-video`; **captions on existing footage** → `/embedded-captions`. **Out of scope**: live / at-render-time data, or footage it can't capture. Unsure motion-first-vs-narrated? **Read `/kenectai` first.**
 
-This workflow is **autonomous by design** — at most one clarifying question (`agents/director.md`), then straight through to render; the collaborative/autonomous distinction in `../hyperframes-core/references/brief-contract.md` adds no gates here.
+This workflow is **autonomous by design** — at most one clarifying question (`agents/director.md`), then straight through to render; the collaborative/autonomous distinction in `../kenectai-core/references/brief-contract.md` adds no gates here.
 
 A short design-led motion graphic. **Asset-first**: decide the asset strategy and source real material _before_ designing the shot, then design the shot around what you have, then compose by reusing catalog capabilities. All artifacts go to `PROJECT_DIR = videos/<project-name>/` (created in Step 0); all paths below are relative to it.
 
@@ -41,7 +41,7 @@ A short design-led motion graphic. **Asset-first**: decide the asset strategy an
 
 ## Categories — split by the search decision
 
-`plan`'s **first decision is: does this need a search?** That fork splits the categories into two groups; then the specific category is picked — for search-driven, **by the type of content the search returns**. Each category is one `categories/<id>/module.md` (its planning + build rules); the shared motion vocabulary lives in `references/motion-vocabulary.md` (→ `hyperframes-animation` rules/blueprints + registry blocks).
+`plan`'s **first decision is: does this need a search?** That fork splits the categories into two groups; then the specific category is picked — for search-driven, **by the type of content the search returns**. Each category is one `categories/<id>/module.md` (its planning + build rules); the shared motion vocabulary lives in `references/motion-vocabulary.md` (→ `kenectai-animation` rules/blueprints + registry blocks).
 
 **Form categories — no search; the user supplies the content:**
 
@@ -92,7 +92,7 @@ npx @kenectai/cli init "$PROJECT_DIR" --non-interactive --example=blank
 
 `init` checks the installed skills against the latest on GitHub and updates the global set if any are out of date.
 
-**Constraints:** never `kenectai init` in the workspace root; never nest another `hyperframes/` inside `PROJECT_DIR`; every Bash command (master + subagents) is a `(cd "$PROJECT_DIR" && ...)` subshell — never bare `cd`.
+**Constraints:** never `kenectai init` in the workspace root; never nest another `kenectai/` inside `PROJECT_DIR`; every Bash command (master + subagents) is a `(cd "$PROJECT_DIR" && ...)` subshell — never bare `cd`.
 
 ### Step 1 — Plan (subagent: Director Part 1)
 
@@ -118,7 +118,7 @@ Degrade gracefully: if a search/provider is unavailable, the category falls back
 
 ### Step 3 — Design (subagent: Director Part 2)
 
-Dispatch a subagent (prompt = `agents/director.md` Part 2 + dispatch context including the resolved `assets/index.md` if Step 2 ran + `catalog-map.md`). It designs the shot **around the available assets**: pick the catalog block(s) + the `hyperframes-animation` rules/blueprints, the layout, the motion, beats, and (for `asset-fusion`) the `element_positions` + eyedropper palette. Finalizes `shot-plan.json` (`content.block` + `content.customize` + per-category content).
+Dispatch a subagent (prompt = `agents/director.md` Part 2 + dispatch context including the resolved `assets/index.md` if Step 2 ran + `catalog-map.md`). It designs the shot **around the available assets**: pick the catalog block(s) + the `kenectai-animation` rules/blueprints, the layout, the motion, beats, and (for `asset-fusion`) the `element_positions` + eyedropper palette. Finalizes `shot-plan.json` (`content.block` + `content.customize` + per-category content).
 
 ### Step 4 — Build (subagent: Builder, reuse-first)
 
@@ -147,7 +147,7 @@ Report the final output (`renders/video.mp4`, or the `.webm` / `.mov` overlay va
 (cd "$PROJECT_DIR" && npx @kenectai/cli preview)   # Studio UI; or `npx @kenectai/cli play` for a shareable link
 ```
 
-Flags live in the `hyperframes-cli` skill (`references/preview-render.md`).
+Flags live in the `kenectai-cli` skill (`references/preview-render.md`).
 
 ## Resume table
 
@@ -162,7 +162,7 @@ Flags live in the `hyperframes-cli` skill (`references/preview-render.md`).
 ## Design notes (maintainers — execution does not read this)
 
 - **Asset-first rationale:** sourcing is front-loaded and informs shot design (the RWA flow: analyze → search → review → compose). the search-driven categories (`webpage`/`news`/`tweet`) and `asset-fusion` both lean on media-use search (news/web/tweet/image), which is media-use's documented RWA lineage.
-- **Reuse-first:** the in-ecosystem analog of LLM-generated templates is "compose catalog blocks + `hyperframes-animation` rules". HF's paused GSAP timeline ≙ Remotion's `useCurrentFrame`.
+- **Reuse-first:** the in-ecosystem analog of LLM-generated templates is "compose catalog blocks + `kenectai-animation` rules". HF's paused GSAP timeline ≙ Remotion's `useCurrentFrame`.
 - **Category module contract:** one `categories/<id>/module.md` (planning + build), sharing `references/motion-vocabulary.md` (+ optional eval). Adding a category = drop the folder + register its classifier line in `agents/director.md` + its row in `catalog-map.md`; the phase pipeline is untouched.
 - **Directory shape:**
   ```
@@ -173,4 +173,4 @@ Flags live in the `hyperframes-cli` skill (`references/preview-render.md`).
     compositions/index.html   # Builder output
     renders/video.mp4
   ```
-- **Registration:** in `hyperframes` router — add the "design-led short motion graphic" intent + Workflow description; carve the motion-graphics triggers out of `/general-video`; add reverse Do-NOT-use edges. See `motion-graphics-genre.md` §5-7.
+- **Registration:** in `kenectai` router — add the "design-led short motion graphic" intent + Workflow description; carve the motion-graphics triggers out of `/general-video`; add reverse Do-NOT-use edges. See `motion-graphics-genre.md` §5-7.

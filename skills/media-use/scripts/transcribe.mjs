@@ -70,7 +70,7 @@ const outPath = resolve(
 // silently falling through to whisper. Returns the runner path, or null.
 function resolveParakeet() {
   for (const p of [
-    process.env.HYPERFRAMES_PARAKEET,
+    process.env.KENECT_PARAKEET,
     join(homedir(), ".venvs", "parakeet", "bin", "parakeet-mlx"),
   ]) {
     if (p && existsSync(p)) return p;
@@ -124,7 +124,7 @@ function runParakeet(runner) {
 function runWhisper() {
   const workDir = mkdtempSync(join(tmpdir(), "media-use-whisper-"));
   try {
-    execFileSync("npx", ["hyperframes", "transcribe", inputPath, "--dir", workDir], {
+    execFileSync("npx", ["kenectai", "transcribe", inputPath, "--dir", workDir], {
       stdio: ["ignore", "pipe", "pipe"],
       timeout: 1_800_000,
     });
@@ -157,7 +157,7 @@ try {
   if (engine === "parakeet") {
     if (!parakeetBin) {
       throw new Error(
-        "parakeet-mlx not found (checked $HYPERFRAMES_PARAKEET, ~/.venvs/parakeet, and PATH). Install: uv venv ~/.venvs/parakeet && VIRTUAL_ENV=~/.venvs/parakeet uv pip install parakeet-mlx (or use --engine whisper)",
+        "parakeet-mlx not found (checked $KENECT_PARAKEET, ~/.venvs/parakeet, and PATH). Install: uv venv ~/.venvs/parakeet && VIRTUAL_ENV=~/.venvs/parakeet uv pip install parakeet-mlx (or use --engine whisper)",
       );
     }
     runParakeet(parakeetBin);

@@ -31,7 +31,7 @@ test("assemble hoists an approved timed frame video to the host root", () => {
 
   const result = spawnSync(
     process.execPath,
-    [join(skillDir, "scripts", "assemble-index.mjs"), "--hyperframes", project],
+    [join(skillDir, "scripts", "assemble-index.mjs"), "--kenectai", project],
     { encoding: "utf8" },
   );
   assert.equal(result.status, 0, result.stderr);
@@ -66,7 +66,7 @@ test("rejects an approved video with missing admission timing", () => {
   );
   const result = spawnSync(
     process.execPath,
-    [join(skillDir, "scripts", "assemble-index.mjs"), "--hyperframes", project],
+    [join(skillDir, "scripts", "assemble-index.mjs"), "--kenectai", project],
     { encoding: "utf8" },
   );
   assert.notEqual(result.status, 0);
@@ -86,7 +86,7 @@ test("does not hoist declarations hidden in comments or scripts", () => {
   );
   const result = spawnSync(
     process.execPath,
-    [join(skillDir, "scripts", "assemble-index.mjs"), "--hyperframes", project],
+    [join(skillDir, "scripts", "assemble-index.mjs"), "--kenectai", project],
     { encoding: "utf8" },
   );
   assert.equal(result.status, 0, result.stderr);

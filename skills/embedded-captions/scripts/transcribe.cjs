@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * transcribe.cjs — word-level transcription via hyperframes' native Whisper
+ * transcribe.cjs — word-level transcription via kenectai' native Whisper
  * (replaces the Python ElevenLabs Scribe path; no Python, no API key).
  *
  *   node transcribe.cjs <project-dir> [model] [language]
@@ -14,13 +14,13 @@ const cp = require("child_process");
 
 function hfRoot() {
   const roots = [
-    process.env.HYPERFRAMES_ROOT,
+    process.env.KENECT_ROOT,
     path.resolve(__dirname, "..", "..", ".."),
-    path.join(os.homedir(), "Downloads", "hyperframes"),
+    path.join(os.homedir(), "Downloads", "kenectai"),
   ].filter(Boolean);
   for (const r of roots)
     if (fs.existsSync(path.join(r, "packages", "cli", "dist", "cli.js"))) return r;
-  console.error("[transcribe] hyperframes CLI not found — set HYPERFRAMES_ROOT");
+  console.error("[transcribe] kenectai CLI not found — set KENECT_ROOT");
   process.exit(3);
 }
 function ensureSource(project) {
@@ -162,7 +162,7 @@ function main() {
 
   // ── engine: WhisperX (preferred — wav2vec2 forced alignment gives word timings far
   // tighter than whisper.cpp's segment-interpolated ones; our gates are 80ms-strict) →
-  // fallback hyperframes whisper.cpp. Force with TRANSCRIBE_ENGINE=whisper|whisperx.
+  // fallback kenectai whisper.cpp. Force with TRANSCRIBE_ENGINE=whisper|whisperx.
   let words = null,
     engine = null;
   const wantWx = (process.env.TRANSCRIBE_ENGINE || "whisperx") === "whisperx";
@@ -246,7 +246,7 @@ function main() {
   }
 
   if (!words) {
-    // run hyperframes Whisper → writes a flat word array to <dir>/transcript.json
+    // run kenectai Whisper → writes a flat word array to <dir>/transcript.json
     const cli = path.join(hfRoot(), "packages", "cli", "dist", "cli.js");
     const args = ["transcribe", audio, "-d", project, "--json", "--model", model];
     if (language) args.push("--language", language);
@@ -256,7 +256,7 @@ function main() {
       const line = so.trim().split("\n").filter(Boolean).pop();
       info = JSON.parse(line);
     } catch (e) {
-      console.error("[transcribe] hyperframes whisper failed:", e.message);
+      console.error("[transcribe] kenectai whisper failed:", e.message);
       process.exit(1);
     }
     const flatPath = info.transcriptPath || out;

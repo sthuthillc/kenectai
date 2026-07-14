@@ -111,8 +111,8 @@ packages/studio/data/
 skills-lock.json
 
 # Skills from other PRs (not managed here)
-skills/hyperframes-animation-map/
-skills/hyperframes-contrast/
+skills/kenectai-animation-map/
+skills/kenectai-contrast/
 
 # Capture outputs
 captures/

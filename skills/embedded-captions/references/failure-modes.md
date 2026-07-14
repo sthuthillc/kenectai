@@ -12,7 +12,7 @@ Running the matting ONNX through the CoreML EP partitions the graph across provi
 
 ### Aspect distortion / sharp channel-stride make the alpha garbage
 
-(historical — the PP-MattingV2 engine was replaced 2026-06-12 by hyperframes `remove-background`; kept because the lessons generalize) Two earned scars from the ONNX era: (1) fixed-size model exports — squashing a portrait clip into a landscape canvas distorts humans; contain-pad (aspect preserved, centered, alpha cropped back) instead. (2) sharp returns a **3-channel** buffer from `.raw()` after resizing a 1-channel raw input — reading it with a 1-channel stride silently produces a smeared, striped, displaced matte that can _look_ plausible. Always `toBuffer({resolveWithObject:true})` and stride by `info.channels` (other scripts in this skill still use sharp).
+(historical — the PP-MattingV2 engine was replaced 2026-06-12 by kenectai `remove-background`; kept because the lessons generalize) Two earned scars from the ONNX era: (1) fixed-size model exports — squashing a portrait clip into a landscape canvas distorts humans; contain-pad (aspect preserved, centered, alpha cropped back) instead. (2) sharp returns a **3-channel** buffer from `.raw()` after resizing a 1-channel raw input — reading it with a 1-channel stride silently produces a smeared, striped, displaced matte that can _look_ plausible. Always `toBuffer({resolveWithObject:true})` and stride by `info.channels` (other scripts in this skill still use sharp).
 
 **Fix**: both handled inside `matte.cjs`; preserve them if you touch it.
 
@@ -74,15 +74,15 @@ Opposite problem: `screen(white, bright) ≈ white` regardless of the text — l
 
 ### Frame-rate mismatch between bg render and matte PNGs
 
-If hyperframes renders at 30fps default but the matte was extracted at 24fps source rate, ffmpeg overlay gets a temporal mismatch — alpha from frame N is overlaid on bg content of some fractional frame ≠ N. Result: person's current silhouette and matte silhouette are shifted by a few frames, so the occlusion lags or leads the body.
+If kenectai renders at 30fps default but the matte was extracted at 24fps source rate, ffmpeg overlay gets a temporal mismatch — alpha from frame N is overlaid on bg content of some fractional frame ≠ N. Result: person's current silhouette and matte silhouette are shifted by a few frames, so the occlusion lags or leads the body.
 
-**Fix**: Always pass `--fps` to hyperframes render matching the source's native FPS (usually 24). `render-and-composite.sh` reads fps from plan.json and passes it through.
+**Fix**: Always pass `--fps` to kenectai render matching the source's native FPS (usually 24). `render-and-composite.sh` reads fps from plan.json and passes it through.
 
 ### WebM alpha (VP8/VP9) flaky in Chromium
 
 We tried making foreground an alpha-channel WebM. Chromium's support for VP9 alpha is inconsistent; VP8 alpha needs specific metadata the default ffmpeg encode doesn't produce.
 
-**Fix**: Don't try to put the matte inside hyperframes. Do the overlay in post with ffmpeg against a PNG sequence. `render-and-composite.sh` does this.
+**Fix**: Don't try to put the matte inside kenectai. Do the overlay in post with ffmpeg against a PNG sequence. `render-and-composite.sh` does this.
 
 ## Crown / centered text
 
@@ -134,9 +134,9 @@ TV archive clips often have pillarbox (black bars at sides) plus baked lower-thi
 
 ### transcribe.cjs sees an existing transcript and skips
 
-Transcription is Whisper now, via `transcribe.cjs` (it wraps `kenectai transcribe` — no API key). `kenectai init --video <mp4>` may itself auto-write a `transcript.json` in hyperframes' raw whisper shape (a flat word array, no top-level `language_code`). `transcribe.cjs` only treats a transcript as done when it's ALREADY in our normalized schema (`{ words: [...], language_code }`); otherwise it (re-)runs Whisper and normalizes the flat word list into `{ words:[{text,start,end,type:"word"}], language_code }`.
+Transcription is Whisper now, via `transcribe.cjs` (it wraps `kenectai transcribe` — no API key). `kenectai init --video <mp4>` may itself auto-write a `transcript.json` in kenectai' raw whisper shape (a flat word array, no top-level `language_code`). `transcribe.cjs` only treats a transcript as done when it's ALREADY in our normalized schema (`{ words: [...], language_code }`); otherwise it (re-)runs Whisper and normalizes the flat word list into `{ words:[{text,start,end,type:"word"}], language_code }`.
 
-**Fix / expectation**: If you init via hyperframes first, expect `transcribe.cjs` to normalize that transcript into our schema. Don't hand-leave a half-normalized file (e.g. our `words` shape but no `language_code`) — that's the one state the skip-guard can misread.
+**Fix / expectation**: If you init via kenectai first, expect `transcribe.cjs` to normalize that transcript into our schema. Don't hand-leave a half-normalized file (e.g. our `words` shape but no `language_code`) — that's the one state the skip-guard can misread.
 
 ### Transcript gaps > 3s with no speech
 

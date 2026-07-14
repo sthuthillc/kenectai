@@ -9,7 +9,7 @@ For talking-head / explainer / voiceover, the typical output is **the whole tran
 with only the climax(es) promoted to embed. Rail is not a fallback — it's the baseline.
 
 > **Implementation note.** A dedicated rail renderer is the next build step. The rail is a
-> plain `fg` caption track and maps cleanly onto hyperframes' native caption pipeline
+> plain `fg` caption track and maps cleanly onto kenectai' native caption pipeline
 > (`media-use` captions) — prefer reusing that over hand-rolling. Until wired, render
 > the rail as a simple `data-caption-layer="fg"` composition (no matte overlay for these caps).
 

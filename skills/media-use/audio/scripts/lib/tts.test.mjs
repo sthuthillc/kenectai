@@ -84,7 +84,7 @@ test("synthesizeOne(elevenlabs) creates the output dir before writing", async ()
       text: "hi",
       voiceId: "v",
       wavAbs,
-      hyperframesDir: dir,
+      kenectaiDir: dir,
     });
     assert.ok(existsSync(dirname(wavAbs)), "output directory should be created");
   } finally {

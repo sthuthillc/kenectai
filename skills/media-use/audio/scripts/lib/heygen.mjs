@@ -1,6 +1,6 @@
 // heygen.mjs — vendored HeyGen REST helpers (auth + transport) for the audio
-// pipeline. The credential resolver matches the hyperframes CLI auth: first
-// usable source wins — $HEYGEN_API_KEY / $HYPERFRAMES_API_KEY → a nearby .env → ~/.heygen/
+// pipeline. The credential resolver matches the kenectai CLI auth: first
+// usable source wins — $HEYGEN_API_KEY / $KENECT_API_KEY → a nearby .env → ~/.heygen/
 // credentials (oauth → Bearer, else api_key → X-Api-Key; $HEYGEN_CONFIG_DIR
 // overrides the dir). Vendored so the skill ships standalone. Pure node.
 
@@ -42,7 +42,7 @@ export function loadEnvFromDir(startDir) {
 
 // → { headers } | { expired: true } | null. Never throws.
 export function heygenCredential() {
-  const envKey = process.env.HEYGEN_API_KEY || process.env.HYPERFRAMES_API_KEY;
+  const envKey = process.env.HEYGEN_API_KEY || process.env.KENECT_API_KEY;
   if (envKey) return { headers: { "X-Api-Key": envKey } };
 
   const file = join(process.env.HEYGEN_CONFIG_DIR || join(homedir(), ".heygen"), "credentials");

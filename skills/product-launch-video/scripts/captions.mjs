@@ -12,10 +12,10 @@
 // No narration / no words → legal skip: nothing written, assemble-index then omits
 // the captions track (it keys off compositions/captions.html existence).
 //
-//   node captions.mjs build --storyboard ./STORYBOARD.md --audio-meta ./audio_meta.json --hyperframes . --out ./caption_groups.json
+//   node captions.mjs build --storyboard ./STORYBOARD.md --audio-meta ./audio_meta.json --kenectai . --out ./caption_groups.json
 //
 // CAPTION LOOK — two sources, picked automatically:
-//   1. PRESET SKIN (preferred). If a project-local `.hyperframes/caption-skin.html`
+//   1. PRESET SKIN (preferred). If a project-local `.kenectai/caption-skin.html`
 //      exists (Step 2 copies the chosen frame-preset's skin into the project), it is
 //      the caption look.
 //      It is a brand-token-strict skin with three reserved holes; this script fills them
@@ -63,19 +63,19 @@ function runBuild(argv) {
     process.exit(1);
   };
 
-  const hyperframesDir = resolve(flag(argv, "hyperframes", "."));
-  const storyboardPath = resolve(flag(argv, "storyboard", join(hyperframesDir, "STORYBOARD.md")));
-  const audioMetaPath = resolve(flag(argv, "audio-meta", join(hyperframesDir, "audio_meta.json")));
-  const outPath = resolve(flag(argv, "out", join(hyperframesDir, "caption_groups.json")));
-  const htmlPath = join(hyperframesDir, "compositions/captions.html");
-  const overridesPath = join(hyperframesDir, "caption-overrides.json");
+  const kenectaiDir = resolve(flag(argv, "kenectai", "."));
+  const storyboardPath = resolve(flag(argv, "storyboard", join(kenectaiDir, "STORYBOARD.md")));
+  const audioMetaPath = resolve(flag(argv, "audio-meta", join(kenectaiDir, "audio_meta.json")));
+  const outPath = resolve(flag(argv, "out", join(kenectaiDir, "caption_groups.json")));
+  const htmlPath = join(kenectaiDir, "compositions/captions.html");
+  const overridesPath = join(kenectaiDir, "caption-overrides.json");
   const skinArg = flag(argv, "skin", null);
-  const hiddenSkinPath = join(hyperframesDir, ".hyperframes", "caption-skin.html");
-  const legacySkinPath = join(hyperframesDir, "caption-skin.html");
+  const hiddenSkinPath = join(kenectaiDir, ".kenectai", "caption-skin.html");
+  const legacySkinPath = join(kenectaiDir, "caption-skin.html");
   const skinPath = resolve(
     skinArg ?? (existsSync(hiddenSkinPath) ? hiddenSkinPath : legacySkinPath),
   );
-  const framePath = resolve(flag(argv, "frame", join(hyperframesDir, "frame.md")));
+  const framePath = resolve(flag(argv, "frame", join(kenectaiDir, "frame.md")));
 
   if (!existsSync(storyboardPath)) die(`STORYBOARD.md not found at ${storyboardPath}`);
   const manifest = parseStoryboard(readFileSync(storyboardPath, "utf8"));
@@ -173,7 +173,7 @@ function runBuild(argv) {
   let source;
   if (existsSync(skinPath)) {
     const tokens = frameTokensCss(framePath, H);
-    const faces = brandFontFaces(framePath, hyperframesDir);
+    const faces = brandFontFaces(framePath, kenectaiDir);
     const fonts = existsSync(framePath) ? parseFonts(readFileSync(framePath, "utf8")) : {};
     writeFileSync(
       htmlPath,
@@ -189,7 +189,7 @@ function runBuild(argv) {
         fonts,
       ),
     );
-    source = `preset skin (${skinPath.replace(hyperframesDir + "/", "")})`;
+    source = `preset skin (${skinPath.replace(kenectaiDir + "/", "")})`;
   } else {
     writeFileSync(htmlPath, buildCaptionsHtml(finalized, total, W, H));
     source = "default (built-in pill)";
@@ -297,7 +297,7 @@ function buildFromSkin(skin, groups, total, W, H, tokens, die, faces = "", fonts
 // (staged assets/fonts first, else capture/assets/fonts) by family-name prefix, with
 // weight parsed from the filename. Paths are relative to compositions/captions.html.
 // Returns "" when frame.md or font files are absent (then the skin's fallback applies).
-function brandFontFaces(framePath, hyperframesDir) {
+function brandFontFaces(framePath, kenectaiDir) {
   if (!existsSync(framePath)) return "";
   const { display, body } = parseFonts(readFileSync(framePath, "utf8"));
   const families = [
@@ -308,8 +308,8 @@ function brandFontFaces(framePath, hyperframesDir) {
     // ROOT-RELATIVE — compositions are served with the project root as their base URL, so a
     // "../" prefix escapes the root (lint: invalid_parent_traversal_in_asset_path) and 404s in
     // Studio/preview. Mirror what the frame workers use for images.
-    { abs: join(hyperframesDir, "assets/fonts"), rel: "assets/fonts" },
-    { abs: join(hyperframesDir, "capture/assets/fonts"), rel: "capture/assets/fonts" },
+    { abs: join(kenectaiDir, "assets/fonts"), rel: "assets/fonts" },
+    { abs: join(kenectaiDir, "capture/assets/fonts"), rel: "capture/assets/fonts" },
   ].filter((d) => existsSync(d.abs));
   const weightOf = (n) => {
     const s = n.toLowerCase();
@@ -502,7 +502,7 @@ const sub = process.argv[2];
 if (sub === "build" || sub === undefined) runBuild(process.argv.slice(sub === "build" ? 3 : 2));
 else {
   console.error(
-    "usage: node captions.mjs build [--storyboard …] [--audio-meta …] [--hyperframes .]",
+    "usage: node captions.mjs build [--storyboard …] [--audio-meta …] [--kenectai .]",
   );
   process.exit(2);
 }

@@ -2,7 +2,7 @@
 name: caption-template-anatomy
 description: The shared, reproducible scene engine every caption template is built on — a matted talking-head with a flowing verbatim foreground caption and a single climax word, driven by one paused GSAP timeline. Read it ONCE per session (it is identical for all 54 templates); each per-template file in templates/ only overrides the style tokens + the named climax entrance/exit.
 metadata:
-  tags: caption, talking-head, matte, occlusion, verbatim, climax, gsap, hyperframes
+  tags: caption, talking-head, matte, occlusion, verbatim, climax, gsap, kenectai
 ---
 
 # Caption Template — Anatomy (the shared engine)
@@ -20,7 +20,7 @@ KENECT AI-native, so anyone can reproduce it:
 - **Deterministic + seek-safe** only — no `Math.random()`, no `Date.now()`, no infinite repeats, no un-seekable CSS animations. Every state is reachable by seeking the timeline to a time `t`.
 - GSAP transform aliases (`x`, `y`, `scale`, `rotation`); animate `opacity`, `filter`, `clipPath`, `textShadow`, `backgroundPosition`, `letterSpacing` — never layout props (width/top/left/margin).
 
-For the composition contract see `hyperframes-core`; eases + the animated-property allowlist see `hyperframes-gsap`; caption grouping/positioning/exit guarantees see `hyperframes-captions`.
+For the composition contract see `kenectai-core`; eases + the animated-property allowlist see `kenectai-gsap`; caption grouping/positioning/exit guarantees see `kenectai-captions`.
 
 ## 1 · Asset prep (two CLI calls)
 
@@ -203,7 +203,7 @@ The gallery used a `setInterval` loop; KENECT AI needs the same beats as **absol
 </script>
 ```
 
-`FLOW_IN` / `FLOW_OUT` / `CLIMAX_IN` / `CLIMAX_OUT` are the named recipes in **`_motion.md`** — each returns a GSAP tween/timeline so the per-template file just picks four names. A simpler equivalent for the flow active-word _glow_ (rather than discrete reveal) is the single-driver envelope in `hyperframes-animation/rules/asr-keyword-glow.md`.
+`FLOW_IN` / `FLOW_OUT` / `CLIMAX_IN` / `CLIMAX_OUT` are the named recipes in **`_motion.md`** — each returns a GSAP tween/timeline so the per-template file just picks four names. A simpler equivalent for the flow active-word _glow_ (rather than discrete reveal) is the single-driver envelope in `kenectai-animation/rules/asr-keyword-glow.md`.
 
 ## 5 · How to choose values
 
@@ -227,7 +227,7 @@ The gallery used a `setInterval` loop; KENECT AI needs the same beats as **absol
 ## Pairs with HF skills
 
 - `media-use` — `remove-background` (the matte) + `transcribe` (word timings).
-- `hyperframes-captions` — transcript consumption, grouping, positioning, exit guarantees, `fitTextFontSize`.
-- `hyperframes-animation/rules/asr-keyword-glow.md` — the verbatim active-word envelope.
-- `hyperframes-gsap` — single paused timeline, transform aliases, ease palette.
+- `kenectai-captions` — transcript consumption, grouping, positioning, exit guarantees, `fitTextFontSize`.
+- `kenectai-animation/rules/asr-keyword-glow.md` — the verbatim active-word envelope.
+- `kenectai-gsap` — single paused timeline, transform aliases, ease palette.
 - `_motion.md` (this folder) — the named flow/climax entrance + exit recipes.

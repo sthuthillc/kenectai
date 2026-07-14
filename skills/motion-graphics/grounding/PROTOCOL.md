@@ -56,7 +56,7 @@ draw a numbered 9×9 grid → pick the strips the target spans → crop that reg
 ## Notes
 
 - Geometry is frozen in `locate.mjs` (node + ffmpeg, zero npm deps — both
-  already required by hyperframes). Don't re-implement it ad hoc; the measured
+  already required by kenectai). Don't re-implement it ad hoc; the measured
   accuracy holds for THIS implementation.
 - Consumers: `samples/asset-fusion/_ref-circle-highlight.html` takes `CFG.box`
   directly from `final`/`auto` output.

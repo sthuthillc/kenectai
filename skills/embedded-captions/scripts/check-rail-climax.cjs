@@ -20,9 +20,9 @@ const fs = require("fs");
 const os = require("os");
 
 const HF_ROOTS = [
-  process.env.HYPERFRAMES_ROOT,
+  process.env.KENECT_ROOT,
   path.resolve(__dirname, "../../.."),
-  path.join(os.homedir(), "Downloads", "hyperframes"),
+  path.join(os.homedir(), "Downloads", "kenectai"),
 ].filter(Boolean);
 
 function findInBun(root, pkg, sub) {
@@ -154,7 +154,7 @@ async function main() {
   const railPath = path.join(project, "rail.html");
   if (!fs.existsSync(railPath) || !fs.existsSync(indexPath))
     ok("[rail-climax] no rail.html+index.html — not Standard, skipping");
-  if (!puppeteer) ok("[rail-climax] puppeteer unavailable — skipping (set HYPERFRAMES_ROOT)");
+  if (!puppeteer) ok("[rail-climax] puppeteer unavailable — skipping (set KENECT_ROOT)");
 
   const exe =
     process.platform === "darwin"

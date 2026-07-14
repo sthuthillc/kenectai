@@ -20,7 +20,7 @@ test("bundled SFX library resolves from the relocated path", async () => {
     const { sfx, anomalies } = await resolveSfx({
       cues: [{ id: "1", name: "whoosh" }],
       heygenOK: false,
-      hyperframesDir: dir,
+      kenectaiDir: dir,
       sfxLibDir,
     });
     assert.equal(sfx.length, 1, `expected 1 resolved cue, got anomalies: ${anomalies.join("; ")}`);
@@ -38,7 +38,7 @@ test("an unknown cue is reported, not fatal", async () => {
     const { sfx, anomalies } = await resolveSfx({
       cues: [{ id: "1", name: "definitely-not-a-real-sfx" }],
       heygenOK: false,
-      hyperframesDir: dir,
+      kenectaiDir: dir,
       sfxLibDir,
     });
     assert.equal(sfx.length, 0);

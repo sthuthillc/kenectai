@@ -11,9 +11,9 @@ const cp = require("child_process");
 
 function hfResolve(pkg) {
   const roots = [
-    process.env.HYPERFRAMES_ROOT,
+    process.env.KENECT_ROOT,
     path.resolve(__dirname, "..", "..", ".."),
-    path.join(os.homedir(), "Downloads", "hyperframes"),
+    path.join(os.homedir(), "Downloads", "kenectai"),
   ].filter(Boolean);
   for (const root of roots) {
     const cands = [path.join(root, "node_modules", pkg)];
@@ -29,7 +29,7 @@ function hfResolve(pkg) {
       } catch {}
     }
   }
-  console.error(`[v2] cannot find ${pkg} — set HYPERFRAMES_ROOT`);
+  console.error(`[v2] cannot find ${pkg} — set KENECT_ROOT`);
   process.exit(3);
 }
 const sharp = hfResolve("sharp");

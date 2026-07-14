@@ -739,7 +739,7 @@ test("track() posts to MEDIA_USE_TELEMETRY_HOST when set, proving real intercept
     runResolve(["--type", "bgm", "--intent", "telemetry seam test", "--project", tmp, "--json"], {
       env: {
         DO_NOT_TRACK: "0",
-        HYPERFRAMES_NO_TELEMETRY: "0",
+        KENECT_NO_TELEMETRY: "0",
         CI: "",
         NODE_ENV: "test",
         HOME: sandboxHome,

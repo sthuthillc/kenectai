@@ -14,7 +14,7 @@
 //     (free, private, offline once cached)
 //   - codex CLI: image gen on the user's ChatGPT sub — the better-quality upsell
 //     and the fallback when no local model fits
-//   - Kokoro (via the hyperframes CLI): local voiceover, free/private fallback
+//   - Kokoro (via the kenectai CLI): local voiceover, free/private fallback
 //     when HeyGen credentials are absent or --local-only is requested
 //
 // Generation is local-first, cloud-upsell. `ctx.provider` forces one provider

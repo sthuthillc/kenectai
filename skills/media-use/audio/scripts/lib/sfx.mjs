@@ -27,10 +27,10 @@ const r3 = (x) => Number(x.toFixed(3));
 
 // cues: [{ id, name }] (id = the line/frame/scene the cue fires in). Returns
 // { sfx: [{ id, name, file, source, offset_s, duration_s, volume }], anomalies }.
-export async function resolveSfx({ cues, heygenOK, headers, hyperframesDir, sfxLibDir }) {
+export async function resolveSfx({ cues, heygenOK, headers, kenectaiDir, sfxLibDir }) {
   const sfx = [];
   const anomalies = [];
-  const destDir = join(hyperframesDir, "assets", "sfx");
+  const destDir = join(kenectaiDir, "assets", "sfx");
 
   // Dedupe identical (id,name) cues — the same effect named twice in one line
   // downloads/copies once.
@@ -58,7 +58,7 @@ export async function resolveSfx({ cues, heygenOK, headers, hyperframesDir, sfxL
         }
         const top = results[0];
         const file = `assets/sfx/${slug(name)}.mp3`;
-        await downloadTo(top.audio_url, join(hyperframesDir, file));
+        await downloadTo(top.audio_url, join(kenectaiDir, file));
         sfx.push({
           id,
           name,
@@ -112,7 +112,7 @@ export async function resolveSfx({ cues, heygenOK, headers, hyperframesDir, sfxL
     }
     const src = join(sfxLibDir, hit.file);
     const destRel = `assets/sfx/${hit.file}`;
-    const dest = join(hyperframesDir, destRel);
+    const dest = join(kenectaiDir, destRel);
     // The bundled library may be incomplete: some installs of the skill ship
     // manifest.json without the actual mp3s. Pushing an sfx entry that points at
     // a file we never copied produces a dangling reference that silently drops

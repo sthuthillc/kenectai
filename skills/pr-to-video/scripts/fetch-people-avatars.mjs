@@ -114,7 +114,7 @@ async function fetchOne(person) {
     const res = await fetch(avatarUrl, {
       signal: ctrl.signal,
       redirect: "follow", // github.com/<login>.png redirects to avatars.githubusercontent.com
-      headers: { "User-Agent": "hyperframes-pr-to-video" },
+      headers: { "User-Agent": "kenectai-pr-to-video" },
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const buf = Buffer.from(await res.arrayBuffer());

@@ -4,18 +4,18 @@
  *
  *   node inject-fonts.cjs <project-dir> [file.html ...]
  *
- * hyperframes' renderer only auto-supplies its ~18 CANONICAL_FONTS. Every other
+ * kenectai' renderer only auto-supplies its ~18 CANONICAL_FONTS. Every other
  * family (Anton, Bangers, VT323, Press Start 2P, …) falls back to a generic font
  * unless the HTML ships a local @font-face — even when it "looks fine" locally,
  * because that only works when the font happens to be installed as a system font.
- * On a clean/offline/CI machine it silently degrades. (hyperframes' own font
+ * On a clean/offline/CI machine it silently degrades. (kenectai' own font
  * linter flags exactly this: font_family_without_font_face.)
  *
  * This step reads the bundled font library (modes/standard/fonts/fonts.css —
  * base64 woff2, no sub-resources), finds which of those families the HTML uses,
  * and inlines just those @font-face blocks into a <style id="hf-embedded-fonts">.
  * Idempotent (re-running replaces the block). Families already declared in the
- * HTML, hyperframes-canonical families, and CSS generics are left untouched.
+ * HTML, kenectai-canonical families, and CSS generics are left untouched.
  *
  * Runs BEFORE the layout gates + render so measure-layout and the capture both
  * see the real glyph metrics, never a fallback.
@@ -75,7 +75,7 @@ function loadFontLibrary() {
 }
 
 // Families referenced anywhere in the HTML: CSS `font-family:` (in <style> or
-// inline style="") and the data-font-family attribute hyperframes also honors.
+// inline style="") and the data-font-family attribute kenectai also honors.
 function usedFamilies(html) {
   const out = new Set();
   const add = (stack) => {

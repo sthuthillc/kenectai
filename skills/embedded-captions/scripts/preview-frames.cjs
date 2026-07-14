@@ -25,9 +25,9 @@ const fs = require("fs");
 const os = require("os");
 
 const HF_ROOTS = [
-  process.env.HYPERFRAMES_ROOT,
+  process.env.KENECT_ROOT,
   path.resolve(__dirname, "../../.."),
-  path.join(os.homedir(), "Downloads", "hyperframes"),
+  path.join(os.homedir(), "Downloads", "kenectai"),
 ].filter(Boolean);
 function findInBun(root, pkg, sub) {
   const cands = [path.join(root, "node_modules", pkg)];
@@ -67,7 +67,7 @@ for (const r of HF_ROOTS) {
   }
 }
 if (!puppeteer || !sharp) {
-  console.error("[preview] need puppeteer+sharp — set HYPERFRAMES_ROOT");
+  console.error("[preview] need puppeteer+sharp — set KENECT_ROOT");
   process.exit(0);
 }
 

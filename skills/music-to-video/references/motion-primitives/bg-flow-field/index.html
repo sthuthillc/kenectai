@@ -96,8 +96,8 @@
       const vars = Object.assign(
         {},
         defaults,
-        window.__hyperframes && window.__hyperframes.getVariables
-          ? window.__hyperframes.getVariables()
+        window.__kenectai && window.__kenectai.getVariables
+          ? window.__kenectai.getVariables()
           : {},
       );
 

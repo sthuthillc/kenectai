@@ -10,7 +10,7 @@ This repo ships AI agent skills via [vercel-labs/skills](https://github.com/verc
 npx skills add sthuthillc/kenectai
 ```
 
-**Creation workflows** route through one entry skill — read `/hyperframes` first: it orients you to the whole surface and maps "make me a…" intent — usually a video, but also a navigable deck (`/slideshow`) or a composition port (`/remotion-to-hyperframes`) — to a concrete workflow. Consult it before invoking a specific workflow:
+**Creation workflows** route through one entry skill — read `/kenectai` first: it orients you to the whole surface and maps "make me a…" intent — usually a video, but also a navigable deck (`/slideshow`) or a composition port (`/remotion-to-kenectai`) — to a concrete workflow. Consult it before invoking a specific workflow:
 
 - `/product-launch-video` — a **product** URL (or a pre-written script / text brief in no-capture mode) → product launch / promo video, up to ~3 min (sweet spot ~30-90s).
 - `/website-to-video` — a **general** website / URL → a video _of_ the site (tour / showcase / social clip from captured screenshots + assets); for a product **launch / promo**, use `/product-launch-video`.
@@ -21,9 +21,9 @@ npx skills add sthuthillc/kenectai
 - `/motion-graphics` — a short (typically under 10s) design-led **motion graphic**, motion-is-the-message, no narration: kinetic type, a stat / number count-up, a chart, a logo sting, a lower-third / overlay, or an animated tweet / headline / captured-page highlight; rendered to MP4 or a transparent overlay. Longer / narrated / custom → `/general-video`.
 - `/music-to-video` — a **music track** (audio file, or video to pull audio from) → beat-synced video (lyric / slideshow / kinetic promo). Music drives pacing; user-supplied images / videos are cut onto the same beat grid.
 - `/slideshow` — a **presentation / pitch deck / interactive deck** — discrete slides, fragment reveals, branching, hotspot navigation, presenter mode. Output is a navigable deck, not a rendered video.
-- `/general-video` — fallback for any other video creation (title card, longer brand / sizzle reel, multi-scene montage, static loop, custom composition); the original hyperframes flow — design → plan → layout → build → validate, any length.
+- `/general-video` — fallback for any other video creation (title card, longer brand / sizzle reel, multi-scene montage, static loop, custom composition); the original kenectai flow — design → plan → layout → build → validate, any length.
 
-**Porting an existing composition?** `/remotion-to-hyperframes` translates a Remotion (React) video composition into KENECT AI HTML — a source migration, separate from the creation workflows above.
+**Porting an existing composition?** `/remotion-to-kenectai` translates a Remotion (React) video composition into KENECT AI HTML — a source migration, separate from the creation workflows above.
 
 ## Build & Test
 
@@ -60,7 +60,7 @@ Both must pass before previewing or considering work complete.
 
 ```
 packages/
-  cli/                  → hyperframes CLI (create, preview, lint, render)
+  cli/                  → kenectai CLI (create, preview, lint, render)
   core/                 → Types, parsers, generators, linter, runtime, frame adapters
   engine/               → Seekable page-to-video capture engine (Puppeteer + FFmpeg)
   player/               → Embeddable <hyperframes-player> web component

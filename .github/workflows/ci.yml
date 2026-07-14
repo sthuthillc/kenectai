@@ -4,7 +4,7 @@ permissions:
   contents: read
   pull-requests: read
 
-# Suppress hyperframes CLI telemetry from HeyGen's own CI runs.
+# Suppress kenectai CLI telemetry from our own CI runs.
 # External users' CI continues to emit telemetry unless they set this themselves.
 env:
   HYPERFRAMES_NO_TELEMETRY: "1"
@@ -300,7 +300,7 @@ jobs:
           node --test "${SKILLS_TESTS[@]}"
 
   # Guards that skills-manifest.json (the published freshness fingerprint read
-  # by `hyperframes skills check`) was regenerated when a skill changed. Runs
+  # by `kenectai skills check`) was regenerated when a skill changed. Runs
   # `gen:skills-manifest --check`, which compares per-skill content hashes; the
   # manifest carries no version/timestamp, so it only fails on real content
   # drift. bun runs the TS script directly, no install needed.
@@ -519,14 +519,14 @@ jobs:
 
       # Install globally using --prefix to avoid sudo
       - name: Install globally via npm
-        run: npm install -g --prefix /tmp/hf-smoke ./packages/cli/hyperframes-cli-*.tgz
+        run: npm install -g --prefix /tmp/hf-smoke ./packages/cli/kenectai-cli-*.tgz
 
       # Scaffold a blank project
       - name: Init blank project
         run: |
           export PATH="/tmp/hf-smoke/bin:$PATH"
           mkdir /tmp/hf-project && cd /tmp/hf-project
-          hyperframes init test-project --example blank
+          kenectai init test-project --example blank
 
       # Start preview, probe the runtime endpoint, assert no esbuild errors
       - name: Smoke-test preview server
@@ -535,7 +535,7 @@ jobs:
           cd /tmp/hf-project/test-project
 
           # Start the preview server in the background; capture stderr
-          CI=true hyperframes preview --port 3099 2>/tmp/hf-stderr.log &
+          CI=true kenectai preview --port 3099 2>/tmp/hf-stderr.log &
           SERVER_PID=$!
 
           # Wait for the server to be ready (up to 15 s)
@@ -609,7 +609,7 @@ jobs:
         # init's --skip-skills flag is neutered (see init.ts); opt out of the
         # GitHub skills check via this env so the smoke test stays offline/fast.
         env:
-          HYPERFRAMES_SKIP_SKILLS: "1"
+          KENECT_SKIP_SKILLS: "1"
         run: |
           set -euo pipefail
           rm -rf /tmp/hf-cli-inside
@@ -666,22 +666,22 @@ jobs:
         # init's --skip-skills flag is neutered (see init.ts); opt out of the
         # GitHub skills check via this env so the smoke test stays offline/fast.
         env:
-          HYPERFRAMES_SKIP_SKILLS: "1"
+          KENECT_SKIP_SKILLS: "1"
         run: |
           set -euo pipefail
           export PATH="/tmp/hf-cli-global/bin:$PATH"
           rm -rf /tmp/hf-cli-outside
 
-          hyperframes init /tmp/hf-cli-outside \
+          kenectai init /tmp/hf-cli-outside \
             --example warm-grain \
             --video /tmp/hf-cli-input.mp4 \
             --skip-transcribe \
             --non-interactive \
             --skip-skills
 
-          hyperframes lint /tmp/hf-cli-outside
-          hyperframes validate /tmp/hf-cli-outside --timeout 3000
-          hyperframes render /tmp/hf-cli-outside \
+          kenectai lint /tmp/hf-cli-outside
+          kenectai validate /tmp/hf-cli-outside --timeout 3000
+          kenectai render /tmp/hf-cli-outside \
             --quality standard \
             --workers auto \
             --strict \

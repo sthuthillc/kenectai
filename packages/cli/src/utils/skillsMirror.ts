@@ -119,7 +119,7 @@ export function mirrorGlobalSkills(opts: {
   // store: ~/.claude/skills is shared, so a user's gstack / personal / company
   // skills live there too and must not be fanned out to (or overwrite) other
   // agents. `opts.skills` is the lock-attributed HyperFrames set (see
-  // hyperframesSkillNames).
+  // kenectaiSkillNames).
   const allowed = new Set(opts.skills);
   const skills = listSkillDirs(source).filter((name) => allowed.has(name));
   if (skills.length === 0) return { source, mirrored: [] };

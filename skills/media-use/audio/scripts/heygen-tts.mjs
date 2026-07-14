@@ -2,7 +2,7 @@
 // Self-contained HeyGen TTS — single text in → one wav (+ optional words JSON)
 // out. A thin CLI over lib/tts.mjs (the same code the audio engine uses), so the
 // HeyGen REST call, starfish voice pick, mp3→wav transcode, and word-timestamp
-// filtering live in exactly one place. Bypasses the `hyperframes` CLI, which in
+// filtering live in exactly one place. Bypasses the `kenectai` CLI, which in
 // the published build is Kokoro-only.
 //
 // Usage:
@@ -101,7 +101,7 @@ const { ok, words } = await synthesizeOne({
   lang,
   speed,
   wavAbs: output,
-  hyperframesDir: process.cwd(),
+  kenectaiDir: process.cwd(),
 });
 if (!ok) die("synthesis failed (HeyGen request/transcode error)");
 

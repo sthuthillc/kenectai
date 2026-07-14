@@ -36,7 +36,7 @@ Scan for words deserving distinct treatment:
 - **Numbers/statistics** — bold weight, accent color
 - **Emotional keywords** — exaggerated animation (overshoot, bounce)
 - **Call-to-action** — highlight, underline, color pop
-- **Marker highlight** — for beyond-color emphasis (highlight sweep, circle, burst, scribble, sketchout), see `hyperframes-animation/rules/css-marker-patterns.md`.
+- **Marker highlight** — for beyond-color emphasis (highlight sweep, circle, burst, scribble, sketchout), see `kenectai-animation/rules/css-marker-patterns.md`.
 
 ## Script-to-Style Mapping
 
@@ -66,10 +66,10 @@ Break on sentence boundaries, 150ms+ pauses, or max word count.
 
 ## Text Overflow Prevention
 
-Use `window.__hyperframes.fitTextFontSize()`:
+Use `window.__kenectai.fitTextFontSize()`:
 
 ```js
-var result = window.__hyperframes.fitTextFontSize(group.text.toUpperCase(), {
+var result = window.__kenectai.fitTextFontSize(group.text.toUpperCase(), {
   fontFamily: "Outfit",
   fontWeight: 900,
   maxWidth: 1600,
@@ -113,7 +113,7 @@ tl.seek(0);
 
 ## Pre-Built Caption Components
 
-Before building caption styles from scratch, check the registry — 15 ready-to-use caption components cover the most common styles. Install with `npx @kenectai/cli add <name>` and wire as a sub-composition via `data-composition-src` (see `hyperframes-registry`).
+Before building caption styles from scratch, check the registry — 15 ready-to-use caption components cover the most common styles. Install with `npx @kenectai/cli add <name>` and wire as a sub-composition via `data-composition-src` (see `kenectai-registry`).
 
 ```bash
 npx @kenectai/cli catalog --tag caption-style   # list all caption components
@@ -148,7 +148,7 @@ Caption components ship with transparent backgrounds — they're pure overlays. 
 
 - [`motion.md`](motion.md) — karaoke, marker effects, audio-reactive modulation, scatter exits.
 - [`transcript-handling.md`](transcript-handling.md) — input formats, quality checks, cleaning, external API fallback.
-- `hyperframes-animation/rules/css-marker-patterns.md` — marker highlighting (deterministic, fully seekable).
+- `kenectai-animation/rules/css-marker-patterns.md` — marker highlighting (deterministic, fully seekable).
 
 ## Constraints
 

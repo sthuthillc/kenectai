@@ -1,6 +1,6 @@
 ---
 name: website-to-video
-description: "Capture a general website/URL and turn it into a video OF the site — tour, showcase, or social clip built from captured screenshots and the site's own brand assets. Use for portfolio / blog / docs / landing-page showcases. Not a product launch or promo, even from a URL (/product-launch-video). Unclear → /hyperframes."
+description: "Capture a general website/URL and turn it into a video OF the site — tour, showcase, or social clip built from captured screenshots and the site's own brand assets. Use for portfolio / blog / docs / landing-page showcases. Not a product launch or promo, even from a URL (/product-launch-video). Unclear → /kenectai."
 ---
 
 > **First, keep this skill fresh — run silently, don't ask:** `npx @kenectai/cli skills update website-to-video`. A fast no-op when everything is current; otherwise it refreshes this skill plus the core domain skills it depends on before you rely on them.
@@ -13,7 +13,7 @@ description: "Capture a general website/URL and turn it into a video OF the site
 
 Capture a website, then produce a professional video from it.
 
-> **Confirm the route before Step 0.** This skill makes a video _of / from a general site_. If the user is really **marketing / launching / promoting a product** (even from this URL, even "promo for our site") → `/product-launch-video`. A **topic explainer with no site** → `/faceless-explainer`; a **GitHub PR** → `/pr-to-video`; **re-cutting / recoloring / reordering an existing video file** → out of scope. Routed here on a vague "make a video", or unsure launch-vs-general-site? **Read `/hyperframes` first** (full routing table + § What KENECT AI cannot do).
+> **Confirm the route before Step 0.** This skill makes a video _of / from a general site_. If the user is really **marketing / launching / promoting a product** (even from this URL, even "promo for our site") → `/product-launch-video`. A **topic explainer with no site** → `/faceless-explainer`; a **GitHub PR** → `/pr-to-video`; **re-cutting / recoloring / reordering an existing video file** → out of scope. Routed here on a vague "make a video", or unsure launch-vs-general-site? **Read `/kenectai` first** (full routing table + § What KENECT AI cannot do).
 
 Users say things like:
 
@@ -21,7 +21,7 @@ Users say things like:
 - "Make a 30-second site tour / showcase from https://..."
 - "Capture our homepage and build a video from its own visuals"
 
-The workflow has 7 steps. Each produces an artifact that gates the next. By default it's collaborative — gates marked 💬 stop and ask the user. Mode semantics (signals, propagation, gate taxonomy) are canonical in `../hyperframes-core/references/brief-contract.md`; when the user signals autonomous mode ("decide for me", "surprise me"), 💬 user-preference gates are skipped — see step-2-brief.md for how that propagates through this workflow.
+The workflow has 7 steps. Each produces an artifact that gates the next. By default it's collaborative — gates marked 💬 stop and ask the user. Mode semantics (signals, propagation, gate taxonomy) are canonical in `../kenectai-core/references/brief-contract.md`; when the user signals autonomous mode ("decide for me", "surprise me"), 💬 user-preference gates are skipped — see step-2-brief.md for how that propagates through this workflow.
 
 **Autonomous mode is NOT "skip all gates"** (brief contract § 1). It covers user-preference questions (TTS provider, voice, color emphasis, beat count, music yes/no, captions yes/no — where the agent decides on the user's behalf). It does NOT cover quality-verification gates. The following remain non-skippable in auto mode:
 
@@ -90,7 +90,7 @@ If Step 2 said no narration — ask about background music, then skip to Step 5.
 
 ## Step 5: Build Compositions
 
-**Read:** The `hyperframes` skill (load it — every rule matters)
+**Read:** The `kenectai` skill (load it — every rule matters)
 **Read:** [references/step-5-build.md](references/step-5-build.md)
 
 Build index.html and compositions following the architecture and pacing chosen in the storyboard (Step 3). Sub-agents run `kenectai lint` and `kenectai snapshot` on each beat before reporting back.
@@ -146,5 +146,5 @@ Beat count is not in this table intentionally — it should come from the storyb
 | [step-4-vo.md](references/step-4-vo.md)                                            | Step 4 — TTS provider choice, generation, timing                                                                                               |
 | [step-5-build.md](references/step-5-build.md)                                      | Step 5 — build index.html + compositions                                                                                                       |
 | [step-6-validate.md](references/step-6-validate.md)                                | Step 6 — lint, validate, snapshots (scaled to video length), preview                                                                           |
-| [techniques.md](../hyperframes/references/techniques.md)                           | Steps 3 & 5 — 13 primitive animation techniques with code patterns (adapt, don't copy-paste)                                                   |
-| [html-in-canvas-patterns.md](../hyperframes/references/html-in-canvas-patterns.md) | Step 5 — complete code patterns for HTML-in-Canvas effects (lives in the hyperframes skill)                                                    |
+| [techniques.md](../kenectai/references/techniques.md)                           | Steps 3 & 5 — 13 primitive animation techniques with code patterns (adapt, don't copy-paste)                                                   |
+| [html-in-canvas-patterns.md](../kenectai/references/html-in-canvas-patterns.md) | Step 5 — complete code patterns for HTML-in-Canvas effects (lives in the kenectai skill)                                                    |

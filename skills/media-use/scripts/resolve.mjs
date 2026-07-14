@@ -432,7 +432,7 @@ async function run() {
   appendRecord(projectDir, record);
   regenerateIndex(projectDir);
   // Auto-promote: surface every fetched asset in the global cache so it's
-  // reusable across all hyperframes projects (B3). Non-fatal; dedup by sha.
+  // reusable across all kenectai projects (B3). Non-fatal; dedup by sha.
   // ponytail: promotes search/generate/ingest assets (the ones media-use
   // fetched), not bulk --adopt imports — add those if cross-project reuse of
   // pre-existing project assets is wanted.

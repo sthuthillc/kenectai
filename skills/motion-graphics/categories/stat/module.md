@@ -9,7 +9,7 @@ A single **hero number** reveal. Asset-free (the "input" is the number). ~4–6s
 ## Vocabulary / leans on
 
 - Block: **`apple-money-count`** (finance-flavoured: $ counter + green flash + money burst + SFX) when it fits; otherwise hand-author.
-- Rules: `hyperframes-animation/rules/{counting-dynamic-scale, stat-bars-and-fills}`.
+- Rules: `kenectai-animation/rules/{counting-dynamic-scale, stat-bars-and-fills}`.
 - Primitives: `count_up` (odometer) · `scale_pop` · `ring_fill` (arc) · `label_stagger` (after value) · `hold`.
 
 ## Build (reuse-first)

@@ -7,17 +7,17 @@ import { describe, expect, it } from "vitest";
 const REPO_ROOT = join(fileURLToPath(new URL(".", import.meta.url)), "..", "..", "..", "..");
 const read = (...parts: string[]): string => readFileSync(join(REPO_ROOT, ...parts), "utf8");
 
-describe("hyperframes-core contract docs", () => {
+describe("kenectai-core contract docs", () => {
   it("keeps root data-start in the minimal composition skeleton", () => {
-    const minimal = read("skills", "hyperframes-core", "references", "minimal-composition.md");
+    const minimal = read("skills", "kenectai-core", "references", "minimal-composition.md");
 
     expect(minimal).toMatch(/data-composition-id="main"[\s\S]{0,300}data-start="0"/);
     expect(minimal).toContain('Root `<div>` with `data-composition-id`, `data-start="0"`');
   });
 
   it("teaches check as the canonical quality gate", () => {
-    const skill = read("skills", "hyperframes-core", "SKILL.md");
-    const brief = read("skills", "hyperframes-core", "references", "brief-contract.md");
+    const skill = read("skills", "kenectai-core", "SKILL.md");
+    const brief = read("skills", "kenectai-core", "references", "brief-contract.md");
 
     expect(skill).toContain("`npx @kenectai/cli check`");
     expect(brief).toContain("`kenectai check`");

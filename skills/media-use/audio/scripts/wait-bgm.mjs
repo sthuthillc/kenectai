@@ -10,7 +10,7 @@
 // voice/captions/SFX render. Structural invocation errors still exit 1.
 //
 // Usage:
-//   node wait-bgm.mjs --audio-meta ./audio_meta.json --hyperframes . \
+//   node wait-bgm.mjs --audio-meta ./audio_meta.json --kenectai . \
 //     [--timeout-ms 120000] [--interval-ms 2000] [--out ./bgm_status.json]
 
 import { existsSync, readFileSync, statSync, writeFileSync } from "node:fs";
@@ -28,8 +28,8 @@ function die(msg) {
 }
 
 const audioMetaPath = resolve(flag("audio-meta", "./audio_meta.json"));
-const hyperframesDir = resolve(flag("hyperframes", "."));
-const outPath = resolve(flag("out", join(hyperframesDir, "bgm_status.json")));
+const kenectaiDir = resolve(flag("kenectai", "."));
+const outPath = resolve(flag("out", join(kenectaiDir, "bgm_status.json")));
 const timeoutMs = Math.max(0, Number(flag("timeout-ms", "120000")) || 0);
 const intervalMs = Math.max(250, Number(flag("interval-ms", "2000")) || 2000);
 
@@ -83,7 +83,7 @@ if (!existsSync(audioMetaPath)) die(`audio_meta.json missing at ${audioMetaPath}
 
 const audioMeta = JSON.parse(readFileSync(audioMetaPath, "utf8"));
 const bgmPath = audioMeta.bgm?.path || "";
-const bgmAbsPath = bgmPath ? join(hyperframesDir, bgmPath) : "";
+const bgmAbsPath = bgmPath ? join(kenectaiDir, bgmPath) : "";
 const logPath = audioMeta.bgm_log || "";
 const pid = audioMeta.bgm_pid || null;
 

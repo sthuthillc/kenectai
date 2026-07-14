@@ -106,10 +106,10 @@ describe("buildManifest", () => {
 });
 
 describe("isCoreSkill", () => {
-  it("classifies the entry router, hyperframes-* domain skills, and media-use as core", () => {
-    expect(isCoreSkill("hyperframes")).toBe(true);
-    expect(isCoreSkill("hyperframes-core")).toBe(true);
-    expect(isCoreSkill("hyperframes-animation")).toBe(true);
+  it("classifies the entry router, kenectai-* domain skills, and media-use as core", () => {
+    expect(isCoreSkill("kenectai")).toBe(true);
+    expect(isCoreSkill("kenectai-core")).toBe(true);
+    expect(isCoreSkill("kenectai-animation")).toBe(true);
     expect(isCoreSkill("media-use")).toBe(true);
     // End-user workflows and optional integrations install on demand.
     expect(isCoreSkill("pr-to-video")).toBe(false);
@@ -201,13 +201,13 @@ describe("diffSkills", () => {
     const withCore: SkillsManifest = {
       source: "test",
       skills: {
-        hyperframes: { hash: "e1", files: 1 }, // core: entry router
+        kenectai: { hash: "e1", files: 1 }, // core: entry router
         "pr-to-video": { hash: "w1", files: 1 }, // on-demand workflow
       },
     };
 
     // Core current, workflow missing → partial install is fine, no update.
-    const workflowMissing = diffSkills({ hyperframes: { hash: "e1", files: 1 } }, withCore);
+    const workflowMissing = diffSkills({ kenectai: { hash: "e1", files: 1 } }, withCore);
     expect(workflowMissing.updateAvailable).toBe(false);
     expect(workflowMissing.summary).toEqual({
       current: 1,
@@ -229,11 +229,11 @@ describe("presentSkills", () => {
     const project = join(root, "project");
     mkdirSync(project, { recursive: true });
     const skillsDir = join(home, ".claude/skills");
-    mkdirSync(join(skillsDir, "hyperframes"), { recursive: true });
-    writeFileSync(join(skillsDir, "hyperframes", "SKILL.md"), "# hyperframes");
+    mkdirSync(join(skillsDir, "kenectai"), { recursive: true });
+    writeFileSync(join(skillsDir, "kenectai", "SKILL.md"), "# kenectai");
 
-    expect(presentSkills(["hyperframes", "pr-to-video"], { cwd: project, home })).toEqual([
-      "hyperframes",
+    expect(presentSkills(["kenectai", "pr-to-video"], { cwd: project, home })).toEqual([
+      "kenectai",
     ]);
   });
 
@@ -242,7 +242,7 @@ describe("presentSkills", () => {
     const project = join(root, "project");
     mkdirSync(home, { recursive: true });
     mkdirSync(project, { recursive: true });
-    expect(presentSkills(["hyperframes"], { cwd: project, home })).toEqual([]);
+    expect(presentSkills(["kenectai"], { cwd: project, home })).toEqual([]);
   });
 });
 
@@ -337,7 +337,7 @@ describe("checkSkills install detection", () => {
       source,
       JSON.stringify({
         source: "test",
-        skills: { hyperframes: { hash: "x", files: 1 }, alpha: { hash: "y", files: 1 } },
+        skills: { kenectai: { hash: "x", files: 1 }, alpha: { hash: "y", files: 1 } },
       }),
     );
 

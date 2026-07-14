@@ -8,7 +8,7 @@ Fetch the page via `kenectai capture` (DOM + screenshots) or a provided screensh
 
 ## Vocabulary / leans on
 
-- Rules: `hyperframes-animation/rules/{3d-page-scroll, demo-page-scroll-spotlight, cursor-click-ripple, coordinate-target-zoom, viewport-change}`.
+- Rules: `kenectai-animation/rules/{3d-page-scroll, demo-page-scroll-spotlight, cursor-click-ripple, coordinate-target-zoom, viewport-change}`.
 - Primitives: scroll pan · spotlight/dim · cursor move + click-ripple · zoom-to-region · callout pin + label.
 
 ## Build (reuse-first)

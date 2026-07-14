@@ -118,24 +118,24 @@ const FETCH_TIMEOUT_MS = 4000;
 //
 // Two tiers decide what installs eagerly vs on demand:
 //
-//   core     — the `/hyperframes` entry router plus the shared domain skills
-//              (`hyperframes-*`, `media-use`) that every creation workflow
-//              references structurally (sibling `../hyperframes-animation/…`
+//   core     — the `/kenectai` entry router plus the shared domain skills
+//              (`kenectai-*`, `media-use`) that every creation workflow
+//              references structurally (sibling `../kenectai-animation/…`
 //              paths, "call /media-use" preambles). These must be present and
 //              current for ANY workflow to run, so `init` / `skills update`
 //              keep them fresh.
 //   on-demand — everything else: the end-user workflow skills (pr-to-video,
 //              embedded-captions, …) and optional integrations (figma). They
 //              install lazily, when their workflow is actually triggered
-//              (`hyperframes skills update <name>`), instead of being sprayed
+//              (`kenectai skills update <name>`), instead of being sprayed
 //              onto every machine that runs `init`.
 
 /** The entry/router skill — the capability map that routes every request. */
-const ENTRY_SKILL = "hyperframes";
+const ENTRY_SKILL = "kenectai";
 
 /** True for skills every workflow depends on (see "Skill tiers" above). */
 export function isCoreSkill(name: string): boolean {
-  return name === ENTRY_SKILL || name.startsWith("hyperframes-") || name === "media-use";
+  return name === ENTRY_SKILL || name.startsWith("kenectai-") || name === "media-use";
 }
 
 /**
@@ -148,13 +148,13 @@ export function isCoreSkill(name: string): boolean {
  * can't drift silently; update it when core membership changes.
  */
 export const FALLBACK_CORE_SKILLS: readonly string[] = [
-  "hyperframes",
-  "hyperframes-animation",
-  "hyperframes-cli",
-  "hyperframes-core",
-  "hyperframes-creative",
-  "hyperframes-keyframes",
-  "hyperframes-registry",
+  "kenectai",
+  "kenectai-animation",
+  "kenectai-cli",
+  "kenectai-core",
+  "kenectai-creative",
+  "kenectai-keyframes",
+  "kenectai-registry",
   "media-use",
 ];
 
@@ -487,13 +487,13 @@ function readSkillLock(path: string): SkillLock | null {
 }
 
 /**
- * The skill names the upstream lock attributes to HyperFrames, for a scope.
+ * The skill names the upstream lock attributes to Kenect AI, for a scope.
  * The mirror MUST scope by this — never by listing `~/.claude/skills`, which is
  * shared across sources, so a directory listing would fan a user's gstack /
  * personal / company skills out to every agent. Same source-attribution the
  * prune uses. Empty when the lock is absent (we can't attribute → mirror none).
  */
-export function hyperframesSkillNames(opts: {
+export function kenectaiSkillNames(opts: {
   scope: "project" | "global";
   cwd?: string;
   home?: string;

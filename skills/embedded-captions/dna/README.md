@@ -136,7 +136,7 @@ _letterpress_ (scale-press, no float, dead-still) · editorial = _the pen glides
 hold_ (motion's absence IS the language) · loud = _percussion_ (back-eased punches,
 alternating tilt, hero ripple that bumps every caption — never the footage).
 
-Rules inherited from hyperframes motion-principles: exits faster than entrances; vary
+Rules inherited from kenectai motion-principles: exits faster than entrances; vary
 ease families BETWEEN DNAs (not within one); `.out` enters, `.in` leaves; never two
 transform tweens on one element in the same window (wipe-up is clip-path so the
 afterglow scale channel stays free; loom subsumes breathe).

@@ -30,7 +30,7 @@ KENECT AI owns media _playback_; media-use owns everything else. Each row is enf
 | Audio-only, no image/icon                  | `resolve --type image\|icon` (heygen asset search)                                                                              |
 | No third-party brand logos                 | `resolve --type logo` (svgl → simple-icons → GitHub org avatar → domain favicon)                                                |
 | No voice / audio generation                | `resolve --type voice` (HeyGen TTS free-usage path; optional local Kokoro) + the audio engine (`audio/scripts/audio.mjs`)       |
-| Scattered/duplicated audio engine          | one consolidated engine under `audio/` (hyperframes-media retired)                                                              |
+| Scattered/duplicated audio engine          | one consolidated engine under `audio/` (kenectai-media retired)                                                              |
 | No agent media-ops (cut/reframe/transform) | `references/operations.md` + `resolve --from` to register outputs                                                               |
 | No transcript-driven cutting               | `scripts/transcript-cut.mjs` compiles word-timestamp edits into cut lists                                                       |
 | No auto-duck / publish loudness            | `scripts/audio-duck.mjs` + `references/operations.md` loudnorm/sidechain recipes                                                |
@@ -42,7 +42,7 @@ KENECT AI owns media _playback_; media-use owns everything else. Each row is enf
 
 ## When to use
 
-Call `resolve` whenever a composition needs media: background music, sound effects, images, icons, brand logos, voice, a color grade, or a LUT. For voiceover / TTS, music, SFX, and caption timing, use the **audio engine** (below); background removal is delegated to the `hyperframes` CLI; transcription defaults to Parakeet (better than whisper.cpp: 6.05% vs 7.44% WER, 5-10x faster) via `scripts/transcribe.mjs`, with whisper.cpp auto-fallback (see `references/operations.md`). For cutting / reframing / transforming existing media, see `references/operations.md`. media-use searches the HeyGen catalog first for media files, resolves official logos through the logo cascade, uses local deterministic color grading for `grade`/`lut`, freezes the best match locally when a file is needed, registers it in a manifest, and hands the agent one line; all search noise stays on disk.
+Call `resolve` whenever a composition needs media: background music, sound effects, images, icons, brand logos, voice, a color grade, or a LUT. For voiceover / TTS, music, SFX, and caption timing, use the **audio engine** (below); background removal is delegated to the `kenectai` CLI; transcription defaults to Parakeet (better than whisper.cpp: 6.05% vs 7.44% WER, 5-10x faster) via `scripts/transcribe.mjs`, with whisper.cpp auto-fallback (see `references/operations.md`). For cutting / reframing / transforming existing media, see `references/operations.md`. media-use searches the HeyGen catalog first for media files, resolves official logos through the logo cascade, uses local deterministic color grading for `grade`/`lut`, freezes the best match locally when a file is needed, registers it in a manifest, and hands the agent one line; all search noise stays on disk.
 
 ## Be proactive — run a media opportunity pass
 
@@ -353,7 +353,7 @@ node <SKILL_DIR>/audio/scripts/audio.mjs --request ./audio_request.json --out ./
 - **HeyGen free-usage path**: HeyGen CLI auth unlocks TTS plus music/SFX retrieval. Local/provider-specific generators are explicit alternatives where installed; run `node <SKILL_DIR>/scripts/resolve.mjs --doctor` before assuming retrieval or TTS will work.
 - If BGM took the generate path (`bgm_pending: true`), run `audio/scripts/wait-bgm.mjs` before final render.
 
-Single-shot helpers: `audio/scripts/heygen-tts.mjs` (one voice file). Transcription / background removal / captions use the `hyperframes` CLI (`transcribe`, `remove-background`), see the per-topic guides in `audio/references/` (`tts.md`, `bgm.md`, `sfx.md`, `transcribe.md`, `remove-background.md`, `captions/`).
+Single-shot helpers: `audio/scripts/heygen-tts.mjs` (one voice file). Transcription / background removal / captions use the `kenectai` CLI (`transcribe`, `remove-background`), see the per-topic guides in `audio/references/` (`tts.md`, `bgm.md`, `sfx.md`, `transcribe.md`, `remove-background.md`, `captions/`).
 
 ## Operating on media (cut, reframe, transform)
 
@@ -381,7 +381,7 @@ private, on-device path instead of or ahead of HeyGen for that type. Only
 | `codex`            | image gen upsell (ChatGPT sub)                                                  | Codex CLI, logged in via ChatGPT (owns its own auth)                                                            |
 | `parakeet-mlx`     | local transcription (default ASR, best)                                         | `uv venv ~/.venvs/parakeet && VIRTUAL_ENV=~/.venvs/parakeet uv pip install parakeet-mlx`                        |
 | `ltx-2-mlx`        | local video gen                                                                 | `git clone https://github.com/dgrauet/ltx-2-mlx && cd ltx-2-mlx && uv sync --all-extras`                        |
-| `npx @kenectai/cli`  | Kokoro TTS (voice), whisper.cpp (transcribe fallback), remove-background        | bundled with the hyperframes CLI                                                                                |
+| `npx @kenectai/cli`  | Kokoro TTS (voice), whisper.cpp (transcribe fallback), remove-background        | bundled with the kenectai CLI                                                                                |
 
 The RAM-graded local-model shortlist + exact per-tier install/invoke lives in
 `scripts/lib/local-models.mjs` (the agent can read `describeModelLadder(cap, specs)`
@@ -402,14 +402,14 @@ resolution SOURCE, and the winning PROVIDER: never the intent text, file names,
 or paths, and `$ip:null` so no IP is stored. Best-effort and non-blocking (a
 resolve never waits on or fails from telemetry).
 
-Opt out with `DO_NOT_TRACK=1` or `HYPERFRAMES_NO_TELEMETRY=1` (also off in CI and
-dev). Same public PostHog project key and opt-outs as the `hyperframes` CLI.
+Opt out with `DO_NOT_TRACK=1` or `KENECT_NO_TELEMETRY=1` (also off in CI and
+dev). Same public PostHog project key and opt-outs as the `kenectai` CLI.
 
 ## Privacy
 
-media-use uses the same shared install id as the `hyperframes` CLI/studio
-(`~/.hyperframes/config.json`). When you are signed in to HeyGen, usage is
+media-use uses the same shared install id as the `kenectai` CLI/studio
+(`~/.kenectai/config.json`). When you are signed in to HeyGen, usage is
 linked to your account email, or username when email is unavailable, matching
 the CLI behavior. The events stay coarse: media type, source, provider, and
 small counts only; intent text and paths stay local. Disable telemetry with
-`HYPERFRAMES_NO_TELEMETRY=1` or `DO_NOT_TRACK=1`.
+`KENECT_NO_TELEMETRY=1` or `DO_NOT_TRACK=1`.

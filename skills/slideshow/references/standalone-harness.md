@@ -7,7 +7,7 @@ These patterns are a **temporary workaround** for standalone demos. The durable 
 Until then, a standalone slideshow opened via the bare player bundle must work around three facts:
 
 1. The composition must expose a seekable `window.__timelines.root` timeline. Anything outside that seek path, such as Three.js loops or imperative entrance effects, must be self-driving.
-2. `<hyperframes-slideshow>` reads the slideshow island from its **own innerHTML** (the wrapper element), not from the composition the player loads. The island must be duplicated into the wrapper.
+2. `<kenectai-slideshow>` reads the slideshow island from its **own innerHTML** (the wrapper element), not from the composition the player loads. The island must be duplicated into the wrapper.
 3. The composition runs in the player's **iframe**; user keypresses and pointer events land on the **parent page**. Wrapper-owned SFX/global audio should live in the parent, where the activation token is reliable. Normal slide media stays in the composition and is stopped by the slideshow player on slide exit.
 
 Do not treat these as the blessed authoring model. When the engine-hosted path ships, compositions authored the normal way will just work.
@@ -35,11 +35,11 @@ For public or user-facing generated projects, make this wrapper the root `index.
 
     <!--
       Load both bundles from packages/player/dist.
-      The global builds register <hyperframes-player> and <hyperframes-slideshow>
+      The global builds register <kenectai-player> and <kenectai-slideshow>
       as custom elements — no import map needed.
     -->
-    <script src="../../../packages/player/dist/hyperframes-player.global.js"></script>
-    <script src="../../../packages/player/dist/slideshow/hyperframes-slideshow.global.js"></script>
+    <script src="../../../packages/player/dist/kenectai-player.global.js"></script>
+    <script src="../../../packages/player/dist/slideshow/kenectai-slideshow.global.js"></script>
 
     <style>
       *,
@@ -60,27 +60,27 @@ For public or user-facing generated projects, make this wrapper the root `index.
   </head>
   <body>
     <!--
-      tabindex="0" is critical — <hyperframes-slideshow> binds keydown
+      tabindex="0" is critical — <kenectai-slideshow> binds keydown
       (ArrowLeft/Right, Space, Backspace) to itself. Without tabindex the
       element cannot receive focus and arrow keys are dead.
     -->
-    <hyperframes-slideshow
+    <kenectai-slideshow
       tabindex="0"
       style="display: block; position: relative; width: 100vw; height: 100vh"
     >
-      <hyperframes-player
+      <kenectai-player
         interactive
         style="position: absolute; inset: 0"
         src="composition/index.html"
-      ></hyperframes-player>
+      ></kenectai-player>
 
       <!--
         DUPLICATED ISLAND — keep in sync with the island inside index.html.
-        <hyperframes-slideshow> reads from its own innerHTML, not from the
+        <kenectai-slideshow> reads from its own innerHTML, not from the
         composition the player loads. Every time slides/fragments/hotspots/
         sequences change in index.html, update this copy too.
       -->
-      <script type="application/hyperframes-slideshow+json">
+      <script type="application/kenectai-slideshow+json">
         {
           "slides": [
             { "sceneId": "scene-one", "notes": "..." },
@@ -99,7 +99,7 @@ For public or user-facing generated projects, make this wrapper the root `index.
           ]
         }
       </script>
-    </hyperframes-slideshow>
+    </kenectai-slideshow>
     <!-- The built-in slideshow nav capsule renders Present; do not add a wrapper-level button. -->
 
     <!-- Audio player lives here — see Section 6 -->
@@ -144,7 +144,7 @@ Audible playback has one extra browser constraint: a `BroadcastChannel` message 
   var unlockButton = null;
 
   function frameDocument() {
-    var player = document.querySelector("hyperframes-player");
+    var player = document.querySelector("kenectai-player");
     var frame = player && player.iframeElement;
     try {
       return frame && frame.contentDocument ? frame.contentDocument : null;
@@ -375,7 +375,7 @@ Use a dedicated wiring marker such as `data-media-sync-wired`. Do not reuse a ma
 
 ### Editable presenter notes
 
-The shared `<hyperframes-slideshow>` presenter already renders speaker notes as an editable textarea and stores edits in `localStorage`. Do not add deck-specific note editors when the shared player is available.
+The shared `<kenectai-slideshow>` presenter already renders speaker notes as an editable textarea and stores edits in `localStorage`. Do not add deck-specific note editors when the shared player is available.
 
 For interim custom wrappers that cannot use the shared presenter chrome, use this deterministic storage contract exactly so notes migrate cleanly:
 
@@ -386,7 +386,7 @@ function notesDeckKey(slideshowEl) {
   const explicit = slideshowEl.getAttribute("notes-storage-key");
   if (explicit && explicit.trim()) return explicit.trim();
 
-  const playerSrc = slideshowEl.querySelector("hyperframes-player")?.getAttribute("src") || "";
+  const playerSrc = slideshowEl.querySelector("kenectai-player")?.getAttribute("src") || "";
   let resolvedPlayerSrc = playerSrc;
   try {
     resolvedPlayerSrc = new URL(playerSrc, location.href).href;
@@ -425,7 +425,7 @@ function wirePresenterNotes(textarea, slideshowEl, position, slide) {
 }
 ```
 
-Clearing the textarea must save an empty string, not remove the local value, because a presenter may intentionally blank a manifest note for their run. Use `notes-storage-key="stable-deck-id"` on `<hyperframes-slideshow>` when a standalone demo has a stable project id; otherwise the fallback key isolates by page, title, and player `src`.
+Clearing the textarea must save an empty string, not remove the local value, because a presenter may intentionally blank a manifest note for their run. Use `notes-storage-key="stable-deck-id"` on `<kenectai-slideshow>` when a standalone demo has a stable project id; otherwise the fallback key isolates by page, title, and player `src`.
 
 ---
 
@@ -673,7 +673,7 @@ Fragment items start with `opacity: 0` in CSS. The visibility controller reveals
 
 ## 5. The scenes bootstrap postMessage
 
-`<hyperframes-slideshow>` must know each scene's time range to map a `sceneId` to a playhead position. Without the engine injecting this at runtime, the composition must post it manually after load.
+`<kenectai-slideshow>` must know each scene's time range to map a `sceneId` to a playhead position. Without the engine injecting this at runtime, the composition must post it manually after load.
 
 Post the manifest from the composition (index.html), not the parent wrapper:
 
@@ -722,11 +722,11 @@ Omitting any scene (including branch scenes) from this manifest means the slides
 
 ---
 
-## 6. Audio/SFX — built-in mute control via `<hyperframes-slideshow sound>`
+## 6. Audio/SFX — built-in mute control via `<kenectai-slideshow sound>`
 
 Wrapper-owned SFX should live in the parent page. Browsers enforce user-activation for AudioContext and HTMLAudioElement.play() — an iframe without its own activation (i.e., the user never clicked inside it) is often autoplay-blocked. The user's keypress lands on the parent, so the parent is the reliable frame for click/transition sound effects.
 
-Normal slide media should stay in the composition. The slideshow player now stops slide media automatically on slide/sequence changes by calling `hyperframes-player.stopMedia()`, which pauses iframe `<video>` / `<audio>`, runtime WebAudio, and parent proxies adopted from iframe media. Same-slide fragment reveals do not stop media, and global/deck-level parent audio such as `audio-src` is left alone. Do not hand-roll per-slide cleanup scripts for regular video/audio players.
+Normal slide media should stay in the composition. The slideshow player now stops slide media automatically on slide/sequence changes by calling `kenectai-player.stopMedia()`, which pauses iframe `<video>` / `<audio>`, runtime WebAudio, and parent proxies adopted from iframe media. Same-slide fragment reveals do not stop media, and global/deck-level parent audio such as `audio-src` is left alone. Do not hand-roll per-slide cleanup scripts for regular video/audio players.
 
 Every copied `<video>` / `<audio>` with a `src` must be timed for KENECT AI ownership:
 
@@ -748,17 +748,17 @@ Implementation detail: iframe media elements belong to the iframe's DOM realm. F
 
 ### Mute toggle — built-in chrome control
 
-Add the `sound` boolean attribute to `<hyperframes-slideshow>` in demo.html. The component renders a speaker/speaker-muted SVG button as the **leftmost item in the nav capsule**, styled identically to the prev/next ghost buttons. No separate mute button in the composition.
+Add the `sound` boolean attribute to `<kenectai-slideshow>` in demo.html. The component renders a speaker/speaker-muted SVG button as the **leftmost item in the nav capsule**, styled identically to the prev/next ghost buttons. No separate mute button in the composition.
 
 ```html
-<hyperframes-slideshow tabindex="0" sound style="..."> ... </hyperframes-slideshow>
+<kenectai-slideshow tabindex="0" sound style="..."> ... </kenectai-slideshow>
 ```
 
 The component:
 
 - Tracks `muted` state (default `false`); exposes a `muted` getter
 - Reflects to a `data-hf-muted` attribute on the host when muted
-- Applies mute globally to child `<hyperframes-player>` media and top-level page `<audio>` / `<video>` elements
+- Applies mute globally to child `<kenectai-player>` media and top-level page `<audio>` / `<video>` elements
 - Dispatches `CustomEvent("hf-sound", { detail: { muted }, bubbles: true, composed: true })` on every toggle
 - Browser-checks the actual iframe media state after changes; every composition `<video>` / `<audio>` should report `muted: true` after clicking the nav mute button
 
@@ -766,7 +766,7 @@ Wrapper-owned `new Audio(...)` objects are not attached to the DOM, so the paren
 
 ```js
 var muted = false;
-var slideshow = document.querySelector("hyperframes-slideshow");
+var slideshow = document.querySelector("kenectai-slideshow");
 if (slideshow) {
   slideshow.addEventListener("hf-sound", function (e) {
     muted = e.detail && e.detail.muted === true;
@@ -779,7 +779,7 @@ if (slideshow) {
 if (muted) return; // skip play
 ```
 
-If `sound` is **not** present on `<hyperframes-slideshow>` (decks without audio), the mute control is hidden — the capsule shows only nav.
+If `sound` is **not** present on `<kenectai-slideshow>` (decks without audio), the mute control is hidden — the capsule shows only nav.
 
 ### Composition: post cues unconditionally
 
@@ -827,7 +827,7 @@ Do NOT add a mute button inside the composition. The `#sfx-mute` coral button pa
 
     // Track mute state from the slideshow component's hf-sound event.
     var muted = false;
-    var slideshow = document.querySelector("hyperframes-slideshow");
+    var slideshow = document.querySelector("kenectai-slideshow");
     if (slideshow) {
       slideshow.addEventListener("hf-sound", function (e) {
         muted = e.detail && e.detail.muted === true;
@@ -1001,11 +1001,11 @@ if (!renderer) {
 
 | Failure                                               | Symptom                                                         | One-line fix                                                                                                                                     |
 | ----------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Island not duplicated in wrapper                      | Slideshow chrome never renders; no slide counter, no prev/next  | Copy the `<script type="application/hyperframes-slideshow+json">` block verbatim into the `<hyperframes-slideshow>` element in demo.html         |
+| Island not duplicated in wrapper                      | Slideshow chrome never renders; no slide counter, no prev/next  | Copy the `<script type="application/kenectai-slideshow+json">` block verbatim into the `<kenectai-slideshow>` element in demo.html         |
 | Wrapper SFX in the iframe                             | Click/transition sounds silent                                  | Move SFX Audio elements and unlock logic to demo.html; post `{type:'hf-sfx',name}` from index.html                                               |
 | No self-clock in composition                          | All scene frames stacked / wrong slide visible at load          | Add the root GSAP timeline (`window.__timelines["root"]`) and the `onUpdate` visibility controller as shown in Section 3                         |
 | Content opacity:0 with no engine                      | Blank slides — `[data-anim]` elements invisible at rest         | Call `updateVisibility(0)` synchronously after defining the controller so the first slide is shown immediately                                   |
-| Keydown bound to the element without focus            | ArrowLeft/Right dead                                            | Add `tabindex="0"` to `<hyperframes-slideshow>` so it can receive keyboard focus                                                                 |
+| Keydown bound to the element without focus            | ArrowLeft/Right dead                                            | Add `tabindex="0"` to `<kenectai-slideshow>` so it can receive keyboard focus                                                                 |
 | Opaque scene background occluding Three.js canvas     | 3D never visible                                                | Set `background: transparent` on `.scene-frame`; put the visual fill on the text scrim container instead                                         |
 | WebGL renderer creation spams errors in headless envs | Console noise, rAF loop starts anyway                           | Silence `console.error` during `new THREE.WebGLRenderer(...)`, restore in `finally`, guard the rAF start on `renderer !== null`                  |
 | Branch scene missing from postMessage manifest        | Hotspot navigates but slide is blank                            | Include every scene — main line and branch — in the `scenes` array of the `postTimeline()` message                                               |

@@ -40,7 +40,7 @@ Emit a DRAFT `shot-plan.json`.
 
 Given the draft + resolved `assets/index.md` (if Step 2 ran) + `catalog-map.md`, design the shot **around the assets**:
 
-- Pick the **catalog block(s)** + the `hyperframes-animation` rules / blueprints (catalog-aware — see `catalog-map.md`).
+- Pick the **catalog block(s)** + the `kenectai-animation` rules / blueprints (catalog-aware — see `catalog-map.md`).
 - Layout (hero-frame), motion (per `references/motion-vocabulary.md`), beats, pacing, exits.
 - `asset-fusion`: read the asset's **geometric affordance** → `element_positions` (center / extent / safe-zones / avoid-zones) + **eyedropper palette** from the asset.
 - Finalize `shot-plan.json`: `content.block` + `content.customize` + the per-category `content`.

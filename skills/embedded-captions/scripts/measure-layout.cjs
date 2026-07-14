@@ -18,13 +18,13 @@ const path = require("path");
 const fs = require("fs");
 const os = require("os");
 
-// Locate hyperframes' bundled puppeteer. render-and-composite.sh exports
-// HYPERFRAMES_ROOT; standalone we also try the in-repo path + ~/Downloads, and
+// Locate kenectai' bundled puppeteer. render-and-composite.sh exports
+// KENECT_ROOT; standalone we also try the in-repo path + ~/Downloads, and
 // accept ANY puppeteer@* the bun store holds (not a pinned version).
 const HF_ROOTS = [
-  process.env.HYPERFRAMES_ROOT,
+  process.env.KENECT_ROOT,
   path.resolve(__dirname, "../../.."), // skills/embedded-captions/scripts → repo root if in-repo
-  path.join(os.homedir(), "Downloads", "hyperframes"),
+  path.join(os.homedir(), "Downloads", "kenectai"),
 ].filter(Boolean);
 let puppeteer = null;
 for (const root of HF_ROOTS) {
@@ -54,12 +54,12 @@ for (const root of HF_ROOTS) {
 }
 if (!puppeteer) {
   console.error(
-    "[measure] could not locate puppeteer — set HYPERFRAMES_ROOT to a built hyperframes checkout",
+    "[measure] could not locate puppeteer — set KENECT_ROOT to a built kenectai checkout",
   );
   process.exit(3);
 }
 
-// Resolve hyperframes' bundled GSAP. The templates load GSAP from a CDN
+// Resolve kenectai' bundled GSAP. The templates load GSAP from a CDN
 // (cdn.jsdelivr.net), but in headless Chromium that request can be slow or
 // blocked — the page's inline `gsap.timeline()` then throws "gsap is not
 // defined" and the occlusion gate hard-fails. We inject this local copy on

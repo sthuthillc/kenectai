@@ -46,7 +46,7 @@ test("resolveNpxCliPath finds npx-cli beside node when npm_execpath is unset", (
 test("resolveSpawnCommand routes npx through node+npx-cli on win32 without shell:true", () => {
   const resolved = resolveSpawnCommand(
     "npx",
-    ["hyperframes", "tts", "C:\\Users\\Test User\\line.txt", "--voice", "am_michael"],
+    ["kenectai", "tts", "C:\\Users\\Test User\\line.txt", "--voice", "am_michael"],
     {},
     "win32",
     envWithNpxCli,
@@ -56,7 +56,7 @@ test("resolveSpawnCommand routes npx through node+npx-cli on win32 without shell
   assert.equal(resolved.cmd, envWithNpxCli.npm_node_execpath);
   assert.deepEqual(resolved.args, [
     npxCliPath,
-    "hyperframes",
+    "kenectai",
     "tts",
     "C:\\Users\\Test User\\line.txt",
     "--voice",
@@ -68,21 +68,21 @@ test("resolveSpawnCommand routes npx through node+npx-cli on win32 without shell
 test("resolveSpawnCommand preserves Windows npx shell metacharacters as argv data", () => {
   const resolved = resolveSpawnCommand(
     "npx",
-    ["hyperframes", "tts", "hello & calc"],
+    ["kenectai", "tts", "hello & calc"],
     {},
     "win32",
     envWithNpxCli,
     pathExists,
   );
   assert.ok(resolved);
-  assert.deepEqual(resolved.args, [npxCliPath, "hyperframes", "tts", "hello & calc"]);
+  assert.deepEqual(resolved.args, [npxCliPath, "kenectai", "tts", "hello & calc"]);
 });
 
 test("spawnP uses the resolved node+npx-cli command for npx on win32", async () => {
   const captured = [];
   await spawnP(
     "npx",
-    ["hyperframes", "tts"],
+    ["kenectai", "tts"],
     {},
     "win32",
     fakeSpawn(captured),
@@ -91,15 +91,15 @@ test("spawnP uses the resolved node+npx-cli command for npx on win32", async () 
   );
   assert.equal(captured.length, 1);
   assert.equal(captured[0].cmd, envWithNpxCli.npm_node_execpath);
-  assert.deepEqual(captured[0].args, [npxCliPath, "hyperframes", "tts"]);
+  assert.deepEqual(captured[0].args, [npxCliPath, "kenectai", "tts"]);
   assert.equal(captured[0].opts.shell, undefined);
 });
 
 test("spawnP does not enable shell for npx on darwin/linux", async () => {
   const captured = [];
-  await spawnP("npx", ["hyperframes", "tts"], {}, "darwin", fakeSpawn(captured));
+  await spawnP("npx", ["kenectai", "tts"], {}, "darwin", fakeSpawn(captured));
   assert.equal(captured[0].cmd, "npx");
-  assert.deepEqual(captured[0].args, ["hyperframes", "tts"]);
+  assert.deepEqual(captured[0].args, ["kenectai", "tts"]);
   assert.equal(captured[0].opts.shell, undefined);
 });
 
@@ -118,7 +118,7 @@ test("spawnP resolves npx beside node when npm_execpath is unset on win32", asyn
   const npxCli = "C:/Program Files/nodejs/node_modules/npm/bin/npx-cli.js";
   const result = await spawnP(
     "npx",
-    ["hyperframes", "tts"],
+    ["kenectai", "tts"],
     {},
     "win32",
     fakeSpawn(captured),
@@ -128,7 +128,7 @@ test("spawnP resolves npx beside node when npm_execpath is unset on win32", asyn
   assert.equal(result.status, 0);
   assert.equal(captured.length, 1);
   assert.equal(captured[0].cmd, node);
-  assert.deepEqual(captured[0].args, [npxCli, "hyperframes", "tts"]);
+  assert.deepEqual(captured[0].args, [npxCli, "kenectai", "tts"]);
 });
 
 test("spawnP warns once with an accurate diagnostic when neither npx path exists", async () => {
@@ -140,12 +140,12 @@ test("spawnP warns once with an accurate diagnostic when neither npx path exists
     const env = { npm_execpath: "C:/missing/npm-cli.js", npm_node_execpath: "C:/node/node.exe" };
     const missing = () => false;
     assert.equal(
-      (await spawnP("npx", ["hyperframes", "tts"], {}, "win32", fakeSpawn([]), env, missing))
+      (await spawnP("npx", ["kenectai", "tts"], {}, "win32", fakeSpawn([]), env, missing))
         .status,
       -1,
     );
     assert.equal(
-      (await spawnP("npx", ["hyperframes", "tts"], {}, "win32", fakeSpawn([]), env, missing))
+      (await spawnP("npx", ["kenectai", "tts"], {}, "win32", fakeSpawn([]), env, missing))
         .status,
       -1,
     );

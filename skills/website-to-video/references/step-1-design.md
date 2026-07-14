@@ -55,7 +55,7 @@ A flat lookup of the values sub-agents grab while composing beats. Two sub-secti
 
 List 8–12 colors with brand-specific names + HEX + role. Not generic ("Accent 1") but evocative ("Stripe Purple", "Deep Navy", "Slate Border"). The name carries meaning; "blue 4" doesn't.
 
-**For each text-on-surface combination the brand uses, compute the WCAG AA contrast ratio and flag failing pairings explicitly.** A real failure mode from prior runs: the brand's secondary-text color (`#68686A`) on its dark panel color (`#18191B`) = 3.16:1, which fails AA's 4.5:1 minimum. Sub-agents faithfully reproduced the brand's color choice and the result was unreadable. Encode the safe / unsafe pairings here so sub-agents pick text colors by surface context, not by "this is the brand's secondary text color." The `/hyperframes-contrast` skill audits ratios — run it before finalizing DESIGN.md.
+**For each text-on-surface combination the brand uses, compute the WCAG AA contrast ratio and flag failing pairings explicitly.** A real failure mode from prior runs: the brand's secondary-text color (`#68686A`) on its dark panel color (`#18191B`) = 3.16:1, which fails AA's 4.5:1 minimum. Sub-agents faithfully reproduced the brand's color choice and the result was unreadable. Encode the safe / unsafe pairings here so sub-agents pick text colors by surface context, not by "this is the brand's secondary text color." The `/kenectai-contrast` skill audits ratios — run it before finalizing DESIGN.md.
 
 **Example:**
 

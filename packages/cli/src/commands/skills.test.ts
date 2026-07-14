@@ -79,8 +79,8 @@ const DEFAULT_CHECK = {
   updateAvailable: true,
   summary: { current: 1, outdated: 1, missing: 2, coreMissing: 1, removed: 0 },
   skills: [
-    { name: "hyperframes", status: "outdated" },
-    { name: "hyperframes-core", status: "missing" },
+    { name: "kenectai", status: "outdated" },
+    { name: "kenectai-core", status: "missing" },
     { name: "embedded-captions", status: "current" },
     { name: "pr-to-video", status: "missing" },
   ],
@@ -95,7 +95,7 @@ vi.mock("../utils/skillsManifest.js", async (importOriginal) => {
   return {
     ...actual,
     checkSkills: vi.fn(async () => DEFAULT_CHECK),
-    hyperframesSkillNames: vi.fn(() => ["hyperframes"]),
+    kenectaiSkillNames: vi.fn(() => ["kenectai"]),
     presentSkills: vi.fn((names: readonly string[]) => [...names]),
     // Default: nothing left to prune after `runSkillsRemove`. The real
     // (unmocked) fs-level behavior is covered in skillsManifest.test.ts;
@@ -163,7 +163,7 @@ function skillFlagValues(args: ReadonlyArray<string>): string[] {
   return values;
 }
 
-describe("hyperframes skills", () => {
+describe("kenectai skills", () => {
   let prevExitCode: typeof process.exitCode;
 
   beforeEach(async () => {
@@ -215,7 +215,7 @@ describe("hyperframes skills", () => {
       [
         "skills",
         "add",
-        "https://github.com/heygen-com/hyperframes",
+        "https://github.com/sthuthillc/kenectai",
         "--skill",
         "*",
         ...GLOBAL_ARGS_TAIL,
@@ -228,7 +228,7 @@ describe("hyperframes skills", () => {
       [
         "skills",
         "add",
-        "https://github.com/heygen-com/hyperframes",
+        "https://github.com/sthuthillc/kenectai",
         "--skill",
         "*",
         ...GLOBAL_ARGS_TAIL,
@@ -245,7 +245,7 @@ describe("hyperframes skills", () => {
         "npx.cmd",
         "skills",
         "add",
-        "https://github.com/heygen-com/hyperframes",
+        "https://github.com/sthuthillc/kenectai",
         "--skill",
         "*",
         ...GLOBAL_ARGS_TAIL,
@@ -282,12 +282,12 @@ describe("hyperframes skills", () => {
     expect(process.exitCode).toBe(0);
     const args = state.spawnCalls[0]?.args ?? [];
     // straight from GitHub, globally, as a faithful clone
-    expect(args).toContain("https://github.com/heygen-com/hyperframes");
+    expect(args).toContain("https://github.com/sthuthillc/kenectai");
     expect(args).toContain("--global");
     expect(args).toContain("--copy");
     expect(args).toContain("--full-depth");
     // targeted per-name selection: the stale core skills only
-    expect(skillFlagValues(args).sort()).toEqual(["hyperframes", "hyperframes-core"]);
+    expect(skillFlagValues(args).sort()).toEqual(["kenectai", "kenectai-core"]);
     // never the full-set wildcard, and never a missing on-demand workflow
     expect(skillFlagValues(args)).not.toContain("*");
     expect(skillFlagValues(args)).not.toContain("pr-to-video");
@@ -306,7 +306,7 @@ describe("hyperframes skills", () => {
     vi.mocked(checkSkills).mockResolvedValueOnce({
       ...DEFAULT_CHECK,
       skills: [
-        { name: "hyperframes", status: "current" },
+        { name: "kenectai", status: "current" },
         { name: "embedded-captions", status: "outdated" }, // installed workflow → refresh
         { name: "pr-to-video", status: "missing" }, // not installed → leave for on-demand
       ],
@@ -325,7 +325,7 @@ describe("hyperframes skills", () => {
       ...DEFAULT_CHECK,
       updateAvailable: false,
       skills: [
-        { name: "hyperframes", status: "current" },
+        { name: "kenectai", status: "current" },
         { name: "pr-to-video", status: "missing" }, // on demand — not an update
       ],
     } as never);
@@ -393,7 +393,7 @@ describe("hyperframes skills", () => {
   // stale local `skills-manifest.json` a checkout might still have lying
   // around — see resolveLatestManifest's in-repo shortcut. Without this, a
   // skill retired upstream but still listed locally gets forced into
-  // `targets` (isCoreSkill pattern-matches `hyperframes-*`), `skills add`
+  // `targets` (isCoreSkill pattern-matches `kenectai-*`), `skills add`
   // silently declines to install something that doesn't exist canonically,
   // and the old code strict-threw on a "failure" that was never real.
   it("checks freshness against the canonical manifest, never a possibly-stale local one", async () => {
@@ -419,13 +419,13 @@ describe("hyperframes skills", () => {
       .mockResolvedValueOnce(DEFAULT_CHECK as never)
       .mockResolvedValueOnce({
         scope: "global",
-        skills: [{ name: "hyperframes-captions", status: "removed" }],
+        skills: [{ name: "kenectai-captions", status: "removed" }],
       } as never);
-    vi.mocked(pruneOrphanedLockEntries).mockReturnValueOnce(["hyperframes-captions"]);
+    vi.mocked(pruneOrphanedLockEntries).mockReturnValueOnce(["kenectai-captions"]);
 
     await runSkillsUpdate();
 
-    expect(pruneOrphanedLockEntries).toHaveBeenCalledWith(["hyperframes-captions"], "global");
+    expect(pruneOrphanedLockEntries).toHaveBeenCalledWith(["kenectai-captions"], "global");
     expect(process.exitCode).toBe(0);
   });
 
@@ -441,9 +441,9 @@ describe("hyperframes skills", () => {
       .mockResolvedValueOnce(DEFAULT_CHECK as never)
       .mockResolvedValueOnce({
         scope: "global",
-        skills: [{ name: "hyperframes-captions", status: "removed" }],
+        skills: [{ name: "kenectai-captions", status: "removed" }],
       } as never);
-    vi.mocked(pruneOrphanedLockEntries).mockReturnValueOnce(["hyperframes-captions"]);
+    vi.mocked(pruneOrphanedLockEntries).mockReturnValueOnce(["kenectai-captions"]);
 
     await runSkillsUpdate();
     expect(process.exitCode).toBe(0);
@@ -572,11 +572,11 @@ describe("hyperframes skills", () => {
   });
 });
 
-// The router contract: `/hyperframes` picks a workflow, then runs
-// `hyperframes skills update <workflow>` so the workflow's skill (and the core
+// The router contract: `/kenectai` picks a workflow, then runs
+// `kenectai skills update <workflow>` so the workflow's skill (and the core
 // set it depends on) is guaranteed present and current before the agent reads
 // it. Positional names are the ONLY way update expands an install.
-describe("hyperframes skills update <names>", () => {
+describe("kenectai skills update <names>", () => {
   let prevExitCode: typeof process.exitCode;
 
   beforeEach(async () => {
@@ -609,11 +609,7 @@ describe("hyperframes skills update <names>", () => {
     expect(args).toContain("add");
     // requested workflow (missing) + the stale core skills; embedded-captions
     // (installed + current) and the full-set wildcard must not appear.
-    expect(skillFlagValues(args).sort()).toEqual([
-      "hyperframes",
-      "hyperframes-core",
-      "pr-to-video",
-    ]);
+    expect(skillFlagValues(args).sort()).toEqual(["kenectai", "kenectai-core", "pr-to-video"]);
   });
 
   it("is a fast no-op (no install spawn) when everything is already current", async () => {
@@ -623,8 +619,8 @@ describe("hyperframes skills update <names>", () => {
       ...DEFAULT_CHECK,
       updateAvailable: false,
       skills: [
-        { name: "hyperframes", status: "current" },
-        { name: "hyperframes-core", status: "current" },
+        { name: "kenectai", status: "current" },
+        { name: "kenectai-core", status: "current" },
         { name: "pr-to-video", status: "current" },
       ],
     } as never);

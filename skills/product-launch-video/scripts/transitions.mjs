@@ -20,7 +20,7 @@
 // stamp the token-substituted GSAP template into __timelines["main"] at T =
 // incoming start. captions(2)/voice(10)/bgm(11)/sfx(20+) are never touched.
 //
-//   node transitions.mjs inject --storyboard ./STORYBOARD.md --hyperframes .
+//   node transitions.mjs inject --storyboard ./STORYBOARD.md --kenectai .
 //   node transitions.mjs verify --storyboard ./STORYBOARD.md --index ./index.html
 
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
@@ -98,9 +98,9 @@ function parseFrameClips(html, frameIds) {
 // the frame root and every non-audio timed element that reached the original
 // storyboard boundary. This also repairs worker files whose root was already
 // inflated while their ground/content clips still ended at the synced duration.
-function extendFrameTail(hyperframesDir, frame, baseDuration, targetDuration, die) {
+function extendFrameTail(kenectaiDir, frame, baseDuration, targetDuration, die) {
   if (!frame?.src || targetDuration <= baseDuration) return;
-  const framePath = join(hyperframesDir, frame.src);
+  const framePath = join(kenectaiDir, frame.src);
   let html;
   try {
     html = readFileSync(framePath, "utf8");
@@ -194,9 +194,9 @@ function buildGsap(rec, fromId, toId, dur, T, direction, canvasW, canvasH, die) 
 }
 
 function runInject(argv) {
-  const hyperframesDir = resolve(flag(argv, "hyperframes", "."));
-  const storyboardPath = resolve(flag(argv, "storyboard", join(hyperframesDir, "STORYBOARD.md")));
-  const indexPath = join(hyperframesDir, "index.html");
+  const kenectaiDir = resolve(flag(argv, "kenectai", "."));
+  const storyboardPath = resolve(flag(argv, "storyboard", join(kenectaiDir, "STORYBOARD.md")));
+  const indexPath = join(kenectaiDir, "index.html");
   const die = (msg) => {
     console.error(`✗ transitions inject: ${msg}`);
     process.exit(1);
@@ -236,9 +236,9 @@ function runInject(argv) {
     const T = r3(incoming.start); // cut = incoming start (frames tile)
     const baseDuration = outgoing.duration;
     outgoing.duration = r3(baseDuration + dur); // extend outgoing only
-    extendFrameTail(hyperframesDir, order[i - 1].frame, baseDuration, outgoing.duration, die);
+    extendFrameTail(kenectaiDir, order[i - 1].frame, baseDuration, outgoing.duration, die);
     padFrameInternalDuration(
-      hyperframesDir,
+      kenectaiDir,
       order[i - 1].frame.src,
       outgoing.id,
       outgoing.duration,
@@ -304,9 +304,9 @@ function runInject(argv) {
 }
 
 function runVerify(argv) {
-  const hyperframesDir = resolve(flag(argv, "hyperframes", "."));
-  const storyboardPath = resolve(flag(argv, "storyboard", join(hyperframesDir, "STORYBOARD.md")));
-  const indexPath = resolve(flag(argv, "index", join(hyperframesDir, "index.html")));
+  const kenectaiDir = resolve(flag(argv, "kenectai", "."));
+  const storyboardPath = resolve(flag(argv, "storyboard", join(kenectaiDir, "STORYBOARD.md")));
+  const indexPath = resolve(flag(argv, "index", join(kenectaiDir, "index.html")));
   const bail = (msg) => {
     console.error(`✗ transitions verify: ${msg}`);
     process.exit(1);

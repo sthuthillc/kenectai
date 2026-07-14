@@ -2,7 +2,7 @@
 
 You build one frame's composition file: `compositions/frames/<frame_id>.html`. Siblings build
 the other frames in parallel. The generic KENECT AI law — sub-composition shape, timeline
-registration, determinism, layout — lives in `hyperframes-core` (`references/sub-compositions.md`
+registration, determinism, layout — lives in `kenectai-core` (`references/sub-compositions.md`
 
 - `determinism-rules.md` + `data-attributes.md`); read it first. This file covers the
   music-specific part.
@@ -70,6 +70,6 @@ If your dispatch carries lint / validate feedback from a prior pass, address eac
 - Each group shows across its frame-local span and hides outside it; `t=0` renders; group→group cuts are 0ms; ids / uniforms namespaced.
 - Each group's text / palette match its block's `params` / `copy`, drawn from `frame.md`.
 - `phrase_flow` frames pace by phrase / energy.
-- Seek-safe per `hyperframes-core/determinism-rules.md` (derive variation from indices; swap text / numbers with `tl.set`).
+- Seek-safe per `kenectai-core/determinism-rules.md` (derive variation from indices; swap text / numbers with `tl.set`).
 - Asset clips: muted `<video>`, direct children of `#stage`, with `data-start` / `data-duration` / `data-track-index` and the crossfade hard-kill `tl.set`.
 - Final frame is intentional; hero text is readable and clear of the edges.

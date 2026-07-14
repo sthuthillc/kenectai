@@ -13,8 +13,8 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-export function padFrameInternalDuration(hyperframesDir, frameSrc, frameId, newDuration) {
-  const framePath = resolve(hyperframesDir, frameSrc);
+export function padFrameInternalDuration(kenectaiDir, frameSrc, frameId, newDuration) {
+  const framePath = resolve(kenectaiDir, frameSrc);
   let html;
   try {
     html = readFileSync(framePath, "utf8");

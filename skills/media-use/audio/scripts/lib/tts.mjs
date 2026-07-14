@@ -1,7 +1,7 @@
 // tts.mjs — multi-provider TTS for the media audio engine. The provider chain,
 // auto-detected from env, is the one documented in ../SKILL.md:
 //
-//   1. HeyGen (Starfish)  — $HEYGEN_API_KEY / $HYPERFRAMES_API_KEY / ~/.heygen.
+//   1. HeyGen (Starfish)  — $HEYGEN_API_KEY / $KENECT_API_KEY / ~/.heygen.
 //        Direct v3 REST (NOT `kenectai tts`, which in the published build is
 //        Kokoro-only and silently ignores a HeyGen key). Returns word_timestamps
 //        in the same call, so no separate transcribe pass.
@@ -248,7 +248,7 @@ export async function synthesizeOne({
   lang = "en",
   speed = 1.0,
   wavAbs,
-  hyperframesDir,
+  kenectaiDir,
 }) {
   if (provider === "heygen") return synthesizeHeygen({ text, voiceId, lang, speed, wavAbs });
   if (provider === "elevenlabs") {
@@ -275,10 +275,10 @@ export async function synthesizeOne({
     return synthResult(r, wavAbs, "elevenlabs (python)");
   }
   // kokoro — via the published CLI; --output is relative to the project dir.
-  const wavRel = relTo(hyperframesDir, wavAbs);
-  const args = ["hyperframes", "tts", writeTmpText(text), "--voice", voiceId, "--output", wavRel];
+  const wavRel = relTo(kenectaiDir, wavAbs);
+  const args = ["kenectai", "tts", writeTmpText(text), "--voice", voiceId, "--output", wavRel];
   if (lang !== "en") args.push("--lang", lang);
-  const r = await spawnP("npx", args, { cwd: hyperframesDir });
+  const r = await spawnP("npx", args, { cwd: kenectaiDir });
   return synthResult(r, wavAbs, "kokoro (npx @kenectai/cli tts)");
 }
 
@@ -346,12 +346,12 @@ export async function synthesizeHeygen({ text, voiceId, lang, speed, wavAbs }, d
 // ElevenLabs/Kokoro have no word timings — run Whisper over the wav. Returns the
 // flat [{id,text,start,end}] word array, or null. Each call uses a throwaway
 // --dir so parallel scenes don't collide on transcript.json.
-export async function transcribeWav({ wavRel, lang = "en", hyperframesDir }) {
+export async function transcribeWav({ wavRel, lang = "en", kenectaiDir }) {
   const model = lang === "en" ? "small.en" : "small";
   const td = mkdtempSync(join(tmpdir(), "hf-trans-"));
-  const args = ["hyperframes", "transcribe", wavRel, "--model", model, "--dir", td];
+  const args = ["kenectai", "transcribe", wavRel, "--model", model, "--dir", td];
   if (lang !== "en") args.push("--language", lang);
-  const r = await spawnP("npx", args, { cwd: hyperframesDir });
+  const r = await spawnP("npx", args, { cwd: kenectaiDir });
   let words = null;
   if (r.status === 0) {
     const src = join(td, "transcript.json");

@@ -9,11 +9,11 @@ it can be recreated. Local complement: `resolve --stats` (same questions, from
 
 ## Identity (see `scripts/lib/telemetry.mjs`)
 
-Events attribute to the **same PostHog person as the hyperframes CLI and studio**
-— the shared install id in `~/.hyperframes/config.json` (`anonymousId`), stitched
+Events attribute to the **same PostHog person as the kenectai CLI and studio**
+— the shared install id in `~/.kenectai/config.json` (`anonymousId`), stitched
 to the HeyGen account (`$identify`, `distinct_id` = email/username) on sign-in.
 Not fully anonymous by design; pseudonymous before sign-in, account-linked after.
-`$ip:null`. Opt-out: `HYPERFRAMES_NO_TELEMETRY=1` / `DO_NOT_TRACK=1` (also CI, dev).
+`$ip:null`. Opt-out: `KENECT_NO_TELEMETRY=1` / `DO_NOT_TRACK=1` (also CI, dev).
 
 ## Event catalog (verified present in-project)
 

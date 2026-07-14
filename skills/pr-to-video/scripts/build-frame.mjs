@@ -5,7 +5,7 @@
 // caption-skin.html, and self-validate. "Strict on brand" is deterministic, so it's
 // a script, not LLM hand-editing (which mis-copies hex / breaks keys).
 //
-//   node build-frame.mjs --preset capsule --hyperframes .
+//   node build-frame.mjs --preset capsule --kenectai .
 //     [--tokens capture/extracted/tokens.json]  [--preset-dir <abs path to frame-presets>]
 //
 // Remix rule — ONLY `colors:` values and `typography:` fontFamily change; keys,
@@ -53,11 +53,11 @@ const die = (m) => {
 };
 
 const presetName = flag("preset", null);
-const hyperframesDir = resolve(flag("hyperframes", "."));
+const kenectaiDir = resolve(flag("kenectai", "."));
 const presetDir = resolve(
-  flag("preset-dir", join(__dirname, "../../hyperframes-creative/frame-presets")),
+  flag("preset-dir", join(__dirname, "../../kenectai-creative/frame-presets")),
 );
-const tokensPath = resolve(flag("tokens", join(hyperframesDir, "capture/extracted/tokens.json")));
+const tokensPath = resolve(flag("tokens", join(kenectaiDir, "capture/extracted/tokens.json")));
 
 if (!presetName) die("--preset <name> is required");
 const presetFrame = join(presetDir, presetName, "FRAME.md");
@@ -452,8 +452,8 @@ if (brandFonts.length) {
   };
   const fams = [...new Set(brandFonts)];
   const srcDirs = [
-    join(hyperframesDir, "capture/assets/fonts"),
-    join(hyperframesDir, "assets/fonts"),
+    join(kenectaiDir, "capture/assets/fonts"),
+    join(kenectaiDir, "assets/fonts"),
   ].filter((d) => existsSync(d));
   const files = [];
   for (const d of srcDirs)
@@ -463,7 +463,7 @@ if (brandFonts.length) {
   const ranked = [...fams].sort((a, b) => norm(b).length - norm(a).length);
   const famOf = (f) =>
     fams.length === 1 ? fams[0] : ranked.find((x) => norm(f).includes(norm(x)));
-  const outDir = join(hyperframesDir, "assets/fonts");
+  const outDir = join(kenectaiDir, "assets/fonts");
   const faces = [];
   const stagedNames = new Set();
   for (const { d, f } of files) {
@@ -495,14 +495,14 @@ if (brandFonts.length) {
 }
 
 // ── write frame.md ────────────────────────────────────────────────────────────
-const framePath = join(hyperframesDir, "frame.md");
+const framePath = join(kenectaiDir, "frame.md");
 writeFileSync(framePath, md);
 
 // ── copy caption-skin.html ────────────────────────────────────────────────────
 const presetSkin = join(presetDir, presetName, "caption-skin.html");
 let skinCopied = false;
 if (existsSync(presetSkin)) {
-  const skinDir = join(hyperframesDir, ".hyperframes");
+  const skinDir = join(kenectaiDir, ".kenectai");
   mkdirSync(skinDir, { recursive: true });
   copyFileSync(presetSkin, join(skinDir, "caption-skin.html"));
   skinCopied = true;
@@ -528,6 +528,6 @@ if (li != null && lc != null && Math.abs(li - lc) < 40) {
 console.log(`✓ build-frame: ${presetName} → ${framePath}`);
 for (const s of summary) console.log(`  ${s}`);
 console.log(
-  `  .hyperframes/caption-skin.html: ${skinCopied ? "copied" : "preset ships none — captions will use the default pill"}`,
+  `  .kenectai/caption-skin.html: ${skinCopied ? "copied" : "preset ships none — captions will use the default pill"}`,
 );
 console.log(`  self-check: keys preserved, ink/canvas contrast ok ✓`);

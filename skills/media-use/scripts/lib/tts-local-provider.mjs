@@ -9,7 +9,7 @@ import { join } from "node:path";
 // so no key and no per-call charge. When Kokoro is not set up, this returns null
 // and the registry falls through to the HeyGen TTS upsell.
 //
-// Delegated to the hyperframes CLI (same as transcribe / remove-background), not
+// Delegated to the kenectai CLI (same as transcribe / remove-background), not
 // re-implemented here. ffprobe reads the duration back for the ledger.
 
 function probeDurationSeconds(file) {
@@ -28,7 +28,7 @@ function probeDurationSeconds(file) {
 
 export async function localTtsGenerate(intent, ctx) {
   const outPath = join(tmpdir(), `media-use-kokoro-${process.pid}-${Date.now()}.wav`);
-  const argv = ["hyperframes", "tts", intent, "--output", outPath];
+  const argv = ["kenectai", "tts", intent, "--output", outPath];
   if (ctx?.voice) argv.push("--voice", ctx.voice);
   if (ctx?.lang && ctx.lang !== "en") argv.push("--lang", ctx.lang);
   try {
@@ -44,7 +44,7 @@ export async function localTtsGenerate(intent, ctx) {
     // through to the PAID HeyGen TTS upsell when free local voice was one pip away.
     const out = `${err.stdout?.toString() ?? ""}${err.stderr?.toString() ?? ""}`.trim();
     const hint = /not installed|pip install kokoro/i.test(out)
-      ? "install for free on-device voice: pip install kokoro-onnx soundfile (or set HYPERFRAMES_PYTHON to a venv that has it)"
+      ? "install for free on-device voice: pip install kokoro-onnx soundfile (or set KENECT_PYTHON to a venv that has it)"
       : out.slice(-200) || err.message;
     console.error(`media-use: local voice not enabled (kokoro). ${hint}`);
     return null;

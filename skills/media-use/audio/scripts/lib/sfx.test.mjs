@@ -37,7 +37,7 @@ test("offline: copies and references a present bundled file", async () => {
     const { sfx, anomalies } = await resolveSfx({
       cues: [{ id: "s1", name: "whoosh" }],
       heygenOK: false,
-      hyperframesDir: projDir,
+      kenectaiDir: projDir,
       sfxLibDir: libDir,
     });
     assert.equal(sfx.length, 1);
@@ -58,7 +58,7 @@ test("offline: a matched-but-missing bundled file yields an anomaly and NO dangl
     const { sfx, anomalies } = await resolveSfx({
       cues: [{ id: "s1", name: "whoosh" }],
       heygenOK: false,
-      hyperframesDir: projDir,
+      kenectaiDir: projDir,
       sfxLibDir: libDir,
     });
     assert.equal(sfx.length, 0, "no dangling entry for a file that was never copied");

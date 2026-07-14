@@ -17,7 +17,7 @@ Score each item 1–5. If any item scores below 3, fix it before continuing. **D
 [ ] No mid-video dark frames              → state explicitly which frames (if any) are dark and why
 [ ] Brand assets actually visible         → for each beat, name which captured SVG / illustration / screenshot is on screen and at what timestamp. If a beat shows zero captured assets, justify why.
 [ ] Audio duration matches video ±0.5s    → paste both numbers
-[ ] animation-map.json generated          → run `node <repo-root>/skills/hyperframes/scripts/animation-map.mjs <project-dir>`; confirm every beat has events listed and no bbox/flag warnings
+[ ] animation-map.json generated          → run `node <repo-root>/skills/kenectai/scripts/animation-map.mjs <project-dir>`; confirm every beat has events listed and no bbox/flag warnings
 [ ] w2h-verify report                     → run `node <repo-root>/skills/website-to-video/scripts/w2h-verify.mjs <project-dir>`; paste the FULL output (every row, every percent) verbatim into your final user-facing summary — see "w2h-verify — the source of truth" below
 [ ] Audio + motion verification done      → see "Audio + motion verification" below; played the full preview, confirmed SFX lands at storyboard timestamps
 [ ] Critic sub-agent run                  → paste its single biggest quality gap finding, verbatim
@@ -85,7 +85,7 @@ The pre-fix-era flow took longer specifically because it caught these problems. 
 
 ## Lint + Validate + Snapshot
 
-The `hyperframes` skill (which you loaded in Step 5) already covers the mechanics of linting, validating, and snapshotting. Follow those rules — run lint, validate, take snapshots scaled to the video length (formula: `max(beats × 3, ceil(duration_seconds / 2))`). Fix errors. This step adds the **pipeline-specific verification** on top of that.
+The `kenectai` skill (which you loaded in Step 5) already covers the mechanics of linting, validating, and snapshotting. Follow those rules — run lint, validate, take snapshots scaled to the video length (formula: `max(beats × 3, ceil(duration_seconds / 2))`). Fix errors. This step adds the **pipeline-specific verification** on top of that.
 
 **Errors:** Fix ALL of them. These are real problems — missing timeline registration, broken scripts, missing assets.
 

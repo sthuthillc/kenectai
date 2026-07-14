@@ -131,7 +131,7 @@ flip the long axis: `split` becomes top/bottom, `pip` video bubble shrinks
 2. **No external URLs** — no Google Fonts CDN, no remote images; the
    skill provides Caveat / LXGW WenKai TC / Inter / Virgil locally
 3. **All `<style>` rules must be prefixed with `.card[data-card-id="..."]`** —
-   the hyperframes sanitizer auto-scopes them, but write them already-scoped to
+   the kenectai sanitizer auto-scopes them, but write them already-scoped to
    stay readable
 4. **No `on*=` inline handlers**
 5. **CSS variables for colors** when you want a card to switch theme cleanly;

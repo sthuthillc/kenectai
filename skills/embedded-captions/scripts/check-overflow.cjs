@@ -18,9 +18,9 @@ const fs = require("fs");
 const os = require("os");
 
 const HF_ROOTS = [
-  process.env.HYPERFRAMES_ROOT,
+  process.env.KENECT_ROOT,
   path.resolve(__dirname, "../../.."),
-  path.join(os.homedir(), "Downloads", "hyperframes"),
+  path.join(os.homedir(), "Downloads", "kenectai"),
 ].filter(Boolean);
 let puppeteer = null;
 for (const root of HF_ROOTS) {

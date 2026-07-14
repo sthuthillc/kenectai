@@ -1,31 +1,31 @@
 #!/usr/bin/env bash
-# End-to-end: hyperframes render + ffmpeg overlay matte → final.mp4
+# End-to-end: kenectai render + ffmpeg overlay matte → final.mp4
 #
 # Usage:
-#   bash render-and-composite.sh <project-dir> [hyperframes-repo-path]
+#   bash render-and-composite.sh <project-dir> [kenectai-repo-path]
 #
 # Env:
-#   HYPERFRAMES_ROOT  override the hyperframes checkout location
+#   KENECT_ROOT  override the kenectai checkout location
 
 set -euo pipefail
 
-PROJECT="${1:?usage: render-and-composite.sh <project-dir> [hyperframes-repo]}"
+PROJECT="${1:?usage: render-and-composite.sh <project-dir> [kenectai-repo]}"
 PROJECT="$(cd "$PROJECT" && pwd)"
 
-# Resolve the hyperframes checkout. Candidate order:
-#   1. arg 2   2. $HYPERFRAMES_ROOT   3. repo root if this skill ships INSIDE the
-#   hyperframes repo (skills/embedded-captions/scripts → ../../..)   4. ~/Downloads/hyperframes
+# Resolve the kenectai checkout. Candidate order:
+#   1. arg 2   2. $KENECT_ROOT   3. repo root if this skill ships INSIDE the
+#   kenectai repo (skills/embedded-captions/scripts → ../../..)   4. ~/Downloads/kenectai
 SKILL_SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HF=""
-for cand in "${2:-}" "${HYPERFRAMES_ROOT:-}" "$(cd "$SKILL_SCRIPT_DIR/../../.." 2>/dev/null && pwd)" "$HOME/Downloads/hyperframes"; do
+for cand in "${2:-}" "${KENECT_ROOT:-}" "$(cd "$SKILL_SCRIPT_DIR/../../.." 2>/dev/null && pwd)" "$HOME/Downloads/kenectai"; do
   if [[ -n "$cand" && -f "$cand/packages/cli/dist/cli.js" ]]; then HF="$cand"; break; fi
 done
 if [[ -z "$HF" ]]; then
-  echo "[render] hyperframes CLI not found. Set HYPERFRAMES_ROOT to your hyperframes" >&2
+  echo "[render] kenectai CLI not found. Set KENECT_ROOT to your kenectai" >&2
   echo "         checkout (needs packages/cli/dist/cli.js — 'bun install && bun run build')." >&2
   exit 1
 fi
-export HYPERFRAMES_ROOT="$HF"   # so the occlusion gate's measure-layout.cjs finds puppeteer too
+export KENECT_ROOT="$HF"   # so the occlusion gate's measure-layout.cjs finds puppeteer too
 HF_CLI="$HF/packages/cli/dist/cli.js"
 if [[ ! -d "$PROJECT/frames_fg" ]]; then
   echo "[render] missing matte frames at $PROJECT/frames_fg — run matte.cjs first" >&2
@@ -73,7 +73,7 @@ else
   fi
 fi
 
-# Embed template fonts BEFORE the gates + render. hyperframes only auto-supplies
+# Embed template fonts BEFORE the gates + render. kenectai only auto-supplies
 # its ~18 canonical fonts; every other template family (Anton, Bangers, VT323,
 # Press Start 2P, …) silently falls back to a generic font on a clean/offline/CI
 # machine — it only "looks right" locally when that font happens to be installed
@@ -235,7 +235,7 @@ cp "$PROJECT/index.html" "$HISTORY_DIR/index-${STAMP}.html"
 cp "$PROJECT/plan.json"  "$HISTORY_DIR/plan-${STAMP}.json" 2>/dev/null || true
 echo "[render] snapshot → history/index-${STAMP}.html"
 
-echo "[render] hyperframes render @ ${FPS}fps"
+echo "[render] kenectai render @ ${FPS}fps"
 
 # KENECT AI occasionally hangs on Chromium shutdown *after* the output file
 # is successfully written (seen multiple times on 15–30s clips). Without a
@@ -247,7 +247,7 @@ echo "[render] hyperframes render @ ${FPS}fps"
 # while healthy). ~1.5s per source frame, floor 240s.
 N_FRAMES="$(ls "$PROJECT/frames_fg" 2>/dev/null | wc -l | tr -d ' ')"
 HF_TIMEOUT_S="${HF_TIMEOUT_S:-$(( N_FRAMES * 3 / 2 > 240 ? N_FRAMES * 3 / 2 : 240 ))}"
-# hf_render_dir: render one hyperframes composition.
+# hf_render_dir: render one kenectai composition.
 # args: <output.mp4> <label> <project_dir>
 # watches for the Chromium-shutdown-hang; if output file exists and is >1MB
 # past timeout, treats as success and kills the zombie.
@@ -300,7 +300,7 @@ link_assets() {  # <project> <shadow>
   done
 }
 
-# Hybrid renders need 2 independent hyperframes passes. They share no state, so
+# Hybrid renders need 2 independent kenectai passes. They share no state, so
 # we run them in parallel (one in the main PROJECT, one in a shadow dir with
 # index_fg.html renamed to index.html). Saves ~half of the Chromium cost.
 FG_SHADOW=""
@@ -324,7 +324,7 @@ if [[ -f "$PROJECT/index_fg.html" ]]; then
   if (( BG_RC != 0 )); then echo "[render] bg render failed" >&2; exit 1; fi
   if (( FG_RC != 0 )); then echo "[render] fg render failed" >&2; exit 1; fi
 elif [[ -f "$PROJECT/rail.html" ]]; then
-  # Standard mode: TWO independent hyperframes passes (base = index.html with the
+  # Standard mode: TWO independent kenectai passes (base = index.html with the
   # embed; rail = rail.html transparent). Each renders from its own shadow dir (the
   # multiple-root ambiguity), and they share no state — run them IN PARALLEL like
   # the fg-hybrid above (~halves the Chromium wall time). The rail webm is consumed

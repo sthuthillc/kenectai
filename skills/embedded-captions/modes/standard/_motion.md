@@ -187,6 +187,6 @@ Default is **fade** unless a template names another. **Every exit ends at `opaci
 
 ## Pairs with HF skills
 
-- `hyperframes-gsap` — single paused timeline, transform aliases, ease list, the animated-property allowlist.
+- `kenectai-gsap` — single paused timeline, transform aliases, ease list, the animated-property allowlist.
 - `_anatomy.md` — where these four hooks attach.
-- `hyperframes-animation/rules/asr-keyword-glow.md` — the verbatim active-word envelope for the flow.
+- `kenectai-animation/rules/asr-keyword-glow.md` — the verbatim active-word envelope for the flow.

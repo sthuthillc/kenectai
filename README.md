@@ -39,9 +39,9 @@ npx skills add sthuthillc/kenectai --full-depth --yes
 
 Then ask for what you want in plain language:
 
-> Using `/hyperframes`, make a 15-second launch teaser for my landing page — bold typography, background music, end on the logo.
+> Using `/kenectai`, make a 15-second launch teaser for my landing page — bold typography, background music, end on the logo.
 
-The `/hyperframes` router reads intent and hands off to the right workflow: product promos, website tours, topic explainers, PR walkthroughs, caption/overlay passes on real footage, beat-synced music videos, slide decks, or freeform motion graphics.
+The `/kenectai` router reads intent and hands off to the right workflow: product promos, website tours, topic explainers, PR walkthroughs, caption/overlay passes on real footage, beat-synced music videos, slide decks, or freeform motion graphics.
 
 ### 2 · Drive the CLI yourself
 
@@ -96,7 +96,7 @@ The cloud path is upload → render → signed download URL, with `--no-wait` an
 ## The skills, at a glance
 
 <details>
-<summary><b>Creation workflows</b> — routed automatically by <code>/hyperframes</code></summary>
+<summary><b>Creation workflows</b> — routed automatically by <code>/kenectai</code></summary>
 
 | Skill | Turns … into video |
 | --- | --- |
@@ -110,14 +110,14 @@ The cloud path is upload → render → signed download URL, with `--no-wait` an
 | `/music-to-video` | A music track → beat-synced lyric/slideshow/promo |
 | `/slideshow` | An outline → navigable presentation deck |
 | `/general-video` | Anything else → freeform composition |
-| `/remotion-to-hyperframes` | An existing Remotion project → KENECT AI HTML |
+| `/remotion-to-kenectai` | An existing Remotion project → KENECT AI HTML |
 
 </details>
 
 <details>
 <summary><b>Domain skills</b> — loaded on demand by the workflows</summary>
 
-`/hyperframes-core` (the composition contract) · `/hyperframes-animation` (motion rules + 7 runtime adapters) · `/hyperframes-keyframes` (seek-safe keyframing) · `/hyperframes-creative` (design direction) · `/media-use` (audio/image/asset resolution) · `/hyperframes-cli` (dev loop) · `/hyperframes-registry` (catalog install/authoring) · `/figma` (Figma import)
+`/kenectai-core` (the composition contract) · `/kenectai-animation` (motion rules + 7 runtime adapters) · `/kenectai-keyframes` (seek-safe keyframing) · `/kenectai-creative` (design direction) · `/media-use` (audio/image/asset resolution) · `/kenectai-cli` (dev loop) · `/kenectai-registry` (catalog install/authoring) · `/figma` (storyboard sections → reconstructed motion, plus Motion animations and shaders)
 
 </details>
 

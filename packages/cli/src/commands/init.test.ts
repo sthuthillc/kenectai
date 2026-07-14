@@ -20,7 +20,7 @@ function runInit(args: string[]): { status: number; stdout: string; stderr: stri
     timeout: 30_000,
     // The `--skip-skills` flag is neutered (see init.ts); the GitHub skills check
     // is opted out only via this env var, so tests stay offline and fast.
-    env: { ...process.env, HYPERFRAMES_SKIP_SKILLS: "1" },
+    env: { ...process.env, KENECT_SKIP_SKILLS: "1" },
   });
   return {
     status: res.status ?? -1,
@@ -44,7 +44,7 @@ function expectScaffoldedScripts(target: string): void {
   expect(Object.keys(pkg.scripts ?? {}).sort()).toEqual(["check", "dev", "publish", "render"]);
 }
 
-describe("hyperframes init flag rename", () => {
+describe("kenectai init flag rename", () => {
   it("--example blank scaffolds a bundled project with npm scripts", () => {
     const dir = mkdtempSync(join(tmpdir(), "hf-init-test-"));
     const target = join(dir, "proj");

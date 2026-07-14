@@ -167,8 +167,8 @@
         var vars = Object.assign(
           {},
           defaults,
-          window.__hyperframes && window.__hyperframes.getVariables
-            ? window.__hyperframes.getVariables()
+          window.__kenectai && window.__kenectai.getVariables
+            ? window.__kenectai.getVariables()
             : {},
         );
         var N = Math.max(2, parseInt(vars.tiles, 10) || 12);

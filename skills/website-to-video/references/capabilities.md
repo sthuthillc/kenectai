@@ -33,14 +33,14 @@ For implementation patterns (working code), see `techniques.md`. This file is th
 | 12  | **Registry (51 blocks + 4 components + 8 examples)** | Social overlays (8), showcases (5), data viz (2), logo branding (1), 3D/VFX (7), shader transitions (14), transition galleries (13), components (grain, shimmer, pixelate, texture-mask), 8 starter examples                    |
 | 13  | **CLI (25 commands)**                                | init, add, catalog, play, preview, publish, render (MP4/WebM/MOV/PNG, HDR, GPU, parallel), lint, validate, inspect, snapshot, capture, tts, transcribe, remove-background, doctor, and more                                     |
 | 14  | **Linter (60+ rules)**                               | Core, media, GSAP, captions, composition, adapters, textures, fonts — plus async URL checks                                                                                                                                     |
-| 15  | **Player web component**                             | `<hyperframes-player>` with seek/play/pause API, 11 events, media mirror, runtime auto-inject                                                                                                                                   |
+| 15  | **Player web component**                             | `<kenectai-player>` with seek/play/pause API, 11 events, media mirror, runtime auto-inject                                                                                                                                   |
 | 16  | **Engine + Producer**                                | MP4/WebM/MOV/PNG output, HDR (PQ/HLG), transparency (ProRes), GPU encoding (NVENC/VideoToolbox/VAAPI/QSV), parallel rendering, video frame injection                                                                            |
 | 17  | **Studio (in-browser NLE)**                          | Timeline editor, drag/resize clips, asset browser, render queue, lint modal, caption editor, element picker                                                                                                                     |
 | 18  | **Determinism guarantees**                           | No Math.random, no Date.now, no RAF, no repeat:-1, no callbacks, synchronous construction                                                                                                                                       |
 | 19  | **Variables / parameterization**                     | Typed runtime variables (string, color, number, boolean, enum), CLI override, strict validation                                                                                                                                 |
 | 20  | **Sub-compositions**                                 | External file or inline template, auto-nested timelines, scoped CSS, scoped scripts, variable inheritance                                                                                                                       |
 | 21  | **Global runtime APIs**                              | 25+ window globals for timelines, player, variables, adapters, hooks                                                                                                                                                            |
-| 22  | **Skills (16)**                                      | hyperframes, cli, media, registry, contrast, animation-map, website-to-video, remotion, gsap, animejs, css-animations, waapi, lottie, three, tailwind, contribute-catalog                                                       |
+| 22  | **Skills (16)**                                      | kenectai, cli, media, registry, contrast, animation-map, website-to-video, remotion, gsap, animejs, css-animations, waapi, lottie, three, tailwind, contribute-catalog                                                       |
 | 23  | **References (15 docs)**                             | transitions, css-patterns, dynamic-techniques, motion-principles, typography, narration, captions, audio-reactive, transcript-guide, techniques, beat-direction, visual-styles, and more                                        |
 | 24  | **Documentation (27 pages)**                         | Guides + package docs covering rendering, HDR, html-in-canvas, performance, prompting, troubleshooting, etc.                                                                                                                    |
 
@@ -62,7 +62,7 @@ For implementation patterns (working code), see `techniques.md`. This file is th
 - Framework auto-nests sub-comp timelines
 - Duration sourced from `data-duration` on root, not from GSAP length
 - Synchronous timeline construction required (no async/await/setTimeout)
-- Looping handled by `<hyperframes-player>`, not GSAP `repeat: -1`
+- Looping handled by `<kenectai-player>`, not GSAP `repeat: -1`
 
 ### Resolution presets
 
@@ -86,7 +86,7 @@ The runtime registers these adapters in order; each implements `discover()` / `s
 ### GSAP plugins (documented patterns)
 
 - **TextPlugin** — text mutation in `tl.call` (skills/gsap/references/effects.md)
-- **MotionPathPlugin** — curve-constrained tweens (skills/hyperframes/references/techniques.md)
+- **MotionPathPlugin** — curve-constrained tweens (skills/kenectai/references/techniques.md)
 - **CustomEase** — bezier eases imported from Remotion-style timing
 - **ScrollTrigger / Flip / SplitText / Draggable / Inertia / Observer / ScrambleText / CustomWiggle / CustomBounce / ScrollSmoother / GSDevTools** — work natively if loaded and tweens are on the registered paused timeline, but no special KENECT AI adapter
 - Producer injects ScrollTrigger CDN automatically when needed (packages/producer/src/services/htmlCompiler.ts)
@@ -142,7 +142,7 @@ You can also **write custom GLSL shaders from scratch** — any fragment shader 
 
 ## 4. CSS scene transitions (30+ named patterns)
 
-Documented in skills/hyperframes/references/transitions/ across 14 category files. All GSAP-driven, none mixable with shader transitions in same composition.
+Documented in skills/kenectai/references/transitions/ across 14 category files. All GSAP-driven, none mixable with shader transitions in same composition.
 
 ### By category
 
@@ -230,19 +230,19 @@ Documented in skills/hyperframes/references/transitions/ across 14 category file
 
 | Source                                     | Format   | Granularity       |
 | ------------------------------------------ | -------- | ----------------- |
-| hyperframes transcribe (local whisper.cpp) | JSON     | Word-level        |
+| kenectai transcribe (local whisper.cpp) | JSON     | Word-level        |
 | OpenAI verbose_json                        | JSON     | Word-level        |
 | Groq verbose_json                          | JSON     | Word-level        |
 | Manually authored                          | JSON     | Word-level        |
 | SRT                                        | text     | Phrase-level only |
 | VTT                                        | text     | Phrase-level only |
-| hyperframes tts → transcribe chain         | wav→json | Word-level        |
+| kenectai tts → transcribe chain         | wav→json | Word-level        |
 
 ### Positioning helpers
 
 - Landscape: bottom 80–120px centered
 - Portrait: ~600–700px from bottom
-- `window.__hyperframes.fitTextFontSize(text, {maxWidth, fontFamily, fontWeight})` for dynamic sizing
+- `window.__kenectai.fitTextFontSize(text, {maxWidth, fontFamily, fontWeight})` for dynamic sizing
 
 ---
 
@@ -287,7 +287,7 @@ EQ bars, spectrum UI, generic waveforms, note clip-art, generic particles, rainb
 
 ## 8. HTML-in-canvas
 
-Documented in skills/hyperframes/references/html-in-canvas-patterns.md (504 lines).
+Documented in skills/kenectai/references/html-in-canvas-patterns.md (504 lines).
 
 ### Capability
 
@@ -335,7 +335,7 @@ window.addEventListener("hf-seek", (e) => {
 
 ## 10. SVG / canvas / variable fonts (other authored techniques)
 
-(From skills/hyperframes/references/techniques.md)
+(From skills/kenectai/references/techniques.md)
 
 | Technique                | Mechanism                                                                            |
 | ------------------------ | ------------------------------------------------------------------------------------ |
@@ -436,7 +436,7 @@ Install: `npx @kenectai/cli add <name>` for blocks/components, `kenectai init <d
 | catalog           | Browse registry blocks/components (--type, --tag, --json, --human-friendly picker)                                                                                                                                                                                                                                       |
 | play              | Lightweight browser player (default port 3003)                                                                                                                                                                                                                                                                           |
 | preview           | Studio dev server (port 3002; --force-new, --list, --kill-all)                                                                                                                                                                                                                                                           |
-| publish           | Zip + upload + return hyperframes.dev URL                                                                                                                                                                                                                                                                                |
+| publish           | Zip + upload + return app.kenectai.com URL                                                                                                                                                                                                                                                                                |
 | render            | Render to MP4 / WebM / MOV / PNG sequence — flags: --fps 24/30/60, --quality draft/standard/high, --workers, --docker, --hdr/--sdr, --crf, --video-bitrate, --gpu, --browser-gpu auto/software/hardware, --max-concurrent-renders 1-10, --variables JSON, --variables-file PATH, --strict-variables, --resolution preset |
 | lint              | Static lint (--json, --verbose)                                                                                                                                                                                                                                                                                          |
 | validate          | Bundle + headless Chrome + console + contrast (--contrast default true, --timeout 3000)                                                                                                                                                                                                                                  |
@@ -485,7 +485,7 @@ Plus async URL checks (`lintMediaUrls`, `lintScriptUrls` — HEAD probes).
 
 ---
 
-## 15. Player — `<hyperframes-player>` web component
+## 15. Player — `<kenectai-player>` web component
 
 ### Attributes
 
@@ -599,7 +599,7 @@ Compositions support typed runtime variables:
 ></html>
 ```
 
-Access via `window.__hyperframes.getVariables()`. Override at render time:
+Access via `window.__kenectai.getVariables()`. Override at render time:
 
 ```bash
 npx @kenectai/cli render --variables '{"brand":"Linear","primary":"#5E6AD2"}'
@@ -634,7 +634,7 @@ Each sub-comp:
 
 | Global                                | Purpose                                                                 |
 | ------------------------------------- | ----------------------------------------------------------------------- |
-| `__hyperframes`                       | `{ fitTextFontSize, getVariables }`                                     |
+| `__kenectai`                       | `{ fitTextFontSize, getVariables }`                                     |
 | `__timelines`                         | `{ [compositionId]: GsapTimeline }`                                     |
 | `__player`                            | Internal player bridge: seek, play, pause, renderSeek, etc.             |
 | `__clipManifest`                      | Computed clip array (for Studio)                                        |
@@ -665,14 +665,14 @@ Control bridge actions: play, pause, seek, set-muted, set-playback-rate, enable-
 
 | Skill                     | Purpose                                                                 |
 | ------------------------- | ----------------------------------------------------------------------- |
-| hyperframes               | Core framework skill (composition authoring)                            |
-| hyperframes-cli           | All CLI commands as an agent skill                                      |
+| kenectai               | Core framework skill (composition authoring)                            |
+| kenectai-cli           | All CLI commands as an agent skill                                      |
 | media-use                 | Media workflows (TTS, transcribe, captions integration)                 |
-| hyperframes-registry      | Installing blocks/components                                            |
-| hyperframes-contrast      | WCAG audit (scripts/contrast-report.mjs)                                |
-| hyperframes-animation-map | Per-tween bbox + flags report                                           |
+| kenectai-registry      | Installing blocks/components                                            |
+| kenectai-contrast      | WCAG audit (scripts/contrast-report.mjs)                                |
+| kenectai-animation-map | Per-tween bbox + flags report                                           |
 | website-to-video          | Capture → DESIGN.md → brief → storyboard+script → VO → build → validate |
-| remotion-to-hyperframes   | Migration patterns + API map + CustomEase                               |
+| remotion-to-kenectai   | Migration patterns + API map + CustomEase                               |
 | gsap                      | GSAP API + plugins reference                                            |
 | animejs                   | Anime.js v4 patterns                                                    |
 | css-animations            | @keyframes patterns                                                     |
@@ -684,7 +684,7 @@ Control bridge actions: play, pause, seek, set-muted, set-playback-rate, enable-
 
 ---
 
-## 23. References inventory (skills/hyperframes/references/)
+## 23. References inventory (skills/kenectai/references/)
 
 16 reference docs covering:
 
@@ -708,6 +708,6 @@ Control bridge actions: play, pause, seek, set-muted, set-playback-rate, enable-
 
 27 mdx pages in docs/guides/ and docs/packages/:
 
-**Guides:** 4k-rendering, claude-design, common-mistakes, deploy, gsap-animation, hdr, html-in-canvas, hyperframes-vs-remotion, open-design, performance, prompting, remove-background, rendering, timeline-editing, troubleshooting, video-editor-cheatsheet, website-to-video, etc.
+**Guides:** 4k-rendering, claude-design, common-mistakes, deploy, gsap-animation, hdr, html-in-canvas, kenectai-vs-remotion, open-design, performance, prompting, remove-background, rendering, timeline-editing, troubleshooting, video-editor-cheatsheet, website-to-video, etc.
 
 **Packages:** cli.mdx, core.mdx, engine.mdx, player.mdx, producer.mdx, studio.mdx

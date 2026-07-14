@@ -39,7 +39,7 @@ describe("figma storyboard doctrine pins", () => {
     ["CLAUDE.md", ["CLAUDE.md"]],
     ["README.md", ["README.md"]],
     ["docs/guides/skills.mdx", ["docs", "guides", "skills.mdx"]],
-    ["skills/hyperframes/SKILL.md", ["skills", "hyperframes", "SKILL.md"]],
+    ["skills/kenectai/SKILL.md", ["skills", "kenectai", "SKILL.md"]],
   ];
 
   it("every catalog surface says reconstructed motion, never animatics", () => {

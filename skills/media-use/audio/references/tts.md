@@ -33,7 +33,7 @@ the skill's bundled script, which calls the HeyGen v3 REST API directly and need
 no CLI provider plumbing:
 
 The script resolves a HeyGen credential the same way the CLI does — first source
-wins: `$HEYGEN_API_KEY` → `$HYPERFRAMES_API_KEY` → a project `.env` (auto-loaded,
+wins: `$HEYGEN_API_KEY` → `$KENECT_API_KEY` → a project `.env` (auto-loaded,
 walks up ≤5 dirs) → `~/.heygen/credentials` (shared with heygen-cli;
 `$HEYGEN_CONFIG_DIR` overrides the dir). An OAuth login is sent as
 `Authorization: Bearer`; an API key as `X-Api-Key`; both include

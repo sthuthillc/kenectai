@@ -7,7 +7,7 @@ KENECT AI ships AI agent skills via [vercel-labs/skills](https://github.com/verc
 
 The skills split into three groups:
 
-- **Router** — the entry skill that picks a workflow for any "make me a…" request — usually a video, but also a navigable deck (`/slideshow`) or a composition port (`/remotion-to-hyperframes`).
+- **Router** — the entry skill that picks a workflow for any "make me a…" request — usually a video, but also a navigable deck (`/slideshow`) or a composition port (`/remotion-to-kenectai`).
 - **Creation workflows** — one per input shape (URL, PR, music track, captions, etc.). Each owns its task end-to-end: project setup, gated steps, and the final deliverable. Read by the router; you can also invoke directly if you already know which one fits.
 - **Domain skills** — atomic capabilities (animation, media, CLI, registry) the workflows compose against; they never own the end-to-end task. Load one when you need that specific layer.
 
@@ -33,10 +33,10 @@ The skills split into three groups:
     npx skills add sthuthillc/kenectai --skill <name> --full-depth
     ```
 
-    Pass the bare skill name (no leading `/`) — e.g. `--skill hyperframes-animation`. Useful when you want a single capability without the full set.
+    Pass the bare skill name (no leading `/`) — e.g. `--skill kenectai-animation`. Useful when you want a single capability without the full set.
   </Step>
-  <Step title="Read /hyperframes first">
-    Once installed, invoke `/hyperframes` in your agent. It's the capability map for everything below and routes "make me a…" intent — a video, a deck, or a composition port — to the right creation workflow based on your input.
+  <Step title="Read /kenectai first">
+    Once installed, invoke `/kenectai` in your agent. It's the capability map for everything below and routes "make me a…" intent — a video, a deck, or a composition port — to the right creation workflow based on your input.
   </Step>
 </Steps>
 
@@ -48,8 +48,8 @@ The skills split into three groups:
 
 After the first install, skills stay lean and current on their own — nothing re-pulls the full set behind your back:
 
-- **Core set** — the `/hyperframes` router, the `hyperframes-*` domain skills, and `/media-use`. `npx @kenectai/cli init` (which every creation workflow runs when scaffolding) refreshes the core set plus anything else you already have installed. It never _expands_ the install — workflow skills you haven't used are not pulled — and re-running `init` on an up-to-date machine is a no-op. Offline (or rate-limited) it degrades gracefully and never hard-fails.
-- **Workflow skills** (and `/figma`) — install **on demand**, when their workflow is first triggered. The `/hyperframes` router runs `npx @kenectai/cli skills update <workflow>` before entering a workflow, so the one it routes to is guaranteed present.
+- **Core set** — the `/kenectai` router, the `kenectai-*` domain skills, and `/media-use`. `npx @kenectai/cli init` (which every creation workflow runs when scaffolding) refreshes the core set plus anything else you already have installed. It never _expands_ the install — workflow skills you haven't used are not pulled — and re-running `init` on an up-to-date machine is a no-op. Offline (or rate-limited) it degrades gracefully and never hard-fails.
+- **Workflow skills** (and `/figma`) — install **on demand**, when their workflow is first triggered. The `/kenectai` router runs `npx @kenectai/cli skills update <workflow>` before entering a workflow, so the one it routes to is guaranteed present.
 
 Check or refresh manually anytime:
 
@@ -64,15 +64,15 @@ npx @kenectai/cli skills                # install the full set explicitly
 
 ## Router
 
-The single entry point. Read `/hyperframes` before invoking anything else — it knows what's available and which workflow fits your request.
+The single entry point. Read `/kenectai` before invoking anything else — it knows what's available and which workflow fits your request.
 
 | Skill          | Use when                                                                                                                                                                                                  |
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/hyperframes` | **Read first** for any request to make / create / edit / animate / render a video, animation, or motion graphic. Capability map for the domain skills and intent router for the creation workflows below. |
+| `/kenectai` | **Read first** for any request to make / create / edit / animate / render a video, animation, or motion graphic. Capability map for the domain skills and intent router for the creation workflows below. |
 
 ## Creation workflows
 
-One workflow per input shape. The router (`/hyperframes`) picks one of these for you — but you can invoke them directly when you already know which fits.
+One workflow per input shape. The router (`/kenectai`) picks one of these for you — but you can invoke them directly when you already know which fits.
 
 | Skill                      | Use when                                                                                                                                                                                |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -86,7 +86,7 @@ One workflow per input shape. The router (`/hyperframes`) picks one of these for
 | `/music-to-video`          | A **music track** (audio file, or video to pull audio from) → a **beat-synced** video — lyric, slideshow, or kinetic promo; music drives pacing.                                        |
 | `/slideshow`               | A **presentation / pitch deck / interactive deck** — discrete slides, fragment reveals, branching, hotspot navigation, presenter mode. Output is a navigable deck, not a rendered video. |
 | `/general-video`           | **Anything else** — longer or multi-scene pieces, brand / sizzle reel, title card, static loop, freeform composition. Input- and length-agnostic fallback.                              |
-| `/remotion-to-hyperframes` | **Porting an existing Remotion** (React) composition's source to KENECT AI HTML. One-way migration, not creation.                                                                     |
+| `/remotion-to-kenectai` | **Porting an existing Remotion** (React) composition's source to KENECT AI HTML. One-way migration, not creation.                                                                     |
 
 ## Domain skills (loaded on demand)
 
@@ -94,18 +94,18 @@ Atomic capabilities the creation workflows compose against — pull one when you
 
 | Skill                    | Covers                                                                                                                                                                |
 | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/hyperframes-core`      | The composition contract — `data-*` timing attributes, `class="clip"`, tracks, sub-compositions, variables, framework-owned media playback, determinism rules.        |
-| `/hyperframes-animation` | All animation knowledge — atomic motion rules, scene blueprints, transitions, runtime adapters (GSAP / Lottie / Three.js / Anime.js / CSS / WAAPI / TypeGPU).         |
-| `/hyperframes-keyframes` | Seek-safe keyframe authoring across runtimes — GSAP timelines, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw, 3D depth — plus `kenectai keyframes` diagnostics for rendered motion. |
-| `/hyperframes-creative`  | Non-animation creative direction — `frame.md` / `design.md`, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns.            |
+| `/kenectai-core`      | The composition contract — `data-*` timing attributes, `class="clip"`, tracks, sub-compositions, variables, framework-owned media playback, determinism rules.        |
+| `/kenectai-animation` | All animation knowledge — atomic motion rules, scene blueprints, transitions, runtime adapters (GSAP / Lottie / Three.js / Anime.js / CSS / WAAPI / TypeGPU).         |
+| `/kenectai-keyframes` | Seek-safe keyframe authoring across runtimes — GSAP timelines, CSS keyframes, Anime.js, WAAPI, FLIP, paths, masks, SVG morph/draw, 3D depth — plus `kenectai keyframes` diagnostics for rendered motion. |
+| `/kenectai-creative`  | Non-animation creative direction — `frame.md` / `design.md`, palettes, typography, narration, beat planning, audio-reactive visuals, composition patterns.            |
 | `/media-use`             | The media OS — resolve any media need (BGM, SFX, image, icon, logo, voice, color grade, LUT) into a frozen local file or paste-ready block + ledger record, generate via TTS/music/image models when the catalog misses, transcribe, caption, remove backgrounds, and reuse assets across projects. One shared audio engine + manifest tracking.          |
-| `/hyperframes-cli`       | CLI dev loop — `init`, `lint`, `check`, `snapshot`, `preview`, `render`, `publish`, `doctor`, plus AWS Lambda cloud rendering (`lambda deploy / render / progress / destroy / policies`). |
-| `/hyperframes-registry`  | Install and wire registry blocks and components into compositions via `kenectai add`. Authoring a new block or component to contribute upstream.                   |
+| `/kenectai-cli`       | CLI dev loop — `init`, `lint`, `check`, `snapshot`, `preview`, `render`, `publish`, `doctor`, plus AWS Lambda cloud rendering (`lambda deploy / render / progress / destroy / policies`). |
+| `/kenectai-registry`  | Install and wire registry blocks and components into compositions via `kenectai add`. Authoring a new block or component to contribute upstream.                   |
 | `/figma`                 | Import Figma assets, tokens, components, and storyboard sections → reconstructed motion (frames read as states, not slides) (REST/CLI) plus Motion animations (MCP) and shaders (MCP source / native export) into a composition. |
 
 ## Source of truth
 
-The one-line "use when" for each skill comes from its own `SKILL.md` frontmatter `description:` field in the [hyperframes repo](https://github.com/sthuthillc/kenectai/tree/main/skills). The same catalog lives in the [README's `## Skills` section](https://github.com/sthuthillc/kenectai#skills) and the repo `CLAUDE.md`; all three surfaces are kept in sync when a skill is added or renamed.
+The one-line "use when" for each skill comes from its own `SKILL.md` frontmatter `description:` field in the [kenectai repo](https://github.com/sthuthillc/kenectai/tree/main/skills). The same catalog lives in the [README's `## Skills` section](https://github.com/sthuthillc/kenectai#skills) and the repo `CLAUDE.md`; all three surfaces are kept in sync when a skill is added or renamed.
 
 ## Next steps
 

@@ -7,18 +7,18 @@ import { heygenAuthHeaders, heygenAuthMethod } from "./heygen.mjs";
 
 function withCleanHeygenEnv(fn) {
   const previousApiKey = process.env.HEYGEN_API_KEY;
-  const previousHyperframesApiKey = process.env.HYPERFRAMES_API_KEY;
+  const previousKenectApiKey = process.env.KENECT_API_KEY;
   const previousConfigDir = process.env.HEYGEN_CONFIG_DIR;
   try {
     delete process.env.HEYGEN_API_KEY;
-    delete process.env.HYPERFRAMES_API_KEY;
+    delete process.env.KENECT_API_KEY;
     delete process.env.HEYGEN_CONFIG_DIR;
     return fn();
   } finally {
     if (previousApiKey === undefined) delete process.env.HEYGEN_API_KEY;
     else process.env.HEYGEN_API_KEY = previousApiKey;
-    if (previousHyperframesApiKey === undefined) delete process.env.HYPERFRAMES_API_KEY;
-    else process.env.HYPERFRAMES_API_KEY = previousHyperframesApiKey;
+    if (previousKenectApiKey === undefined) delete process.env.KENECT_API_KEY;
+    else process.env.KENECT_API_KEY = previousKenectApiKey;
     if (previousConfigDir === undefined) delete process.env.HEYGEN_CONFIG_DIR;
     else process.env.HEYGEN_CONFIG_DIR = previousConfigDir;
   }
