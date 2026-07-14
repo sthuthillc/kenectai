@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://docs.kenectai.com/schema/hyperframes.json",
+  "$id": "https://docs.kenectai.com/schema/kenectai.json",
   "title": "KENECT AI Project Config",
-  "description": "Per-project configuration for a KENECT AI project (hyperframes.json). Tells `kenectai add` which registry to pull items from and where to drop them in the project tree. Created by `kenectai init`; users may edit it to point at custom registries or reshape their project layout.",
+  "description": "Per-project configuration for a KENECT AI project (kenectai.json). Tells `kenectai add` which registry to pull items from and where to drop them in the project tree. Created by `kenectai init`; users may edit it to point at custom registries or reshape their project layout.",
   "type": "object",
   "required": ["registry", "paths"],
   "additionalProperties": false,
@@ -10,7 +10,7 @@
     "$schema": {
       "type": "string",
       "format": "uri",
-      "description": "JSON Schema URL — https://docs.kenectai.com/schema/hyperframes.json."
+      "description": "JSON Schema URL — https://docs.kenectai.com/schema/kenectai.json."
     },
     "registry": {
       "type": "string",

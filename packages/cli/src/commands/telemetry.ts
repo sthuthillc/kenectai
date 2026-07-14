@@ -32,7 +32,7 @@ function runStatus(): void {
   console.log(`  ${c.dim("Commands:")}   ${c.bold(String(config.commandCount))}`);
   console.log();
   console.log(`  ${c.dim("Disable:")}    ${c.accent("hyperframes telemetry disable")}`);
-  console.log(`  ${c.dim("Env var:")}    ${c.accent("HYPERFRAMES_NO_TELEMETRY=1")}`);
+  console.log(`  ${c.dim("Env var:")}    ${c.accent("KENECT_NO_TELEMETRY=1")}`);
   console.log();
 }
 
@@ -70,7 +70,7 @@ ${c.bold("WHAT WE DON'T COLLECT:")}
   ${c.dim("\u2022")} IP addresses (discarded by our analytics provider)
   ${c.dim("\u2022")} Any personally identifiable information
 
-${c.dim("You can also set")} ${c.accent("HYPERFRAMES_NO_TELEMETRY=1")} ${c.dim("to disable.")}
+${c.dim("You can also set")} ${c.accent("KENECT_NO_TELEMETRY=1")} ${c.dim("to disable.")}
 `);
       return;
     }

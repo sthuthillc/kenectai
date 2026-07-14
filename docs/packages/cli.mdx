@@ -215,7 +215,7 @@ This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_
     | `--no-clipboard` | Skip copying the include snippet to the clipboard |
     | `--json` | Print a machine-readable summary (written files + snippet) to stdout |
 
-    `add` reads [`hyperframes.json`](#hyperframes-json) at the project root to know which registry to pull from and where to drop files. If the file is missing but the directory looks like a KENECT AI project (has `index.html`), a default `hyperframes.json` is written the first time you run `add`.
+    `add` reads [`kenectai.json`](#kenectaijson) at the project root to know which registry to pull from and where to drop files. If the file is missing but the directory looks like a KENECT AI project (has `index.html`), a default `kenectai.json` is written the first time you run `add`.
 
     Output for a block or component is a set of files plus a **paste snippet** — the `<iframe>` tag (for blocks) or the fragment path (for components) to include in your host composition. The snippet is copied to the clipboard by default; add `--no-clipboard` for CI or headless environments.
 
@@ -471,7 +471,7 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     ### `publish`
 
-    Upload the project and get back a stable `hyperframes.dev` URL:
+    Upload the project and get back a stable `app.kenectai.com` URL:
 
     ```bash
     npx @kenectai/cli publish [dir]
@@ -482,11 +482,11 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     |------|-------------|
     | `--yes` | Skip the confirmation prompt |
 
-    `publish` zips the current project, uploads it to the HyperFrames publish backend, and prints a stable `hyperframes.dev` URL for that stored project.
+    `publish` zips the current project, uploads it to the KENECT AI publish backend (`api.kenectai.com`), and prints a stable `app.kenectai.com` URL for that stored project.
 
-    The printed URL already includes the claim token, so opening it on `hyperframes.dev` lets the intended user claim the uploaded project and continue editing in the web app.
+    The printed URL already includes the claim token, so opening it lets the intended user claim the uploaded project and continue editing in the web app.
 
-    This flow does not keep a local preview server alive and does not open a tunnel. The published URL resolves to the persisted project stored by HeyGen, so it keeps working after the CLI process exits.
+    This flow does not keep a local preview server alive and does not open a tunnel. The published URL resolves to the persisted project stored by KENECT AI, so it keeps working after the CLI process exits.
 
     ### `lint`
 
@@ -937,7 +937,7 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
     npx @kenectai/cli telemetry status
     ```
 
-    Telemetry collects command names, render performance, render checkpoint/error names, aggregate browser diagnostic counts, browser initialization duration and tween count, aggregate video extraction workload counts (such as extracted frame count and VFR preflight count), example choices, and system info — including a coarse environment fingerprint (OS, kernel string, CPU/memory shape, sandbox runtime such as gVisor or Docker, and the *name* of a coding agent driving the CLI when one is detected, e.g. `claude_code` / `codex` / `cursor`). The agent name is derived from the existence of well-known environment variables; their values are never read. Telemetry redacts local paths and URL query strings from render error/checkpoint messages and does **not** collect project names, video content, or environment variable values. It collects no personally identifiable information until you sign in: when you authenticate with `kenectai auth login`, your HeyGen account email (or your username, if your account has no email) is linked to your usage so CLI activity can be associated with your account (and your prior anonymous usage is stitched to it). Nothing else personal is collected, and this only happens after you choose to sign in. Disable all telemetry with `HYPERFRAMES_NO_TELEMETRY=1` or the command above.
+    Telemetry collects command names, render performance, render checkpoint/error names, aggregate browser diagnostic counts, browser initialization duration and tween count, aggregate video extraction workload counts (such as extracted frame count and VFR preflight count), example choices, and system info — including a coarse environment fingerprint (OS, kernel string, CPU/memory shape, sandbox runtime such as gVisor or Docker, and the *name* of a coding agent driving the CLI when one is detected, e.g. `claude_code` / `codex` / `cursor`). The agent name is derived from the existence of well-known environment variables; their values are never read. Telemetry redacts local paths and URL query strings from render error/checkpoint messages and does **not** collect project names, video content, or environment variable values. It collects no personally identifiable information until you sign in: when you authenticate with `kenectai auth login`, your account email (or your username, if your account has no email) is linked to your usage so CLI activity can be associated with your account (and your prior anonymous usage is stitched to it). Nothing else personal is collected, and this only happens after you choose to sign in. Disable all telemetry with `KENECT_NO_TELEMETRY=1` or the command above.
 
     See [Feedback Collection](/guides/feedback) for how the periodic post-render prompt and Studio feedback bar work, what data they collect, and how to opt out.
 
@@ -986,11 +986,10 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
   </Tab>
 </Tabs>
 
-## hyperframes auth
+## kenectai auth
 
-Sign in to HeyGen and manage credentials. Credentials are stored in
-`~/.kenectai/credentials` (mode `0600`) and are **shared with the
-`heygen` CLI** — sign in with one and the other picks up the session.
+Sign in and manage your KENECT AI credentials. Credentials are stored in
+`~/.kenectai/credentials` (mode `0600`).
 
 Resolution order (first match wins):
 
@@ -1002,7 +1001,7 @@ Resolution order (first match wins):
 
 #### `auth login --api-key`
 
-Save a HeyGen API key. The key is verified against `GET /v3/users/me`
+Save a KENECT AI API key. The key is verified against `GET /v3/users/me`
 before the command reports success; a rejected key is not left on disk.
 
 ```bash
@@ -1010,7 +1009,7 @@ before the command reports success; a rejected key is not left on disk.
 kenectai auth login --api-key
 
 # Pipe a key from stdin (CI-friendly)
-echo "$KENECT_API_KEY" | hyperframes auth login --api-key
+echo "$KENECT_API_KEY" | kenectai auth login --api-key
 ```
 
 #### `auth status`
@@ -1045,9 +1044,9 @@ kenectai auth logout --yes            # skip the confirmation prompt
 
 For the keys other capabilities use — ElevenLabs and Gemini for voice/music fallback, OpenRouter/Gemini for capture — and how the skills prioritize them, see [Authentication & API keys](/guides/authentication).
 
-## hyperframes cloud
+## kenectai cloud
 
-Render a KENECT AI composition on HeyGen's hosted cloud — no local Chrome, no local ffmpeg, no AWS to manage. Sign in once with `kenectai auth login` and the same credential drives every `cloud` subcommand.
+Render a KENECT AI composition on KENECT AI's hosted cloud — no local Chrome, no local ffmpeg, no AWS to manage. Sign in once with `kenectai auth login` and the same credential drives every `cloud` subcommand.
 
 ```bash
 kenectai auth login                          # one-time
@@ -1156,13 +1155,13 @@ kenectai cloud delete hfr_abc123 --no-confirm --json
 
 - `kenectai render` (local): fastest iteration loop. Use during composition authoring.
 - `kenectai lambda render`: bring-your-own-AWS distributed rendering. Use when you've already invested in AWS and want chunked parallelism on your own account.
-- `kenectai cloud render`: zero-infra option. HeyGen runs the render; you pay per credit. Use when you don't want to manage Chrome/ffmpeg/AWS locally.
+- `kenectai cloud render`: zero-infra option. KENECT AI runs the render; you pay per credit. Use when you don't want to manage Chrome/ffmpeg/AWS locally.
 
 ### Auth + base URL
 
 `cloud` reuses the credential resolved by `kenectai auth status`. Override the API base for staging tests with `KENECT_API_URL` (default `https://api.kenectai.com`).
 
-## hyperframes lambda
+## kenectai lambda
 
 Deploy KENECT AI distributed rendering to AWS Lambda and drive renders from your laptop or CI.
 
@@ -1311,7 +1310,7 @@ The actions list is deliberately broad (`Resource: "*"`) because CloudFormation 
 
 `kenectai lambda` keeps per-stack metadata under `<cwd>/.hyperframes/lambda-stack-<name>.json` so the verbs don't need to call `describe-stacks` every time. Commit the file to a repo or `.gitignore` it depending on your workflow — it contains the bucket name, state-machine ARN, and region, none of which are secrets but all of which are AWS-account-identifying.
 
-## hyperframes cloudrun
+## kenectai cloudrun
 
 The Google Cloud counterpart to `kenectai lambda`. Deploys KENECT AI distributed rendering to Cloud Run + Cloud Workflows and drives renders from your laptop or CI. Wraps the `@kenectai/gcp-cloud-run` SDK plus `terraform` (the module shipped with the package) and `gcloud` / Cloud Build for the image.
 
@@ -1360,13 +1359,13 @@ Same trade-off as `lambda`, on Google Cloud instead of AWS. Pick `cloudrun` when
 
 `kenectai cloudrun` caches the deployed stack's coordinates under `~/.hyperframes/cloudrun-state.json` (project id, region, bucket, service URL, workflow id) so `render` / `progress` / `destroy` don't need them re-passed. None are secrets, but all are GCP-project-identifying.
 
-## hyperframes.json
+## kenectai.json
 
-`kenectai init` writes a `hyperframes.json` file at the root of every new project. `kenectai add` reads it to know which registry to pull items from and where to drop them. Edit the file (or delete it to fall back to defaults) to reshape your project layout or point at a custom registry.
+`kenectai init` writes a `kenectai.json` file at the root of every new project. `kenectai add` reads it to know which registry to pull items from and where to drop them. Edit the file (or delete it to fall back to defaults) to reshape your project layout or point at a custom registry.
 
 ```json
 {
-  "$schema": "https://docs.kenectai.com/schema/hyperframes.json",
+  "$schema": "https://docs.kenectai.com/schema/kenectai.json",
   "registry": "https://raw.githubusercontent.com/sthuthillc/kenectai/main/registry",
   "paths": {
     "blocks": "compositions",

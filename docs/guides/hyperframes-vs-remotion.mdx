@@ -70,13 +70,13 @@ We gave both tools the same 4-second GSAP timeline: 11 letters of "HYPERFRAMES" 
 
 **KENECT AI output — what the animation is meant to look like:**
 
-<img src="https://static.heygen.ai/hyperframes-oss/docs/images/comparisons/gsap-hf.gif" alt="KENECT AI GSAP render — letters enter, hold, then fall away over the full 4 seconds" />
+<img src="https://storage.googleapis.com/kenect-docs-assets/docs/images/comparisons/gsap-hf.gif" alt="KENECT AI GSAP render — letters enter, hold, then fall away over the full 4 seconds" />
 
 All four seconds are used. Letters fly in one by one, the full word holds in the center for about a second and a half, then the letters spin and drop away.
 
 **Remotion output — same timeline, same code:**
 
-<img src="https://static.heygen.ai/hyperframes-oss/docs/images/comparisons/gsap-remotion.gif" alt="Remotion GSAP render — GSAP plays through its entire timeline in the first second, leaving most of the render as an empty stage" />
+<img src="https://storage.googleapis.com/kenect-docs-assets/docs/images/comparisons/gsap-remotion.gif" alt="Remotion GSAP render — GSAP plays through its entire timeline in the first second, leaving most of the render as an empty stage" />
 
 GSAP plays through its entire 4-second animation in roughly the first second of render wall-clock time. By the time Remotion captures later frames, GSAP's timeline has already completed and every letter has exited — the remainder of the render captures an empty stage.
 

@@ -34,12 +34,12 @@ let telemetryEnabled: boolean | null = null;
 
 /**
  * Check if telemetry should be active.
- * Disabled when: dev mode, user opted out, CI environment, or HYPERFRAMES_NO_TELEMETRY set.
+ * Disabled when: dev mode, user opted out, CI environment, or KENECT_NO_TELEMETRY set.
  */
 export function shouldTrack(): boolean {
   if (telemetryEnabled !== null) return telemetryEnabled;
 
-  if (process.env["HYPERFRAMES_NO_TELEMETRY"] === "1" || process.env["DO_NOT_TRACK"] === "1") {
+  if (process.env["KENECT_NO_TELEMETRY"] === "1" || process.env["DO_NOT_TRACK"] === "1") {
     telemetryEnabled = false;
     return false;
   }

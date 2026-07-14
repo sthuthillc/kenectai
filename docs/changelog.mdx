@@ -11,29 +11,52 @@ Recent KENECT AI releases, including user-facing features, fixes, and migration 
 <Update
   label="KENECT AI v0.7.55"
   description="Released - 2026-07-14"
-  tags={["Release", "Build", "Media Use", "Kenect Api"]}
+  tags={["Release", "Producer", "CLI", "Media"]}
 >
-Completes the KENECT AI rebrand of the agent skills and internal build tooling, adds a native Gemini TTS provider, and rewrites the Lyria background-music generator onto Google's current batch API.
+Completes the KENECT AI rebrand of the agent skills and internal build tooling, adds a native Gemini TTS provider and rewrites the Lyria background-music generator onto Google's current batch API, and carries forward upstream parallel-streaming and rendering fixes.
 
-## Breaking Changes
+## KENECT AI
 
-- Rename the 8 hyperframes-* skill directories to kenectai-* ([4fdcb1e](https://github.com/sthuthillc/kenectai/commit/4fdcb1e39c8b34792fa9a28a4e16fe7ad83fbcef))
+- **Skills:** Renamed all 8 `hyperframes-*` skill directories to `kenectai-*` (e.g. `/kenectai-core`, `/kenectai-animation`) and fixed the CLI's default skill-install source, core-skill detection, and a CI env-var mismatch that had silently broken the skip-skills opt-out.
+- **Media:** Added a Gemini native TTS provider (`gemini-3.1-flash-tts-preview`) to the audio engine's provider chain, and rewrote the Lyria background-music recipe off the old live-streaming session API onto the batch `lyria-3-pro-preview` Interactions API — dropping the `google-genai` pip dependency entirely.
+- **Build:** Renamed the internal `hyperframe-runtime` build/test npm scripts and script files to `kenectai-runtime`, and fixed 12 packages' stale `repository.url` still pointing at the upstream HeyGen repo.
 
 ## Features
 
-- **Media Use:** Wire Gemini native TTS and Lyria 3 batch music generation ([6b38de7](https://github.com/sthuthillc/kenectai/commit/6b38de734f53319916bdeb169087bbe4604c6347))
-- **Kenect Api:** Upgrade to gemini-3.5-flash + thinkingLevel ([fb2e508](https://github.com/sthuthillc/kenectai/commit/fb2e5089262dab3a93b6f5a52abbf9e1c0cbaee2))
-- **Kenect Api:** Gemini agent backend + two hosted products ([6e263b9](https://github.com/sthuthillc/kenectai/commit/6e263b9bd766621bbad02d1ed4b2e00f1921e2b9))
-- **Web:** Live brand-hero composition embedded via hyperframes-player ([9931c16](https://github.com/sthuthillc/kenectai/commit/9931c1613ca2675ad35f1308ce36c46b64d73f2d))
-- **Brand:** Adopt the Kenect AI logo across every surface ([0444058](https://github.com/sthuthillc/kenectai/commit/0444058363365730a1a93583606b0b827f2a8a45))
-- **Web:** Serve a KENECT AI landing page on the apex domain ([bc46701](https://github.com/sthuthillc/kenectai/commit/bc46701676eb55a8b6015c2c61416b9705d44c2e))
-- **Studio:** Rebrand visible Studio UI to KENECT AI ([e67c8a5](https://github.com/sthuthillc/kenectai/commit/e67c8a5b5eafe6a5c6cb54cc1c0f90de82932fa8))
+- **Producer:** Emit eligible_off cohort-sizing signal when parallel-stream router is off ([591235f05](https://github.com/heygen-com/hyperframes/commit/591235f05c22fdd31134bd54c33edf8fdbc96702))
+- **CLI:** Capture_parallel_stream telemetry on success and failure paths ([88c21ccd8](https://github.com/heygen-com/hyperframes/commit/88c21ccd8b07f18a405ddda895aa503b15be6967))
+- **Producer:** Route eligible parallel screenshot/beginframe renders to streaming ([6d5a7711f](https://github.com/heygen-com/hyperframes/commit/6d5a7711f36e534bc0870ebf175ce4ad7e814a07))
+- **Producer:** Routing predicate for non-drawelement parallel streaming ([2416e9bcd](https://github.com/heygen-com/hyperframes/commit/2416e9bcd5888420b311a5ee0ae9a52105c5b61d))
+- **CLI:** Preview --browser-no-gpu for gpu-unstable hosts ([3dc08c086](https://github.com/heygen-com/hyperframes/commit/3dc08c0868ba053b9bf8b8739947d0864137dac2))
+- **Producer:** Surface beginframe no-damage reuse counters in perf summary and telemetry ([dde3afb72](https://github.com/heygen-com/hyperframes/commit/dde3afb72e1b4aa8b1b83e0d342b2c636d2d62ad))
 
 ## Fixes
 
-- **Build:** Rename internal hyperframe-runtime build/test tooling to kenectai; fix stale repository.url ([1f41fb7](https://github.com/sthuthillc/kenectai/commit/1f41fb7d2d1f185e3223c8670cb873821a8834d2))
+- **Media:** Resolve npx without npm_execpath on Windows ([eba9ff9ae](https://github.com/heygen-com/hyperframes/commit/eba9ff9ae1e41e9fd4209aca455cc3d8635118b5), [#2236](https://github.com/heygen-com/hyperframes/pull/2236))
+- **Render:** Scale timeout for long video encodes ([9d91c2a23](https://github.com/heygen-com/hyperframes/commit/9d91c2a23ee129add021fecea7e3e4d3cbab1f94), [#2244](https://github.com/heygen-com/hyperframes/pull/2244))
+- **Skills:** Hold frame content through transitions ([687883124](https://github.com/heygen-com/hyperframes/commit/687883124f5b0e81c0a15d6a0dd5d7058d756337), [#2235](https://github.com/heygen-com/hyperframes/pull/2235))
+- **Lint:** Honor data-no-timeline on root compositions ([c18391b98](https://github.com/heygen-com/hyperframes/commit/c18391b98c63e3b13c7cb1fd7e0a71478ce94a56), [#2228](https://github.com/heygen-com/hyperframes/pull/2228))
+- **Producer:** Render -c \<scene\> uses the scene's own duration, not the project's ([6b7431bf4](https://github.com/heygen-com/hyperframes/commit/6b7431bf45a2bb93ff1836897e4e606fd8986339), [#2087](https://github.com/heygen-com/hyperframes/pull/2087))
+- **Hyperframes Media:** Surface the real reason a TTS line failed [P2] ([9c98c1e82](https://github.com/heygen-com/hyperframes/commit/9c98c1e82ab6b27cd6b5025254539a7f7026b1b3), [#1999](https://github.com/heygen-com/hyperframes/pull/1999))
+- **CLI:** Surface video frame-injection failures in snapshot output ([edc0a1624](https://github.com/heygen-com/hyperframes/commit/edc0a1624b484cce48b2421110a09dbd8218ae4b))
+- **Shader Transitions:** Pin clones to their measured live box, not composition size ([b3d851d65](https://github.com/heygen-com/hyperframes/commit/b3d851d65af7e2d37e50b93983c6e721532224f9))
+- **CLI:** Fold canvas pixel hashes into the frozen-sweep fingerprint ([3338a6f35](https://github.com/heygen-com/hyperframes/commit/3338a6f3503e98249b48555303c69c515f40595b))
+- **Shader Transitions:** Pin cloned scene roots to composition dimensions ([9e3ff630f](https://github.com/heygen-com/hyperframes/commit/9e3ff630f4b6bccd3995b64800429bde0078a841))
+- **Producer:** Disk-headroom gate before hdr raw frame pre-extraction ([9a1afce43](https://github.com/heygen-com/hyperframes/commit/9a1afce43c7cbca5deb2875b10bb468dd73cc338))
+- **CLI:** Settle post-seek font subset loads before audit screenshots ([8bbd5a649](https://github.com/heygen-com/hyperframes/commit/8bbd5a6496f0ac491e5b48956bb1d692dd7dcea5))
+- **Engine:** Densify drawelement self-verify with parallel worker count ([1b95af8bb](https://github.com/heygen-com/hyperframes/commit/1b95af8bbba63e914e99eef29f56ec71f9a13551))
+- **Producer:** Withhold de parallel router below a machine ram floor ([ddcd380a1](https://github.com/heygen-com/hyperframes/commit/ddcd380a1a2bb563f238f9145413e3533a4bb501))
+- **Producer,engine:** Gate drawelement on ancestor background-image + tail verify sample ([0809c9851](https://github.com/heygen-com/hyperframes/commit/0809c98518a9009de2822d3d23ca485afd01fee7))
 
-[View the full commit range](https://github.com/sthuthillc/kenectai/compare/v0.7.54...v0.7.55).
+## Docs & Examples
+
+- **Producer:** Note attempt-scoped beginFrameReuse semantics after partial retries ([2cd8a750e](https://github.com/heygen-com/hyperframes/commit/2cd8a750e3b5d9f6ff86f2f99fd16b2699b32a36))
+
+## Internal
+
+- **Producer:** Stop coupling the hdr disk-headroom gate's control flow to error-string matching ([c20e20235](https://github.com/heygen-com/hyperframes/commit/c20e20235b01fccec65e12f2d86775930e7e5553))
+
+[View the full commit range](https://github.com/heygen-com/hyperframes/compare/v0.7.53...v0.7.55).
 </Update>
 
 <Update
