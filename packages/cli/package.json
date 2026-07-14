@@ -1,6 +1,6 @@
 {
   "name": "@kenectai/cli",
-  "version": "0.7.56",
+  "version": "0.7.57",
   "description": "KENECT AI CLI — create, preview, and render HTML video compositions",
   "repository": {
     "type": "git",

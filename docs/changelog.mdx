@@ -9,6 +9,20 @@ Recent KENECT AI releases, including user-facing features, fixes, and migration 
 {/* New release entries are prepended by `bun run changelog:draft <version> --write`. */}
 
 <Update
+  label="KENECT AI v0.7.57"
+  description="Released - 2026-07-14"
+  tags={["Release", "CLI"]}
+>
+Fixes `npm install @kenectai/cli` (and `npx`) failing entirely — not just background-removal — whenever the optional `onnxruntime-node` native binary can't be fetched, which happens on any network-restricted install (corporate proxy, sandboxed CI, sandboxed agent environments). It's now a proper optional dependency, matching how the code already treated it at runtime.
+
+## Fixes
+
+- **CLI:** Make onnxruntime-node an optional dependency ([df0a1dc](https://github.com/sthuthillc/kenectai/commit/df0a1dcf1136a91ac6159039f6c0cd48906978de))
+
+[View the full commit range](https://github.com/sthuthillc/kenectai/compare/v0.7.56...v0.7.57).
+</Update>
+
+<Update
   label="KENECT AI v0.7.56"
   description="Released - 2026-07-14"
   tags={["Release", "CLI", "Docs"]}
