@@ -8,7 +8,10 @@ import {
   ffprobeDuration,
   synthesizeOne,
   synthesizeHeygen,
+  synthesizeGemini,
   synthResult,
+  pickProvider,
+  pcm16ToWav,
 } from "./tts.mjs";
 
 test("parseFfmpegDurationBanner reads ffmpeg's stderr Duration line", () => {
@@ -154,4 +157,139 @@ test("synthResult names a non-zero subprocess exit", () => {
   const res = synthResult({ status: 2 }, "/tmp/none.wav", "kokoro (npx @kenectai/cli tts)");
   assert.equal(res.ok, false);
   assert.match(res.error, /kokoro .* exited with status 2/);
+});
+
+test("synthesizeGemini reports a missing API key without touching the network", async () => {
+  const res = await synthesizeGemini(
+    { text: "hi", voiceId: "Kore", lang: "en", wavAbs: "/tmp/x.wav" },
+    { apiKey: "", fetch: () => assert.fail("must not fetch without a key") },
+  );
+  assert.equal(res.ok, false);
+  assert.match(res.error, /no Gemini API key/);
+});
+
+test("synthesizeGemini surfaces a non-OK interactions response with its status", async () => {
+  const res = await synthesizeGemini(
+    { text: "hi", voiceId: "Kore", lang: "en", wavAbs: "/tmp/x.wav" },
+    {
+      apiKey: "k",
+      fetch: async () => ({ ok: false, status: 429, text: async () => "rate_limited" }),
+    },
+  );
+  assert.equal(res.ok, false);
+  assert.match(res.error, /HTTP 429/);
+  assert.match(res.error, /rate_limited/);
+});
+
+test("synthesizeGemini reports a response with no output_audio.data", async () => {
+  const res = await synthesizeGemini(
+    { text: "hi", voiceId: "Kore", lang: "en", wavAbs: "/tmp/x.wav" },
+    { apiKey: "k", fetch: async () => ({ ok: true, json: async () => ({}) }) },
+  );
+  assert.equal(res.ok, false);
+  assert.match(res.error, /no output_audio\.data/);
+});
+
+test("synthesizeGemini wraps raw PCM output in a WAV header before transcoding", async () => {
+  const pcmBase64 = Buffer.from([1, 2, 3, 4]).toString("base64");
+  let transcodedBytes = null;
+  const res = await synthesizeGemini(
+    { text: "hi", voiceId: "Kore", lang: "en", wavAbs: "/tmp/x.wav" },
+    {
+      apiKey: "k",
+      fetch: async () => ({
+        ok: true,
+        json: async () => ({
+          output_audio: {
+            data: pcmBase64,
+            mime_type: "audio/L16;codec=pcm;rate=24000",
+            sample_rate: 24000,
+            channels: 1,
+          },
+        }),
+      }),
+      transcodeToWav: (bytes) => {
+        transcodedBytes = bytes;
+        return true;
+      },
+    },
+  );
+  assert.equal(res.ok, true);
+  // 44-byte WAV header + the 4 raw PCM bytes, not the 4 raw bytes alone.
+  assert.equal(transcodedBytes.length, 48);
+  assert.equal(transcodedBytes.subarray(0, 4).toString(), "RIFF");
+});
+
+test("synthesizeGemini passes an already-boxed wav response straight through untouched", async () => {
+  const wavBytes = Buffer.from([9, 9, 9]);
+  let transcodedBytes = null;
+  const res = await synthesizeGemini(
+    { text: "hi", voiceId: "Kore", lang: "en", wavAbs: "/tmp/x.wav" },
+    {
+      apiKey: "k",
+      fetch: async () => ({
+        ok: true,
+        json: async () => ({
+          output_audio: { data: wavBytes.toString("base64"), mime_type: "audio/wav" },
+        }),
+      }),
+      transcodeToWav: (bytes) => {
+        transcodedBytes = bytes;
+        return true;
+      },
+    },
+  );
+  assert.equal(res.ok, true);
+  assert.deepEqual([...transcodedBytes], [9, 9, 9]);
+});
+
+test("synthesizeGemini reports a wav transcode failure", async () => {
+  const res = await synthesizeGemini(
+    { text: "hi", voiceId: "Kore", lang: "en", wavAbs: "/tmp/x.wav" },
+    {
+      apiKey: "k",
+      fetch: async () => ({
+        ok: true,
+        json: async () => ({
+          output_audio: { data: Buffer.from([1]).toString("base64"), mime_type: "audio/wav" },
+        }),
+      }),
+      transcodeToWav: () => false,
+    },
+  );
+  assert.equal(res.ok, false);
+  assert.equal(res.error, "wav transcode failed (ffmpeg)");
+});
+
+test("pcm16ToWav produces a valid 44-byte RIFF/WAVE header sized for the payload", () => {
+  const pcm = Buffer.from(new Array(100).fill(0));
+  const wav = pcm16ToWav(pcm, 24000, 1);
+  assert.equal(wav.length, 144);
+  assert.equal(wav.subarray(0, 4).toString(), "RIFF");
+  assert.equal(wav.subarray(8, 12).toString(), "WAVE");
+  assert.equal(wav.readUInt32LE(24), 24000); // sample rate
+  assert.equal(wav.readUInt32LE(40), 100); // data chunk size
+});
+
+test("pickProvider rejects an unknown explicit provider, naming gemini as valid", () => {
+  assert.throws(() => pickProvider("bogus"), /heygen \| gemini \| elevenlabs \| kokoro/);
+});
+
+test("pickProvider honors an explicit gemini choice only when a key is present", () => {
+  const saved = {
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+    GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
+  };
+  try {
+    delete process.env.GEMINI_API_KEY;
+    delete process.env.GOOGLE_API_KEY;
+    assert.throws(() => pickProvider("gemini"), /neither \$GEMINI_API_KEY nor \$GOOGLE_API_KEY/);
+    process.env.GEMINI_API_KEY = "k";
+    assert.equal(pickProvider("gemini"), "gemini");
+  } finally {
+    for (const [k, v] of Object.entries(saved)) {
+      if (v === undefined) delete process.env[k];
+      else process.env[k] = v;
+    }
+  }
 });

@@ -4,8 +4,9 @@
 //   retrieve (default when HeyGen is configured) — search HeyGen's music library
 //        by mood, download the top track. Synchronous. assets/bgm/track.mp3.
 //   generate (the alternative; the automatic choice when HeyGen is absent) —
-//        Lyria (cloud, $GEMINI_API_KEY/$GOOGLE_API_KEY + google-genai) preferred,
-//        else local MusicGen (facebook/musicgen-small via transformers). Spawned
+//        Lyria (cloud, $GEMINI_API_KEY/$GOOGLE_API_KEY, stdlib-only REST via
+//        lyria-recipe.py — no pip package) preferred, else local MusicGen
+//        (facebook/musicgen-small via transformers). Spawned
 //        DETACHED so the engine can return while audio renders; the caller marks
 //        bgm_pending and runs wait-bgm.mjs before assembling. assets/bgm/track.wav.
 //
@@ -30,8 +31,6 @@ export const bgmDefaultVolume = (hasVoice) => (hasVoice ? BGM_BED_VOLUME : BGM_S
 const BGM_PY_DEPS = ["transformers", "torch", "soundfile", "numpy"];
 const BGM_PY_PROBE =
   "import transformers, soundfile, torch, numpy; from transformers import MusicgenForConditionalGeneration";
-const LYRIA_PY_DEPS = ["google-genai", "python-dotenv"];
-const LYRIA_PY_PROBE = "import google.genai";
 
 function pyOk(probe) {
   const { cmd, args } = pythonInvocation(["-c", probe]);
@@ -125,13 +124,13 @@ export function generateBgmDetached({
   const targetS = Math.max(1, durationS);
   const baseMeta = { path: rel, mode: null, volume: bgmDefaultVolume(hasVoice), pending: true };
 
-  const lyriaConfigured = !!lyriaKey() && !!lyriaRecipe && existsSync(lyriaRecipe);
-
-  // Make a backend runnable: prefer Lyria when configured (install google-genai
-  // on demand), else ensure local MusicGen deps. Installs are synchronous here —
-  // generation itself is detached, so the engine still returns promptly.
-  if (lyriaConfigured && !pyOk(LYRIA_PY_PROBE)) pipInstall(LYRIA_PY_DEPS);
-  const useLyria = lyriaConfigured && pyOk(LYRIA_PY_PROBE);
+  // Lyria's recipe is a stdlib-only REST call against the Interactions API (see
+  // lyria-recipe.py) — no pip package to probe/install, unlike the google-genai
+  // live-session client it replaced. Runnable whenever a key + the recipe
+  // script are present. Only MusicGen still needs an on-demand pip install,
+  // synchronous here — generation itself is detached, so the engine still
+  // returns promptly.
+  const useLyria = !!lyriaKey() && !!lyriaRecipe && existsSync(lyriaRecipe);
   if (!useLyria && !pyOk(BGM_PY_PROBE)) pipInstall(BGM_PY_DEPS);
 
   const fd = openSync(log, "w");
@@ -181,9 +180,7 @@ export function generateBgmDetached({
   closeSync(fd);
   return {
     disabled: true,
-    reason: lyriaConfigured
-      ? `Lyria configured but google-genai uninstallable, and local MusicGen unavailable (pip install ${BGM_PY_DEPS.join(" ")})`
-      : `no Lyria key/recipe and local MusicGen deps unavailable (pip install ${BGM_PY_DEPS.join(" ")})`,
+    reason: `no Lyria key/recipe and local MusicGen deps unavailable (pip install ${BGM_PY_DEPS.join(" ")})`,
   };
 }
 

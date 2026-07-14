@@ -6,24 +6,30 @@
 
 ## Provider chain
 
-| Order | Provider          | Env trigger                                 | Voice IDs                                   | Word timestamps                           | Audio format         |
-| ----- | ----------------- | ------------------------------------------- | ------------------------------------------- | ----------------------------------------- | -------------------- |
+| Order | Provider          | Env trigger                                 | Voice IDs                                   | Word timestamps                           | Audio format              |
+| ----- | ----------------- | ------------------------------------------- | ------------------------------------------- | ----------------------------------------- | -------------------------- |
 | 1     | HeyGen (Starfish) | `$HEYGEN_API_KEY` / `~/.heygen/credentials` | UUIDs from `GET /v3/voices?engine=starfish` | **Yes** (`word_timestamps[]` in response) | mp3 → wav via ffmpeg |
-| 2     | ElevenLabs        | `$ELEVENLABS_API_KEY`                       | UUIDs from elevenlabs.io dashboard          | No                                        | mp3 → wav via ffmpeg |
-| 3     | Kokoro-82M        | always (local fallback)                     | `am_michael`, `af_heart`, … (54 voices)     | No                                        | wav direct           |
+| 2     | Gemini native TTS | `$GEMINI_API_KEY` / `$GOOGLE_API_KEY`       | Prebuilt voice names (`Kore`, `Puck`, …)    | No                                        | pcm/wav → wav via ffmpeg |
+| 3     | ElevenLabs        | `$ELEVENLABS_API_KEY`                       | UUIDs from elevenlabs.io dashboard          | No                                        | mp3 → wav via ffmpeg |
+| 4     | Kokoro-82M        | always (local fallback)                     | `am_michael`, `af_heart`, … (54 voices)     | No                                        | wav direct           |
 
 ```bash
-# Auto-detect (HeyGen if key set, else ElevenLabs, else Kokoro)
+# Auto-detect (HeyGen if key set, else Gemini, else ElevenLabs, else Kokoro)
 npx @kenectai/cli tts "Welcome to KENECT AI" -o narration.wav
 
 # Pin the provider explicitly
 npx @kenectai/cli tts "Hello" --provider kokoro
 npx @kenectai/cli tts "Hello" --provider heygen --voice <heygen-uuid>
+npx @kenectai/cli tts "Hello" --provider gemini --voice Kore
 npx @kenectai/cli tts "Hello" --provider elevenlabs --voice 21m00Tcm4TlvDq8ikWAM
 
 # HeyGen path: capture word timestamps in one call (skips a Whisper pass)
 npx @kenectai/cli tts "Hi there" --words narration.words.json
 ```
+
+### Gemini native TTS (`scripts/lib/tts.mjs` → `synthesizeGemini`)
+
+Direct REST against the Interactions API (`generativelanguage.googleapis.com/v1beta/interactions`, `model: gemini-3.1-flash-tts-preview`) — no SDK, no pip dependency. Auto-selected between HeyGen and ElevenLabs when `$GEMINI_API_KEY` or `$GOOGLE_API_KEY` is set and HeyGen isn't credentialed. Default voice is the fixed prebuilt `Kore` (deterministic; override with `--voice`, e.g. `Puck`, `Charon`, `Fenrir`, `Aoede`). The response's `output_audio` may come back as raw PCM (`audio/L16;codec=pcm;rate=24000`) or an already-boxed container (wav/mp3); either way it's transcoded to 44.1k mono via ffmpeg like the other cloud providers. No word timings — chain `transcribeWav()` (Whisper) for captions, same as ElevenLabs/Kokoro.
 
 ## Self-contained HeyGen (no CLI) — `scripts/heygen-tts.mjs`
 
@@ -64,13 +70,14 @@ node skills/media-use/audio/scripts/heygen-tts.mjs --list   # public starfish vo
 | Goal                                                      | Use                                                 |
 | --------------------------------------------------------- | --------------------------------------------------- |
 | Best voice quality + word timestamps in one call          | **HeyGen**                                          |
+| First-party Google infra, no third-party vendor           | **Gemini native TTS**                               |
 | Drop-in cloud TTS, big voice catalog                      | **ElevenLabs**                                      |
 | Offline, no API key, fast iteration                       | **Kokoro**                                          |
 | Non-English multilingual with deterministic phonemization | **Kokoro** (`ef_dora`, `jf_alpha`, `zf_xiaobei`, …) |
 
 ## ffmpeg requirement
 
-HeyGen + ElevenLabs return mp3. The CLI transcodes to wav when `--output` ends in `.wav` (the default and what downstream `ffprobe` + Whisper expect). If you'd rather skip the transcode, pass `-o file.mp3`. Without `ffmpeg` on PATH, `.wav` output from the cloud providers fails — install ffmpeg or use `.mp3`.
+HeyGen + Gemini + ElevenLabs return mp3/pcm. The CLI transcodes to wav when `--output` ends in `.wav` (the default and what downstream `ffprobe` + Whisper expect). If you'd rather skip the transcode, pass `-o file.mp3`. Without `ffmpeg` on PATH, `.wav` output from the cloud providers fails — install ffmpeg or use `.mp3`.
 
 ## Voice selection (Kokoro)
 

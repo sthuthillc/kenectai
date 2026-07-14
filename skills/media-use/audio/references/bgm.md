@@ -37,10 +37,10 @@ Spawned **detached** so voice work isn't blocked; `audio_meta.bgm_pending: true`
 
 | Order | Provider                             | Env / deps                                                                            | Speed                                   | Quality                     |
 | ----- | ------------------------------------ | ------------------------------------------------------------------------------------- | --------------------------------------- | --------------------------- |
-| 1     | Google Lyria RealTime                | `$GEMINI_API_KEY` or `$GOOGLE_API_KEY` + `google-genai` (auto-installed on demand)    | Real-time stream (≈ requested duration) | Production-grade            |
+| 1     | Google Lyria 3 (`lyria-3-pro-preview`) | `$GEMINI_API_KEY` or `$GOOGLE_API_KEY` — stdlib-only REST via `scripts/lyria-recipe.py`, no pip package | One batch call, then ffmpeg trims/loops to length | Production-grade            |
 | 2     | MusicGen (`facebook/musicgen-small`) | Python `transformers + torch + soundfile + numpy` (~300 MB first run; auto-installed) | Slow on CPU; fast on Apple MPS / CUDA   | Decent; prompt-only control |
 
-Output → `assets/bgm/track.wav`, target = total voice duration. MusicGen generates **one** seed clip (≤28–30s, under the decoder's positional limit) then crossfade-loops it up to the target (or trims down if shorter), avoiding per-segment seams. Backend selection is by what can actually **run**: Lyria only when `import google.genai` succeeds, else MusicGen; if neither can be made to run, BGM is skipped (voice + SFX still render).
+Output → `assets/bgm/track.wav`, target = total voice duration. Lyria 3 is a single batch call to the Interactions API (`generativelanguage.googleapis.com/v1beta/interactions`, model `lyria-3-pro-preview`) — the mood/BPM/scale/brightness/density knobs are folded into the text prompt (there's no structured config field like the old live-session API had), and the returned clip is trimmed or looped to the exact target duration with one `ffmpeg -stream_loop` call. MusicGen generates **one** seed clip (≤28–30s, under the decoder's positional limit) then crossfade-loops it up to the target (or trims down if shorter), avoiding per-segment seams. Backend selection is by what can actually **run**: Lyria whenever a key + the recipe script are present (no pip package to probe), else MusicGen; if neither can be made to run, BGM is skipped (voice + SFX still render).
 
 ## Mood inference (the generate prompt)
 
@@ -57,7 +57,7 @@ Archetype then reshapes the arc — PAS → "MINOR to MAJOR" build; BAB / future
 
 ## Lyria knobs (direct recipe use)
 
-The engine bakes BPM / scale into the **prompt text** (via the inference above) and passes only `--output` / `--duration` / `--prompt` to the recipe. If you invoke `scripts/lyria-recipe.py` directly you can also set: `--bpm` (90–110 calm, 110–130 energetic), `--brightness` (0–1, ≥0.7 promotional), `--density` (0–1, higher = fuller), `--scale` (`MAJOR` / `MINOR` / `PENTATONIC` / …), `--negative-prompt` (styles to exclude). MusicGen ignores all of these — put the mood in the prompt.
+The engine bakes BPM / scale into the **prompt text** (via the inference above) and passes only `--output` / `--duration` / `--prompt` to the recipe. If you invoke `scripts/lyria-recipe.py` directly you can also set: `--bpm` (90–110 calm, 110–130 energetic), `--brightness` (0–1, ≥0.7 promotional), `--density` (0–1, higher = fuller), `--scale` (`MAJOR` / `MINOR` / `PENTATONIC` / …), `--negative-prompt` (styles to exclude). The batch Lyria 3 API has no structured config for these (unlike the old live-session API) — the recipe's `build_prompt()` folds all of them into the text prompt sent to the model. MusicGen ignores all of these — put the mood in the prompt.
 
 ## Failure modes
 
