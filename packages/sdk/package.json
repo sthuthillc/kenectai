@@ -1,6 +1,6 @@
 {
   "name": "@kenectai/sdk",
-  "version": "0.7.54",
+  "version": "0.7.55",
   "description": "Headless, framework-neutral KENECT AI composition editing engine",
   "repository": {
     "type": "git",

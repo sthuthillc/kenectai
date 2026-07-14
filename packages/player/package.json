@@ -1,6 +1,6 @@
 {
   "name": "@kenectai/player",
-  "version": "0.7.54",
+  "version": "0.7.55",
   "description": "Embeddable web component for KENECT AI compositions",
   "repository": {
     "type": "git",

@@ -1,6 +1,6 @@
 {
   "name": "@kenectai/gcp-cloud-run",
-  "version": "0.7.54",
+  "version": "0.7.55",
   "description": "Google Cloud Run + Workflows adapter for KENECT AI distributed rendering — request handler, client-side SDK, and Terraform module.",
   "repository": {
     "type": "git",
