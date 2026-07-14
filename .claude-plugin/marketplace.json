@@ -1,16 +1,16 @@
 {
-  "name": "hyperframes",
+  "name": "kenectai",
   "owner": {
-    "name": "HeyGen",
-    "email": "hyperframes@heygen.com",
-    "url": "https://docs.kenectai.com"
+    "name": "KENECT AI",
+    "email": "hello@kenectai.com",
+    "url": "https://kenectai.com"
   },
   "plugins": [
     {
-      "name": "hyperframes",
+      "name": "kenectai",
       "source": "./",
-      "description": "HyperFrames by HeyGen. Write HTML, render video. Compositions, GSAP and runtime adapter animations, captions, voiceovers, audio-reactive visuals, and website-to-video capture for HyperFrames.",
-      "homepage": "https://docs.kenectai.com",
+      "description": "KENECT AI. Write HTML, render video. Compositions, GSAP and runtime adapter animations, captions, voiceovers, audio-reactive visuals, and website-to-video capture with KENECT AI.",
+      "homepage": "https://kenectai.com",
       "license": "Apache-2.0"
     }
   ]

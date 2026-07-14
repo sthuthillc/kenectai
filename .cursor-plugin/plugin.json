@@ -1,21 +1,21 @@
 {
   "$schema": "https://cursor.com/schemas/cursor-plugin/plugin.json",
-  "name": "hyperframes",
-  "displayName": "HyperFrames by HeyGen",
+  "name": "kenectai",
+  "displayName": "KENECT AI",
   "version": "0.7.57",
-  "description": "Write HTML, render video. Compositions, Tailwind v4 styles, GSAP and runtime adapter animations, captions, voiceovers, audio-reactive visuals, and website-to-video capture for HyperFrames.",
+  "description": "Write HTML, render video. Compositions, Tailwind v4 styles, GSAP and runtime adapter animations, captions, voiceovers, audio-reactive visuals, and website-to-video capture with KENECT AI.",
   "author": {
-    "name": "HeyGen",
-    "email": "hyperframes@heygen.com"
+    "name": "KENECT AI",
+    "email": "hello@kenectai.com"
   },
-  "publisher": "HeyGen",
-  "homepage": "https://docs.kenectai.com",
-  "repository": "https://github.com/heygen-com/hyperframes",
+  "publisher": "KENECT AI",
+  "homepage": "https://kenectai.com",
+  "repository": "https://github.com/sthuthillc/kenectai",
   "license": "Apache-2.0",
   "logo": "assets/logo.png",
   "category": "developer-tools",
   "keywords": [
-    "hyperframes",
+    "kenectai",
     "video",
     "html",
     "tailwind",
