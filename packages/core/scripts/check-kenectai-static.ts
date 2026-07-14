@@ -43,7 +43,7 @@ async function main() {
   const inputPath = positionalArgs[0];
   if (!inputPath) {
     console.error(
-      "Usage: bun run check:hyperframe-html [--json] <path-to-html>\nExample: bun run check:hyperframe-html core/src/tests/broken-video.html",
+      "Usage: bun run check:kenectai-html [--json] <path-to-html>\nExample: bun run check:kenectai-html core/src/tests/broken-video.html",
     );
     process.exit(2);
   }

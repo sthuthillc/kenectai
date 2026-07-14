@@ -232,7 +232,7 @@ jobs:
       - run: bun run test:scripts
       - run: bun run --filter '@kenectai/{parsers,lint,studio-server}' build
       - run: bun run --cwd packages/core build
-      - run: bun run --cwd packages/core build:hyperframes-runtime
+      - run: bun run --cwd packages/core build:kenectai-runtime
       - run: bun run --filter '!@kenectai/producer' test
 
   producer-source-tests:
@@ -372,7 +372,7 @@ jobs:
           node-version: 22
       - uses: ./.github/actions/prepare-ffmpeg-bin
       - run: bun install --frozen-lockfile
-      - run: bun run --filter @kenectai/core test:hyperframe-runtime-ci
+      - run: bun run --filter @kenectai/core test:kenectai-runtime-ci
 
   studio-load-smoke:
     name: "Studio: load smoke"
@@ -395,7 +395,7 @@ jobs:
       # export condition (dist).
       - run: bun run --filter '@kenectai/{parsers,lint,studio-server}' build
       - run: bun run --cwd packages/core build
-      - run: bun run --cwd packages/core build:hyperframes-runtime
+      - run: bun run --cwd packages/core build:kenectai-runtime
       - name: Start studio and check for runtime errors
         run: |
           # Start the studio Vite dev server (fast — no bundle step)

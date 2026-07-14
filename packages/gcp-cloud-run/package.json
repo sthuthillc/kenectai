@@ -4,7 +4,7 @@
   "description": "Google Cloud Run + Workflows adapter for KENECT AI distributed rendering — request handler, client-side SDK, and Terraform module.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heygen-com/hyperframes",
+    "url": "https://github.com/sthuthillc/kenectai",
     "directory": "packages/gcp-cloud-run"
   },
   "files": [

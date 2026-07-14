@@ -3,7 +3,7 @@
   "version": "0.7.54",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heygen-com/hyperframes",
+    "url": "https://github.com/sthuthillc/kenectai",
     "directory": "packages/parsers"
   },
   "files": [
@@ -90,7 +90,8 @@
     }
   },
   "publishConfig": {
-    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "exports": {
       ".": {
         "import": "./dist/index.js",
@@ -142,8 +143,7 @@
         "types": "./dist/subCompositionValidity.d.ts"
       }
     },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    "access": "public"
   },
   "scripts": {
     "build": "tsup",

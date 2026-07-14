@@ -335,7 +335,7 @@ function stageHyperframeRuntime(stagingDir: string): void {
   if (!existsSync(manifestSrc) || !existsSync(iifeSrc)) {
     throw new Error(
       `[build-zip] hyperframe runtime artifacts missing under ${coreDist}. ` +
-        `Run 'bun run --filter @kenectai/core build:hyperframes-runtime:modular' first.`,
+        `Run 'bun run --filter @kenectai/core build:kenectai-runtime:modular' first.`,
     );
   }
   cpSync(manifestSrc, join(stagingDir, "hyperframe.manifest.json"));

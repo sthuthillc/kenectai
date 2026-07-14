@@ -87,7 +87,7 @@ jobs:
           bun run --cwd packages/studio-server test -- src/routes/thumbnail.test.ts
 
       - name: Build preview runtime
-        run: bun run --cwd packages/core build:hyperframes-runtime
+        run: bun run --cwd packages/core build:kenectai-runtime
 
       - name: Prepare parity fixtures
         run: bun run --cwd packages/producer parity:fixtures:ci

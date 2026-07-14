@@ -4,7 +4,7 @@
   "description": "Headless, framework-neutral KENECT AI composition editing engine",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heygen-com/hyperframes",
+    "url": "https://github.com/sthuthillc/kenectai",
     "directory": "packages/sdk"
   },
   "files": [
@@ -36,7 +36,8 @@
     }
   },
   "publishConfig": {
-    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "exports": {
       ".": {
         "import": "./dist/index.js",
@@ -59,8 +60,7 @@
         "types": "./dist/editing/affordances.d.ts"
       }
     },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    "access": "public"
   },
   "scripts": {
     "build": "tsc",

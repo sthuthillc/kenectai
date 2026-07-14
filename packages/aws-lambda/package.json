@@ -4,7 +4,7 @@
   "description": "AWS Lambda adapter for KENECT AI distributed rendering — handler, client-side SDK, and CDK construct.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heygen-com/hyperframes",
+    "url": "https://github.com/sthuthillc/kenectai",
     "directory": "packages/aws-lambda"
   },
   "files": [

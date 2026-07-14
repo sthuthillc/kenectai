@@ -4,7 +4,7 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heygen-com/hyperframes",
+    "url": "https://github.com/sthuthillc/kenectai",
     "directory": "packages/core"
   },
   "files": [
@@ -243,7 +243,8 @@
     "./schemas/registry-item.json": "./schemas/registry-item.json"
   },
   "publishConfig": {
-    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "exports": {
       ".": {
         "import": "./dist/index.js",
@@ -394,30 +395,28 @@
       "./schemas/registry.json": "./schemas/registry.json",
       "./schemas/registry-item.json": "./schemas/registry-item.json"
     },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    "access": "public"
   },
   "scripts": {
-    "build": "bun run build:hyperframes-runtime && bun run build:position-edits-render && tsc && tsx scripts/rewrite-esm-extensions.ts",
+    "build": "bun run build:kenectai-runtime && bun run build:position-edits-render && tsc && tsx scripts/rewrite-esm-extensions.ts",
     "test": "bun run check:position-edits-render && vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "lint:runtime-preview-guards": "tsx scripts/lint-runtime-preview-guards.ts",
-    "build:hyperframes-runtime": "tsx scripts/build-hyperframes-runtime-artifact.ts",
+    "build:kenectai-runtime": "tsx scripts/build-kenectai-runtime-artifact.ts",
     "build:position-edits-render": "tsx scripts/build-position-edits-render.ts",
     "check:position-edits-render": "bun run build:position-edits-render && git diff --exit-code -- src/generated/position-edits-render-inline.ts",
-    "build:hyperframes-runtime:modular": "SANDBOX_RUNTIME_VARIANT=modular tsx scripts/build-hyperframes-runtime-artifact.ts",
-    "build:hyperframe-runtime": "tsx scripts/build-hyperframes-runtime-artifact.ts",
-    "test:hyperframe-runtime-contract": "tsx scripts/test-hyperframe-runtime-contract.ts",
-    "test:hyperframe-runtime-behavior": "tsx scripts/test-hyperframe-runtime-behavior.ts",
-    "test:hyperframe-runtime-seek": "tsx scripts/test-hyperframe-runtime-seek.ts",
-    "test:hyperframe-runtime-duration-guards": "tsx scripts/test-hyperframe-runtime-duration-guards.ts",
-    "test:hyperframe-runtime-parity": "tsx scripts/test-hyperframe-runtime-parity.ts",
-    "test:hyperframe-runtime-security": "tsx scripts/test-hyperframe-runtime-security.ts",
-    "test:hyperframe-linter": "tsx scripts/test-hyperframe-linter.ts",
-    "test:hyperframe-runtime-ci": "bun run build:hyperframes-runtime && bun run test:hyperframe-runtime-contract && bun run test:hyperframe-runtime-behavior && bun run test:hyperframe-runtime-seek && bun run test:hyperframe-runtime-duration-guards && bun run test:hyperframe-runtime-parity && bun run test:hyperframe-runtime-security",
-    "check:hyperframe-html": "tsx scripts/check-hyperframe-static.ts",
+    "build:kenectai-runtime:modular": "SANDBOX_RUNTIME_VARIANT=modular tsx scripts/build-kenectai-runtime-artifact.ts",
+    "test:kenectai-runtime-contract": "tsx scripts/test-kenectai-runtime-contract.ts",
+    "test:kenectai-runtime-behavior": "tsx scripts/test-kenectai-runtime-behavior.ts",
+    "test:kenectai-runtime-seek": "tsx scripts/test-kenectai-runtime-seek.ts",
+    "test:kenectai-runtime-duration-guards": "tsx scripts/test-kenectai-runtime-duration-guards.ts",
+    "test:kenectai-runtime-parity": "tsx scripts/test-kenectai-runtime-parity.ts",
+    "test:kenectai-runtime-security": "tsx scripts/test-kenectai-runtime-security.ts",
+    "test:kenectai-linter": "tsx scripts/test-kenectai-linter.ts",
+    "test:kenectai-runtime-ci": "bun run build:kenectai-runtime && bun run test:kenectai-runtime-contract && bun run test:kenectai-runtime-behavior && bun run test:kenectai-runtime-seek && bun run test:kenectai-runtime-duration-guards && bun run test:kenectai-runtime-parity && bun run test:kenectai-runtime-security",
+    "check:kenectai-html": "tsx scripts/check-kenectai-static.ts",
     "debug:timeline": "tsx scripts/debug-timeline.ts",
     "prepublishOnly": "echo skip"
   },

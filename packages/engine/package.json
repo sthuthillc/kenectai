@@ -4,7 +4,7 @@
   "description": "Seekable web page to video rendering engine (Puppeteer + FFmpeg)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heygen-com/hyperframes",
+    "url": "https://github.com/sthuthillc/kenectai",
     "directory": "packages/engine"
   },
   "files": [
@@ -20,7 +20,8 @@
     "./shader-transitions": "./src/utils/shaderTransitions.ts"
   },
   "publishConfig": {
-    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "exports": {
       ".": {
         "import": "./dist/index.js",
@@ -36,8 +37,7 @@
       },
       "./package.json": "./package.json"
     },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    "access": "public"
   },
   "scripts": {
     "build": "tsc",

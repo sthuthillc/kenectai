@@ -4,7 +4,7 @@
  * Run via: bun run scripts/build-hf-early-stub.ts
  * (also called automatically as part of `bun run build`)
  *
- * Output format mirrors packages/core/scripts/build-hyperframes-runtime-artifact.ts:
+ * Output format mirrors packages/core/scripts/build-kenectai-runtime-artifact.ts:
  * a TypeScript module exporting a single string-constant getter that is
  * compiled by tsc into dist/ — no esbuild, no file I/O, no dynamic paths at
  * runtime.

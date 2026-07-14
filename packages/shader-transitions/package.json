@@ -4,7 +4,7 @@
   "description": "WebGL shader transitions for KENECT AI compositions",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heygen-com/hyperframes",
+    "url": "https://github.com/sthuthillc/kenectai",
     "directory": "packages/shader-transitions"
   },
   "files": [
@@ -22,7 +22,8 @@
     }
   },
   "publishConfig": {
-    "access": "public",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",
@@ -31,8 +32,7 @@
         "require": "./dist/index.cjs"
       }
     },
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts"
+    "access": "public"
   },
   "scripts": {
     "build": "tsup",

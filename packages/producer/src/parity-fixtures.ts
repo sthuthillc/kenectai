@@ -11,7 +11,7 @@ const fixtureRuntimePath = resolve(fixturesDir, "hyperframe.runtime.iife.js");
 
 if (!existsSync(runtimePath)) {
   throw new Error(
-    `Missing preview runtime at ${runtimePath}. Run "bun run --cwd packages/core build:hyperframes-runtime" first.`,
+    `Missing preview runtime at ${runtimePath}. Run "bun run --cwd packages/core build:kenectai-runtime" first.`,
   );
 }
 

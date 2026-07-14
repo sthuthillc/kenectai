@@ -447,4 +447,4 @@ jobs:
 
       - name: Run runtime contract test
         shell: pwsh
-        run: bun run --filter "@kenectai/core" test:hyperframe-runtime-ci
+        run: bun run --filter "@kenectai/core" test:kenectai-runtime-ci

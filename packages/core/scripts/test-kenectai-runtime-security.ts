@@ -5,7 +5,7 @@ function assert(condition: unknown, message: string): void {
 }
 
 const ALLOWED_HOSTS = new Set(["runtime.example.com"]);
-const ALLOWED_PATH_PREFIX = "/static/hyperframes-runtime/";
+const ALLOWED_PATH_PREFIX = "/static/kenectai-runtime/";
 
 function isAllowedRuntimeUrl(candidate: string): boolean {
   try {
@@ -43,17 +43,17 @@ function isGuardedPreviewMessage(data: unknown): boolean {
 }
 
 const allowedRuntimeFixtures = [
-  "https://runtime.example.com/static/hyperframes-runtime/hyperframe.runtime.iife.js",
-  "https://runtime.example.com/static/hyperframes-runtime/v2026.02.20/hyperframe.runtime.iife.js",
+  "https://runtime.example.com/static/kenectai-runtime/kenectai.runtime.iife.js",
+  "https://runtime.example.com/static/kenectai-runtime/v2026.02.20/kenectai.runtime.iife.js",
 ];
 
 const blockedRuntimeFixtures = [
-  "http://runtime.example.com/static/hyperframes-runtime/hyperframe.runtime.iife.js",
+  "http://runtime.example.com/static/kenectai-runtime/kenectai.runtime.iife.js",
   "javascript:alert(1)",
   "data:text/javascript,alert(1)",
-  "https://evil.example/static/hyperframes-runtime/hyperframe.runtime.iife.js",
-  "https://runtime.example.com/static/other/hyperframe.runtime.iife.js",
-  "https://runtime.example.com/static/hyperframes-runtime/hyperframe.runtime.iife.css",
+  "https://evil.example/static/kenectai-runtime/kenectai.runtime.iife.js",
+  "https://runtime.example.com/static/other/kenectai.runtime.iife.js",
+  "https://runtime.example.com/static/kenectai-runtime/kenectai.runtime.iife.css",
 ];
 
 for (const fixture of allowedRuntimeFixtures) {
