@@ -111,6 +111,7 @@ export async function generateFrameTokens(
   const tokens = await gemini.generateJson<FrameTokens>(tokensPrompt(sourceText), {
     temperature: 0.6,
     maxOutputTokens: 2048,
+    thinkingLevel: "medium",
   });
   if (!tokens.productName || !Array.isArray(tokens.colors) || tokens.colors.length < 6) {
     throw new Error("Gemini returned incomplete frame tokens (missing productName or colors)");
@@ -126,6 +127,7 @@ export async function generateFrameMd(
   const text = await gemini.generateText(frameMdPrompt(tokens, sourceText), {
     temperature: 0.5,
     maxOutputTokens: 6000,
+    thinkingLevel: "high",
   });
   return stripCodeFence(text);
 }

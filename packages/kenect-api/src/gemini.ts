@@ -5,7 +5,12 @@
  * the "brain" for the product routes in ./products/*.
  */
 
-const DEFAULT_MODEL = "gemini-2.5-flash";
+// gemini-3.5-flash (GA): "most intelligent model for sustained frontier
+// performance on agentic and coding tasks" — the right default for this
+// client's two jobs (structured design-token extraction, HTML/GSAP
+// composition authoring). Override per deployment via KENECT_GEMINI_MODEL.
+const DEFAULT_MODEL = "gemini-3.5-flash";
+export type ThinkingLevel = "minimal" | "low" | "medium" | "high";
 const DEFAULT_BASE_URL = "https://generativelanguage.googleapis.com/v1beta";
 const REQUEST_TIMEOUT_MS = 90_000;
 
@@ -28,6 +33,12 @@ interface GenerateOptions {
   temperature?: number;
   maxOutputTokens?: number;
   systemInstruction?: string;
+  /**
+   * Gemini 3+ reasoning-effort control. Omit to use the model's own default
+   * (high, for most Gemini 3 variants). Mutually exclusive with the legacy
+   * `thinkingBudget` field this client doesn't expose — don't add both.
+   */
+  thinkingLevel?: ThinkingLevel;
 }
 
 interface GeminiCandidate {
@@ -82,7 +93,12 @@ export class GeminiClient {
   private buildRequestBody(prompt: string, options: GenerateOptions) {
     const body: {
       contents: Array<{ role: string; parts: Array<{ text: string }> }>;
-      generationConfig: { temperature: number; maxOutputTokens: number; responseMimeType?: string };
+      generationConfig: {
+        temperature: number;
+        maxOutputTokens: number;
+        responseMimeType?: string;
+        thinkingConfig?: { thinkingLevel: ThinkingLevel };
+      };
       systemInstruction?: { parts: Array<{ text: string }> };
     } = {
       contents: [{ role: "user", parts: [{ text: prompt }] }],
@@ -91,6 +107,9 @@ export class GeminiClient {
         maxOutputTokens: options.maxOutputTokens ?? 8192,
       },
     };
+    if (options.thinkingLevel) {
+      body.generationConfig.thinkingConfig = { thinkingLevel: options.thinkingLevel };
+    }
     if (options.systemInstruction) {
       body.systemInstruction = { parts: [{ text: options.systemInstruction }] };
     }

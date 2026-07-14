@@ -160,6 +160,7 @@ export async function generateWebsiteComposition(
     await gemini.generateText(compositionPrompt(brandHints, durationS), {
       temperature: 0.6,
       maxOutputTokens: 8192,
+      thinkingLevel: "high",
     }),
   );
 
@@ -172,6 +173,7 @@ export async function generateWebsiteComposition(
     await gemini.generateText(repairPrompt(draft, firstLint), {
       temperature: 0.3,
       maxOutputTokens: 8192,
+      thinkingLevel: "high",
     }),
   );
   const secondLint = await lintHyperframeHtml(repaired);

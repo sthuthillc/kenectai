@@ -22,7 +22,7 @@ Optional:
 ```bash
 KENECT_API_KEYS=dev-key,another-key
 GEMINI_API_KEY=your-gemini-api-key      # required for /v1/products/* — 501 without it
-KENECT_GEMINI_MODEL=gemini-2.5-flash    # defaults to gemini-2.5-flash
+KENECT_GEMINI_MODEL=gemini-3.5-flash    # defaults to gemini-3.5-flash (GA, frontier agentic/coding)
 PORT=8080
 ```
 
@@ -44,6 +44,8 @@ Access tokens are HS256 JWTs (1 h) accepted as `Authorization: Bearer …` by th
 ## Products (Gemini-backed)
 
 Two hosted generators, both auth-gated (API key or bearer token — see above) and backed by the Gemini API (`src/gemini.ts`, zero SDK dependency). Neither is available until `GEMINI_API_KEY` is set; requests get `501` until then.
+
+Default model is `gemini-3.5-flash` (GA). Code/creative-authoring calls (composition HTML, `FRAME.md`, lint repairs) request `thinkingLevel: "high"`; the structured design-token extraction call uses `"medium"`. `thinkingLevel` is Gemini-3-only (`generationConfig.thinkingConfig.thinkingLevel`, values `minimal`/`low`/`medium`/`high`) — if `KENECT_GEMINI_MODEL` is overridden to a Gemini 2.5 model, drop `thinkingLevel` from the call sites first (2.5 uses the older token-budget `thinkingConfig.thinkingBudget` field instead, which this client doesn't set).
 
 ### `POST /v1/products/frame-pack`
 

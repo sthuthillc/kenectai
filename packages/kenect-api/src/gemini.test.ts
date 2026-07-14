@@ -41,7 +41,7 @@ describe("GeminiClient", () => {
     expect(fetchMock).toHaveBeenCalledOnce();
     const [url] = fetchMock.mock.calls[0]!;
     expect(String(url)).toContain("generativelanguage.googleapis.com");
-    expect(String(url)).toContain("gemini-2.5-flash");
+    expect(String(url)).toContain("gemini-3.5-flash");
   });
 
   it("uses the configured model in the request URL", async () => {
@@ -50,6 +50,24 @@ describe("GeminiClient", () => {
     const client = new GeminiClient({ apiKey: "test-key", model: "gemini-2.5-pro" });
     await client.generateText("prompt");
     expect(String(fetchMock.mock.calls[0]![0])).toContain("gemini-2.5-pro");
+  });
+
+  it("omits thinkingConfig by default", async () => {
+    const fetchMock = vi.fn(async () => geminiOkResponse("ok"));
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new GeminiClient({ apiKey: "test-key" });
+    await client.generateText("prompt");
+    const sentBody = JSON.parse(String(fetchMock.mock.calls[0]![1]?.body));
+    expect(sentBody.generationConfig.thinkingConfig).toBeUndefined();
+  });
+
+  it("sends thinkingConfig.thinkingLevel when requested", async () => {
+    const fetchMock = vi.fn(async () => geminiOkResponse("ok"));
+    vi.stubGlobal("fetch", fetchMock);
+    const client = new GeminiClient({ apiKey: "test-key" });
+    await client.generateText("prompt", { thinkingLevel: "high" });
+    const sentBody = JSON.parse(String(fetchMock.mock.calls[0]![1]?.body));
+    expect(sentBody.generationConfig.thinkingConfig).toEqual({ thinkingLevel: "high" });
   });
 
   it("generateJson parses the candidate text as JSON", async () => {
