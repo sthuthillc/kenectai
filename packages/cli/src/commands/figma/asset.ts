@@ -1,5 +1,5 @@
 /**
- * `hyperframes figma asset <ref>` — Phase 1 of the figma integration:
+ * `kenectai figma asset <ref>` — Phase 1 of the figma integration:
  * render a node over REST, sanitize (svg), freeze under .media/, record
  * provenance in the shared manifest, print a composition snippet.
  */

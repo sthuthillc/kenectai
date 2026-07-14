@@ -32,8 +32,8 @@ describe("layout command deprecation (U5)", () => {
 
   it("prints a one-line deprecation notice to stderr and never to stdout", async () => {
     const { stderrText, stdoutText } = await runAndCaptureStdio(createInspectCommand("layout"));
-    expect(stderrText).toContain("hyperframes layout");
-    expect(stderrText).toContain("hyperframes check");
+    expect(stderrText).toContain("kenectai layout");
+    expect(stderrText).toContain("kenectai check");
     expect(stdoutText).toBe("");
   });
 

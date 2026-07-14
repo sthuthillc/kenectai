@@ -3,9 +3,9 @@ import type { Example } from "./_examples.js";
 import { c } from "../ui/colors.js";
 
 export const examples: Example[] = [
-  ["Check current telemetry status", "hyperframes telemetry status"],
-  ["Disable telemetry", "hyperframes telemetry disable"],
-  ["Enable telemetry", "hyperframes telemetry enable"],
+  ["Check current telemetry status", "kenectai telemetry status"],
+  ["Disable telemetry", "kenectai telemetry disable"],
+  ["Enable telemetry", "kenectai telemetry enable"],
 ];
 import { readConfig, writeConfig, CONFIG_PATH } from "../telemetry/config.js";
 
@@ -31,7 +31,7 @@ function runStatus(): void {
   console.log(`  ${c.dim("Config:")}     ${c.accent(CONFIG_PATH)}`);
   console.log(`  ${c.dim("Commands:")}   ${c.bold(String(config.commandCount))}`);
   console.log();
-  console.log(`  ${c.dim("Disable:")}    ${c.accent("hyperframes telemetry disable")}`);
+  console.log(`  ${c.dim("Disable:")}    ${c.accent("kenectai telemetry disable")}`);
   console.log(`  ${c.dim("Env var:")}    ${c.accent("KENECT_NO_TELEMETRY=1")}`);
   console.log();
 }
@@ -50,7 +50,7 @@ export default defineCommand({
 
     if (!subcommand || subcommand === "") {
       console.log(`
-${c.bold("hyperframes telemetry")} ${c.dim("<subcommand>")}
+${c.bold("kenectai telemetry")} ${c.dim("<subcommand>")}
 
 Manage anonymous usage data collection.
 
@@ -84,7 +84,7 @@ ${c.dim("You can also set")} ${c.accent("KENECT_NO_TELEMETRY=1")} ${c.dim("to di
         return runStatus();
       default:
         console.error(
-          `${c.error("Unknown subcommand:")} ${subcommand}\n\nRun ${c.accent("hyperframes telemetry --help")} for usage.`,
+          `${c.error("Unknown subcommand:")} ${subcommand}\n\nRun ${c.accent("kenectai telemetry --help")} for usage.`,
         );
         process.exit(1);
     }

@@ -3,11 +3,11 @@ import type { Example } from "./_examples.js";
 import { existsSync, readFileSync } from "node:fs";
 
 export const examples: Example[] = [
-  ["Present the current deck", "hyperframes present"],
-  ["Present a specific project directory", "hyperframes present ./my-deck"],
-  ["Use a custom port", "hyperframes present --port 8080"],
-  ["Start without opening the browser", "hyperframes present --no-open"],
-  ["Open with a specific browser", "hyperframes present --browser-path /usr/bin/chromium"],
+  ["Present the current deck", "kenectai present"],
+  ["Present a specific project directory", "kenectai present ./my-deck"],
+  ["Use a custom port", "kenectai present --port 8080"],
+  ["Start without opening the browser", "kenectai present --no-open"],
+  ["Open with a specific browser", "kenectai present --browser-path /usr/bin/chromium"],
 ];
 import { resolve } from "node:path";
 import * as clack from "@clack/prompts";
@@ -147,7 +147,7 @@ export default defineCommand({
     // ?mode=audience) load this same page; the component reads the mode from the URL.
     app.get("/", (ctx) => ctx.html(buildPresentPage(project.name, islandJson)));
 
-    clack.intro(c.bold("hyperframes present"));
+    clack.intro(c.bold("kenectai present"));
     const s = clack.spinner();
     s.start("Starting presenter server...");
 

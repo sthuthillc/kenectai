@@ -5,19 +5,19 @@ import * as manager from "./manager.js";
 import * as linuxDeps from "./linuxDeps.js";
 
 describe("runEnvironmentChecks", () => {
-  const originalFfmpegPath = process.env.HYPERFRAMES_FFMPEG_PATH;
-  const originalFfprobePath = process.env.HYPERFRAMES_FFPROBE_PATH;
+  const originalFfmpegPath = process.env.KENECT_FFMPEG_PATH;
+  const originalFfprobePath = process.env.KENECT_FFPROBE_PATH;
 
   beforeEach(() => {
-    process.env.HYPERFRAMES_FFMPEG_PATH = process.execPath;
-    process.env.HYPERFRAMES_FFPROBE_PATH = process.execPath;
+    process.env.KENECT_FFMPEG_PATH = process.execPath;
+    process.env.KENECT_FFPROBE_PATH = process.execPath;
   });
 
   afterEach(() => {
-    if (originalFfmpegPath === undefined) delete process.env.HYPERFRAMES_FFMPEG_PATH;
-    else process.env.HYPERFRAMES_FFMPEG_PATH = originalFfmpegPath;
-    if (originalFfprobePath === undefined) delete process.env.HYPERFRAMES_FFPROBE_PATH;
-    else process.env.HYPERFRAMES_FFPROBE_PATH = originalFfprobePath;
+    if (originalFfmpegPath === undefined) delete process.env.KENECT_FFMPEG_PATH;
+    else process.env.KENECT_FFMPEG_PATH = originalFfmpegPath;
+    if (originalFfprobePath === undefined) delete process.env.KENECT_FFPROBE_PATH;
+    else process.env.KENECT_FFPROBE_PATH = originalFfprobePath;
   });
 
   it("returns configured FFmpeg and FFprobe paths when checks pass", async () => {
@@ -30,7 +30,7 @@ describe("runEnvironmentChecks", () => {
   });
 
   it("reports ffprobe as a render-blocking error when the explicit path is missing", async () => {
-    process.env.HYPERFRAMES_FFPROBE_PATH = "/missing/ffprobe.exe";
+    process.env.KENECT_FFPROBE_PATH = "/missing/ffprobe.exe";
 
     const result = await runEnvironmentChecks();
 
@@ -46,14 +46,14 @@ describe("runEnvironmentChecks", () => {
   });
 
   it("fails early when an explicit FFmpeg env override points at a missing file", async () => {
-    process.env.HYPERFRAMES_FFMPEG_PATH = "/missing/ffmpeg.exe";
+    process.env.KENECT_FFMPEG_PATH = "/missing/ffmpeg.exe";
 
     const result = await runEnvironmentChecks();
     const ffmpeg = result.outcomes.find((outcome) => outcome.name === "FFmpeg");
 
     expect(ffmpeg).toMatchObject({
       ok: false,
-      detail: 'Configured path does not exist: HYPERFRAMES_FFMPEG_PATH="/missing/ffmpeg.exe"',
+      detail: 'Configured path does not exist: KENECT_FFMPEG_PATH="/missing/ffmpeg.exe"',
     });
   });
 
@@ -82,7 +82,7 @@ describe("runEnvironmentChecks", () => {
       expect(result.outcomes.find((outcome) => outcome.name === "Chrome")).toMatchObject({
         ok: false,
         title: "Chrome not found",
-        hint: "Run: npx hyperframes browser ensure",
+        hint: "Run: npx @kenectai/cli browser ensure",
       });
       expect(result.browser).toBeUndefined();
     } finally {

@@ -3,7 +3,7 @@ import type { SubTimelineWaitOutcome } from "@kenectai/engine";
 import { trackEvent } from "./client.js";
 import { readConfig } from "./config.js";
 
-// run_id is attached only when the orchestrator set HYPERFRAMES_RUN_ID — an
+// run_id is attached only when the orchestrator set KENECT_RUN_ID — an
 // absent property, never null/"" (PostHog treats those as real values).
 function runIdField(runId: string | undefined): { run_id?: string } {
   return runId !== undefined ? { run_id: runId } : {};
@@ -177,7 +177,7 @@ export function trackRenderComplete(
     deBlankRecaptures?: number;
     deBoundaryFrames?: number;
     deNcprFallbacks?: number;
-    // "cli" when triggered by `hyperframes render` (default), "studio" when
+    // "cli" when triggered by `kenectai render` (default), "studio" when
     // triggered by a studio preview-server render (POST /api/projects/:id/render).
     source?: "cli" | "studio";
     // Composition metadata

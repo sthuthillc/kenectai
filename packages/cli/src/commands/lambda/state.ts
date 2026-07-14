@@ -1,10 +1,10 @@
 /**
- * Persists `hyperframes lambda` stack outputs (bucket, state-machine ARN,
+ * Persists `kenectai lambda` stack outputs (bucket, state-machine ARN,
  * region) so `render` / `progress` / `destroy` don't need to re-derive
  * them from CloudFormation on every call.
  *
  * Stored at `<cwd>/.hyperframes/lambda-stack-<stackName>.json`. Project-
- * local on purpose: a developer who runs `hyperframes lambda deploy` in
+ * local on purpose: a developer who runs `kenectai lambda deploy` in
  * two different worktrees will get two distinct stack files, which is
  * the right default. If the user wants a shared default location, they
  * can symlink the directory.
@@ -30,9 +30,9 @@ const STATE_FILE_PREFIX = "lambda-stack-";
 /**
  * Default CloudFormation stack name used when the caller doesn't pass
  * `--stack-name`. Centralised so deploy/destroy/sites/dispatcher all
- * agree on the literal `"hyperframes-default"`.
+ * agree on the literal `"kenectai-default"`.
  */
-export const DEFAULT_STACK_NAME = "hyperframes-default";
+export const DEFAULT_STACK_NAME = "kenectai-default";
 
 export function stateFilePath(
   stackName: string = DEFAULT_STACK_NAME,
@@ -86,12 +86,12 @@ export function requireStack(stackName: string, cwd: string = process.cwd()): St
   const stack = readStackOutputs(stackName, cwd);
   if (!stack) {
     const known = listStackNames(cwd);
-    let hint = `Run \`hyperframes lambda deploy${stackName === DEFAULT_STACK_NAME ? "" : ` --stack-name=${stackName}`}\` first.`;
+    let hint = `Run \`kenectai lambda deploy${stackName === DEFAULT_STACK_NAME ? "" : ` --stack-name=${stackName}`}\` first.`;
     if (known.length) {
       hint += ` Known stacks here: ${known.join(", ")}.`;
     }
     console.error(
-      `[hyperframes lambda] no stack state for "${stackName}" at ${stateFilePath(stackName, cwd)}. ${hint}`,
+      `[kenectai lambda] no stack state for "${stackName}" at ${stateFilePath(stackName, cwd)}. ${hint}`,
     );
     process.exit(1);
   }

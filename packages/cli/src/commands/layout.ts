@@ -44,17 +44,17 @@ const MOTION_FPS = 20;
 const MOTION_MAX_SAMPLES = 300;
 
 export const examples: Example[] = [
-  ["Inspect visual layout across the current composition", "hyperframes layout"],
-  ["Inspect a specific project", "hyperframes layout ./my-video"],
-  ["Output agent-readable JSON", "hyperframes layout --json"],
-  ["Use explicit hero-frame timestamps", "hyperframes layout --at 1.5,4.0,7.25"],
+  ["Inspect visual layout across the current composition", "kenectai layout"],
+  ["Inspect a specific project", "kenectai layout ./my-video"],
+  ["Output agent-readable JSON", "kenectai layout --json"],
+  ["Use explicit hero-frame timestamps", "kenectai layout --at 1.5,4.0,7.25"],
   [
     "Also sample at tween boundaries to catch transient overlaps",
-    "hyperframes layout --at-transitions",
+    "kenectai layout --at-transitions",
   ],
   [
     "Verify motion intent (add a *.motion.json sidecar next to the composition)",
-    "hyperframes layout --json",
+    "kenectai layout --json",
   ],
 ];
 
@@ -292,9 +292,9 @@ async function collectLayoutIssues(
     const sampleIssues = await page.evaluate(
       (auditOptions: { time: number; tolerance: number }) => {
         const win = window as unknown as {
-          __hyperframesLayoutAudit?: (options: { time: number; tolerance: number }) => unknown[];
+          __kenectaiLayoutAudit?: (options: { time: number; tolerance: number }) => unknown[];
         };
-        return win.__hyperframesLayoutAudit?.(auditOptions) ?? [];
+        return win.__kenectaiLayoutAudit?.(auditOptions) ?? [];
       },
       { time, tolerance },
     );
@@ -335,12 +335,12 @@ async function collectMotionFrames(
     const sample = await page.evaluate(
       (options: { selectors: string[]; livenessScopes: string[] }) => {
         const win = window as unknown as {
-          __hyperframesMotionSample?: (o: { selectors: string[]; livenessScopes: string[] }) => {
+          __kenectaiMotionSample?: (o: { selectors: string[]; livenessScopes: string[] }) => {
             data: MotionFrame["data"];
             liveness: Record<string, string>;
           };
         };
-        return win.__hyperframesMotionSample?.(options) ?? { data: {}, liveness: {} };
+        return win.__kenectaiMotionSample?.(options) ?? { data: {}, liveness: {} };
       },
       { selectors, livenessScopes },
     );

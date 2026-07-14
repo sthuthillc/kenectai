@@ -53,7 +53,7 @@ export async function fetchRemoteTemplate(templateId: string, destDir: string): 
   const items = await resolveItemWithDependencies(templateId);
   const warnings = gateRegistryItemsCompatibility(items);
   for (const warning of warnings) {
-    process.stderr.write(`hyperframes:registry ${warning}\n`);
+    process.stderr.write(`kenectai:registry ${warning}\n`);
   }
   for (const item of items) {
     await installItem(item, { destDir });

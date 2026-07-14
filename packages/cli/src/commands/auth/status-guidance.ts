@@ -50,7 +50,7 @@ function offlineEngineLines(engines?: OfflineEngineLine[]): string[] {
     }
   }
   if (engines.some((e) => !e.ready)) {
-    lines.push(c.dim("  (or run `hyperframes doctor` to check the local toolchain)"));
+    lines.push(c.dim("  (or run `kenectai doctor` to check the local toolchain)"));
   }
   return lines;
 }

@@ -35,7 +35,7 @@ export function trackCommandFailures(
  *      used to throw before the try and lose the event entirely.
  *   2. Recursion covers nested command groups (`cloud/*`, `auth/*`, `figma/*`,
  *      `lambda/*`, `capture/*`, `skills`). cli.ts only wraps the top-level
- *      loaders, so before this a `hyperframes cloud render --badflag` silently
+ *      loaders, so before this a `kenectai cloud render --badflag` silently
  *      ignored the flag and reported nothing — citty dispatches to the leaf,
  *      whose `run` was never wrapped.
  */

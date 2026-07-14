@@ -17,7 +17,7 @@ export function isSafeVersion(v: string): boolean {
   return /^[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(v);
 }
 
-const NPM_REGISTRY_URL = "https://registry.npmjs.org/hyperframes/latest";
+const NPM_REGISTRY_URL = "https://registry.npmjs.org/@kenectai%2fcli/latest";
 const CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24 hours
 const FETCH_TIMEOUT_MS = 3000;
 
@@ -154,26 +154,26 @@ export function withMeta<T extends object>(
  */
 export function printDeprecationNotice(command: string): void {
   process.stderr.write(
-    `'hyperframes ${command}' is deprecated and will be removed in a future release. Use 'hyperframes check' instead.\n`,
+    `'kenectai ${command}' is deprecated and will be removed in a future release. Use 'kenectai check' instead.\n`,
   );
 }
 
 /**
  * True when update / freshness notices should stay silent — CI, non-TTY, dev
- * mode, or the HYPERFRAMES_NO_UPDATE_CHECK opt-out. Shared with the skills
+ * mode, or the KENECT_NO_UPDATE_CHECK opt-out. Shared with the skills
  * freshness notice so both honour the same gating.
  */
 export function updateNoticesSuppressed(): boolean {
   if (isDevMode()) return true;
   if (process.env["CI"] === "true" || process.env["CI"] === "1") return true;
   if (!process.stderr.isTTY) return true;
-  if (process.env["HYPERFRAMES_NO_UPDATE_CHECK"] === "1") return true;
+  if (process.env["KENECT_NO_UPDATE_CHECK"] === "1") return true;
   return false;
 }
 
 /**
  * Print update notice to stderr if a newer version is available.
- * Skipped in CI, non-TTY, dev mode, or when HYPERFRAMES_NO_UPDATE_CHECK is set.
+ * Skipped in CI, non-TTY, dev mode, or when KENECT_NO_UPDATE_CHECK is set.
  */
 export function printUpdateNotice(): void {
   if (updateNoticesSuppressed()) return;
@@ -183,12 +183,12 @@ export function printUpdateNotice(): void {
 
   // Show the command that updates *this* install: the detected package
   // manager's upgrade for owned global installs (npm/bun/pnpm/brew), and the
-  // universal `npx hyperframes@latest` for ephemeral/unknown installs (where a
+  // universal `npx @kenectai/cli@latest` for ephemeral/unknown installs (where a
   // manager command wouldn't apply). detectInstaller() only runs here, after
   // the suppression + update-available gates, so it adds no cost to normal runs.
   const safeLatest = isSafeVersion(meta.latestVersion);
   const managerCommand = safeLatest ? detectInstaller().installCommand(meta.latestVersion) : null;
-  const command = managerCommand ?? "npx hyperframes@latest";
+  const command = managerCommand ?? "npx @kenectai/cli@latest";
 
   process.stderr.write(
     `\n  Update available: ${meta.version} \u2192 ${meta.latestVersion}\n` +

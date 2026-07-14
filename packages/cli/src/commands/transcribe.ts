@@ -7,16 +7,16 @@ import { findParakeet, transcribeWithParakeet } from "../whisper/parakeet.js";
 type CaptionExportFormat = "srt" | "vtt";
 
 export const examples: Example[] = [
-  ["Transcribe an audio file", "hyperframes transcribe audio.mp3"],
-  ["Transcribe a video file", "hyperframes transcribe video.mp4"],
-  ["Use a larger model for better accuracy", "hyperframes transcribe audio.mp3 --model medium.en"],
-  ["Set language to filter non-target speech", "hyperframes transcribe audio.mp3 --language en"],
-  ["Import an existing SRT file", "hyperframes transcribe subtitles.srt"],
-  ["Import an OpenAI Whisper JSON response", "hyperframes transcribe response.json"],
-  ["Export captions to SRT", "hyperframes transcribe transcript.json --to srt"],
+  ["Transcribe an audio file", "kenectai transcribe audio.mp3"],
+  ["Transcribe a video file", "kenectai transcribe video.mp4"],
+  ["Use a larger model for better accuracy", "kenectai transcribe audio.mp3 --model medium.en"],
+  ["Set language to filter non-target speech", "kenectai transcribe audio.mp3 --language en"],
+  ["Import an existing SRT file", "kenectai transcribe subtitles.srt"],
+  ["Import an OpenAI Whisper JSON response", "kenectai transcribe response.json"],
+  ["Export captions to SRT", "kenectai transcribe transcript.json --to srt"],
   [
     "Export single-word/CJK captions without re-grouping",
-    "hyperframes transcribe transcript.json --to vtt --preserve-cues",
+    "kenectai transcribe transcript.json --to vtt --preserve-cues",
   ],
 ];
 import { resolve, join, extname, dirname } from "node:path";

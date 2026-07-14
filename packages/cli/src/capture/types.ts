@@ -4,7 +4,7 @@
  * Phase 1: Capture — Extract HTML, CSS, screenshots, tokens, assets from a URL
  * Phase 2: Split — Decompose into per-section sub-compositions
  * Phase 3: Verify — Validate each section renders correctly
- * Phase 4: Scaffold — Assemble standard HyperFrames project
+ * Phase 4: Scaffold — Assemble standard KENECT AI project
  */
 
 // ── Phase 1: Capture ────────────────────────────────────────────────────────

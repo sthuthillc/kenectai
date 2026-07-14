@@ -3,9 +3,9 @@ import type { Example } from "./_examples.js";
 import { existsSync, statSync } from "node:fs";
 
 export const examples: Example[] = [
-  ["Run benchmarks with default settings (3 runs)", "hyperframes benchmark"],
-  ["Run 5 iterations per config", "hyperframes benchmark --runs 5"],
-  ["Output results as JSON", "hyperframes benchmark --json"],
+  ["Run benchmarks with default settings (3 runs)", "kenectai benchmark"],
+  ["Run 5 iterations per config", "kenectai benchmark --runs 5"],
+  ["Output results as JSON", "kenectai benchmark --json"],
 ];
 import { resolve, join } from "node:path";
 import { resolveProject } from "../utils/project.js";

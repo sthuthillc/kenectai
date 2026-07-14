@@ -10,7 +10,7 @@ import { randomUUID } from "node:crypto";
 const CONFIG_DIR = join(homedir(), ".hyperframes");
 const CONFIG_FILE = join(CONFIG_DIR, "config.json");
 
-export interface HyperframesConfig {
+export interface KenectaiConfig {
   /** Whether anonymous telemetry is enabled (default: true in production) */
   telemetryEnabled: boolean;
   /** Stable anonymous identifier — no PII, just a random UUID */
@@ -85,7 +85,7 @@ export interface HyperframesConfig {
   deParallelRouterTrialRenderCount?: number;
 }
 
-const DEFAULT_CONFIG: HyperframesConfig = {
+const DEFAULT_CONFIG: KenectaiConfig = {
   telemetryEnabled: true,
   anonymousId: "",
   telemetryNoticeShown: false,
@@ -94,13 +94,13 @@ const DEFAULT_CONFIG: HyperframesConfig = {
   lastFeedbackPromptAt: 0,
 };
 
-let cachedConfig: HyperframesConfig | null = null;
+let cachedConfig: KenectaiConfig | null = null;
 
 /**
  * Read the config file, creating it with defaults if it doesn't exist.
  * Returns a mutable copy — call `writeConfig()` to persist changes.
  */
-export function readConfig(): HyperframesConfig {
+export function readConfig(): KenectaiConfig {
   if (cachedConfig) return { ...cachedConfig };
 
   if (!existsSync(CONFIG_FILE)) {
@@ -111,9 +111,9 @@ export function readConfig(): HyperframesConfig {
 
   try {
     const raw = readFileSync(CONFIG_FILE, "utf-8");
-    const parsed = JSON.parse(raw) as Partial<HyperframesConfig>;
+    const parsed = JSON.parse(raw) as Partial<KenectaiConfig>;
 
-    const config: HyperframesConfig = {
+    const config: KenectaiConfig = {
       telemetryEnabled: parsed.telemetryEnabled ?? DEFAULT_CONFIG.telemetryEnabled,
       anonymousId: parsed.anonymousId || randomUUID(),
       telemetryNoticeShown: parsed.telemetryNoticeShown ?? DEFAULT_CONFIG.telemetryNoticeShown,
@@ -159,7 +159,7 @@ export function readConfig(): HyperframesConfig {
  * lost update against a concurrently-running CLI process that wrote other
  * fields in the meantime.
  */
-export function readConfigFresh(): HyperframesConfig {
+export function readConfigFresh(): KenectaiConfig {
   cachedConfig = null;
   return readConfig();
 }
@@ -180,7 +180,7 @@ export function readConfigFresh(): HyperframesConfig {
  * certainty (e.g. the DE parallel-router trial's off-switch) can react
  * instead of re-implementing read-back verification.
  */
-export function writeConfig(config: HyperframesConfig): boolean {
+export function writeConfig(config: KenectaiConfig): boolean {
   try {
     mkdirSync(CONFIG_DIR, { recursive: true, mode: 0o700 });
     const tmpFile = `${CONFIG_FILE}.${process.pid}.tmp`;

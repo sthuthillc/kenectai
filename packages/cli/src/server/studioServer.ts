@@ -1,5 +1,5 @@
 /**
- * Embedded studio server for `hyperframes preview` outside the monorepo.
+ * Embedded studio server for `kenectai preview` outside the monorepo.
  *
  * Uses the shared studio API module from @kenectai/core/studio-api,
  * providing a CLI-specific adapter for single-project, in-process rendering.
@@ -566,10 +566,10 @@ export function createStudioServer(options: StudioServerOptions): StudioServer {
       // block that depends on other registry items installs completely.
       const items = await resolveItemWithDependencies(opts.blockName);
       // Compatibility-gate the whole set before writing anything (same gate as
-      // `hyperframes add`), so an incompatible block or dep aborts cleanly.
+      // `kenectai add`), so an incompatible block or dep aborts cleanly.
       const warnings = gateRegistryItemsCompatibility(items);
       for (const warning of warnings) {
-        process.stderr.write(`hyperframes:registry ${warning}\n`);
+        process.stderr.write(`kenectai:registry ${warning}\n`);
       }
       const written: string[] = [];
       for (const dep of items) {
@@ -593,13 +593,13 @@ export function createStudioServer(options: StudioServerOptions): StudioServer {
   const app = new Hono();
 
   // Config probe endpoint — used by port detection to identify existing
-  // HyperFrames instances and reuse them instead of spawning duplicates.
-  // See portUtils.ts detectHyperframesServer() for the consumer.
-  app.get("/__hyperframes_config", (c) => {
+  // KENECT AI instances and reuse them instead of spawning duplicates.
+  // See portUtils.ts detectKenectaiServer() for the consumer.
+  app.get("/__kenectai_config", (c) => {
     const serve = async () => {
       const serverBuildSignature = await loadPreviewServerBuildSignature();
       return c.json({
-        isHyperframes: true,
+        isKenectai: true,
         projectName: projectId,
         projectDir: projectDir,
         serverBuildSignature,
@@ -717,7 +717,7 @@ export function createStudioServer(options: StudioServerOptions): StudioServer {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>HyperFrames Studio unavailable</title>
+    <title>KENECT AI Studio unavailable</title>
     <style>
       body {
         margin: 0;

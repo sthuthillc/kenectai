@@ -1,5 +1,5 @@
 /**
- * `hyperframes lambda destroy` — tear the CloudFormation stack down and
+ * `kenectai lambda destroy` — tear the CloudFormation stack down and
  * drop the locally-cached stack outputs. Wraps `sam delete`.
  *
  * The render bucket is created with `Retain` deletion policy in the SAM
@@ -23,7 +23,7 @@ export async function runDestroy(args: DestroyArgs): Promise<void> {
   const stack = requireStack(args.stackName);
   console.log(c.dim(`→ sam delete (stack=${stack.stackName} region=${stack.region})`));
   // Mirror deploy.ts's AWS_PROFILE env fallback — `AWS_PROFILE=prod
-  // hyperframes lambda destroy` should hit the same account `deploy`
+  // kenectai lambda destroy` should hit the same account `deploy`
   // did, not the default credentials chain.
   samDelete({
     repoRoot: repoRoot(),

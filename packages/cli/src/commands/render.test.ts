@@ -172,12 +172,12 @@ describe("renderLocal browser GPU config", () => {
     trackingState.renderObservations = [];
     resetTrialState();
     savedEnv.clear();
-    savedEnv.set("HYPERFRAMES_FFMPEG_PATH", process.env.HYPERFRAMES_FFMPEG_PATH);
-    savedEnv.set("HYPERFRAMES_FFPROBE_PATH", process.env.HYPERFRAMES_FFPROBE_PATH);
+    savedEnv.set("KENECT_FFMPEG_PATH", process.env.KENECT_FFMPEG_PATH);
+    savedEnv.set("KENECT_FFPROBE_PATH", process.env.KENECT_FFPROBE_PATH);
     savedEnv.set("PRODUCER_HEADLESS_SHELL_PATH", process.env.PRODUCER_HEADLESS_SHELL_PATH);
     savedEnv.set("HF_DE_PARALLEL_ROUTER", process.env.HF_DE_PARALLEL_ROUTER);
-    delete process.env.HYPERFRAMES_FFMPEG_PATH;
-    delete process.env.HYPERFRAMES_FFPROBE_PATH;
+    delete process.env.KENECT_FFMPEG_PATH;
+    delete process.env.KENECT_FFPROBE_PATH;
     delete process.env.PRODUCER_HEADLESS_SHELL_PATH;
     delete process.env.HF_DE_PARALLEL_ROUTER;
   });
@@ -315,8 +315,8 @@ describe("renderLocal browser GPU config", () => {
       quiet: true,
     });
 
-    expect(process.env.HYPERFRAMES_FFMPEG_PATH).toBe("/usr/bin/ffmpeg");
-    expect(process.env.HYPERFRAMES_FFPROBE_PATH).toBe("/usr/bin/ffprobe");
+    expect(process.env.KENECT_FFMPEG_PATH).toBe("/usr/bin/ffmpeg");
+    expect(process.env.KENECT_FFPROBE_PATH).toBe("/usr/bin/ffprobe");
     expect(process.env.PRODUCER_HEADLESS_SHELL_PATH).toBe("/mock/chrome");
   });
 
@@ -583,12 +583,12 @@ describe("renderLocal — DE parallel-router CLI trial", () => {
     resetTrialState();
     savedEnv.clear();
     savedEnv.set("HF_DE_PARALLEL_ROUTER", process.env.HF_DE_PARALLEL_ROUTER);
-    savedEnv.set("HYPERFRAMES_FFMPEG_PATH", process.env.HYPERFRAMES_FFMPEG_PATH);
-    savedEnv.set("HYPERFRAMES_FFPROBE_PATH", process.env.HYPERFRAMES_FFPROBE_PATH);
+    savedEnv.set("KENECT_FFMPEG_PATH", process.env.KENECT_FFMPEG_PATH);
+    savedEnv.set("KENECT_FFPROBE_PATH", process.env.KENECT_FFPROBE_PATH);
     savedEnv.set("PRODUCER_HEADLESS_SHELL_PATH", process.env.PRODUCER_HEADLESS_SHELL_PATH);
     delete process.env.HF_DE_PARALLEL_ROUTER;
-    delete process.env.HYPERFRAMES_FFMPEG_PATH;
-    delete process.env.HYPERFRAMES_FFPROBE_PATH;
+    delete process.env.KENECT_FFMPEG_PATH;
+    delete process.env.KENECT_FFPROBE_PATH;
     delete process.env.PRODUCER_HEADLESS_SHELL_PATH;
   });
 

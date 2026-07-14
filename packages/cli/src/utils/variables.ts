@@ -1,7 +1,7 @@
 /**
  * Shared `--variables` / `--variables-file` / `--strict-variables` parsing
- * and validation helpers used by both `hyperframes render` (in-process) and
- * `hyperframes lambda render` (distributed). The Lambda CLI mirrors the
+ * and validation helpers used by both `kenectai render` (in-process) and
+ * `kenectai lambda render` (distributed). The Lambda CLI mirrors the
  * local UX exactly — same flag names, same parse-error messages, same
  * strict-mode behavior — so users who learned the local flow can drive
  * Lambda renders without re-learning the surface.
@@ -200,7 +200,7 @@ export function validateVariablesAgainstSchema(
 /**
  * Print a uniform warning block for variable validation issues; in
  * `strict` mode, render an errorBox and exit(1). Used by both
- * `hyperframes render` and `hyperframes lambda render` so the UX is
+ * `kenectai render` and `kenectai lambda render` so the UX is
  * identical across the two surfaces. Pass `quiet: true` to suppress the
  * warning block (the errorBox in strict mode still prints).
  */

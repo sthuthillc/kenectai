@@ -11,33 +11,33 @@ import type { Example } from "./_examples.js";
 export const examples: Example[] = [
   [
     "Remove background from a video, output transparent VP9 WebM (default)",
-    "hyperframes remove-background avatar.mp4 -o transparent.webm",
+    "kenectai remove-background avatar.mp4 -o transparent.webm",
   ],
   [
     "Output ProRes 4444 .mov for editing round-trip",
-    "hyperframes remove-background avatar.mp4 -o transparent.mov",
+    "kenectai remove-background avatar.mp4 -o transparent.mov",
   ],
   [
     "Remove background from a single image, output transparent PNG",
-    "hyperframes remove-background portrait.jpg -o cutout.png",
+    "kenectai remove-background portrait.jpg -o cutout.png",
   ],
   [
     "Separate the layers — emit both the cutout and an inverse-alpha background plate (subject region transparent)",
-    "hyperframes remove-background avatar.mp4 -o subject.webm --background-output plate.webm",
+    "kenectai remove-background avatar.mp4 -o subject.webm --background-output plate.webm",
   ],
   [
     "Force CPU (skip CoreML/CUDA)",
-    "hyperframes remove-background avatar.mp4 -o transparent.webm --device cpu",
+    "kenectai remove-background avatar.mp4 -o transparent.webm --device cpu",
   ],
   [
     "Smaller file at the cost of color match (text-behind-subject won't blend as cleanly)",
-    "hyperframes remove-background avatar.mp4 -o transparent.webm --quality fast",
+    "kenectai remove-background avatar.mp4 -o transparent.webm --quality fast",
   ],
   [
     "Visually-lossless WebM (master / re-encode source)",
-    "hyperframes remove-background avatar.mp4 -o transparent.webm --quality best",
+    "kenectai remove-background avatar.mp4 -o transparent.webm --quality best",
   ],
-  ["Show detected providers without rendering", "hyperframes remove-background --info"],
+  ["Show detected providers without rendering", "kenectai remove-background --info"],
 ];
 
 export default defineCommand({
@@ -90,9 +90,7 @@ export default defineCommand({
     }
     if (!args.input) {
       console.error(
-        c.error(
-          "Input file is required. Run `hyperframes remove-background --info` for providers.",
-        ),
+        c.error("Input file is required. Run `kenectai remove-background --info` for providers."),
       );
       process.exit(1);
     }
@@ -211,7 +209,7 @@ async function showInfo(json: boolean): Promise<void> {
     return;
   }
 
-  console.log(c.bold("hyperframes remove-background — system info"));
+  console.log(c.bold("kenectai remove-background — system info"));
   console.log("");
   console.log(`  ${c.dim("Default model:")}     ${c.accent(DEFAULT_MODEL)}`);
   console.log(`  ${c.dim("Peak memory:")}       ~${MODEL_MEMORY_MB[DEFAULT_MODEL]} MB`);

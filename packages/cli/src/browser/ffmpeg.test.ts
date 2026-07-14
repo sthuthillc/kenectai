@@ -20,7 +20,7 @@ beforeEach(() => {
 afterEach(() => {
   Object.defineProperty(process, "platform", { value: originalPlatform, configurable: true });
   vi.clearAllMocks();
-  delete process.env.HYPERFRAMES_FFMPEG_PATH;
+  delete process.env.KENECT_FFMPEG_PATH;
 });
 
 describe("findFFmpeg", () => {

@@ -50,8 +50,8 @@ afterEach(() => {
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
   document.body.innerHTML = "";
-  Reflect.deleteProperty(window, "__hyperframesGeometryCandidates");
-  Reflect.deleteProperty(window, "__hyperframesLayoutAudit");
+  Reflect.deleteProperty(window, "__kenectaiGeometryCandidates");
+  Reflect.deleteProperty(window, "__kenectaiLayoutAudit");
   Reflect.deleteProperty(window, "__contrastAuditPrepare");
   Reflect.deleteProperty(window, "__contrastAuditFinish");
   Reflect.deleteProperty(window, "__contrastAuditRestores");

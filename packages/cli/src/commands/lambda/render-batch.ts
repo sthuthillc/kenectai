@@ -1,5 +1,5 @@
 /**
- * `hyperframes lambda render-batch <projectDir> --batch <path.jsonl>` —
+ * `kenectai lambda render-batch <projectDir> --batch <path.jsonl>` —
  * fan out N personalised renders of the same project, one per JSONL line.
  *
  * The headline ergonomic for automated template-rendering pipelines on
@@ -46,7 +46,7 @@ async function loadSDK(): Promise<typeof import("@kenectai/aws-lambda/sdk")> {
   return import("@kenectai/aws-lambda/sdk");
 }
 
-/** Arguments accepted by `hyperframes lambda render-batch`. */
+/** Arguments accepted by `kenectai lambda render-batch`. */
 export interface RenderBatchArgs {
   projectDir: string;
   stackName: string;

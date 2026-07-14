@@ -6,10 +6,10 @@ import {
   isTerminal,
   pollUntilTerminal,
 } from "./poll.js";
-import type { HyperframesCloudClient } from "./_gen/client.js";
-import type { HyperframesRenderDetail } from "./_gen/types.js";
+import type { KenectaiCloudClient } from "./_gen/client.js";
+import type { KenectaiRenderDetail } from "./_gen/types.js";
 
-function makeDetail(overrides: Partial<HyperframesRenderDetail>): HyperframesRenderDetail {
+function makeDetail(overrides: Partial<KenectaiRenderDetail>): KenectaiRenderDetail {
   return {
     render_id: "hfr_test",
     status: "queued",
@@ -19,7 +19,7 @@ function makeDetail(overrides: Partial<HyperframesRenderDetail>): HyperframesRen
 }
 
 /** Build a stub client that returns the supplied details in order. */
-function stubClient(details: HyperframesRenderDetail[]): HyperframesCloudClient {
+function stubClient(details: KenectaiRenderDetail[]): KenectaiCloudClient {
   const stack = [...details];
   return {
     async getRender() {
@@ -27,7 +27,7 @@ function stubClient(details: HyperframesRenderDetail[]): HyperframesCloudClient 
       if (!next) throw new Error("ran out of stubbed responses");
       return next;
     },
-  } as unknown as HyperframesCloudClient;
+  } as unknown as KenectaiCloudClient;
 }
 
 describe("cloud/poll", () => {

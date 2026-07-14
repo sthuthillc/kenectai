@@ -826,7 +826,7 @@
     };
   }
 
-  window.__hyperframesGeometryCandidates = function collectGeometryCandidates(options) {
+  window.__kenectaiGeometryCandidates = function collectGeometryCandidates(options) {
     const includeText = options?.text === true;
     const includeMedia = options?.media === true;
     if (!includeText && !includeMedia) return [];
@@ -860,7 +860,7 @@
     return candidates;
   };
 
-  window.__hyperframesLayoutAudit = function auditLayout(options) {
+  window.__kenectaiLayoutAudit = function auditLayout(options) {
     const time = options && typeof options.time === "number" ? options.time : 0;
     const tolerance =
       options && typeof options.tolerance === "number" ? Math.max(0, options.tolerance) : 2;
@@ -920,7 +920,7 @@
     }
   }
 
-  window.__hyperframesLayoutGeometry = function collectLayoutGeometry() {
+  window.__kenectaiLayoutGeometry = function collectLayoutGeometry() {
     const root =
       document.querySelector("[data-composition-id][data-width][data-height]") ||
       document.querySelector("[data-composition-id]") ||

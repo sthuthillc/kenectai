@@ -170,7 +170,7 @@ async function checkChrome(browserPath?: string): Promise<EnvironmentCheckOutcom
       level: "error",
       title: "Chrome not found",
       detail: `Chrome binary not found at "${browserPath}".`,
-      hint: "Run: npx hyperframes browser ensure",
+      hint: "Run: npx @kenectai/cli browser ensure",
     };
   }
 
@@ -201,7 +201,7 @@ async function checkChrome(browserPath?: string): Promise<EnvironmentCheckOutcom
     level: "error",
     title: "Chrome not found",
     detail: "Chrome Headless Shell is required for local rendering.",
-    hint: "Run: npx hyperframes browser ensure",
+    hint: "Run: npx @kenectai/cli browser ensure",
   };
 }
 

@@ -25,7 +25,7 @@ const PARAKEET_INSTALL =
   "uv venv ~/.venvs/parakeet && VIRTUAL_ENV=~/.venvs/parakeet uv pip install parakeet-mlx";
 
 /** Verify a candidate binary actually runs (mirrors the --version gate on
- *  HYPERFRAMES_PYTHON) so a stale $HYPERFRAMES_PARAKEET path can't shadow a
+ *  KENECT_PYTHON) so a stale $KENECT_PARAKEET path can't shadow a
  *  working install on PATH. */
 function isRunnable(bin: string): boolean {
   try {
@@ -39,7 +39,7 @@ function isRunnable(bin: string): boolean {
 /** Locate the `parakeet-mlx` runner: env override, the documented venv, then PATH. */
 export function findParakeet(): string | undefined {
   const candidates = [
-    process.env.HYPERFRAMES_PARAKEET,
+    process.env.KENECT_PARAKEET,
     join(homedir(), ".venvs", "parakeet", "bin", "parakeet-mlx"),
   ].filter((p): p is string => Boolean(p));
 

@@ -317,8 +317,8 @@ describe("validate command deprecation (U5)", () => {
   it("prints a one-line deprecation notice to stderr and never to stdout", async () => {
     const { default: validateCommand } = await import("./validate.js");
     const { stderrText, stdoutText } = await runAndCaptureStdio(validateCommand);
-    expect(stderrText).toContain("hyperframes validate");
-    expect(stderrText).toContain("hyperframes check");
+    expect(stderrText).toContain("kenectai validate");
+    expect(stderrText).toContain("kenectai check");
     expect(stdoutText).toBe("");
   });
 

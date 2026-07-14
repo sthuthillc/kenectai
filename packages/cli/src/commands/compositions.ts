@@ -4,8 +4,8 @@ import { existsSync, readFileSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 
 export const examples: Example[] = [
-  ["List compositions in the current project", "hyperframes compositions"],
-  ["Output as JSON", "hyperframes compositions --json"],
+  ["List compositions in the current project", "kenectai compositions"],
+  ["Output as JSON", "kenectai compositions --json"],
 ];
 import { c } from "../ui/colors.js";
 import { ensureDOMParser } from "../utils/dom.js";

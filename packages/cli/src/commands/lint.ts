@@ -3,10 +3,10 @@ import type { Example } from "./_examples.js";
 import { c } from "../ui/colors.js";
 
 export const examples: Example[] = [
-  ["Lint the current project", "hyperframes lint"],
-  ["Lint a specific directory", "hyperframes lint ./my-video"],
-  ["Output findings as JSON", "hyperframes lint --json"],
-  ["Include info-level findings", "hyperframes lint --verbose"],
+  ["Lint the current project", "kenectai lint"],
+  ["Lint a specific directory", "kenectai lint ./my-video"],
+  ["Output findings as JSON", "kenectai lint --json"],
+  ["Include info-level findings", "kenectai lint --verbose"],
 ];
 import { formatLintFindings } from "../utils/lintFormat.js";
 import { lintProject } from "../utils/lintProject.js";
@@ -38,7 +38,7 @@ export default defineCommand({
   async run({ args }) {
     // Set process.exitCode + return instead of process.exit(): process.exit()
     // terminates before Node flushes an async (non-TTY / piped) stdout, so
-    // `hyperframes lint --json | ...` on Windows silently loses the entire JSON
+    // `kenectai lint --json | ...` on Windows silently loses the entire JSON
     // payload written just above the exit. Letting run() return drains stdout
     // first, then Node exits with the set code — the pattern the other commands
     // (publish/transcribe/upgrade/play/present) already use.

@@ -1,5 +1,5 @@
 /**
- * `hyperframes cloud render` — orchestrate a cloud-rendered HyperFrames
+ * `kenectai cloud render` — orchestrate a cloud-rendered KENECT AI
  * composition end-to-end:
  *
  *   1. Resolve the project (or reuse a pre-uploaded `--asset-id` /
@@ -11,10 +11,10 @@
  *      to it, then `POST /v3/assets/{asset_id}/complete` finalizes.
  *      Cap: 200 MB. See `../../cloud/upload.ts` for the three-step
  *      contract. (The legacy `POST /v3/assets` proxy path was 32 MB.)
- *   4. Submit the render via `POST /v3/hyperframes/renders` with a
+ *   4. Submit the render via `POST /v3/kenectai/renders` with a
  *      `project: {type:"asset_id", asset_id}` shape.
  *   5. If `--no-wait`: print the `render_id` and exit immediately.
- *      Otherwise poll `GET /v3/hyperframes/renders/{id}` every
+ *      Otherwise poll `GET /v3/kenectai/renders/{id}` every
  *      `--poll-interval` (default 10s, max 60min). `--callback-url`
  *      can be combined with either mode: the webhook always fires when
  *      the server-side render terminates, independent of whether the
@@ -59,9 +59,9 @@ import { parseEnumFlag, parseIntFlag, parseNumericFlag } from "../../cloud/parsi
 import { uploadZipViaDirectUpload } from "../../cloud/upload.js";
 import { colorStatus } from "../../cloud/statusColor.js";
 import type {
-  CreateHyperframesRenderRequest,
-  HyperframesCloudClient,
-  HyperframesRenderDetail,
+  CreateKenectaiRenderRequest,
+  KenectaiCloudClient,
+  KenectaiRenderDetail,
 } from "../../cloud/index.js";
 import { isAbsolute, resolve as resolvePath } from "node:path";
 import { existsSync } from "node:fs";
@@ -74,25 +74,25 @@ const VALID_ASPECT_RATIO = ["16:9", "9:16", "1:1"] as const;
 const FORMAT_EXT: Record<string, string> = { mp4: ".mp4", webm: ".webm", mov: ".mov" };
 
 export const examples: Example[] = [
-  ["Render the current directory in the cloud", "hyperframes cloud render"],
+  ["Render the current directory in the cloud", "kenectai cloud render"],
   [
     "Pick a specific composition + output path",
-    "hyperframes cloud render . --composition compositions/intro.html -o ./renders/intro.mp4",
+    "kenectai cloud render . --composition compositions/intro.html -o ./renders/intro.mp4",
   ],
-  ["Higher quality, 60fps", "hyperframes cloud render --quality high --fps 60"],
+  ["Higher quality, 60fps", "kenectai cloud render --quality high --fps 60"],
   [
     "Submit and exit; webhook fires when the render terminates",
-    "hyperframes cloud render --callback-url https://example.com/hook --no-wait",
+    "kenectai cloud render --callback-url https://example.com/hook --no-wait",
   ],
   [
     "Override variables (parametrized render)",
-    'hyperframes cloud render --variables \'{"title":"Q4 Recap","theme":"dark"}\'',
+    'kenectai cloud render --variables \'{"title":"Q4 Recap","theme":"dark"}\'',
   ],
-  ["Re-render an already-uploaded zip", "hyperframes cloud render --asset-id asst_abc123"],
+  ["Re-render an already-uploaded zip", "kenectai cloud render --asset-id asst_abc123"],
 ];
 
 export default defineCommand({
-  meta: { name: "render", description: "Render a HyperFrames composition in the cloud" },
+  meta: { name: "render", description: "Render a KENECT AI composition in the cloud" },
   args: {
     dir: { type: "positional", required: false, description: "Project directory (default: .)" },
     fps: { type: "string", description: "Frames per second (1-240). Default: 30." },
@@ -264,7 +264,7 @@ export default defineCommand({
       } else {
         console.log("");
         console.log(`${c.success("✓")}  Submitted ${c.accent(renderId)}`);
-        console.log(c.dim(`   Poll with: hyperframes cloud get ${renderId}`));
+        console.log(c.dim(`   Poll with: kenectai cloud get ${renderId}`));
       }
       return;
     }
@@ -286,7 +286,7 @@ export default defineCommand({
     if (!detail.video_url) {
       errorBox(
         "Render completed but returned no video_url",
-        `render_id: ${renderId}. Try \`hyperframes cloud get ${renderId}\` to inspect raw fields.`,
+        `render_id: ${renderId}. Try \`kenectai cloud get ${renderId}\` to inspect raw fields.`,
       );
       process.exit(1);
     }
@@ -504,7 +504,7 @@ function resolveVariablesAndValidateIfLocal(
   // Only validate against the local composition when we actually have
   // a local project on disk. For --asset-id / --url paths the schema
   // lives on the server side, so we send the variables as-is and let
-  // the API surface any mismatch via `hyperframes_project_invalid`.
+  // the API surface any mismatch via `kenectai_project_invalid`.
   if (source.kind !== "dir") return variables;
   // `resolveProject` calls process.exit on a missing/invalid dir, so
   // there's no need to wrap this in try/catch — if it returns, the
@@ -520,12 +520,12 @@ function resolveVariablesAndValidateIfLocal(
 // ---------------------------------------------------------------------------
 
 interface UploadResult {
-  projectInput: CreateHyperframesRenderRequest["project"];
+  projectInput: CreateKenectaiRenderRequest["project"];
 }
 
 // fallow-ignore-next-line complexity
 async function maybeUploadProject(
-  client: HyperframesCloudClient,
+  client: KenectaiCloudClient,
   source: ProjectInputSource,
   asJson: boolean,
   idempotencyKey: string | undefined,
@@ -596,12 +596,12 @@ async function maybeUploadProject(
 // ---------------------------------------------------------------------------
 
 interface SubmitOptions {
-  projectInput: CreateHyperframesRenderRequest["project"];
+  projectInput: CreateKenectaiRenderRequest["project"];
   fps: number | undefined;
   quality: "draft" | "standard" | "high" | undefined;
   format: "mp4" | "webm" | "mov" | undefined;
-  resolution: CreateHyperframesRenderRequest["resolution"] | undefined;
-  aspectRatio: CreateHyperframesRenderRequest["aspect_ratio"] | undefined;
+  resolution: CreateKenectaiRenderRequest["resolution"] | undefined;
+  aspectRatio: CreateKenectaiRenderRequest["aspect_ratio"] | undefined;
   composition: string | undefined;
   variables: Record<string, unknown> | undefined;
   title: string | undefined;
@@ -611,7 +611,7 @@ interface SubmitOptions {
 }
 
 async function submitRender(
-  client: HyperframesCloudClient,
+  client: KenectaiCloudClient,
   opts: SubmitOptions,
 ): Promise<{ render_id: string }> {
   const body = buildRenderBody(opts);
@@ -623,8 +623,8 @@ async function submitRender(
 }
 
 // fallow-ignore-next-line complexity
-function buildRenderBody(opts: SubmitOptions): CreateHyperframesRenderRequest {
-  const body: CreateHyperframesRenderRequest = { project: opts.projectInput };
+function buildRenderBody(opts: SubmitOptions): CreateKenectaiRenderRequest {
+  const body: CreateKenectaiRenderRequest = { project: opts.projectInput };
   if (opts.fps !== undefined) body.fps = opts.fps;
   if (opts.quality !== undefined) body.quality = opts.quality;
   if (opts.format !== undefined) body.format = opts.format;
@@ -644,11 +644,11 @@ function buildRenderBody(opts: SubmitOptions): CreateHyperframesRenderRequest {
 
 // fallow-ignore-next-line complexity
 async function pollWithProgress(
-  client: HyperframesCloudClient,
+  client: KenectaiCloudClient,
   renderId: string,
   asJson: boolean,
   poll: { intervalMs: number; maxWaitMs: number },
-): Promise<HyperframesRenderDetail> {
+): Promise<KenectaiRenderDetail> {
   // ANSI carriage-return redraws only make sense on a TTY. CI logs and
   // file redirects get one append per status change instead, and JSON
   // mode stays silent altogether.
@@ -682,19 +682,19 @@ async function pollWithProgress(
       errorBox(
         "Poll timed out",
         err.message,
-        `The render may still complete. Resume with: hyperframes cloud get ${renderId}`,
+        `The render may still complete. Resume with: kenectai cloud get ${renderId}`,
       );
       process.exit(1);
     }
     return reportApiError("API error during poll", err, {
-      suggestion: `The render may still be running. Resume with: hyperframes cloud get ${renderId}`,
+      suggestion: `The render may still be running. Resume with: kenectai cloud get ${renderId}`,
     });
   } finally {
     if (!asJson && lastStatus && interactive) process.stdout.write("\n");
   }
 }
 
-function formatTickLine(detail: HyperframesRenderDetail, elapsedMs: number): string {
+function formatTickLine(detail: KenectaiRenderDetail, elapsedMs: number): string {
   const status = colorStatus(detail.status);
   return `${status}  ${c.dim(formatDuration(elapsedMs))}`;
 }
@@ -703,7 +703,7 @@ function formatTickLine(detail: HyperframesRenderDetail, elapsedMs: number): str
 // Terminal handlers
 // ---------------------------------------------------------------------------
 
-function handleFailedRender(detail: HyperframesRenderDetail, asJson: boolean): never {
+function handleFailedRender(detail: KenectaiRenderDetail, asJson: boolean): never {
   if (asJson) {
     console.log(JSON.stringify(withMeta({ render: detail }), null, 2));
     process.exit(1);
@@ -711,7 +711,7 @@ function handleFailedRender(detail: HyperframesRenderDetail, asJson: boolean): n
   errorBox(
     "Render failed",
     detail.failure_message ?? "(no failure_message returned)",
-    `Inspect: hyperframes cloud get ${detail.render_id}`,
+    `Inspect: kenectai cloud get ${detail.render_id}`,
   );
   process.exit(1);
 }
@@ -747,7 +747,7 @@ async function streamVideo(
     errorBox(
       "Download failed",
       message,
-      "The presigned URL is short-lived; re-fetch with `hyperframes cloud get`.",
+      "The presigned URL is short-lived; re-fetch with `kenectai cloud get`.",
     );
     process.exit(1);
   }

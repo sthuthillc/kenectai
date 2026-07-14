@@ -29,7 +29,7 @@ export function resolveProjectOrThrow(dirArg: string | undefined): ProjectDir {
     throw new InvalidProjectError(
       "Invalid project directory: #",
       "# is a URL fragment, not a project path.",
-      "Run hyperframes preview . from your project directory.",
+      "Run kenectai preview . from your project directory.",
     );
   }
 
@@ -44,7 +44,7 @@ export function resolveProjectOrThrow(dirArg: string | undefined): ProjectDir {
     throw new InvalidProjectError(
       "No composition found in " + dir,
       "No index.html file found.",
-      "Run npx hyperframes init to create a new composition.",
+      "Run npx @kenectai/cli init to create a new composition.",
     );
   }
 

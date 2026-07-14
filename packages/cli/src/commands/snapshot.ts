@@ -57,7 +57,7 @@ function orbitStageSource(): string {
 /** Maximum time a single-frame FFmpeg extract is allowed to run. Mirrors the
  * default applied by `@kenectai/engine`'s `runFfmpeg` so a pathological
  * clip (corrupt media, stalled network mount, codec edge case) cannot wedge
- * `hyperframes snapshot` indefinitely. */
+ * `kenectai snapshot` indefinitely. */
 const FFMPEG_EXTRACT_TIMEOUT_MS = 30_000;
 
 /**
@@ -642,7 +642,7 @@ export default defineCommand({
             console.log(`   ${c.dim("Describing frames with Gemini vision...")}`);
             const { GoogleGenAI } = await import("@google/genai");
             const ai = new GoogleGenAI({ apiKey: geminiKey });
-            const model = process.env.HYPERFRAMES_GEMINI_MODEL || "gemini-3.1-flash-lite-preview";
+            const model = process.env.KENECT_GEMINI_MODEL || "gemini-3.1-flash-lite-preview";
             const customQuestion =
               describeArg === "true"
                 ? "Describe this video composition frame in 1-2 sentences. Be specific and factual: what elements are visible, what text appears, is the frame blank/black/loading, what is the composition. Flag any obvious problems."

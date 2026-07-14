@@ -1,5 +1,5 @@
 /**
- * `hyperframes lambda sites create <projectDir>` — tar + upload a project
+ * `kenectai lambda sites create <projectDir>` — tar + upload a project
  * to the deployed render bucket at a content-addressed S3 prefix. Used
  * by adopters who want to pre-stage a project so multiple subsequent
  * renders share the upload.
@@ -57,7 +57,7 @@ export async function runSitesCreate(args: SitesCreateArgs): Promise<void> {
   console.log();
   console.log(
     c.dim(
-      `Render with: hyperframes lambda render ${args.projectDir} --site-id=${handle.siteId}` +
+      `Render with: kenectai lambda render ${args.projectDir} --site-id=${handle.siteId}` +
         (args.stackName === DEFAULT_STACK_NAME ? "" : ` --stack-name=${args.stackName}`),
     ),
   );

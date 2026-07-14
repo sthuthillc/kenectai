@@ -8,9 +8,9 @@
 
 import { execFileSync } from "node:child_process";
 
-/** Locate a Python 3: `HYPERFRAMES_PYTHON` env override first, then PATH. */
+/** Locate a Python 3: `KENECT_PYTHON` env override first, then PATH. */
 export function findPython(): string | undefined {
-  const override = process.env.HYPERFRAMES_PYTHON;
+  const override = process.env.KENECT_PYTHON;
   if (override) {
     try {
       const version = execFileSync(override, ["--version"], {

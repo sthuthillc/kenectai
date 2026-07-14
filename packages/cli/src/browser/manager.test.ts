@@ -169,7 +169,7 @@ describe("findBrowser — cache resolution", () => {
     // getter on Node — direct assignment is silently a no-op.
     Object.defineProperty(process, "platform", { value: "linux", configurable: true });
     Object.defineProperty(process, "arch", { value: "x64", configurable: true });
-    delete process.env["HYPERFRAMES_BROWSER_PATH"];
+    delete process.env["KENECT_BROWSER_PATH"];
     installChildProcessMocks();
   });
 
@@ -401,7 +401,7 @@ describe("findBrowser — cache resolution", () => {
     expect(paths.has(HF_LOCK)).toBe(false);
     expect(
       warnSpy.mock.calls.some(([msg]) =>
-        String(msg).includes("Waiting for another hyperframes process"),
+        String(msg).includes("Waiting for another kenectai process"),
       ),
     ).toBe(true);
   });
@@ -539,13 +539,13 @@ describe("findBrowser — cache resolution", () => {
   });
 
   it("does NOT warn when the system path happens to be chrome-headless-shell", async () => {
-    // HYPERFRAMES_BROWSER_PATH-style override pointing directly at a
+    // KENECT_BROWSER_PATH-style override pointing directly at a
     // headless-shell binary should NOT trigger the system-Chrome warning. The
     // warning is gated on the binary name, not the path source.
     const directShell = "/opt/chrome-headless-shell/chrome-headless-shell";
     installFsMocks({ existing: new Set([directShell]) });
     installPuppeteerBrowsersMock();
-    process.env["HYPERFRAMES_BROWSER_PATH"] = directShell;
+    process.env["KENECT_BROWSER_PATH"] = directShell;
     const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
 
     const { findBrowser, _resetSystemFallbackWarnForTests } = await import("./manager.js");

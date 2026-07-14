@@ -4,8 +4,8 @@ import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { detectLinuxDistro, ffmpegInstallCommand } from "./linuxDeps.js";
 
-export const FFMPEG_PATH_ENV = "HYPERFRAMES_FFMPEG_PATH";
-export const FFPROBE_PATH_ENV = "HYPERFRAMES_FFPROBE_PATH";
+export const FFMPEG_PATH_ENV = "KENECT_FFMPEG_PATH";
+export const FFPROBE_PATH_ENV = "KENECT_FFPROBE_PATH";
 
 function chooseBestPathCandidate(
   name: "ffmpeg" | "ffprobe",

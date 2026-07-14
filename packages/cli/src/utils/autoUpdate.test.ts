@@ -74,8 +74,8 @@ function setupMocks(opts: {
   // CI=true and would cause every scheduling assertion to fail false-negative.
   // Tests that specifically want one of these set pass it via opts.env.
   delete process.env["CI"];
-  delete process.env["HYPERFRAMES_NO_AUTO_INSTALL"];
-  delete process.env["HYPERFRAMES_NO_UPDATE_CHECK"];
+  delete process.env["KENECT_NO_AUTO_INSTALL"];
+  delete process.env["KENECT_NO_UPDATE_CHECK"];
 
   // Apply env overrides, remembering originals for afterEach cleanup.
   if (opts.env) {
@@ -148,10 +148,10 @@ describe("scheduleBackgroundInstall", () => {
     expect(spawnSpy).not.toHaveBeenCalled();
   });
 
-  it("skips when HYPERFRAMES_NO_AUTO_INSTALL=1", async () => {
+  it("skips when KENECT_NO_AUTO_INSTALL=1", async () => {
     const { spawnSpy } = setupMocks({
       installer: { kind: "npm", command: "npm install -g hyperframes@0.4.4" },
-      env: { HYPERFRAMES_NO_AUTO_INSTALL: "1" },
+      env: { KENECT_NO_AUTO_INSTALL: "1" },
     });
     const { scheduleBackgroundInstall } = await import("./autoUpdate.js");
 
@@ -284,7 +284,7 @@ describe("scheduleBackgroundInstall", () => {
       reportCompletedUpdate();
 
       expect(stderrWrite).toHaveBeenCalledWith(
-        expect.stringContaining("hyperframes auto-update to v0.4.4 failed"),
+        expect.stringContaining("kenectai auto-update to v0.4.4 failed"),
       );
       expect(config.completedUpdate).toMatchObject({
         version: "0.4.4",

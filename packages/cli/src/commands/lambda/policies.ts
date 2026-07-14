@@ -1,9 +1,9 @@
 /**
- * `hyperframes lambda policies role|user|validate` — IAM bootstrap.
+ * `kenectai lambda policies role|user|validate` — IAM bootstrap.
  *
  * Emit the minimum permissions an adopter needs to deploy, invoke, and
  * tear down the Lambda render stack. Without this, the typical first
- * attempt at `hyperframes lambda deploy` is `User is not authorized to
+ * attempt at `kenectai lambda deploy` is `User is not authorized to
  * perform iam:CreateRole on resource ...` and a 30-minute detour to
  * write the policy by hand.
  *
@@ -217,7 +217,7 @@ export async function runPolicies(args: PoliciesArgs): Promise<void> {
       if (!args.json) {
         console.error(
           c.dim(
-            "\n# Attach the above as an inline policy to the IAM user/role that runs `hyperframes lambda *`.\n# Scope `Resource` to your stack's ARNs after the first successful deploy.",
+            "\n# Attach the above as an inline policy to the IAM user/role that runs `kenectai lambda *`.\n# Scope `Resource` to your stack's ARNs after the first successful deploy.",
           ),
         );
       }
@@ -236,7 +236,7 @@ export async function runPolicies(args: PoliciesArgs): Promise<void> {
     case "validate": {
       if (!args.inputPath) {
         const msg =
-          "[lambda policies validate] usage: hyperframes lambda policies validate <policy.json>";
+          "[lambda policies validate] usage: kenectai lambda policies validate <policy.json>";
         if (args.json) {
           console.log(JSON.stringify({ ok: false, error: msg }, null, 2));
           process.exitCode = 1;
@@ -275,9 +275,7 @@ export async function runPolicies(args: PoliciesArgs): Promise<void> {
         console.log(`  • ${action}`);
       }
       console.log();
-      console.log(
-        c.dim("Run `hyperframes lambda policies user` to print the full required policy."),
-      );
+      console.log(c.dim("Run `kenectai lambda policies user` to print the full required policy."));
       process.exitCode = 1;
       return;
     }

@@ -5,9 +5,9 @@ import { execFileSync } from "node:child_process";
 import { c } from "../ui/colors.js";
 
 export const examples: Example[] = [
-  ["Check for updates interactively", "hyperframes upgrade"],
-  ["Check for updates without prompting", "hyperframes upgrade --check"],
-  ["Upgrade non-interactively", "hyperframes upgrade --yes"],
+  ["Check for updates interactively", "kenectai upgrade"],
+  ["Check for updates without prompting", "kenectai upgrade --check"],
+  ["Upgrade non-interactively", "kenectai upgrade --yes"],
 ];
 import { VERSION } from "../version.js";
 import {
@@ -38,7 +38,7 @@ export default defineCommand({
     }
 
     const autoYes = args.yes === true;
-    clack.intro(c.bold("hyperframes upgrade"));
+    clack.intro(c.bold("kenectai upgrade"));
 
     const s = clack.spinner();
     s.start("Checking for updates...");
@@ -99,7 +99,7 @@ function applyUpgrade(result: UpdateCheckResult, autoYes: boolean): void {
   const installer = detectInstaller();
   const invocation = installInvocation(installer.kind, result.latest);
   const displayCmd = installer.installCommand(result.latest);
-  const npxFallback = `npx hyperframes@${result.latest}`;
+  const npxFallback = `npx @kenectai/cli@${result.latest}`;
 
   // Undetectable / ephemeral (npx, bunx) / project-local / workspace: don't
   // guess a manager command; point at the universal npx fallback instead.

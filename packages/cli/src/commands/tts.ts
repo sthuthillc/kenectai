@@ -4,20 +4,20 @@ import type { Example } from "./_examples.js";
 import { existsSync, readFileSync } from "node:fs";
 
 export const examples: Example[] = [
-  ["Generate speech from text", 'hyperframes tts "Welcome to HyperFrames"'],
-  ["Choose a voice", 'hyperframes tts "Hello world" --voice am_adam'],
-  ["Save to a specific file", 'hyperframes tts "Intro" --voice bf_emma --output narration.wav'],
-  ["Adjust speech speed", 'hyperframes tts "Slow and clear" --speed 0.8'],
+  ["Generate speech from text", 'kenectai tts "Welcome to KENECT AI"'],
+  ["Choose a voice", 'kenectai tts "Hello world" --voice am_adam'],
+  ["Save to a specific file", 'kenectai tts "Intro" --voice bf_emma --output narration.wav'],
+  ["Adjust speech speed", 'kenectai tts "Slow and clear" --speed 0.8'],
   [
     "Generate Spanish speech",
-    'hyperframes tts "La reunión empieza a las nueve" --voice ef_dora --output es.wav',
+    'kenectai tts "La reunión empieza a las nueve" --voice ef_dora --output es.wav',
   ],
   [
     "Override phonemizer language",
-    'hyperframes tts "Ciao a tutti" --voice af_heart --lang it --output accented.wav',
+    'kenectai tts "Ciao a tutti" --voice af_heart --lang it --output accented.wav',
   ],
-  ["Read text from a file", "hyperframes tts script.txt"],
-  ["List available voices", "hyperframes tts --list"],
+  ["Read text from a file", "kenectai tts script.txt"],
+  ["List available voices", "kenectai tts --list"],
 ];
 import { resolve, extname } from "node:path";
 import * as clack from "@clack/prompts";

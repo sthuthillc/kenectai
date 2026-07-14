@@ -2,11 +2,11 @@ import { defineCommand } from "citty";
 import type { Example } from "./_examples.js";
 
 export const examples: Example[] = [
-  ["List all blocks and components", "hyperframes catalog"],
-  ["List blocks only", "hyperframes catalog --type block"],
-  ["Filter by tag", "hyperframes catalog --type block --tag social"],
-  ["Machine-readable JSON", "hyperframes catalog --json"],
-  ["Interactive picker (install on select)", "hyperframes catalog --human-friendly"],
+  ["List all blocks and components", "kenectai catalog"],
+  ["List blocks only", "kenectai catalog --type block"],
+  ["Filter by tag", "kenectai catalog --type block --tag social"],
+  ["Machine-readable JSON", "kenectai catalog --json"],
+  ["Interactive picker (install on select)", "kenectai catalog --human-friendly"],
 ];
 
 import * as clack from "@clack/prompts";
@@ -148,6 +148,6 @@ export default defineCommand({
     }
 
     console.log("");
-    console.log(c.dim(`${matching.length} items. Run "hyperframes add <name>" to install.`));
+    console.log(c.dim(`${matching.length} items. Run "kenectai add <name>" to install.`));
   },
 });

@@ -76,7 +76,7 @@ const EXPECTED_ESPEAK_LANGS = {
 describe("synthesize — espeak-ng language code translation", () => {
   beforeEach(() => {
     resetCapturedArgv();
-    delete process.env.HYPERFRAMES_PYTHON;
+    delete process.env.KENECT_PYTHON;
   });
 
   it("translates the public zh lang to espeak-ng's cmn at the Python boundary", async () => {

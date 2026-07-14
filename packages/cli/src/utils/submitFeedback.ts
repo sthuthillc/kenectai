@@ -1,6 +1,6 @@
 import { getPublishApiBaseUrl } from "./publishProject.js";
 
-// Match the backend DTO caps (HyperframesFeedbackRequest). Truncate here so an
+// Match the backend DTO caps (KenectaiFeedbackRequest). Truncate here so an
 // over-long field (e.g. a pasted stack trace) is still forwarded truncated,
 // rather than rejected by the backend with a 422 the best-effort path swallows.
 const MAX_COMMENT = 2000;

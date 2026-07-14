@@ -14,38 +14,35 @@ import {
 } from "../utils/renderArgs.js";
 
 export const examples: Example[] = [
-  ["Render to MP4", "hyperframes render --output output.mp4"],
-  ["Render a specific composition", "hyperframes render -c compositions/intro.html -o intro.mp4"],
+  ["Render to MP4", "kenectai render --output output.mp4"],
+  ["Render a specific composition", "kenectai render -c compositions/intro.html -o intro.mp4"],
   [
     "Upsample any composition to 4K (supersamples via Chrome DPR)",
-    "hyperframes render --resolution 4k --output 4k.mp4",
+    "kenectai render --resolution 4k --output 4k.mp4",
   ],
-  ["Render transparent overlay (ProRes)", "hyperframes render --format mov --output overlay.mov"],
-  ["Render transparent WebM overlay", "hyperframes render --format webm --output overlay.webm"],
+  ["Render transparent overlay (ProRes)", "kenectai render --format mov --output overlay.mov"],
+  ["Render transparent WebM overlay", "kenectai render --format webm --output overlay.webm"],
   [
     "Render animated GIF for PRs/docs",
-    "hyperframes render --format gif --fps 15 --gif-loop 0 --output demo.gif",
+    "kenectai render --format gif --fps 15 --gif-loop 0 --output demo.gif",
   ],
   [
     "Render PNG sequence (RGBA frames for AE/Nuke/Fusion)",
-    "hyperframes render --format png-sequence --output frames/",
+    "kenectai render --format png-sequence --output frames/",
   ],
-  ["High quality at 60fps", "hyperframes render --fps 60 --quality high --output hd.mp4"],
-  ["Deterministic render via Docker", "hyperframes render --docker --output deterministic.mp4"],
-  ["Parallel rendering with 6 workers", "hyperframes render --workers 6 --output fast.mp4"],
-  ["Opt out of browser GPU render", "hyperframes render --no-browser-gpu --output cpu.mp4"],
-  ["HDR output (auto-detected)", "hyperframes render --output hdr-output.mp4"],
+  ["High quality at 60fps", "kenectai render --fps 60 --quality high --output hd.mp4"],
+  ["Deterministic render via Docker", "kenectai render --docker --output deterministic.mp4"],
+  ["Parallel rendering with 6 workers", "kenectai render --workers 6 --output fast.mp4"],
+  ["Opt out of browser GPU render", "kenectai render --no-browser-gpu --output cpu.mp4"],
+  ["HDR output (auto-detected)", "kenectai render --output hdr-output.mp4"],
   [
     "Override composition variables (parametrized render)",
-    'hyperframes render --variables \'{"title":"Q4 Report","theme":"dark"}\' --output q4.mp4',
+    'kenectai render --variables \'{"title":"Q4 Report","theme":"dark"}\' --output q4.mp4',
   ],
-  [
-    "Variables from a JSON file",
-    "hyperframes render --variables-file ./vars.json --output out.mp4",
-  ],
+  ["Variables from a JSON file", "kenectai render --variables-file ./vars.json --output out.mp4"],
   [
     "Batch render one output per variables row",
-    'hyperframes render --batch rows.json --output "renders/{name}.mp4"',
+    'kenectai render --batch rows.json --output "renders/{name}.mp4"',
   ],
 ];
 import { cpus, freemem, tmpdir } from "node:os";
@@ -66,7 +63,7 @@ import {
   trackRenderPreflightRejected,
 } from "../telemetry/events.js";
 import { maybePromptRenderFeedback } from "../telemetry/feedback.js";
-import { readConfigFresh, writeConfig, type HyperframesConfig } from "../telemetry/config.js";
+import { readConfigFresh, writeConfig, type KenectaiConfig } from "../telemetry/config.js";
 import { shouldTrack } from "../telemetry/client.js";
 import { renderJobObservabilityTelemetryPayload } from "../telemetry/renderObservability.js";
 import { normalizeSkillSlug } from "../telemetry/skill.js";
@@ -380,7 +377,7 @@ export default defineCommand({
       // env fallback survives (matches the --low-memory-mode idiom).
     },
   },
-  // `run` is the citty handler for `hyperframes render` — sequential flag
+  // `run` is the citty handler for `kenectai render` — sequential flag
   // validation + render dispatch. Inherited CRITICAL on main (CRAP 1290);
   // this PR extracted --browser-timeout + --composition validators into
   // `utils/renderArgs.ts`, reducing cyclomatic 75→65 and CRAP 1290→978.
@@ -431,7 +428,7 @@ export default defineCommand({
       // Surface a typo (e.g. camelCase) instead of silently losing attribution.
       // Warning only — never fails the render.
       process.stderr.write(
-        `hyperframes: ignoring --skill="${args.skill}" — not a valid slug ` +
+        `kenectai: ignoring --skill="${args.skill}" — not a valid slug ` +
           "(lowercase letters/digits/hyphens, max 64); this render will be unattributed.\n",
       );
     }
@@ -715,7 +712,7 @@ export default defineCommand({
             c.warn("⚠") +
               "  This composition carries a slideshow island — `render` captures only the first" +
               " scene, so the MP4 will be truncated to slide 1. Use " +
-              c.accent("hyperframes present") +
+              c.accent("kenectai present") +
               " for the deck; a linear main-line MP4 export is not yet available.",
           );
           console.log("");
@@ -799,7 +796,7 @@ export default defineCommand({
         errorBox(
           "Chrome not found",
           normalizeErrorMessage(err),
-          "Run: npx hyperframes browser ensure",
+          "Run: npx @kenectai/cli browser ensure",
         );
         process.exit(1);
       }
@@ -1170,7 +1167,7 @@ export async function checkRenderResolutionPreflight(
   return { message: compat.message, kind: compat.kind };
 }
 
-const DOCKER_IMAGE_PREFIX = "hyperframes-renderer";
+const DOCKER_IMAGE_PREFIX = "kenectai-renderer";
 
 function dockerImageTag(version: string): string {
   return `${DOCKER_IMAGE_PREFIX}:${version}`;
@@ -1203,7 +1200,7 @@ function dockerImageExists(tag: string): boolean {
 
 function dockerImageTagForPlatform(version: string, platform: string): string {
   // Suffix the tag with the arch so amd64 and arm64 images of the same
-  // hyperframes version coexist in the local cache (a developer who flips
+  // kenectai version coexist in the local cache (a developer who flips
   // between hosts shouldn't have to rebuild).
   const archSuffix = platform === "linux/arm64" ? "-arm64" : "";
   return `${dockerImageTag(version)}${archSuffix}`;
@@ -1222,7 +1219,7 @@ function ensureDockerImage(version: string, platform: string, quiet: boolean): s
   const dockerfilePath = resolveDockerfilePath();
 
   // Copy Dockerfile to a temp build context so docker build has a clean context
-  const tmpDir = join(tmpdir(), `hyperframes-docker-${Date.now()}`);
+  const tmpDir = join(tmpdir(), `kenectai-docker-${Date.now()}`);
   mkdirSync(tmpDir, { recursive: true });
   writeFileSync(join(tmpDir, "Dockerfile"), readFileSync(dockerfilePath));
 
@@ -1244,7 +1241,7 @@ function ensureDockerImage(version: string, platform: string, quiet: boolean): s
         "--platform",
         platform,
         "--build-arg",
-        `HYPERFRAMES_VERSION=${version}`,
+        `KENECT_VERSION=${version}`,
         "--build-arg",
         `TARGETARCH=${targetArch}`,
         "-t",
@@ -1281,7 +1278,7 @@ function resolveDockerHostPlatform(options: RenderOptions): string {
     errorBox(
       "--gpu is not supported with --docker on arm64 hosts",
       "Docker Desktop/colima on Apple Silicon doesn't expose --gpus host passthrough to linux/arm64 containers.",
-      "Drop --gpu, or run a native (non-Docker) render on this host, or set HYPERFRAMES_DOCKER_PLATFORM=linux/amd64 if you need GPU encoding (slow under qemu but works).",
+      "Drop --gpu, or run a native (non-Docker) render on this host, or set KENECT_DOCKER_PLATFORM=linux/amd64 if you need GPU encoding (slow under qemu but works).",
     );
     process.exit(1);
   }
@@ -1291,13 +1288,13 @@ function resolveDockerHostPlatform(options: RenderOptions): string {
     // (chrome-for-testing has no arm64 build). It's a different Chromium build
     // than amd64's chrome-for-testing binary, so output isn't byte-identical to
     // an amd64 golden baseline — fine for end-user output. Set
-    // HYPERFRAMES_DOCKER_PLATFORM=linux/amd64 to force parity (qemu-emulated,
+    // KENECT_DOCKER_PLATFORM=linux/amd64 to force parity (qemu-emulated,
     // slower).
     console.log(
       c.dim(
         "  Host is arm64 — using linux/arm64 image with Playwright's " +
           "chrome-headless-shell (output won't be byte-identical to amd64 " +
-          "renders; set HYPERFRAMES_DOCKER_PLATFORM=linux/amd64 to force parity).",
+          "renders; set KENECT_DOCKER_PLATFORM=linux/amd64 to force parity).",
       ),
     );
   }
@@ -1318,7 +1315,7 @@ async function renderDocker(
   // Dev mode (tsx/ts-node) uses "latest" since the local version isn't on npm
   const dockerVersion = isDevMode() ? "latest" : VERSION;
   if (!options.quiet && isDevMode()) {
-    console.log(c.dim("  Dev mode: using hyperframes@latest in Docker image"));
+    console.log(c.dim("  Dev mode: using @kenectai/cli@latest in Docker image"));
   }
 
   const platform = resolveDockerHostPlatform(options);
@@ -1444,8 +1441,8 @@ export async function renderLocal(
     }
   }
 
-  if (preflight.ffmpegPath) process.env.HYPERFRAMES_FFMPEG_PATH = preflight.ffmpegPath;
-  if (preflight.ffprobePath) process.env.HYPERFRAMES_FFPROBE_PATH = preflight.ffprobePath;
+  if (preflight.ffmpegPath) process.env.KENECT_FFMPEG_PATH = preflight.ffmpegPath;
+  if (preflight.ffprobePath) process.env.KENECT_FFPROBE_PATH = preflight.ffprobePath;
   if (preflight.browser?.executablePath && !process.env.PRODUCER_HEADLESS_SHELL_PATH) {
     process.env.PRODUCER_HEADLESS_SHELL_PATH = preflight.browser.executablePath;
   }
@@ -1702,14 +1699,14 @@ export function __resetDeParallelRouterTrialStateForTests(): void {
  * Checks BOTH `shouldTrack()` and `config.telemetryEnabled` directly, not
  * `shouldTrack()` alone: `shouldTrack()` (`../telemetry/client.js`) memoizes
  * its verdict once per process and never invalidates, so during a long
- * `--batch` run (all rows share one process) a `hyperframes telemetry off`
+ * `--batch` run (all rows share one process) a `kenectai telemetry off`
  * issued from another terminal mid-batch would never be observed. The
  * caller must pass a `readConfigFresh()` snapshot for the same reason —
  * `readConfig()` serves a process-lifetime cache that is exactly as stale
  * as the `shouldTrack()` memoization this check exists to bypass (review
  * finding).
  */
-function isDeParallelRouterTrialBlocked(config: HyperframesConfig): boolean {
+function isDeParallelRouterTrialBlocked(config: KenectaiConfig): boolean {
   const overRenderCap =
     (config.deParallelRouterTrialRenderCount ?? 0) >= DE_PARALLEL_ROUTER_TRIAL_MAX_RENDERS;
   return (
@@ -1744,7 +1741,7 @@ function stopManagingDeParallelRouterTrial(): void {
  * off) for this render, on every eligible render for this install (up to
  * `DE_PARALLEL_ROUTER_TRIAL_MAX_RENDERS`), so we get real-traffic router
  * telemetry (revert rate, verify-db distribution) without requiring anyone
- * to manually set the env var — see `HyperframesConfig.deParallelRouterTrialFired`.
+ * to manually set the env var — see `KenectaiConfig.deParallelRouterTrialFired`.
  * See `maybeConsumeDeParallelRouterTrial` for what turns it off. Returns
  * whether this call armed it (so the caller knows to check for consumption
  * afterward) — false unless the caller explicitly opted in (`enabled` —
@@ -1777,7 +1774,7 @@ function maybeEnableDeParallelRouterTrial(quiet: boolean, enabled: boolean): boo
 
   // readConfigFresh, NOT readConfig: the cached read is exactly as stale as
   // the shouldTrack() memoization the blocked-check exists to bypass — a
-  // mid-batch `hyperframes telemetry off` (or another process persisting
+  // mid-batch `kenectai telemetry off` (or another process persisting
   // fired=true) would never be observed through the cache (review finding).
   if (isDeParallelRouterTrialBlocked(readConfigFresh())) {
     stopManagingDeParallelRouterTrial();

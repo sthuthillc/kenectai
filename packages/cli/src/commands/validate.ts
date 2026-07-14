@@ -587,10 +587,10 @@ export default defineCommand({
     description: `Load a composition in headless Chrome and report console errors (deprecated, use check)
 
 Examples:
-  hyperframes validate
-  hyperframes validate ./my-project
-  hyperframes validate --json
-  hyperframes validate --timeout 5000`,
+  kenectai validate
+  kenectai validate ./my-project
+  kenectai validate --json
+  kenectai validate --timeout 5000`,
   },
   args: {
     dir: { type: "positional", description: "Project directory", required: false },

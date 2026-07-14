@@ -8,7 +8,7 @@ vi.mock("../ui/format.js", async (importOriginal) => ({
 }));
 
 import { errorBox } from "../ui/format.js";
-import { HyperframesApiError } from "./_gen/client.js";
+import { KenectaiApiError } from "./_gen/client.js";
 import { reportApiError } from "./errors.js";
 
 describe("cloud/errors reportApiError", () => {
@@ -28,7 +28,7 @@ describe("cloud/errors reportApiError", () => {
   });
 
   it("short-circuits a 404 to a Not found box when notFound is provided", () => {
-    const err = new HyperframesApiError({ status: 404, message: "missing" });
+    const err = new KenectaiApiError({ status: 404, message: "missing" });
     expect(() =>
       reportApiError("Get failed", err, { notFound: "render hfr_x no longer exists" }),
     ).toThrow("process.exit called");
@@ -37,7 +37,7 @@ describe("cloud/errors reportApiError", () => {
   });
 
   it("uses the code-specific hint when the error code is known", () => {
-    const err = new HyperframesApiError({
+    const err = new KenectaiApiError({
       status: 429,
       message: "slow down",
       code: "rate_limit_exceeded",
@@ -51,7 +51,7 @@ describe("cloud/errors reportApiError", () => {
   });
 
   it("prefers the code-specific hint over a caller suggestion", () => {
-    const err = new HyperframesApiError({
+    const err = new KenectaiApiError({
       status: 400,
       message: "bad param",
       code: "invalid_parameter",
@@ -67,7 +67,7 @@ describe("cloud/errors reportApiError", () => {
   });
 
   it("falls back to the caller suggestion when the code has no hint", () => {
-    const err = new HyperframesApiError({
+    const err = new KenectaiApiError({
       status: 500,
       message: "boom",
       code: "some_unmapped_code",
@@ -79,7 +79,7 @@ describe("cloud/errors reportApiError", () => {
   });
 
   it("falls back to a bare code label when there is no hint and no suggestion", () => {
-    const err = new HyperframesApiError({
+    const err = new KenectaiApiError({
       status: 500,
       message: "boom",
       code: "some_unmapped_code",
@@ -93,13 +93,13 @@ describe("cloud/errors reportApiError", () => {
   });
 
   it("omits the third line when there is no code, hint, or suggestion", () => {
-    const err = new HyperframesApiError({ status: 503, message: "unavailable" });
+    const err = new KenectaiApiError({ status: 503, message: "unavailable" });
     expect(() => reportApiError("Get failed", err)).toThrow("process.exit called");
     expect(errorBox).toHaveBeenCalledWith("Get failed (HTTP 503)", "unavailable");
   });
 
   it("merges extraHints on top of the built-in table", () => {
-    const err = new HyperframesApiError({ status: 418, message: "teapot", code: "custom_code" });
+    const err = new KenectaiApiError({ status: 418, message: "teapot", code: "custom_code" });
     expect(() =>
       reportApiError("Brew failed", err, { extraHints: { custom_code: "use coffee instead" } }),
     ).toThrow("process.exit called");
@@ -107,7 +107,7 @@ describe("cloud/errors reportApiError", () => {
   });
 
   it("lets an extraHints entry override a built-in hint", () => {
-    const err = new HyperframesApiError({
+    const err = new KenectaiApiError({
       status: 429,
       message: "slow down",
       code: "rate_limit_exceeded",

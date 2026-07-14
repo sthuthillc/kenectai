@@ -1,7 +1,7 @@
 /**
- * `hyperframes lambda render <projectDir>` — start a distributed render
+ * `kenectai lambda render <projectDir>` — start a distributed render
  * against the deployed stack. Wraps {@link renderToLambda}. Does NOT
- * poll — use `hyperframes lambda progress` for that.
+ * poll — use `kenectai lambda progress` for that.
  */
 
 import { existsSync } from "node:fs";
@@ -57,7 +57,7 @@ export interface RenderArgs {
   /**
    * Fail the command if any `--variables` key is undeclared or has a wrong
    * type vs the composition's `data-composition-variables`. Without this
-   * flag, mismatches are warnings (matches the local `hyperframes render`
+   * flag, mismatches are warnings (matches the local `kenectai render`
    * behavior).
    */
   strictVariables?: boolean;
@@ -83,7 +83,7 @@ export async function runRender(args: RenderArgs): Promise<void> {
   });
 
   // Resolve --variables / --variables-file using the same parser the local
-  // `hyperframes render` uses. `resolveVariablesArg` exits(1) with a friendly
+  // `kenectai render` uses. `resolveVariablesArg` exits(1) with a friendly
   // errorBox on parse errors so callers don't have to.
   const variables = resolveVariablesArg(args.variables, args.variablesFile);
 
@@ -181,7 +181,7 @@ export async function runRender(args: RenderArgs): Promise<void> {
     await waitForCompletion(handle.executionArn, stack, args.waitIntervalMs, args.json);
     return;
   }
-  console.log(c.dim(`Poll with: hyperframes lambda progress ${handle.renderId}`));
+  console.log(c.dim(`Poll with: kenectai lambda progress ${handle.renderId}`));
 }
 
 async function waitForCompletion(

@@ -115,10 +115,10 @@ export function mirrorGlobalSkills(opts: {
   const universalStore = join(home, ".agents", "skills");
   if (!existsSync(source)) return { source: null, mirrored: [] };
 
-  // Mirror ONLY HyperFrames' own skills (by name), NEVER everything in the
+  // Mirror ONLY KENECT AI's own skills (by name), NEVER everything in the
   // store: ~/.claude/skills is shared, so a user's gstack / personal / company
   // skills live there too and must not be fanned out to (or overwrite) other
-  // agents. `opts.skills` is the lock-attributed HyperFrames set (see
+  // agents. `opts.skills` is the lock-attributed KENECT AI set (see
   // kenectaiSkillNames).
   const allowed = new Set(opts.skills);
   const skills = listSkillDirs(source).filter((name) => allowed.has(name));

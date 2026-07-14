@@ -42,7 +42,7 @@ describe("checkRegistryItemCompatibility", () => {
       { ...BASE_ITEM, minCliVersion: "0.6.80" },
       "0.6.79",
     );
-    expect(result.error).toContain('Registry item "demo-block" requires hyperframes >= 0.6.80');
+    expect(result.error).toContain('Registry item "demo-block" requires kenectai >= 0.6.80');
   });
 
   it("allows source/dev CLI builds to install future-gated registry items", () => {
@@ -91,6 +91,6 @@ describe("gateRegistryItemsCompatibility", () => {
     ).toThrow(RegistryCompatibilityError);
     expect(() =>
       gateRegistryItemsCompatibility([dep("a"), dep("b", { minCliVersion: "999.0.0" })], "0.6.79"),
-    ).toThrow(/requires hyperframes >= 999\.0\.0/);
+    ).toThrow(/requires kenectai >= 999\.0\.0/);
   });
 });

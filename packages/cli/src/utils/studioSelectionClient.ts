@@ -1,11 +1,7 @@
 import { existsSync, realpathSync } from "node:fs";
 import { resolve } from "node:path";
 import { scanActiveServers, type ActiveServer } from "../server/portUtils.js";
-import type {
-  LintResult,
-  ResolvedProject,
-  StudioSelectionResponse,
-} from "@kenectai/studio-server";
+import type { LintResult, ResolvedProject, StudioSelectionResponse } from "@kenectai/studio-server";
 
 export type StudioLintResponse = LintResult;
 

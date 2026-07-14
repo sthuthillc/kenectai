@@ -190,13 +190,13 @@ export function showTelemetryNotice(): boolean {
   writeConfig(config);
 
   console.log();
-  console.log(`  ${c.dim("Hyperframes collects anonymous usage data to improve the tool.")}`);
+  console.log(`  ${c.dim("KENECT AI collects anonymous usage data to improve the tool.")}`);
   console.log(`  ${c.dim("File paths and composition content are never collected.")}`);
   console.log(
     `  ${c.dim("If you sign in to HeyGen, your account (email, or username) is linked to your usage.")}`,
   );
   console.log();
-  console.log(`  ${c.dim("Disable anytime:")} ${c.accent("hyperframes telemetry disable")}`);
+  console.log(`  ${c.dim("Disable anytime:")} ${c.accent("kenectai telemetry disable")}`);
   console.log();
 
   return true;

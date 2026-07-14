@@ -1,5 +1,5 @@
 /**
- * Resolve the HyperFrames repo root. Used by `lambda deploy`/`destroy`
+ * Resolve the KENECT AI repo root. Used by `lambda deploy`/`destroy`
  * to find `examples/aws-lambda/template.yaml` and the handler ZIP build
  * script.
  *
@@ -13,7 +13,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 export function repoRoot(): string {
-  const override = process.env.HYPERFRAMES_REPO_ROOT;
+  const override = process.env.KENECT_REPO_ROOT;
   if (override && existsSync(resolve(override, "packages", "aws-lambda", "package.json"))) {
     return override;
   }
@@ -27,7 +27,7 @@ export function repoRoot(): string {
     dir = parent;
   }
   throw new Error(
-    "[hyperframes lambda] could not find the repo root (no packages/aws-lambda/ above this CLI's source). " +
-      "Run `hyperframes lambda` from within a hyperframes checkout, or set HYPERFRAMES_REPO_ROOT explicitly.",
+    "[kenectai lambda] could not find the repo root (no packages/aws-lambda/ above this CLI's source). " +
+      "Run `kenectai lambda` from within a kenectai checkout, or set KENECT_REPO_ROOT explicitly.",
   );
 }

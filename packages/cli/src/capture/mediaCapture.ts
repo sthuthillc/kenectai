@@ -46,7 +46,7 @@ export async function saveLottieAnimations(
         // SSRF guard — safeFetch re-checks the denylist on every redirect hop
         const res = await safeFetch(lottieItem.url, {
           signal: AbortSignal.timeout(10000),
-          headers: { "User-Agent": "HyperFrames/1.0" },
+          headers: { "User-Agent": "KenectAI/1.0" },
         });
         if (!res || !res.ok) continue;
         const buf = Buffer.from(await res.arrayBuffer());
@@ -248,7 +248,7 @@ async function downloadVideoBody(
     // Location hop, so a public URL cannot 30x to an internal/metadata host.
     const res = await safeFetch(srcUrl, {
       signal: AbortSignal.timeout(120000), // up to ~75 MB on a slow link; aborts cleanly → still-frame fallback
-      headers: { "User-Agent": "HyperFrames/1.0" },
+      headers: { "User-Agent": "KenectAI/1.0" },
     });
     if (!res || !res.ok || !res.body) return null;
     const ct = (res.headers.get("content-type") || "").toLowerCase();

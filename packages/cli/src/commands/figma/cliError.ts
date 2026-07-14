@@ -1,5 +1,5 @@
 /**
- * Shared CLI error boundary for `hyperframes figma` subcommands: typed
+ * Shared CLI error boundary for `kenectai figma` subcommands: typed
  * client errors (NO_TOKEN, BAD_TOKEN, …) and input errors (bad ref, bad
  * format) all carry actionable, user-facing messages — present them via
  * the CLI's standard errorBox, not a stack trace. Non-Error throws still

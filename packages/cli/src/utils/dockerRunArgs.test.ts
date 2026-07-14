@@ -436,33 +436,31 @@ describe("resolveDockerPlatform", () => {
     const result = resolveDockerPlatform();
     // Must equal the explicit-arg form (env override notwithstanding, which
     // wouldn't be set in the test runner unless deliberately stubbed).
-    const expected = process.env.HYPERFRAMES_DOCKER_PLATFORM
-      ? process.env.HYPERFRAMES_DOCKER_PLATFORM
+    const expected = process.env.KENECT_DOCKER_PLATFORM
+      ? process.env.KENECT_DOCKER_PLATFORM
       : resolveDockerPlatform(process.arch, {});
     expect(result).toBe(expected);
   });
 
-  it("honors HYPERFRAMES_DOCKER_PLATFORM override on an arm64 host (Rosetta-Node / parity-regen escape hatch)", () => {
-    expect(resolveDockerPlatform("arm64", { HYPERFRAMES_DOCKER_PLATFORM: "linux/amd64" })).toBe(
+  it("honors KENECT_DOCKER_PLATFORM override on an arm64 host (Rosetta-Node / parity-regen escape hatch)", () => {
+    expect(resolveDockerPlatform("arm64", { KENECT_DOCKER_PLATFORM: "linux/amd64" })).toBe(
       "linux/amd64",
     );
   });
 
-  it("honors HYPERFRAMES_DOCKER_PLATFORM override on an amd64 host", () => {
-    expect(resolveDockerPlatform("x64", { HYPERFRAMES_DOCKER_PLATFORM: "linux/arm64" })).toBe(
+  it("honors KENECT_DOCKER_PLATFORM override on an amd64 host", () => {
+    expect(resolveDockerPlatform("x64", { KENECT_DOCKER_PLATFORM: "linux/arm64" })).toBe(
       "linux/arm64",
     );
   });
 
-  it("trims whitespace from HYPERFRAMES_DOCKER_PLATFORM and ignores empty override", () => {
-    expect(resolveDockerPlatform("arm64", { HYPERFRAMES_DOCKER_PLATFORM: "  linux/amd64  " })).toBe(
+  it("trims whitespace from KENECT_DOCKER_PLATFORM and ignores empty override", () => {
+    expect(resolveDockerPlatform("arm64", { KENECT_DOCKER_PLATFORM: "  linux/amd64  " })).toBe(
       "linux/amd64",
     );
     // Empty/whitespace-only override falls back to arch detection — important
     // for shells where `export FOO=""` would otherwise pin platform to "".
-    expect(resolveDockerPlatform("arm64", { HYPERFRAMES_DOCKER_PLATFORM: "" })).toBe("linux/arm64");
-    expect(resolveDockerPlatform("arm64", { HYPERFRAMES_DOCKER_PLATFORM: "   " })).toBe(
-      "linux/arm64",
-    );
+    expect(resolveDockerPlatform("arm64", { KENECT_DOCKER_PLATFORM: "" })).toBe("linux/arm64");
+    expect(resolveDockerPlatform("arm64", { KENECT_DOCKER_PLATFORM: "   " })).toBe("linux/arm64");
   });
 });

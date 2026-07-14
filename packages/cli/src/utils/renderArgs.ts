@@ -1,5 +1,5 @@
 /**
- * Pure parsers for `hyperframes render` argv that aren't already shared
+ * Pure parsers for `kenectai render` argv that aren't already shared
  * (fps, quality, format, variables live elsewhere). Lives separately so
  * the validation branches are unit-testable without `process.exit` — the
  * side-effecting wrappers (`resolve*`) own the `errorBox + exit(1)` UI.

@@ -88,11 +88,11 @@ interface ReferenceFrame {
 export const examples: Example[] = [
   [
     "Compare grade presets on one reference frame",
-    "hyperframes grade-compare --for frame.png --grades grades.json",
+    "kenectai grade-compare --for frame.png --grades grades.json",
   ],
   [
     "Compare LUT files and print agent-friendly JSON",
-    "hyperframes grade-compare --for frame.png --luts looks/a.cube,looks/b.cube --json",
+    "kenectai grade-compare --for frame.png --luts looks/a.cube,looks/b.cube --json",
   ],
 ];
 
@@ -342,7 +342,7 @@ export function buildGradeCompareHtml(options: GradeCompareHtmlOptions): string 
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=${metrics.width}, height=${metrics.height}" />
-    <title>HyperFrames Grade Compare</title>
+    <title>KENECT AI Grade Compare</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       html,

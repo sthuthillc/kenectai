@@ -19,7 +19,7 @@ afterEach(() => {
   vi.restoreAllMocks();
   document.body.innerHTML = "";
   Reflect.deleteProperty(document, "elementFromPoint");
-  Reflect.deleteProperty(window, "__hyperframesLayoutAudit");
+  Reflect.deleteProperty(window, "__kenectaiLayoutAudit");
   clearGeometryCollector();
 });
 
@@ -27,7 +27,7 @@ describe("layout-audit.browser", () => {
   afterEach(() => {
     vi.restoreAllMocks();
     document.body.innerHTML = "";
-    delete (window as unknown as { __hyperframesLayoutAudit?: unknown }).__hyperframesLayoutAudit;
+    delete (window as unknown as { __kenectaiLayoutAudit?: unknown }).__kenectaiLayoutAudit;
     clearGeometryCollector();
   });
 
@@ -351,7 +351,7 @@ describe("layout-audit.browser content overlap", () => {
     vi.restoreAllMocks();
     document.body.innerHTML = "";
     delete (document as unknown as { elementFromPoint?: unknown }).elementFromPoint;
-    delete (window as unknown as { __hyperframesLayoutAudit?: unknown }).__hyperframesLayoutAudit;
+    delete (window as unknown as { __kenectaiLayoutAudit?: unknown }).__kenectaiLayoutAudit;
     clearGeometryCollector();
   });
 
@@ -691,7 +691,7 @@ describe("layout-audit.browser occlusion", () => {
     vi.restoreAllMocks();
     document.body.innerHTML = "";
     delete (document as unknown as { elementFromPoint?: unknown }).elementFromPoint;
-    delete (window as unknown as { __hyperframesLayoutAudit?: unknown }).__hyperframesLayoutAudit;
+    delete (window as unknown as { __kenectaiLayoutAudit?: unknown }).__kenectaiLayoutAudit;
     clearGeometryCollector();
   });
 
@@ -986,9 +986,9 @@ interface AuditIssue {
 function runAudit(): AuditIssue[] {
   const audit = (
     window as unknown as {
-      __hyperframesLayoutAudit: (options: { time: number; tolerance: number }) => AuditIssue[];
+      __kenectaiLayoutAudit: (options: { time: number; tolerance: number }) => AuditIssue[];
     }
-  ).__hyperframesLayoutAudit;
+  ).__kenectaiLayoutAudit;
   return audit({ time: 1, tolerance: 2 });
 }
 
@@ -1068,7 +1068,7 @@ interface GeometryCandidateResult {
 
 declare global {
   interface Window {
-    __hyperframesGeometryCandidates?: (options: {
+    __kenectaiGeometryCandidates?: (options: {
       text: boolean;
       media: boolean;
       tolerance: number;
@@ -1081,13 +1081,13 @@ function runGeometryCandidates(options: {
   media: boolean;
   tolerance: number;
 }): GeometryCandidateResult[] {
-  const collector = window.__hyperframesGeometryCandidates;
+  const collector = window.__kenectaiGeometryCandidates;
   if (!collector) throw new Error("Geometry collector was not installed");
   return collector(options);
 }
 
 function clearGeometryCollector(): void {
-  delete window.__hyperframesGeometryCandidates;
+  delete window.__kenectaiGeometryCandidates;
 }
 
 function rect({ left, top, width, height }: RectInput): DOMRect {

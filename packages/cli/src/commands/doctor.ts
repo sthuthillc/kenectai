@@ -17,8 +17,8 @@ import {
 } from "../telemetry/system.js";
 
 export const examples: Example[] = [
-  ["Check system dependencies", "hyperframes doctor"],
-  ["Output as JSON for CI / agents", "hyperframes doctor --json"],
+  ["Check system dependencies", "kenectai doctor"],
+  ["Output as JSON for CI / agents", "kenectai doctor --json"],
 ];
 
 interface Check {
@@ -66,7 +66,7 @@ function checkVersion(): CheckResult {
     return {
       ok: false,
       detail: `${VERSION} \u2192 ${meta.latestVersion} available`,
-      hint: "Run: hyperframes upgrade",
+      hint: "Run: kenectai upgrade",
     };
   }
   return { ok: true, detail: `${VERSION} (latest)` };
@@ -286,15 +286,15 @@ export default defineCommand({
       // Exit code intentionally reflects command success, not environment
       // health — `checkVersion` returns ok:false when an npm update is
       // available, which would poison any CI pipeline doing
-      // `hyperframes doctor --json || fail` the next time a new version is
+      // `kenectai doctor --json || fail` the next time a new version is
       // published. Consumers who want a gate can do:
-      //   hyperframes doctor --json | jq -e '.ok' > /dev/null || handle_failure
+      //   kenectai doctor --json | jq -e '.ok' > /dev/null || handle_failure
       console.log(JSON.stringify(buildDoctorReport(outcomes, { redact: true }), null, 2));
       return;
     }
 
     console.log();
-    console.log(c.bold("hyperframes doctor"));
+    console.log(c.bold("kenectai doctor"));
     console.log();
 
     for (const outcome of outcomes) {

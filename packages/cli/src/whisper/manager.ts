@@ -59,7 +59,7 @@ function whichBinary(name: string): string | undefined {
 }
 
 function findFromEnv(): WhisperResult | undefined {
-  const envPath = process.env["HYPERFRAMES_WHISPER_PATH"];
+  const envPath = process.env["KENECT_WHISPER_PATH"];
   if (envPath && existsSync(envPath)) {
     return { executablePath: envPath, source: "env" };
   }

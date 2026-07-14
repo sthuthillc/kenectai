@@ -35,7 +35,7 @@ The render interval is configurable:
 
 ```bash
 # Show prompt every 5 renders instead of 15 (useful for testing)
-HYPERFRAMES_FEEDBACK_INTERVAL=5 hyperframes render --output out.mp4
+KENECT_FEEDBACK_INTERVAL=5 hyperframes render --output out.mp4
 ```
 
 ### Studio — session feedback bar
@@ -51,7 +51,7 @@ A thin 32px bar slides in at the bottom of the preview area periodically:
 The session interval is configurable at build time:
 
 ```
-VITE_HYPERFRAMES_FEEDBACK_INTERVAL=3
+VITE_KENECT_FEEDBACK_INTERVAL=3
 ```
 
 Invalid values (non-integer, zero, negative) fall back to the default.
@@ -228,7 +228,7 @@ When set to `"1"`, the bar never shows — `shouldShowFeedback()` returns `false
 The session interval is still configurable independently:
 
 ```
-VITE_HYPERFRAMES_FEEDBACK_INTERVAL=20
+VITE_KENECT_FEEDBACK_INTERVAL=20
 ```
 
 ## Related

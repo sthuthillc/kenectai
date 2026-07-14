@@ -1,11 +1,11 @@
 /**
- * Port utilities for the HyperFrames preview server.
+ * Port utilities for the KENECT AI preview server.
  *
  * The multi-host availability probe and instance-reuse port selection are
  * inspired by Remotion's approach to dev-server port management.
  *
  * - Multi-host availability testing (catches port-forwarding ghosts)
- * - HTTP probe for detecting existing HyperFrames instances
+ * - HTTP probe for detecting existing KENECT AI instances
  * - PID detection for actionable conflict logging
  * - Smart port selection with instance reuse
  */
@@ -22,7 +22,7 @@ const execFileAsync = promisify(execFile);
 /** Max ports to scan before giving up. */
 const MAX_PORT_SCAN = 100;
 
-/** Localhost HTTP probe timeout — HyperFrames responds in <1ms, so 300ms is generous. */
+/** Localhost HTTP probe timeout — KENECT AI responds in <1ms, so 300ms is generous. */
 const PROBE_TIMEOUT_MS = 300;
 
 /** Max bytes to read from HTTP probe response (guards against malicious servers). */
@@ -95,8 +95,8 @@ export async function testPortOnAllHosts(
 
 // ── Existing instance detection ────────────────────────────────────────────
 
-interface HyperframesConfigResponse {
-  isHyperframes: boolean;
+interface KenectaiConfigResponse {
+  isKenectai: boolean;
   projectName: string;
   projectDir: string;
   serverBuildSignature?: string | null;
@@ -106,13 +106,13 @@ interface HyperframesConfigResponse {
 export type DetectionResult =
   | { type: "match" }
   | { type: "mismatch"; projectName: string }
-  | { type: "not-hyperframes" };
+  | { type: "not-kenectai" };
 
 /**
- * Probe an occupied port to check if it's running a HyperFrames preview server.
- * HTTP GET to /__hyperframes_config with a short timeout.
+ * Probe an occupied port to check if it's running a KENECT AI preview server.
+ * HTTP GET to /__kenectai_config with a short timeout.
  */
-export function detectHyperframesServer(
+export function detectKenectaiServer(
   port: number,
   normalizedProjectDir: string,
   expectedServerBuildSignature: string | null = null,
@@ -122,13 +122,13 @@ export function detectHyperframesServer(
       {
         hostname: "127.0.0.1",
         port,
-        path: "/__hyperframes_config",
+        path: "/__kenectai_config",
         timeout: PROBE_TIMEOUT_MS,
       },
       (res) => {
         if (res.statusCode !== 200) {
           res.resume();
-          return resolveResult({ type: "not-hyperframes" });
+          return resolveResult({ type: "not-kenectai" });
         }
 
         let data = "";
@@ -137,18 +137,18 @@ export function detectHyperframesServer(
           bytes += typeof chunk === "string" ? chunk.length : chunk.byteLength;
           if (bytes > PROBE_MAX_BYTES) {
             req.destroy();
-            return resolveResult({ type: "not-hyperframes" });
+            return resolveResult({ type: "not-kenectai" });
           }
           data += chunk;
         });
         res.on("error", () => {
-          resolveResult({ type: "not-hyperframes" });
+          resolveResult({ type: "not-kenectai" });
         });
         res.on("end", () => {
           try {
-            const json = JSON.parse(data) as HyperframesConfigResponse;
-            if (json.isHyperframes !== true) {
-              return resolveResult({ type: "not-hyperframes" });
+            const json = JSON.parse(data) as KenectaiConfigResponse;
+            if (json.isKenectai !== true) {
+              return resolveResult({ type: "not-kenectai" });
             }
 
             const normalize = (p: string) => resolve(p).replace(/\\/g, "/").toLowerCase();
@@ -165,19 +165,19 @@ export function detectHyperframesServer(
 
             return resolveResult({ type: "mismatch", projectName: json.projectName });
           } catch {
-            resolveResult({ type: "not-hyperframes" });
+            resolveResult({ type: "not-kenectai" });
           }
         });
       },
     );
 
     req.on("error", () => {
-      resolveResult({ type: "not-hyperframes" });
+      resolveResult({ type: "not-kenectai" });
     });
 
     req.on("timeout", () => {
       req.destroy();
-      resolveResult({ type: "not-hyperframes" });
+      resolveResult({ type: "not-kenectai" });
     });
   });
 }
@@ -219,13 +219,13 @@ export interface ActiveServer {
 }
 
 /**
- * Probe a single port for a HyperFrames config response.
- * Returns the full config or null if not a HyperFrames server.
+ * Probe a single port for a KENECT AI config response.
+ * Returns the full config or null if not a KENECT AI server.
  */
-function probePort(port: number): Promise<HyperframesConfigResponse | null> {
-  return new Promise<HyperframesConfigResponse | null>((resolveResult) => {
+function probePort(port: number): Promise<KenectaiConfigResponse | null> {
+  return new Promise<KenectaiConfigResponse | null>((resolveResult) => {
     const req = http.get(
-      { hostname: "127.0.0.1", port, path: "/__hyperframes_config", timeout: PROBE_TIMEOUT_MS },
+      { hostname: "127.0.0.1", port, path: "/__kenectai_config", timeout: PROBE_TIMEOUT_MS },
       (res) => {
         if (res.statusCode !== 200) {
           res.resume();
@@ -244,8 +244,8 @@ function probePort(port: number): Promise<HyperframesConfigResponse | null> {
         res.on("error", () => resolveResult(null));
         res.on("end", () => {
           try {
-            const json = JSON.parse(data) as HyperframesConfigResponse;
-            resolveResult(json.isHyperframes === true ? json : null);
+            const json = JSON.parse(data) as KenectaiConfigResponse;
+            resolveResult(json.isKenectai === true ? json : null);
           } catch {
             resolveResult(null);
           }
@@ -261,7 +261,7 @@ function probePort(port: number): Promise<HyperframesConfigResponse | null> {
 }
 
 /**
- * Scan the default port range for active HyperFrames preview servers.
+ * Scan the default port range for active KENECT AI preview servers.
  * Probes ports in parallel batches for speed.
  */
 export async function scanActiveServers(startPort = 3002): Promise<ActiveServer[]> {
@@ -298,7 +298,7 @@ export async function scanActiveServers(startPort = 3002): Promise<ActiveServer[
 }
 
 /**
- * Kill all active HyperFrames preview servers by sending SIGTERM to their PIDs.
+ * Kill all active KENECT AI preview servers by sending SIGTERM to their PIDs.
  * Returns the number of servers killed.
  */
 export async function killActiveServers(startPort = 3002): Promise<number> {
@@ -332,9 +332,9 @@ export type FindPortResult =
  * For each port in the scan range:
  *   1. Test availability on multiple hosts (catches port-forwarding ghosts)
  *   2. If available → bind the server and return
- *   3. If occupied and !forceNew → HTTP-probe for an existing HyperFrames server
+ *   3. If occupied and !forceNew → HTTP-probe for an existing KENECT AI server
  *      - Same project → return "already-running" (caller reopens browser)
- *      - Different project or non-HyperFrames → log and skip to next port
+ *      - Different project or non-KENECT AI → log and skip to next port
  *   4. If bind still fails with EADDRINUSE (race) → retry next port
  */
 export async function findPortAndServe(
@@ -350,9 +350,9 @@ export async function findPortAndServe(
   // unauthenticated project file read/write/delete + render-spawn endpoints;
   // a bare `listen(port)` binds the unspecified address (`::`/`0.0.0.0`),
   // handing those endpoints to anyone on the LAN. Operators who genuinely
-  // need LAN exposure opt in explicitly via the HYPERFRAMES_PREVIEW_HOST
-  // env var (e.g. HYPERFRAMES_PREVIEW_HOST=0.0.0.0).
-  const host = bindHost ?? (process.env.HYPERFRAMES_PREVIEW_HOST?.trim() || "127.0.0.1");
+  // need LAN exposure opt in explicitly via the KENECT_PREVIEW_HOST
+  // env var (e.g. KENECT_PREVIEW_HOST=0.0.0.0).
+  const host = bindHost ?? (process.env.KENECT_PREVIEW_HOST?.trim() || "127.0.0.1");
   const normalizedDir = resolve(projectDir).replace(/\\/g, "/").toLowerCase();
   const endPort = startPort + MAX_PORT_SCAN - 1;
 
@@ -388,9 +388,9 @@ export async function findPortAndServe(
       }
     }
 
-    // Port is occupied — probe for existing HyperFrames instance
+    // Port is occupied — probe for existing KENECT AI instance
     if (!forceNew) {
-      const detection = await detectHyperframesServer(
+      const detection = await detectKenectaiServer(
         port,
         normalizedDir,
         expectedServerBuildSignature,
@@ -400,7 +400,7 @@ export async function findPortAndServe(
       }
       if (detection.type === "mismatch") {
         console.log(
-          `  ${c.dim(`Port ${port} in use by HyperFrames project "${detection.projectName}" — skipping`)}`,
+          `  ${c.dim(`Port ${port} in use by KENECT AI project "${detection.projectName}" — skipping`)}`,
         );
         continue;
       }

@@ -44,7 +44,7 @@ import { existsSync } from "node:fs";
 
 // ── Fast-path exits ─────────────────────────────────────────────────────────
 // Check --version before importing anything heavy. This makes
-// `hyperframes --version` near-instant (~10ms vs ~80ms).
+// `kenectai --version` near-instant (~10ms vs ~80ms).
 import { VERSION } from "./version.js";
 
 const argv = process.argv.slice(2);

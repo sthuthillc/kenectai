@@ -150,11 +150,11 @@ export interface CreateAssetUploadResponse {
 }
 
 /**
- * Request body for POST /v3/hyperframes/renders.
+ * Request body for POST /v3/kenectai/renders.
  */
-export interface CreateHyperframesRenderRequest {
+export interface CreateKenectaiRenderRequest {
   /**
-   * HyperFrames composition .zip — provide as {type: 'url', url: '...'}, {type:
+   * KENECT AI composition .zip — provide as {type: 'url', url: '...'}, {type:
    * 'asset_id', asset_id: '...'} (pre-uploaded via POST /v3/assets), or {type:
    * 'base64', media_type: 'application/zip', data: '...'}. Zip must contain
    * index.html at the root (or the path you set in `composition`).
@@ -176,12 +176,12 @@ export interface CreateHyperframesRenderRequest {
    * Output resolution tier. Defaults to '1080p'. Pass '4k' for 4K renders
    * (billed at 1.5x).
    */
-  resolution?: HyperframesResolution;
+  resolution?: KenectaiResolution;
   /**
    * Output aspect ratio. Defaults to '16:9' (landscape). Pass '9:16' for
    * portrait or '1:1' for square.
    */
-  aspect_ratio?: HyperframesAspectRatio;
+  aspect_ratio?: KenectaiAspectRatio;
   /**
    * Entry HTML file relative to the project root (e.g. compositions/intro.html).
    * Defaults to index.html when omitted.
@@ -207,20 +207,20 @@ export interface CreateHyperframesRenderRequest {
 }
 
 /**
- * Response for POST /v3/hyperframes/renders.
+ * Response for POST /v3/kenectai/renders.
  */
-export interface CreateHyperframesRenderResponse {
+export interface CreateKenectaiRenderResponse {
   /**
-   * HyperFrames render identifier — poll GET /v3/hyperframes/renders/{render_id}
+   * KENECT AI render identifier — poll GET /v3/kenectai/renders/{render_id}
    * for status.
    */
   render_id: string;
 }
 
 /**
- * Response for DELETE /v3/hyperframes/renders/{render_id}.
+ * Response for DELETE /v3/kenectai/renders/{render_id}.
  */
-export interface DeleteHyperframesRenderResponse {
+export interface DeleteKenectaiRenderResponse {
   /**
    * ID of the deleted render.
    */
@@ -234,12 +234,12 @@ export interface DeleteHyperframesRenderResponse {
  * 5:4) are reserved for a follow-up PR that wires composition-dim inference at
  * the controller boundary.
  */
-export type HyperframesAspectRatio = "16:9" | "9:16" | "1:1";
+export type KenectaiAspectRatio = "16:9" | "9:16" | "1:1";
 
 /**
- * Detailed HyperFrames render resource.
+ * Detailed KENECT AI render resource.
  */
-export interface HyperframesRenderDetail {
+export interface KenectaiRenderDetail {
   /**
    * Unique render identifier.
    */
@@ -247,7 +247,7 @@ export interface HyperframesRenderDetail {
   /**
    * Current lifecycle state.
    */
-  status: HyperframesRenderStatus;
+  status: KenectaiRenderStatus;
   /**
    * Caller-supplied free-text label.
    */
@@ -284,11 +284,11 @@ export interface HyperframesRenderDetail {
   /**
    * Resolution tier, if one was set.
    */
-  resolution?: HyperframesResolution | null;
+  resolution?: KenectaiResolution | null;
   /**
    * Aspect ratio, if one was set.
    */
-  aspect_ratio?: HyperframesAspectRatio | null;
+  aspect_ratio?: KenectaiAspectRatio | null;
   /**
    * Composition entry file path.
    */
@@ -309,16 +309,16 @@ export interface HyperframesRenderDetail {
 }
 
 /**
- * Lifecycle status of a HyperFrames render.
+ * Lifecycle status of a KENECT AI render.
  */
-export type HyperframesRenderStatus = "queued" | "rendering" | "completed" | "failed";
+export type KenectaiRenderStatus = "queued" | "rendering" | "completed" | "failed";
 
 /**
  * Output resolution tier. Pricing diverges only at 4K (1.5x multiplier). The
  * render-pipeline value set is intentionally narrow at launch; 720p and other
  * tiers will follow once the producer/CLI surface catches up.
  */
-export type HyperframesResolution = "1080p" | "4k";
+export type KenectaiResolution = "1080p" | "4k";
 
 export interface StandardAPIError {
   /**

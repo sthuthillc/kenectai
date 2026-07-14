@@ -4,23 +4,23 @@ import type { Example } from "./_examples.js";
 import { normalizeErrorMessage } from "../utils/errorMessage.js";
 
 export const examples: Example[] = [
-  ["Capture a website into ./capture/", "hyperframes capture https://stripe.com"],
-  ["Capture to a different directory", "hyperframes capture https://linear.app -o linear-video"],
-  ["JSON output for AI agents", "hyperframes capture https://example.com --json"],
+  ["Capture a website into ./capture/", "kenectai capture https://stripe.com"],
+  ["Capture to a different directory", "kenectai capture https://linear.app -o linear-video"],
+  ["JSON output for AI agents", "kenectai capture https://example.com --json"],
   [
     "Pull a video from the captured manifest by index",
-    "hyperframes capture --video ./linear-video --index 0",
+    "kenectai capture --video ./linear-video --index 0",
   ],
   [
     "List videos referenced in the captured manifest",
-    "hyperframes capture --video ./linear-video --list",
+    "kenectai capture --video ./linear-video --list",
   ],
 ];
 
 export default defineCommand({
   meta: {
     name: "capture",
-    description: "Capture a website as editable HyperFrames components",
+    description: "Capture a website as editable KENECT AI components",
   },
   args: {
     url: {

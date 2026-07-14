@@ -45,11 +45,7 @@ import { trackInitTemplate } from "../telemetry/events.js";
 import { hasFFmpeg } from "../whisper/manager.js";
 import { findFFmpeg, findFFprobe, getFFmpegInstallHint } from "../browser/ffmpeg.js";
 import { VERSION } from "../version.js";
-import {
-  CANVAS_DIMENSIONS,
-  normalizeResolutionFlag,
-  type CanvasResolution,
-} from "@kenectai/core";
+import { CANVAS_DIMENSIONS, normalizeResolutionFlag, type CanvasResolution } from "@kenectai/core";
 
 interface VideoMeta {
   durationSeconds: number;

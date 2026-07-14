@@ -316,7 +316,7 @@ describe("uploadTimeoutMs", () => {
 
 describe("publishProjectArchive", () => {
   beforeEach(() => {
-    vi.stubEnv("HYPERFRAMES_PUBLISHED_PROJECTS_API_URL", "");
+    vi.stubEnv("KENECT_PUBLISHED_PROJECTS_API_URL", "");
     vi.stubEnv("HEYGEN_API_URL", "");
   });
 

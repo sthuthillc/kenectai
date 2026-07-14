@@ -86,7 +86,7 @@ describe("buildUnconfiguredLines — offline engine readiness", () => {
     const text = joined(INTERACTIVE, missing);
     expect(text).toContain("pip install transformers torch soundfile numpy");
     expect(text).toMatch(/deps missing/);
-    expect(text).toContain("hyperframes doctor");
+    expect(text).toContain("kenectai doctor");
   });
 
   it("falls back to a generic line when readiness wasn't probed", () => {

@@ -8,7 +8,7 @@ import { c } from "../ui/colors.js";
 const DEFAULT_FEEDBACK_INTERVAL = 15;
 
 function getFeedbackInterval(): number {
-  const env = process.env.HYPERFRAMES_FEEDBACK_INTERVAL;
+  const env = process.env.KENECT_FEEDBACK_INTERVAL;
   if (env) {
     const n = parseInt(env, 10);
     if (Number.isFinite(n) && n > 0) return n;
@@ -48,9 +48,9 @@ export async function maybePromptRenderFeedback(opts: {
     config.lastFeedbackPromptAt = config.renderSuccessCount;
     writeConfig(config);
     console.log(
-      c.dim("  [hyperframes] ") +
+      c.dim("  [kenectai] ") +
         c.dim("Agent feedback: ") +
-        c.accent('hyperframes feedback --rating <1-5> --comment "..."'),
+        c.accent('kenectai feedback --rating <1-5> --comment "..."'),
     );
     return;
   }

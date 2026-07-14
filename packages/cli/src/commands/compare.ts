@@ -57,11 +57,11 @@ export interface CompareSuccessPayload {
 export const examples: Example[] = [
   [
     "Compare two agent-authored composition variants",
-    "hyperframes compare ./variants/a ./variants/b --out compare.png",
+    "kenectai compare ./variants/a ./variants/b --out compare.png",
   ],
   [
     "Compare three variants at a specific timeline time",
-    "hyperframes compare ./a ./b ./c --at 2.5 --labels classic,bold,quiet --json",
+    "kenectai compare ./a ./b ./c --at 2.5 --labels classic,bold,quiet --json",
   ],
 ];
 

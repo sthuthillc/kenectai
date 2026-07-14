@@ -1,5 +1,5 @@
 /**
- * `hyperframes lambda` — top-level dispatcher for AWS Lambda subcommands.
+ * `kenectai lambda` — top-level dispatcher for AWS Lambda subcommands.
  *
  * Each subverb lives in `./lambda/<name>.ts` and exports a single
  * `runXxx(args)` async function. The subcommand surface is intentionally
@@ -20,46 +20,46 @@ import { c } from "../ui/colors.js";
 import { readAllowedCompositionFpsFromDir } from "../utils/compositionFps.js";
 
 export const examples: Example[] = [
-  ["Deploy the Lambda render stack to AWS", "hyperframes lambda deploy"],
+  ["Deploy the Lambda render stack to AWS", "kenectai lambda deploy"],
   [
     "Render a composition on the deployed stack",
-    "hyperframes lambda render ./my-project --width 1920 --height 1080",
+    "kenectai lambda render ./my-project --width 1920 --height 1080",
   ],
   [
     "Render and stream progress until done",
-    "hyperframes lambda render ./my-project --width 1920 --height 1080 --wait",
+    "kenectai lambda render ./my-project --width 1920 --height 1080 --wait",
   ],
   [
     "Supersample a 1080p composition to 4K via Chrome deviceScaleFactor",
-    "hyperframes lambda render ./my-project --width 1920 --height 1080 --output-resolution 4k --wait",
+    "kenectai lambda render ./my-project --width 1920 --height 1080 --output-resolution 4k --wait",
   ],
   [
     "Render with composition variables (personalised template)",
-    'hyperframes lambda render ./my-template --site-id abc1234deadbeef0 --width 1920 --height 1080 --variables \'{"title":"Hello Alice","accent":"#ff0000"}\'',
+    'kenectai lambda render ./my-template --site-id abc1234deadbeef0 --width 1920 --height 1080 --variables \'{"title":"Hello Alice","accent":"#ff0000"}\'',
   ],
   [
     "Render with variables from a JSON file",
-    "hyperframes lambda render ./my-template --site-id abc1234deadbeef0 --width 1920 --height 1080 --variables-file ./alice.json",
+    "kenectai lambda render ./my-template --site-id abc1234deadbeef0 --width 1920 --height 1080 --variables-file ./alice.json",
   ],
   [
     "Batch-render N personalised videos from a JSONL file (deploys the site once)",
-    "hyperframes lambda render-batch ./my-template --batch ./users.jsonl --width 1920 --height 1080 --max-concurrent 10",
+    "kenectai lambda render-batch ./my-template --batch ./users.jsonl --width 1920 --height 1080 --max-concurrent 10",
   ],
-  ["Check progress for a started render", "hyperframes lambda progress hf-render-abcd1234"],
+  ["Check progress for a started render", "kenectai lambda progress hf-render-abcd1234"],
   [
     "Pre-upload a project so multiple renders share the upload",
-    "hyperframes lambda sites create ./my-project",
+    "kenectai lambda sites create ./my-project",
   ],
-  ["Tear the stack down", "hyperframes lambda destroy"],
-  ["Print the IAM policy the CLI needs", "hyperframes lambda policies user"],
+  ["Tear the stack down", "kenectai lambda destroy"],
+  ["Print the IAM policy the CLI needs", "kenectai lambda policies user"],
   [
     "Validate a checked-in IAM policy still covers the CLI",
-    "hyperframes lambda policies validate ./infra/iam/hyperframes.json",
+    "kenectai lambda policies validate ./infra/iam/policy.json",
   ],
 ];
 
 const HELP = `
-${c.bold("hyperframes lambda")} ${c.dim("<subcommand> [args]")}
+${c.bold("kenectai lambda")} ${c.dim("<subcommand> [args]")}
 
 Deploy + drive distributed video renders on AWS Lambda.
 
@@ -73,8 +73,8 @@ ${c.bold("SUBCOMMANDS:")}
   ${c.accent("policies")}          ${c.dim("Print or validate the IAM permissions the CLI needs")}
 
 ${c.bold("FIRST RUN:")}
-  ${c.accent("hyperframes lambda deploy")}
-  ${c.accent("hyperframes lambda render ./my-project --width 1920 --height 1080 --wait")}
+  ${c.accent("kenectai lambda deploy")}
+  ${c.accent("kenectai lambda render ./my-project --width 1920 --height 1080 --wait")}
 
 ${c.bold("REQUIREMENTS:")}
   • AWS CLI configured (env vars, ~/.aws/credentials, or SSO)
@@ -105,7 +105,7 @@ export default defineCommand({
     // Stack identity
     "stack-name": {
       type: "string",
-      description: "CloudFormation stack name (default: hyperframes-default)",
+      description: "CloudFormation stack name (default: kenectai-default)",
     },
     region: { type: "string", description: "AWS region (default: AWS_REGION env or us-east-1)" },
     profile: { type: "string", description: "AWS profile name (default: AWS_PROFILE env)" },
@@ -147,7 +147,7 @@ export default defineCommand({
       type: "string",
       description: "Final output S3 key (default: renders/<exec>/output.<ext>)",
     },
-    // Variables — mirrors the local `hyperframes render` UX. Inline JSON or
+    // Variables — mirrors the local `kenectai render` UX. Inline JSON or
     // file path, plus --strict-variables for type-checked validation against
     // the composition's `data-composition-variables` declaration.
     variables: {
@@ -235,7 +235,7 @@ export default defineCommand({
       } catch (err) {
         if ((err as NodeJS.ErrnoException).code === "ERR_MODULE_NOT_FOUND") {
           console.error(
-            `${c.error("@kenectai/aws-lambda is not installed.")} The ${c.accent(`hyperframes lambda ${subcommand}`)} command needs it at runtime.\n` +
+            `${c.error("@kenectai/aws-lambda is not installed.")} The ${c.accent(`kenectai lambda ${subcommand}`)} command needs it at runtime.\n` +
               `Install it alongside the CLI:\n` +
               `  ${c.accent("npm install -g @kenectai/aws-lambda")}\n` +
               `Or, for an opt-in dev setup:\n` +
@@ -270,9 +270,7 @@ export default defineCommand({
         }
         const projectDir = args.extra as string | undefined;
         if (!projectDir) {
-          console.error(
-            "[lambda sites create] usage: hyperframes lambda sites create <projectDir>",
-          );
+          console.error("[lambda sites create] usage: kenectai lambda sites create <projectDir>");
           process.exit(1);
         }
         const { runSitesCreate } = await import("./lambda/sites.js");
@@ -288,7 +286,7 @@ export default defineCommand({
         const projectDir = args.target as string | undefined;
         if (!projectDir) {
           console.error(
-            "[lambda render] usage: hyperframes lambda render <projectDir> --width <px> --height <px>",
+            "[lambda render] usage: kenectai lambda render <projectDir> --width <px> --height <px>",
           );
           process.exit(1);
         }
@@ -336,7 +334,7 @@ export default defineCommand({
         const projectDir = args.target as string | undefined;
         if (!projectDir) {
           console.error(
-            "[lambda render-batch] usage: hyperframes lambda render-batch <projectDir> --batch <path.jsonl> --width <px> --height <px>",
+            "[lambda render-batch] usage: kenectai lambda render-batch <projectDir> --batch <path.jsonl> --width <px> --height <px>",
           );
           process.exit(1);
         }
@@ -388,7 +386,7 @@ export default defineCommand({
         const target = args.target as string | undefined;
         if (!target) {
           console.error(
-            "[lambda progress] usage: hyperframes lambda progress <renderId | executionArn>",
+            "[lambda progress] usage: kenectai lambda progress <renderId | executionArn>",
           );
           process.exit(1);
         }
@@ -405,7 +403,7 @@ export default defineCommand({
         const verb = args.target as string | undefined;
         if (verb !== "role" && verb !== "user" && verb !== "validate") {
           console.error(
-            `[lambda policies] usage: hyperframes lambda policies <role|user|validate> [args]`,
+            `[lambda policies] usage: kenectai lambda policies <role|user|validate> [args]`,
           );
           process.exit(1);
         }

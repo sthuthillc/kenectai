@@ -5,9 +5,9 @@
  */
 
 import { c } from "../ui/colors.js";
-import type { HyperframesRenderStatus } from "./_gen/types.js";
+import type { KenectaiRenderStatus } from "./_gen/types.js";
 
-export function colorStatus(status: HyperframesRenderStatus | string): string {
+export function colorStatus(status: KenectaiRenderStatus | string): string {
   switch (status) {
     case "completed":
       return c.success(status);

@@ -367,7 +367,7 @@ async function fetchBuffer(url: string): Promise<Buffer | null> {
   try {
     const res = await safeFetch(url, {
       signal: AbortSignal.timeout(10000),
-      headers: { "User-Agent": "HyperFrames/1.0" },
+      headers: { "User-Agent": "KenectAI/1.0" },
     });
     if (!res || !res.ok) return null;
     // Reject XML/HTML error pages disguised as 200 OK (common with S3/CloudFront)

@@ -92,7 +92,7 @@ The CLI checks npm for newer versions in the background (cached 24 hours). If an
   Run: npx @kenectai/cli@latest
 ```
 
-This is suppressed in CI environments, non-TTY shells, and when `HYPERFRAMES_NO_UPDATE_CHECK=1` is set.
+This is suppressed in CI environments, non-TTY shells, and when `KENECT_NO_UPDATE_CHECK=1` is set.
 
 ## Getting Started
 
@@ -393,7 +393,7 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     The model is `u2net_human_seg` (MIT, ~168 MB ONNX). Weights download to `~/.cache/hyperframes/background-removal/models/` on first run and are reused thereafter. Peak inference RAM is ~1.5 GB.
 
-    `--device auto` picks CoreML on Apple Silicon, CUDA when available, and CPU otherwise. The CLI bundles the CPU build of `onnxruntime-node`; for CUDA, set `HYPERFRAMES_CUDA=1` and provide a GPU-enabled `onnxruntime-node` build.
+    `--device auto` picks CoreML on Apple Silicon, CUDA when available, and CPU otherwise. The CLI bundles the CPU build of `onnxruntime-node`; for CUDA, set `KENECT_CUDA=1` and provide a GPU-enabled `onnxruntime-node` build.
 
     Output formats:
 
@@ -440,7 +440,7 @@ Word-level transcripts (whisper output) are grouped into readable caption cues o
 
     Output is a self-contained directory with a `CLAUDE.md` file that any AI agent can read to understand the captured site. Used by the `/website-to-video` skill as step 1 of the video production pipeline.
 
-    Set `GEMINI_API_KEY` in a `.env` file for AI-powered image descriptions via Gemini vision (~$0.001/image), or set `OPENROUTER_API_KEY` to use any vision model through [OpenRouter](https://openrouter.ai) instead (takes priority if both are set; override the model with `HYPERFRAMES_OPENROUTER_MODEL`). See the [Website to Video](/guides/website-to-video#enriching-captures-with-gemini-vision) guide for details.
+    Set `GEMINI_API_KEY` in a `.env` file for AI-powered image descriptions via Gemini vision (~$0.001/image), or set `OPENROUTER_API_KEY` to use any vision model through [OpenRouter](https://openrouter.ai) instead (takes priority if both are set; override the model with `KENECT_OPENROUTER_MODEL`). See the [Website to Video](/guides/website-to-video#enriching-captures-with-gemini-vision) guide for details.
 
   </Tab>
   <Tab title="Preview">

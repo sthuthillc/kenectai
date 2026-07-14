@@ -114,7 +114,7 @@
     return liveness;
   }
 
-  window.__hyperframesMotionSample = function motionSample(options) {
+  window.__kenectaiMotionSample = function motionSample(options) {
     const { selectors = [], livenessScopes = [] } = options || {};
     return { data: sampleSelectors(selectors), liveness: sampleLiveness(livenessScopes) };
   };

@@ -14,7 +14,7 @@ export interface StaticProjectServer {
  * to determine the duration of formats that carry it in a trailing/implicit
  * position (notably WAV, which otherwise reports `.duration` as `Infinity`
  * however long it buffers). A plain 200 with no `Accept-Ranges` makes the
- * media element non-seekable, so `hyperframes validate` would spuriously warn
+ * media element non-seekable, so `kenectai validate` would spuriously warn
  * that a perfectly valid local WAV's duration "could not be read".
  */
 function serveFileWithRange(

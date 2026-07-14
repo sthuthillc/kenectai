@@ -31,7 +31,7 @@ describe("captionImagesWithGemini — OpenRouter provider", () => {
     const dir = makeProjectWithImage();
     dirs.push(dir);
     vi.stubEnv("OPENROUTER_API_KEY", "or-test-key");
-    vi.stubEnv("HYPERFRAMES_OPENROUTER_MODEL", "google/gemini-3.1-flash-lite");
+    vi.stubEnv("KENECT_OPENROUTER_MODEL", "google/gemini-3.1-flash-lite");
 
     // Capture the request inside the mock, where the args are well-typed —
     // avoids casting `mock.calls` (and the repo's ban on `as` assertions).

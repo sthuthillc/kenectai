@@ -1,5 +1,5 @@
 /**
- * `hyperframes lambda deploy` — build the handler ZIP, sam-deploy the
+ * `kenectai lambda deploy` — build the handler ZIP, sam-deploy the
  * Phase 6a SAM template, and persist the stack outputs locally so the
  * other lambda subcommands don't need re-derive them.
  *
@@ -96,7 +96,7 @@ export async function runDeploy(args: Partial<DeployArgs> = {}): Promise<void> {
   console.log(`  ${c.dim("Function:")}       ${outputs.functionName}`);
   console.log(`  ${c.dim("State file:")}     ${resolve(statePath)}`);
   console.log();
-  console.log(c.dim(`Render with: hyperframes lambda render <project-dir>`));
+  console.log(c.dim(`Render with: kenectai lambda render <project-dir>`));
 }
 
 function buildHandlerZip(root: string): void {

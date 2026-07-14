@@ -69,7 +69,7 @@ export function listAvailableProviders(): string[] {
   // gate behind an env var so we don't try to bind to a missing EP.
   const out: string[] = ["cpu"];
   if (platform() === "darwin" && arch() === "arm64") out.push("coreml");
-  if (process.env["HYPERFRAMES_CUDA"] === "1") out.push("cuda");
+  if (process.env["KENECT_CUDA"] === "1") out.push("cuda");
   _cachedProviders = out;
   return out;
 }

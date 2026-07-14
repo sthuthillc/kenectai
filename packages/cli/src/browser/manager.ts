@@ -124,7 +124,7 @@ export async function withInstallLock<T>(
     if (waitedMs - lastNoticeMs >= timings.waitNoticeMs) {
       lastNoticeMs = waitedMs;
       console.warn(
-        `[browser] Waiting for another hyperframes process to finish installing chrome-headless-shell (${Math.round(waitedMs / 1000)}s elapsed)...`,
+        `[browser] Waiting for another kenectai process to finish installing chrome-headless-shell (${Math.round(waitedMs / 1000)}s elapsed)...`,
       );
     }
     if (Date.now() > deadline) {
@@ -169,14 +169,14 @@ export interface EnsureBrowserOptions {
   // sitting on the machine: it's the version we've actually tested against,
   // and the one that implements `canvas.drawElementImage` (Dev/Canary-only —
   // Stable doesn't have it, so system Chrome used to crash drawElement-
-  // eligible renders outright; HF#2060). `HYPERFRAMES_BROWSER_PATH` still
+  // eligible renders outright; HF#2060). `KENECT_BROWSER_PATH` still
   // wins over this — an explicit override is still an explicit override.
   preferManagedChrome?: boolean;
 }
 
 interface CacheLookupResult {
   result?: BrowserResult;
-  staleHyperframesCachePath?: string;
+  staleKenectaiCachePath?: string;
   // Root install-folder path for the stale entry (InstalledBrowser#path), NOT
   // the missing executablePath above — this is what actually needs deleting.
   staleInstallPath?: string;
@@ -227,7 +227,7 @@ function whichBinary(name: string): string | undefined {
 }
 
 function findFromEnv(): BrowserResult | undefined {
-  const envPath = process.env["HYPERFRAMES_BROWSER_PATH"];
+  const envPath = process.env["KENECT_BROWSER_PATH"];
   if (envPath && existsSync(envPath)) {
     return { executablePath: envPath, source: "env" };
   }
@@ -235,10 +235,10 @@ function findFromEnv(): BrowserResult | undefined {
 }
 
 /**
- * Hyperframes-managed cache only (populated by `ensureBrowser` as a
+ * KENECT AI-managed cache only (populated by `ensureBrowser` as a
  * download-of-last-resort, pinned to `CHROME_VERSION`).
  */
-async function findFromHyperframesCache(): Promise<CacheLookupResult> {
+async function findFromKenectaiCache(): Promise<CacheLookupResult> {
   if (!existsSync(CACHE_DIR)) return {};
   const { Browser, getInstalledBrowsers } = await loadPuppeteerBrowsers();
   // A corrupt cache (stub file where a browser dir is expected, malformed
@@ -252,12 +252,12 @@ async function findFromHyperframesCache(): Promise<CacheLookupResult> {
     const code = (err as NodeJS.ErrnoException | undefined)?.code;
     const suffix = code ? ` (${code})` : "";
     console.warn(
-      `[hyperframes] Browser cache read failed${suffix}: ${normalizeErrorMessage(err)}. Falling back to system Chrome or a fresh download.`,
+      `[kenectai] Browser cache read failed${suffix}: ${normalizeErrorMessage(err)}. Falling back to system Chrome or a fresh download.`,
     );
     installed = [];
   }
   // Match on buildId too, not just browser type — an install left over from
-  // an older hyperframes version (this pin has moved 131 → 151 → 152 across
+  // an older kenectai version (this pin has moved 131 → 151 → 152 across
   // releases) must NOT satisfy resolution, or an upgrade silently keeps
   // running whatever build happened to be cached instead of ever fetching
   // the version this release actually needs (HF#2060 review).
@@ -268,7 +268,7 @@ async function findFromHyperframesCache(): Promise<CacheLookupResult> {
     return { result: { executablePath: match.executablePath, source: "cache" } };
   }
   if (match) {
-    return { staleHyperframesCachePath: match.executablePath, staleInstallPath: match.path };
+    return { staleKenectaiCachePath: match.executablePath, staleInstallPath: match.path };
   }
   return {};
 }
@@ -281,7 +281,7 @@ async function findFromCache(): Promise<CacheLookupResult> {
   // first; the CLI must match that semantic or it will silently hand the
   // engine an older binary than the engine itself would pick.
   //
-  // We intentionally check puppeteer BEFORE the hyperframes-managed cache:
+  // We intentionally check puppeteer BEFORE the kenectai-managed cache:
   // this is the non-`preferManagedChrome` path, which exists so a user who
   // installed chrome-headless-shell separately (via `@puppeteer/browsers
   // install`) keeps using that binary instead of being silently switched to
@@ -293,9 +293,9 @@ async function findFromCache(): Promise<CacheLookupResult> {
     return { result: fromPuppeteer };
   }
 
-  // 2) Hyperframes-managed cache. This is the fallback path: only reached
+  // 2) KENECT AI-managed cache. This is the fallback path: only reached
   // when no puppeteer-cache binary exists.
-  return findFromHyperframesCache();
+  return findFromKenectaiCache();
 }
 
 /**
@@ -397,7 +397,7 @@ function isHeadlessShellBinary(executablePath: string): boolean {
 /**
  * Emit a one-time warning when the CLI selects a non-headless-shell binary on
  * Linux. Idempotent across repeated `findBrowser()` calls so a long-running
- * `hyperframes studio` process doesn't get spammed.
+ * `kenectai studio` process doesn't get spammed.
  */
 let _warnedSystemFallback = false;
 function warnSystemFallbackOnce(executablePath: string): void {
@@ -406,7 +406,7 @@ function warnSystemFallbackOnce(executablePath: string): void {
   if (isHeadlessShellBinary(executablePath)) return;
   _warnedSystemFallback = true;
   console.warn(
-    `[hyperframes] Using system Chrome at ${executablePath}; HeadlessExperimental.beginFrame is unavailable in regular Chrome builds, so the perf-optimized capture path falls back to screenshot mode. Install chrome-headless-shell for the optimized path:\n  npx @puppeteer/browsers install chrome-headless-shell\n(Or set HYPERFRAMES_BROWSER_PATH to point at an existing chrome-headless-shell binary.)`,
+    `[kenectai] Using system Chrome at ${executablePath}; HeadlessExperimental.beginFrame is unavailable in regular Chrome builds, so the perf-optimized capture path falls back to screenshot mode. Install chrome-headless-shell for the optimized path:\n  npx @puppeteer/browsers install chrome-headless-shell\n(Or set KENECT_BROWSER_PATH to point at an existing chrome-headless-shell binary.)`,
   );
 }
 
@@ -442,9 +442,9 @@ export async function findBrowser(): Promise<BrowserResult | undefined> {
 
   const fromCache = await findFromCache();
   if (fromCache.result) return fromCache.result;
-  if (fromCache.staleHyperframesCachePath) {
+  if (fromCache.staleKenectaiCachePath) {
     console.warn(
-      `[browser] Cached binary missing at ${fromCache.staleHyperframesCachePath} — re-downloading...`,
+      `[browser] Cached binary missing at ${fromCache.staleKenectaiCachePath} — re-downloading...`,
     );
     try {
       return await withInstallLock(async () => {
@@ -454,8 +454,8 @@ export async function findBrowser(): Promise<BrowserResult | undefined> {
     } catch (err) {
       const cause = normalizeErrorMessage(err);
       throw new Error(
-        `Cached Chrome binary was missing at ${fromCache.staleHyperframesCachePath}, and re-download failed: ${cause}\n` +
-          `Run \`hyperframes browser ensure --force\` to re-download.`,
+        `Cached Chrome binary was missing at ${fromCache.staleKenectaiCachePath}, and re-download failed: ${cause}\n` +
+          `Run \`kenectai browser ensure --force\` to re-download.`,
       );
     }
   }
@@ -469,7 +469,7 @@ export async function findBrowser(): Promise<BrowserResult | undefined> {
 
 /**
  * On Linux ARM64, attempt to auto-install system Chromium if not found.
- * This makes `hyperframes render` work out-of-the-box on DGX Spark / GB10 / Jetson.
+ * This makes `kenectai render` work out-of-the-box on DGX Spark / GB10 / Jetson.
  */
 async function ensureLinuxArmBrowser(options?: EnsureBrowserOptions): Promise<BrowserResult> {
   void options;
@@ -509,10 +509,10 @@ async function ensureLinuxArmBrowser(options?: EnsureBrowserOptions): Promise<Br
   // Could not auto-install — give clear manual instructions.
   throw new Error(
     `Chrome Headless Shell is not available for Linux ARM64 (DGX Spark, GB10, Jetson).\n\n` +
-      `Install Chromium manually and point hyperframes to it:\n\n` +
+      `Install Chromium manually and point kenectai to it:\n\n` +
       `  sudo apt-get install -y chromium-browser\n` +
-      `  export HYPERFRAMES_BROWSER_PATH=$(which chromium-browser)\n\n` +
-      `Then re-run your command. The HYPERFRAMES_BROWSER_PATH env var persists for the session.`,
+      `  export KENECT_BROWSER_PATH=$(which chromium-browser)\n\n` +
+      `Then re-run your command. The KENECT_BROWSER_PATH env var persists for the session.`,
   );
 }
 
@@ -528,12 +528,12 @@ export async function ensureBrowser(options?: EnsureBrowserOptions): Promise<Bro
 
   if (!options?.force) {
     const fromCache = await (options?.preferManagedChrome
-      ? findFromHyperframesCache()
+      ? findFromKenectaiCache()
       : findFromCache());
     if (fromCache.result) return fromCache.result;
-    if (fromCache.staleHyperframesCachePath) {
+    if (fromCache.staleKenectaiCachePath) {
       console.warn(
-        `[browser] Cached binary missing at ${fromCache.staleHyperframesCachePath} — re-downloading...`,
+        `[browser] Cached binary missing at ${fromCache.staleKenectaiCachePath} — re-downloading...`,
       );
       return withInstallLock(async () => {
         if (fromCache.staleInstallPath) purgeStaleInstall(fromCache.staleInstallPath);
@@ -565,7 +565,7 @@ export async function ensureBrowser(options?: EnsureBrowserOptions): Promise<Bro
     // under --force, which already purged and always wants a fresh download.
     if (!options?.force) {
       const afterLock = await (options?.preferManagedChrome
-        ? findFromHyperframesCache()
+        ? findFromKenectaiCache()
         : findFromCache());
       if (afterLock.result) return afterLock.result;
       if (afterLock.staleInstallPath) purgeStaleInstall(afterLock.staleInstallPath);
@@ -645,7 +645,7 @@ async function downloadBrowser(options?: EnsureBrowserOptions): Promise<BrowserR
     },
     (err) =>
       console.warn(
-        `[hyperframes] Cached browser archive was corrupt (${normalizeErrorMessage(err)}); clearing the cache and re-downloading.`,
+        `[kenectai] Cached browser archive was corrupt (${normalizeErrorMessage(err)}); clearing the cache and re-downloading.`,
       ),
   );
 

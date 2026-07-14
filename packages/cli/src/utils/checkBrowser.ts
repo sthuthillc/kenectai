@@ -360,7 +360,7 @@ async function collectLayout(
 ): Promise<AnchoredLayoutIssue[]> {
   const raw = await page.evaluate(
     (options: { time: number; tolerance: number }) => {
-      const audit = Reflect.get(window, "__hyperframesLayoutAudit");
+      const audit = Reflect.get(window, "__kenectaiLayoutAudit");
       if (typeof audit !== "function") return [];
       const result = Reflect.apply(audit, window, [options]);
       return Array.isArray(result) ? result : [];
@@ -372,7 +372,7 @@ async function collectLayout(
 
 async function collectLayoutGeometry(page: Page): Promise<string> {
   return page.evaluate(() => {
-    const geometry = Reflect.get(window, "__hyperframesLayoutGeometry");
+    const geometry = Reflect.get(window, "__kenectaiLayoutGeometry");
     if (typeof geometry !== "function") return "";
     const result = Reflect.apply(geometry, window, []);
     return typeof result === "string" ? result : "";
@@ -386,7 +386,7 @@ async function collectGeometryCandidates(
 ): Promise<CheckGeometryCandidate[]> {
   try {
     const raw = await page.evaluate((options: GeometryCandidateRequest) => {
-      const collect = Reflect.get(window, "__hyperframesGeometryCandidates");
+      const collect = Reflect.get(window, "__kenectaiGeometryCandidates");
       if (typeof collect !== "function") return [];
       const result = Reflect.apply(collect, window, [options]);
       return Array.isArray(result) ? result : [];
@@ -423,7 +423,7 @@ async function collectMotionFrame(
 ): Promise<MotionFrame> {
   const raw = await page.evaluate(
     (options: { selectors: string[]; livenessScopes: string[] }) => {
-      const sample = Reflect.get(window, "__hyperframesMotionSample");
+      const sample = Reflect.get(window, "__kenectaiMotionSample");
       if (typeof sample !== "function") return null;
       return Reflect.apply(sample, window, [options]);
     },
@@ -551,7 +551,7 @@ function contrastFailureAnnotations(
     }));
 }
 
-const ANNOTATION_OVERLAY_ID = "__hyperframesCheckAnnotations";
+const ANNOTATION_OVERLAY_ID = "__kenectaiCheckAnnotations";
 
 /**
  * `check --snapshots`'s overview-frame annotation: every audit for this

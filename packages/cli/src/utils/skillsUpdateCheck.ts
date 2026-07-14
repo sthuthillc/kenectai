@@ -40,7 +40,7 @@ function cacheFresh(lastSkillsCheck: string | undefined, now: number): boolean {
 async function refreshSkillsCache(): Promise<SkillsUpdateMeta> {
   // `canonical: true` so this nudge's counts agree with `updateSkills`'s
   // source of truth — otherwise a stale in-repo skills-manifest.json (e.g.
-  // inside a hyperframes checkout) can produce a false-positive count here.
+  // inside a kenectai checkout) can produce a false-positive count here.
   const result = await checkSkills({ canonical: true });
   // Only record a meaningful check when skills were actually found.
   if (result.location) {
@@ -87,12 +87,12 @@ function skillsNoticeText(meta: SkillsUpdateMeta): string | null {
   const total = meta.outdated + meta.missing + meta.removed;
   if (total < 1) return null;
   const noun = total === 1 ? "skill" : "skills";
-  return `\n  ${total} HyperFrames ${noun} out of date or missing.\n  Run: npx hyperframes skills update\n\n`;
+  return `\n  ${total} KENECT AI ${noun} out of date or missing.\n  Run: npx @kenectai/cli skills update\n\n`;
 }
 
 /**
  * Print a one-line nudge to stderr if installed skills are stale. Same gating
- * as the CLI self-update notice (CI, non-TTY, dev, HYPERFRAMES_NO_UPDATE_CHECK).
+ * as the CLI self-update notice (CI, non-TTY, dev, KENECT_NO_UPDATE_CHECK).
  */
 export function printSkillsUpdateNotice(): void {
   if (updateNoticesSuppressed()) return;

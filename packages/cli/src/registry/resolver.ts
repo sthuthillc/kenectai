@@ -20,7 +20,7 @@ export interface ResolveOptions {
 }
 
 function defaultWarn(message: string): void {
-  process.stderr.write(`hyperframes:registry ${message}\n`);
+  process.stderr.write(`kenectai:registry ${message}\n`);
 }
 
 /**

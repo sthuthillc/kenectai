@@ -129,13 +129,13 @@ function isVideoFile(filePath: string): boolean {
  *
  * MUST be unique per call AND per process: callers run many `transcribe`
  * invocations in parallel (e.g. the product-launch-video audio pipeline spawns
- * one `hyperframes transcribe` per scene at once). A `Date.now()`-based name
+ * one `kenectai transcribe` per scene at once). A `Date.now()`-based name
  * collides when two conversions land in the same millisecond — they clobber
  * each other's WAV in the shared tmpdir, so whisper transcribes the wrong
  * scene's audio and every colliding scene gets identical word timings.
  */
 function tempWavPath(): string {
-  return join(tmpdir(), `hyperframes-audio-${process.pid}-${randomUUID()}.wav`);
+  return join(tmpdir(), `kenectai-audio-${process.pid}-${randomUUID()}.wav`);
 }
 
 /**

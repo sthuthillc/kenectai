@@ -1,7 +1,7 @@
 /**
  * Shared API-error reporter for the cloud subverbs.
  *
- * Centralizes the three-branch `instanceof HyperframesApiError` → `Error`
+ * Centralizes the three-branch `instanceof KenectaiApiError` → `Error`
  * → `String` cascade so the curated `ERROR_CODE_HINTS` table is applied
  * uniformly across `render`/`list`/`get`/`delete`. Without this, each
  * subverb had to remember to consult the hint table (and most didn't,
@@ -10,18 +10,17 @@
  */
 
 import { errorBox } from "../ui/format.js";
-import { HyperframesApiError } from "./_gen/client.js";
+import { KenectaiApiError } from "./_gen/client.js";
 
 /**
- * Hints surfaced when a HyperframesApiError carries a known machine-
+ * Hints surfaced when a KenectaiApiError carries a known machine-
  * readable code. Keep entries actionable; if there's nothing useful to
  * say, leave the code out and let the message stand on its own.
  */
 const ERROR_CODE_HINTS: Record<string, string> = {
-  hyperframes_project_too_large:
+  kenect_project_too_large:
     "The zip exceeded the 200 MB limit. Trim large media (or pre-host them and reference by URL), then try again.",
-  kenect_render_not_found:
-    "The render_id no longer exists — either soft-deleted or never created.",
+  kenect_render_not_found: "The render_id no longer exists — either soft-deleted or never created.",
   invalid_parameter:
     "Check the listed parameter against `kenectai cloud render --help` for the accepted values.",
   authentication_failed:
@@ -58,7 +57,7 @@ export function reportApiError(
   } = {},
 ): never {
   const hints = { ...ERROR_CODE_HINTS, ...options.extraHints };
-  if (err instanceof HyperframesApiError) {
+  if (err instanceof KenectaiApiError) {
     if (err.status === 404 && options.notFound) {
       errorBox("Not found", options.notFound);
       process.exit(1);

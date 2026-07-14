@@ -1,4 +1,4 @@
-// Skills freshness: give the HyperFrames skill bundle a content fingerprint so
+// Skills freshness: give the KENECT AI skill bundle a content fingerprint so
 // we can answer "are the installed skills the latest version?" across every
 // agent platform (Claude Code, Codex, …) — independent of how they were
 // installed.
@@ -307,14 +307,14 @@ function scopeForDir(dir: string, home: string, cwd: string): "project" | "globa
 }
 
 /**
- * Find the first skill root that actually contains HyperFrames skills. A
+ * Find the first skill root that actually contains KENECT AI skills. A
  * `--dir` override (if given) is treated as a `.../skills` directory directly;
  * its scope is inferred (see scopeForDir) so removed-detection reads the right
  * lock. Otherwise scan global ($HOME) then project (cwd), auto-discovering hosts.
  *
  * Global is checked FIRST to match how agents actually load skills: Claude Code
  * (and most others) give the personal/global scope priority over the project
- * scope, and HyperFrames now installs globally. Checking global-first means
+ * scope, and KENECT AI now installs globally. Checking global-first means
  * `check` reports on the copy the agent will really use — not a stale project
  * copy that a newer global install silently overrides.
  */
@@ -406,7 +406,7 @@ export function diffSkills(
     // anything installed-but-outdated, or a missing CORE skill (the entry
     // router + shared domain skills every workflow needs). A missing
     // on-demand skill is NOT an update — it installs when its workflow is
-    // triggered (`hyperframes skills update <name>`). Counting it here is what
+    // triggered (`kenectai skills update <name>`). Counting it here is what
     // used to make `init` re-pull the full skill set onto machines that
     // deliberately installed a subset.
     updateAvailable: summary.outdated > 0 || summary.coreMissing > 0,
@@ -417,7 +417,7 @@ export function diffSkills(
 
 // ── Removed-upstream (orphaned) skills ────────────────────────────────────────
 //
-// `skills add` / `init` / `hyperframes skills update` only ever add or refresh —
+// `skills add` / `init` / `kenectai skills update` only ever add or refresh —
 // none of them delete a skill that was renamed or dropped upstream (e.g.
 // graphic-overlays → talking-head-recut), so a stale bundle lingers forever and
 // the manifest-only diff above can't see it. We surface these by cross-checking

@@ -1,6 +1,6 @@
 /**
- * Thin wrappers around the AWS SAM CLI used by `hyperframes lambda deploy`
- * and `hyperframes lambda destroy`.
+ * Thin wrappers around the AWS SAM CLI used by `kenectai lambda deploy`
+ * and `kenectai lambda destroy`.
  *
  * We shell out instead of programmatically driving the CloudFormation API
  * because:
@@ -13,7 +13,7 @@
  *   3. SAM's `--resolve-s3` auto-creates an artifact bucket for the
  *      handler ZIP upload, which we'd otherwise have to re-implement.
  *
- * CDK adopters use `HyperframesRenderStack` directly from their own
+ * CDK adopters use `KenectaiRenderStack` directly from their own
  * CDK app — this CLI path is for users who don't want to write a CDK
  * project.
  */
@@ -63,7 +63,7 @@ export interface DeployOptions {
  * Resolve the SAM template path relative to `repoRoot`. We look for the
  * `examples/aws-lambda/template.yaml` first (development checkout) and
  * fall back to the installed-package layout when running from a globally
- * installed `hyperframes` CLI.
+ * installed `kenectai` CLI.
  */
 export function locateSamTemplate(repoRoot: string): string {
   const candidate = join(repoRoot, "examples", "aws-lambda", "template.yaml");

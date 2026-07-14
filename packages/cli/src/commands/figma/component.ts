@@ -1,5 +1,5 @@
 /**
- * `hyperframes figma component <ref>` — Phase 3: node tree → editable HTML
+ * `kenectai figma component <ref>` — Phase 3: node tree → editable HTML
  * component with the §7.1 binding pass, per-node rasterize fallback via
  * Phase-1 asset import, packaged as a registry item.
  */
@@ -212,7 +212,7 @@ export default defineCommand({
       }
       if (result.unresolved.length > 0) {
         console.log(
-          `${result.unresolved.length} binding(s) reference tokens not yet imported — colors baked as literals (flagged data-figma-unresolved). Run \`hyperframes figma tokens\` on the source/library file, then re-import to link them.`,
+          `${result.unresolved.length} binding(s) reference tokens not yet imported — colors baked as literals (flagged data-figma-unresolved). Run \`kenectai figma tokens\` on the source/library file, then re-import to link them.`,
         );
       }
       const { trackFigmaImport } = await import("../../telemetry/index.js");

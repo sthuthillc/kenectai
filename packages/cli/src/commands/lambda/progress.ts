@@ -1,5 +1,5 @@
 /**
- * `hyperframes lambda progress <executionArn>` — print a single progress
+ * `kenectai lambda progress <executionArn>` — print a single progress
  * snapshot for a render. Wraps {@link getRenderProgress}. Accepts a
  * full executionArn or a renderId (in which case we resolve the arn
  * from the stack's region + state-machine name).

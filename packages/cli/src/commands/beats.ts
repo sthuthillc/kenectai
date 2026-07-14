@@ -8,8 +8,8 @@ import { analyzeBeatsHeadless, type HeadlessBeatResult } from "../beats/headless
 import { c } from "../ui/colors.js";
 
 export const examples: Example[] = [
-  ["Generate the beat file for the current project", "hyperframes beats"],
-  ["Generate for a specific directory", "hyperframes beats ./my-video"],
+  ["Generate the beat file for the current project", "kenectai beats"],
+  ["Generate for a specific directory", "kenectai beats ./my-video"],
 ];
 
 function fail(message: string): never {
@@ -39,7 +39,7 @@ async function detect(audioPath: string): Promise<HeadlessBeatResult> {
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);
     const hint = /chrome|executable|browser|ENOENT/i.test(msg)
-      ? "\nRun: npx hyperframes browser ensure"
+      ? "\nRun: npx @kenectai/cli browser ensure"
       : "";
     fail(`Beat detection failed: ${msg}${hint}`);
   }

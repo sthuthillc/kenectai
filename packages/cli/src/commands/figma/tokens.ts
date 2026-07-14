@@ -1,5 +1,5 @@
 /**
- * `hyperframes figma tokens <fileKey>` — Phase 2: import figma variables as
+ * `kenectai figma tokens <fileKey>` — Phase 2: import figma variables as
  * composition brand-variable entries + figma-tokens.json sidecar + binding
  * index records. Variables are Enterprise-gated upstream; degrades to a
  * styles-metadata listing on REQUIRES_ENTERPRISE (style *values* resolve at

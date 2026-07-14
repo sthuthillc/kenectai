@@ -3,14 +3,14 @@ import type { Example } from "./_examples.js";
 import { existsSync, readFileSync } from "node:fs";
 
 export const examples: Example[] = [
-  ["Play the current project", "hyperframes play"],
-  ["Play a specific project directory", "hyperframes play ./my-video"],
-  ["Use a custom port", "hyperframes play --port 8080"],
-  ["Start without opening the browser", "hyperframes play --no-open"],
-  ["Open with a specific browser", "hyperframes play --browser-path /usr/bin/chromium"],
+  ["Play the current project", "kenectai play"],
+  ["Play a specific project directory", "kenectai play ./my-video"],
+  ["Use a custom port", "kenectai play --port 8080"],
+  ["Start without opening the browser", "kenectai play --no-open"],
+  ["Open with a specific browser", "kenectai play --browser-path /usr/bin/chromium"],
   [
     "Open with CDP enabled (requires browser path + isolated profile)",
-    "hyperframes play --browser-path /usr/bin/chromium --user-data-dir /tmp/hf-profile --remote-debugging-port 9222",
+    "kenectai play --browser-path /usr/bin/chromium --user-data-dir /tmp/hf-profile --remote-debugging-port 9222",
   ],
 ];
 import { resolve } from "node:path";
@@ -90,7 +90,7 @@ export default defineCommand({
     // Resolve runtime path — same logic as studioServer.ts
     const runtimePath = resolveRuntimePath();
     if (!runtimePath) {
-      clack.log.error("HyperFrames runtime not found. Run `bun run build` first.");
+      clack.log.error("KENECT AI runtime not found. Run `bun run build` first.");
       process.exitCode = 1;
       return;
     }
@@ -150,7 +150,7 @@ export default defineCommand({
       return ctx.html(buildPlayerPage(project.name));
     });
 
-    clack.intro(c.bold("hyperframes play"));
+    clack.intro(c.bold("kenectai play"));
     const s = clack.spinner();
     s.start("Starting player...");
 
@@ -187,7 +187,7 @@ function buildPlayerPage(projectName: string): string {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${projectName} — HyperFrames Player</title>
+    <title>${projectName} — KENECT AI Player</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body {
@@ -212,7 +212,7 @@ function buildPlayerPage(projectName: string): string {
     <div class="player-wrap">
       <hyperframes-player src="/composition/index.html" controls muted></hyperframes-player>
     </div>
-    <div class="info">${projectName} — hyperframes play</div>
+    <div class="info">${projectName} — kenectai play</div>
     <script src="/player.js"></script>
   </body>
 </html>`;

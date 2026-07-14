@@ -90,9 +90,9 @@ describe("printUpdateNotice — install-method-aware command", () => {
     expect(out).not.toContain("npx hyperframes@latest");
   });
 
-  it("falls back to npx hyperframes@latest when the install method is skip/unknown", async () => {
+  it("falls back to npx @kenectai/cli@latest when the install method is skip/unknown", async () => {
     const out = await noticeWith({ installerCommand: null });
-    expect(out).toContain("npx hyperframes@latest");
+    expect(out).toContain("npx @kenectai/cli@latest");
   });
 
   it("is suppressed on a non-TTY stderr", async () => {
@@ -108,10 +108,10 @@ describe("printUpdateNotice — install-method-aware command", () => {
     expect(out).toBe("");
   });
 
-  it("is suppressed by the HYPERFRAMES_NO_UPDATE_CHECK opt-out", async () => {
+  it("is suppressed by the KENECT_NO_UPDATE_CHECK opt-out", async () => {
     const out = await noticeWith({
       installerCommand: "brew upgrade hyperframes",
-      env: { HYPERFRAMES_NO_UPDATE_CHECK: "1" },
+      env: { KENECT_NO_UPDATE_CHECK: "1" },
     });
     expect(out).toBe("");
   });
@@ -207,8 +207,8 @@ describe("printDeprecationNotice", () => {
 
     expect(stdoutWrites).toEqual([]);
     expect(stderrWrites).toHaveLength(1);
-    expect(stderrWrites[0]).toContain("hyperframes validate");
-    expect(stderrWrites[0]).toContain("hyperframes check");
+    expect(stderrWrites[0]).toContain("kenectai validate");
+    expect(stderrWrites[0]).toContain("kenectai check");
   });
 });
 

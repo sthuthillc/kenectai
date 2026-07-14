@@ -1,8 +1,8 @@
 /**
- * `hyperframes cloudrun` — deploy + drive distributed renders on Google
+ * `kenectai cloudrun` — deploy + drive distributed renders on Google
  * Cloud Run + Cloud Workflows.
  *
- * The GCP counterpart to `hyperframes lambda`. Thin glue: argument parsing
+ * The GCP counterpart to `kenectai lambda`. Thin glue: argument parsing
  * + help here; the work lives in `@kenectai/gcp-cloud-run/sdk`
  * (`deploySite` / `renderToCloudRun` / `getRenderProgress`) plus `terraform`
  * and `gcloud` for provisioning + the image build.
@@ -34,33 +34,33 @@ import { normalizeErrorMessage } from "../utils/errorMessage.js";
 import { readAllowedCompositionFpsFromDir } from "../utils/compositionFps.js";
 
 export const examples: Example[] = [
-  ["Deploy the Cloud Run render stack", "hyperframes cloudrun deploy --project my-gcp-project"],
+  ["Deploy the Cloud Run render stack", "kenectai cloudrun deploy --project my-gcp-project"],
   [
     "Render a composition on the deployed stack",
-    "hyperframes cloudrun render ./my-project --width 1920 --height 1080 --wait",
+    "kenectai cloudrun render ./my-project --width 1920 --height 1080 --wait",
   ],
   [
     "Render a personalised template with variables",
-    'hyperframes cloudrun render ./my-template --width 1920 --height 1080 --variables \'{"title":"Hello Alice"}\'',
+    'kenectai cloudrun render ./my-template --width 1920 --height 1080 --variables \'{"title":"Hello Alice"}\'',
   ],
   [
     "Supersample a 1080p composition to 4K",
-    "hyperframes cloudrun render ./my-project --width 1920 --height 1080 --output-resolution 4k --wait",
+    "kenectai cloudrun render ./my-project --width 1920 --height 1080 --output-resolution 4k --wait",
   ],
   [
     "Batch-render N personalised videos from a JSONL file",
-    "hyperframes cloudrun render-batch ./my-template --batch ./users.jsonl --width 1920 --height 1080 --max-concurrent 10",
+    "kenectai cloudrun render-batch ./my-template --batch ./users.jsonl --width 1920 --height 1080 --max-concurrent 10",
   ],
-  ["Check progress for a started render", "hyperframes cloudrun progress <executionName>"],
+  ["Check progress for a started render", "kenectai cloudrun progress <executionName>"],
   [
     "Pre-upload a project so renders share the upload",
-    "hyperframes cloudrun sites create ./my-project",
+    "kenectai cloudrun sites create ./my-project",
   ],
-  ["Tear the stack down", "hyperframes cloudrun destroy --project my-gcp-project"],
+  ["Tear the stack down", "kenectai cloudrun destroy --project my-gcp-project"],
 ];
 
 const HELP = `
-${c.bold("hyperframes cloudrun")} ${c.dim("<subcommand> [args]")}
+${c.bold("kenectai cloudrun")} ${c.dim("<subcommand> [args]")}
 
 Deploy + drive distributed video renders on Google Cloud Run + Workflows.
 
@@ -73,8 +73,8 @@ ${c.bold("SUBCOMMANDS:")}
   ${c.accent("destroy")}       ${c.dim("Tear the stack down")}
 
 ${c.bold("FIRST RUN:")}
-  ${c.accent("hyperframes cloudrun deploy --project my-gcp-project")}
-  ${c.accent("hyperframes cloudrun render ./my-project --width 1920 --height 1080 --wait")}
+  ${c.accent("kenectai cloudrun deploy --project my-gcp-project")}
+  ${c.accent("kenectai cloudrun render ./my-project --width 1920 --height 1080 --wait")}
 
 ${c.bold("REQUIREMENTS:")}
   • gcloud authenticated; the target project must have billing enabled
@@ -121,7 +121,7 @@ export default defineCommand({
     },
     repo: {
       type: "string",
-      description: "Artifact Registry repo for the built image (default: hyperframes)",
+      description: "Artifact Registry repo for the built image (default: kenectai)",
     },
     // Machine sizing / scaling (deploy). Omitted flags keep the Terraform
     // module defaults (4 vCPU / 16Gi / 100 instances / 3600s).
@@ -257,7 +257,7 @@ function readState(args: Record<string, unknown>): StackState {
   if (missing.length > 0) {
     console.error(
       `[cloudrun] missing stack coordinates: ${missing.join(", ")}. ` +
-        `Run \`hyperframes cloudrun deploy --project <id>\` first, or pass them as flags.`,
+        `Run \`kenectai cloudrun deploy --project <id>\` first, or pass them as flags.`,
     );
     process.exit(1);
   }
@@ -298,7 +298,7 @@ function runDeploy(args: Record<string, unknown>): void {
     process.exit(1);
   }
   const region = (args.region as string | undefined) ?? "us-central1";
-  const repo = (args.repo as string | undefined) ?? "hyperframes";
+  const repo = (args.repo as string | undefined) ?? "kenectai";
   const tfDir = terraformDir();
   const repoRoot = findRepoRoot(tfDir);
 
@@ -320,7 +320,7 @@ function runDeploy(args: Record<string, unknown>): void {
   if (!image) {
     if (!repoRoot) {
       console.error(
-        "[cloudrun deploy] --image is required when not running from a hyperframes checkout (no Dockerfile context found).",
+        "[cloudrun deploy] --image is required when not running from a kenectai checkout (no Dockerfile context found).",
       );
       process.exit(1);
     }
@@ -354,7 +354,7 @@ function runDeploy(args: Record<string, unknown>): void {
       .toISOString()
       .replace(/[^0-9]/g, "")
       .slice(0, 14);
-    image = `${region}-docker.pkg.dev/${project}/${repo}/hyperframes-render:${tag}`;
+    image = `${region}-docker.pkg.dev/${project}/${repo}/kenectai-render:${tag}`;
     console.log(`→ Building + pushing ${image} via Cloud Build`);
     run("gcloud", [
       "builds",
@@ -388,7 +388,7 @@ function runDeploy(args: Record<string, unknown>): void {
   console.log(`${c.accent("✓ deployed.")} bucket=${state.bucketName} workflow=${state.workflowId}`);
   console.log(`  service=${state.serviceUrl}`);
   console.log(
-    `  Next: ${c.accent("hyperframes cloudrun render ./my-project --width 1920 --height 1080 --wait")}`,
+    `  Next: ${c.accent("kenectai cloudrun render ./my-project --width 1920 --height 1080 --wait")}`,
   );
 }
 
@@ -463,7 +463,7 @@ async function runSites(args: Record<string, unknown>): Promise<void> {
   }
   const projectDir = args.extra as string | undefined;
   if (!projectDir) {
-    console.error("[cloudrun sites create] usage: hyperframes cloudrun sites create <projectDir>");
+    console.error("[cloudrun sites create] usage: kenectai cloudrun sites create <projectDir>");
     process.exit(1);
   }
   const state = readState(args);
@@ -490,7 +490,7 @@ async function runRender(args: Record<string, unknown>): Promise<void> {
   const projectDir = args.target as string | undefined;
   if (!projectDir) {
     console.error(
-      "[cloudrun render] usage: hyperframes cloudrun render <projectDir> --width <px> --height <px>",
+      "[cloudrun render] usage: kenectai cloudrun render <projectDir> --width <px> --height <px>",
     );
     process.exit(1);
   }
@@ -528,9 +528,7 @@ async function runRender(args: Record<string, unknown>): Promise<void> {
     else {
       console.log(`${c.accent("✓ render started")} renderId=${handle.renderId}`);
       console.log(`  output → ${handle.outputGcsUri}`);
-      console.log(
-        `  progress: ${c.accent(`hyperframes cloudrun progress ${handle.executionName}`)}`,
-      );
+      console.log(`  progress: ${c.accent(`kenectai cloudrun progress ${handle.executionName}`)}`);
     }
     return;
   }
@@ -562,7 +560,7 @@ async function runRender(args: Record<string, unknown>): Promise<void> {
 async function runProgress(args: Record<string, unknown>): Promise<void> {
   const executionName = args.target as string | undefined;
   if (!executionName) {
-    console.error("[cloudrun progress] usage: hyperframes cloudrun progress <executionName>");
+    console.error("[cloudrun progress] usage: kenectai cloudrun progress <executionName>");
     process.exit(1);
   }
   const { getRenderProgress } = await import("@kenectai/gcp-cloud-run/sdk");
@@ -592,7 +590,7 @@ const DEFAULT_BATCH_MAX_CONCURRENT = 50;
  * Fan out N personalised renders of the same project from a JSONL batch file
  * (one `{ outputKey, variables }` per line). Deploys the site once, then
  * starts an execution per entry with a concurrency cap. `--dry-run` prints the
- * resolved manifest without starting anything. Mirrors `hyperframes lambda
+ * resolved manifest without starting anything. Mirrors `kenectai lambda
  * render-batch`.
  */
 // fallow-ignore-next-line complexity
@@ -601,7 +599,7 @@ async function runRenderBatch(args: Record<string, unknown>): Promise<void> {
   const batchPath = args.batch as string | undefined;
   if (!projectDir || !batchPath) {
     console.error(
-      "[cloudrun render-batch] usage: hyperframes cloudrun render-batch <projectDir> --batch <file.jsonl> --width <px> --height <px>",
+      "[cloudrun render-batch] usage: kenectai cloudrun render-batch <projectDir> --batch <file.jsonl> --width <px> --height <px>",
     );
     process.exit(1);
   }
@@ -771,7 +769,7 @@ function runDestroy(args: Record<string, unknown>): void {
 
 /**
  * Build the serializable render config from CLI flags. `variables` is resolved
- * separately (it differs per batch entry). Mirrors the local `hyperframes
+ * separately (it differs per batch entry). Mirrors the local `kenectai
  * render` flag surface so the two stay consistent.
  */
 function buildRenderConfig(
@@ -798,7 +796,7 @@ function buildRenderConfig(
 
 /**
  * Resolve --variables / --variables-file via the shared CLI parser (the same
- * one `hyperframes render` and `hyperframes lambda render` use), then validate
+ * one `kenectai render` and `kenectai lambda render` use), then validate
  * against the composition's `data-composition-variables` when an `index.html`
  * is on disk. `--strict-variables` turns mismatches into a hard failure.
  */

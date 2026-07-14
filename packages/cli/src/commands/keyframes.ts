@@ -9,11 +9,11 @@ import { resolveProject } from "../utils/project.js";
 import { withMeta } from "../utils/updateCheck.js";
 
 export const examples: Example[] = [
-  ["Surface every keyframe + motion path in the project", "hyperframes keyframes"],
-  ["Inspect one composition file", "hyperframes keyframes compositions/scene.html"],
-  ["Machine-readable output for an agent", "hyperframes keyframes --json"],
-  ["Only one element's keyframes", "hyperframes keyframes --selector '#puck-a'"],
-  ["Runtime-aware hint for CSS/Anime compositions", "hyperframes keyframes --runtime all"],
+  ["Surface every keyframe + motion path in the project", "kenectai keyframes"],
+  ["Inspect one composition file", "kenectai keyframes compositions/scene.html"],
+  ["Machine-readable output for an agent", "kenectai keyframes --json"],
+  ["Only one element's keyframes", "kenectai keyframes --selector '#puck-a'"],
+  ["Runtime-aware hint for CSS/Anime compositions", "kenectai keyframes --runtime all"],
 ];
 
 // ── Surfaced shapes ──────────────────────────────────────────────────────────
@@ -862,7 +862,7 @@ const defaultKeyframesCommand: KeyframesCommandOptions = {
   name: "keyframes",
   description:
     "See, debug, and refine keyframes — surface GSAP, CSS @keyframes, Anime.js, paths, and onion-shot diagnostics",
-  invocation: "hyperframes keyframes",
+  invocation: "kenectai keyframes",
   defaultRuntime: "all",
 };
 

@@ -4,20 +4,20 @@ import { spawn, type ChildProcessByStdio } from "node:child_process";
 import type { Readable } from "node:stream";
 
 export const examples: Example[] = [
-  ["Preview the current project", "hyperframes preview"],
-  ["Print the current Studio selection as JSON", "hyperframes preview --selection --json"],
-  ["Print current Studio context as JSON", "hyperframes preview --context --json"],
-  ["Preview a specific project directory", "hyperframes preview ./my-video"],
-  ["Use a custom port", "hyperframes preview --port 8080"],
-  ["Force a new server even if one is already running", "hyperframes preview --force-new"],
-  ["Start without opening the browser", "hyperframes preview --no-open"],
-  ["Open with a specific browser", "hyperframes preview --browser-path /usr/bin/chromium"],
+  ["Preview the current project", "kenectai preview"],
+  ["Print the current Studio selection as JSON", "kenectai preview --selection --json"],
+  ["Print current Studio context as JSON", "kenectai preview --context --json"],
+  ["Preview a specific project directory", "kenectai preview ./my-video"],
+  ["Use a custom port", "kenectai preview --port 8080"],
+  ["Force a new server even if one is already running", "kenectai preview --force-new"],
+  ["Start without opening the browser", "kenectai preview --no-open"],
+  ["Open with a specific browser", "kenectai preview --browser-path /usr/bin/chromium"],
   [
     "Open with CDP enabled (requires browser path + isolated profile)",
-    "hyperframes preview --browser-path /usr/bin/chromium --user-data-dir /tmp/hf-profile --remote-debugging-port 9222",
+    "kenectai preview --browser-path /usr/bin/chromium --user-data-dir /tmp/hf-profile --remote-debugging-port 9222",
   ],
-  ["List all active preview servers", "hyperframes preview --list"],
-  ["Kill all active preview servers", "hyperframes preview --kill-all"],
+  ["List all active preview servers", "kenectai preview --list"],
+  ["Kill all active preview servers", "kenectai preview --kill-all"],
 ];
 import { existsSync, lstatSync, symlinkSync, unlinkSync, readlinkSync, mkdirSync } from "node:fs";
 import { resolve, dirname, basename, join } from "node:path";
@@ -412,7 +412,7 @@ async function printCurrentSelection(
   if (!server) {
     printSelectionFailure(
       "preview-not-running",
-      "No running Studio preview found for this project. Start one with: npx hyperframes preview",
+      "No running Studio preview found for this project. Start one with: npx @kenectai/cli preview",
       json,
     );
     return;
@@ -529,7 +529,7 @@ async function printCurrentContext(
   if (!server) {
     printSelectionFailure(
       "preview-not-running",
-      "No running Studio preview found for this project. Start one with: npx hyperframes preview",
+      "No running Studio preview found for this project. Start one with: npx @kenectai/cli preview",
       options.json,
     );
     return;
@@ -777,7 +777,7 @@ async function runDevMode(dir: string, options?: StudioLaunchOptions): Promise<v
   const pName = options?.projectName ?? basename(dir);
   const { symlinkPath, createdSymlink } = linkProjectIntoStudioData(dir, projectsDir, pName);
 
-  clack.intro(c.bold("hyperframes preview"));
+  clack.intro(c.bold("kenectai preview"));
 
   const s = clack.spinner();
   s.start("Starting studio...");
@@ -828,7 +828,7 @@ async function runLocalStudioMode(dir: string, options?: StudioLaunchOptions): P
   const projectsDir = join(studioPkgPath, "data", "projects");
   const { symlinkPath, createdSymlink } = linkProjectIntoStudioData(dir, projectsDir, pName);
 
-  clack.intro(c.bold("hyperframes preview") + c.dim(" (local studio)"));
+  clack.intro(c.bold("kenectai preview") + c.dim(" (local studio)"));
   const s = clack.spinner();
   s.start("Starting studio...");
 
@@ -850,7 +850,7 @@ async function runLocalStudioMode(dir: string, options?: StudioLaunchOptions): P
  * Embedded mode: serve the pre-built studio SPA with a standalone Hono server.
  * Works without any additional dependencies — the studio is bundled in dist/.
  *
- * If an existing HyperFrames server for the same project is detected,
+ * If an existing KENECT AI server for the same project is detected,
  * reuses it instead of starting a new one (unless --force-new is set).
  */
 async function runEmbeddedMode(
@@ -864,7 +864,7 @@ async function runEmbeddedMode(
   const pName = options?.projectName ?? basename(dir);
   const studioBundle = resolveStudioBundle();
 
-  clack.intro(c.bold("hyperframes preview"));
+  clack.intro(c.bold("kenectai preview"));
   const s = clack.spinner();
   s.start("Starting studio...");
 
@@ -922,7 +922,7 @@ async function runEmbeddedMode(
   }
   printStudioSummary(pName, url, {
     details: [
-      "Edit with your AI agent — it has HyperFrames skills installed.",
+      "Edit with your AI agent — it has KENECT AI skills installed.",
       "Changes reload automatically in the studio.",
     ],
     footer: "Press Ctrl+C to stop",

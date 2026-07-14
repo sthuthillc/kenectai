@@ -1,5 +1,5 @@
 /**
- * Build the argument array for `docker run` that invokes the Hyperframes
+ * Build the argument array for `docker run` that invokes the KENECT AI
  * renderer inside a container.
  *
  * Pure function with no I/O so it can be snapshot-tested. Any new render
@@ -72,7 +72,7 @@ export interface DockerRenderOptions {
  * the two architectures the renderer actively supports — arm64 hosts (Apple
  * Silicon, Graviton, Ampere) and everything else (treated as amd64).
  *
- * Honors `HYPERFRAMES_DOCKER_PLATFORM` as an escape hatch (typed loosely so
+ * Honors `KENECT_DOCKER_PLATFORM` as an escape hatch (typed loosely so
  * the override can target future platforms without a CLI release):
  *
  * - Apple Silicon users running an x64 Node binary under Rosetta (where
@@ -87,7 +87,7 @@ export function resolveDockerPlatform(
   arch: string = process.arch,
   env: NodeJS.ProcessEnv = process.env,
 ): string {
-  const override = env.HYPERFRAMES_DOCKER_PLATFORM;
+  const override = env.KENECT_DOCKER_PLATFORM;
   if (override && override.trim() !== "") return override.trim();
   return arch === "arm64" ? "linux/arm64" : "linux/amd64";
 }

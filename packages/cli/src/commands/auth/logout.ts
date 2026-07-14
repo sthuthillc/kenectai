@@ -57,11 +57,7 @@ export default defineCommand({
 
 function warnIfEnvCredentialActive(): void {
   if (process.env["KENECT_API_KEY"]) {
-    console.log(
-      c.warn(
-        "An env-var credential is active. Unset KENECT_API_KEY to remove it.",
-      ),
-    );
+    console.log(c.warn("An env-var credential is active. Unset KENECT_API_KEY to remove it."));
   }
 }
 

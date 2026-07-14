@@ -9,10 +9,10 @@ import type {
   CompleteAssetUploadResponse,
   CreateAssetUploadRequest,
   CreateAssetUploadResponse,
-  CreateHyperframesRenderRequest,
-  CreateHyperframesRenderResponse,
-  DeleteHyperframesRenderResponse,
-  HyperframesRenderDetail,
+  CreateKenectaiRenderRequest,
+  CreateKenectaiRenderResponse,
+  DeleteKenectaiRenderResponse,
+  KenectaiRenderDetail,
   UploadAssetV3Response,
 } from "./types.js";
 
@@ -22,7 +22,7 @@ export type AuthHeaders = Record<string, string>;
  * Caller-provided context. Keep the shape narrow so the cli/src/auth/
  * module stays the single owner of credential resolution.
  */
-export interface HyperframesCloudClientOptions {
+export interface KenectaiCloudClientOptions {
   /** Base URL like "https://api.kenectai.com" (no trailing slash). */
   baseUrl: string;
   /**
@@ -38,7 +38,7 @@ export interface HyperframesCloudClientOptions {
  * Standard error envelope used by /v3 endpoints. See StandardAPIError in
  * types.ts for the field shape.
  */
-export class HyperframesApiError extends Error {
+export class KenectaiApiError extends Error {
   readonly status: number;
   readonly code?: string;
   readonly param?: string | null;
@@ -54,7 +54,7 @@ export class HyperframesApiError extends Error {
     raw?: unknown;
   }) {
     super(opts.message);
-    this.name = "HyperframesApiError";
+    this.name = "KenectaiApiError";
     this.status = opts.status;
     this.code = opts.code;
     this.param = opts.param;
@@ -80,16 +80,16 @@ interface RequestOptions {
 }
 
 /**
- * Typed client for the HyperFrames cloud-render API. Auto-generated; do
+ * Typed client for the KENECT AI cloud-render API. Auto-generated; do
  * not hand-edit. Submit new endpoints by adding them to
  * scripts/generate_hyperframes_cli_client.py in experiment-framework.
  */
-export class HyperframesCloudClient {
+export class KenectaiCloudClient {
   private readonly baseUrl: string;
   private readonly getAuthHeaders: () => Promise<AuthHeaders> | AuthHeaders;
   private readonly fetchImpl: typeof fetch;
 
-  constructor(opts: HyperframesCloudClientOptions) {
+  constructor(opts: KenectaiCloudClientOptions) {
     this.baseUrl = opts.baseUrl.replace(/\/+$/, "");
     this.getAuthHeaders = opts.getAuthHeaders;
     this.fetchImpl = opts.fetchImpl ?? fetch;
@@ -138,7 +138,7 @@ export class HyperframesCloudClient {
     try {
       parsed = JSON.parse(text);
     } catch (err) {
-      throw new HyperframesApiError({
+      throw new KenectaiApiError({
         status: res.status,
         message: `Invalid JSON response: ${(err as Error).message}`,
         raw: text.slice(0, 500),
@@ -172,7 +172,7 @@ export class HyperframesCloudClient {
     return url.toString();
   }
 
-  private async toApiError(res: Response): Promise<HyperframesApiError> {
+  private async toApiError(res: Response): Promise<KenectaiApiError> {
     let parsed: unknown;
     try {
       parsed = await res.json();
@@ -183,7 +183,7 @@ export class HyperframesCloudClient {
       parsed && typeof parsed === "object" && "error" in (parsed as Record<string, unknown>)
         ? ((parsed as Record<string, unknown>).error as Record<string, unknown> | undefined)
         : undefined;
-    return new HyperframesApiError({
+    return new KenectaiApiError({
       status: res.status,
       message:
         (err && typeof err.message === "string" && err.message) ||
@@ -272,11 +272,11 @@ export class HyperframesCloudClient {
    * Renders a KENECT AI composition (an HTML+JS+assets project bundled as a .zip) into a video. Submit the project via `url`, `asset_id` (pre-uploaded via POST /v3/assets), or inline `base64`. Returns a `render_id` to poll via GET /v3/kenectai/renders/{render_id}.
    */
   async createRender(args: {
-    body: CreateHyperframesRenderRequest;
+    body: CreateKenectaiRenderRequest;
     idempotencyKey?: string;
     signal?: AbortSignal;
-  }): Promise<CreateHyperframesRenderResponse> {
-    return await this.request<CreateHyperframesRenderResponse>({
+  }): Promise<CreateKenectaiRenderResponse> {
+    return await this.request<CreateKenectaiRenderResponse>({
       method: "POST",
       path: "/v3/kenectai/renders",
       body: args.body,
@@ -291,7 +291,7 @@ export class HyperframesCloudClient {
    * Returns a cursor-paginated list of KENECT AI renders in the account, newest first.
    */
   async listRenders(args: { limit?: number; token?: string; signal?: AbortSignal }): Promise<{
-    data?: Array<HyperframesRenderDetail>;
+    data?: Array<KenectaiRenderDetail>;
     has_more?: boolean;
     next_token?: string | null;
   }> {
@@ -300,7 +300,7 @@ export class HyperframesCloudClient {
       token: args.token,
     };
     return await this.request<{
-      data?: Array<HyperframesRenderDetail>;
+      data?: Array<KenectaiRenderDetail>;
       has_more?: boolean;
       next_token?: string | null;
     }>({
@@ -315,13 +315,13 @@ export class HyperframesCloudClient {
   /**
    * Get KENECT AI Render
    *
-   * Returns full details for a single HyperFrames render, including status and signed video_url when complete.
+   * Returns full details for a single KENECT AI render, including status and signed video_url when complete.
    */
   async getRender(args: {
     render_id: string;
     signal?: AbortSignal;
-  }): Promise<HyperframesRenderDetail> {
-    return await this.request<HyperframesRenderDetail>({
+  }): Promise<KenectaiRenderDetail> {
+    return await this.request<KenectaiRenderDetail>({
       method: "GET",
       path: `/v3/kenectai/renders/${encodeURIComponent(args.render_id)}`,
       signal: args.signal,
@@ -331,13 +331,13 @@ export class HyperframesCloudClient {
   /**
    * Delete KENECT AI Render
    *
-   * Soft-deletes a HyperFrames render. Subsequent GETs return 404.
+   * Soft-deletes a KENECT AI render. Subsequent GETs return 404.
    */
   async deleteRender(args: {
     render_id: string;
     signal?: AbortSignal;
-  }): Promise<DeleteHyperframesRenderResponse> {
-    return await this.request<DeleteHyperframesRenderResponse>({
+  }): Promise<DeleteKenectaiRenderResponse> {
+    return await this.request<DeleteKenectaiRenderResponse>({
       method: "DELETE",
       path: `/v3/kenectai/renders/${encodeURIComponent(args.render_id)}`,
       signal: args.signal,

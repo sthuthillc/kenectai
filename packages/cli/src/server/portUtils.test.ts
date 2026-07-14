@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { createServer as createHttpServer, type Server as HttpServer } from "node:http";
 import {
   PORT_PROBE_HOSTS,
-  detectHyperframesServer,
+  detectKenectaiServer,
   findPortAndServe,
   testPortOnAllHosts,
 } from "./portUtils.js";
@@ -161,11 +161,11 @@ describe("findPortAndServe — bind host (security: F-001)", () => {
   });
 });
 
-describe("detectHyperframesServer", () => {
+describe("detectKenectaiServer", () => {
   it("treats same-project servers with a different server build signature as mismatch", async () => {
     const projectDir = "/tmp/demo-project";
     const port = await startConfigProbeServer({
-      isHyperframes: true,
+      isKenectai: true,
       projectName: "demo-project",
       projectDir,
       serverBuildSignature: "old-build",
@@ -173,7 +173,7 @@ describe("detectHyperframesServer", () => {
     });
 
     const normalizedProjectDir = resolve(projectDir).replace(/\\/g, "/").toLowerCase();
-    const result = await detectHyperframesServer(port, normalizedProjectDir, "new-build");
+    const result = await detectKenectaiServer(port, normalizedProjectDir, "new-build");
 
     expect(result).toEqual({ type: "mismatch", projectName: "demo-project" });
   });
@@ -181,7 +181,7 @@ describe("detectHyperframesServer", () => {
   it("treats same-project servers with the same server build signature as match", async () => {
     const projectDir = "/tmp/demo-project";
     const port = await startConfigProbeServer({
-      isHyperframes: true,
+      isKenectai: true,
       projectName: "demo-project",
       projectDir,
       serverBuildSignature: "same-build",
@@ -189,7 +189,7 @@ describe("detectHyperframesServer", () => {
     });
 
     const normalizedProjectDir = resolve(projectDir).replace(/\\/g, "/").toLowerCase();
-    const result = await detectHyperframesServer(port, normalizedProjectDir, "same-build");
+    const result = await detectKenectaiServer(port, normalizedProjectDir, "same-build");
 
     expect(result).toEqual({ type: "match" });
   });

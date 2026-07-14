@@ -26,8 +26,8 @@ describe("inspect command deprecation (U5)", () => {
 
   it("prints a one-line deprecation notice naming 'inspect' on stderr, never stdout", async () => {
     const { stderrText, stdoutText } = await runAndCaptureStdio(inspectCommand);
-    expect(stderrText).toContain("hyperframes inspect");
-    expect(stderrText).toContain("hyperframes check");
+    expect(stderrText).toContain("kenectai inspect");
+    expect(stderrText).toContain("kenectai check");
     expect(stdoutText).toBe("");
   });
 });

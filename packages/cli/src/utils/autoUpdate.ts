@@ -1,7 +1,7 @@
 /**
  * Silent, lazy auto-update — Claude-Code-style.
  *
- * Flow across two runs of `hyperframes`:
+ * Flow across two runs of `kenectai`:
  *
  *   Run N     → check registry, see latest > current, spawn detached
  *               installer child, write `pendingUpdate` marker. Exit normally
@@ -13,9 +13,9 @@
  *
  * Guardrails:
  *   - Never auto-update across major versions. The user opts in explicitly
- *     via `hyperframes upgrade`.
+ *     via `kenectai upgrade`.
  *   - Skip on CI, non-TTY, dev mode, unknown installer, ephemeral exec (npx),
- *     or when `HYPERFRAMES_NO_AUTO_INSTALL` / `HYPERFRAMES_NO_UPDATE_CHECK`
+ *     or when `KENECT_NO_AUTO_INSTALL` / `KENECT_NO_UPDATE_CHECK`
  *     is set.
  *   - If a previous install is still in flight (less than 10 min old), don't
  *     re-launch.
@@ -44,8 +44,8 @@ const PENDING_TIMEOUT_MS = 10 * 60 * 1000;
 function isAutoInstallDisabled(): boolean {
   if (isDevMode()) return true;
   if (process.env["CI"] === "true" || process.env["CI"] === "1") return true;
-  if (process.env["HYPERFRAMES_NO_UPDATE_CHECK"] === "1") return true;
-  if (process.env["HYPERFRAMES_NO_AUTO_INSTALL"] === "1") return true;
+  if (process.env["KENECT_NO_UPDATE_CHECK"] === "1") return true;
+  if (process.env["KENECT_NO_AUTO_INSTALL"] === "1") return true;
   return false;
 }
 
@@ -123,7 +123,7 @@ function launchDetachedInstall(
     detached: true,
     stdio: ["ignore", out, out],
     windowsHide: true,
-    env: { ...process.env, HYPERFRAMES_NO_UPDATE_CHECK: "1", HYPERFRAMES_NO_AUTO_INSTALL: "1" },
+    env: { ...process.env, KENECT_NO_UPDATE_CHECK: "1", KENECT_NO_AUTO_INSTALL: "1" },
   });
   child.unref();
   log(`[launch] pid=${child.pid ?? "?"} cmd=${displayCommand} version=${version}`);
@@ -147,7 +147,7 @@ export function scheduleBackgroundInstall(latestVersion: string, currentVersion:
 
   // Major-version jumps carry breaking-change risk. Don't silent-install;
   // the existing `printUpdateNotice` banner nudges the user to run
-  // `hyperframes upgrade` explicitly.
+  // `kenectai upgrade` explicitly.
   const latestMajor = majorOf(latestVersion);
   const currentMajor = majorOf(currentVersion);
   if (Number.isFinite(latestMajor) && Number.isFinite(currentMajor) && latestMajor > currentMajor) {
@@ -207,7 +207,7 @@ export function scheduleBackgroundInstall(latestVersion: string, currentVersion:
  * the scheduler can avoid retrying the same version on every invocation.
  */
 export function reportCompletedUpdate(): void {
-  if (process.env["HYPERFRAMES_NO_UPDATE_CHECK"] === "1") return;
+  if (process.env["KENECT_NO_UPDATE_CHECK"] === "1") return;
 
   const config = readConfig();
   const done = config.completedUpdate;
@@ -226,12 +226,12 @@ export function reportCompletedUpdate(): void {
   if (!process.stderr.isTTY) return;
 
   if (done.ok) {
-    process.stderr.write(`  hyperframes auto-updated to v${done.version}\n\n`);
+    process.stderr.write(`  kenectai auto-updated to v${done.version}\n\n`);
   } else if (!done.reported) {
     // Failed installs are surfaced once too — the user should know why the
     // auto-update didn't take.
     process.stderr.write(
-      `  hyperframes auto-update to v${done.version} failed. Run \`hyperframes upgrade\` to retry.\n\n`,
+      `  kenectai auto-update to v${done.version} failed. Run \`kenectai upgrade\` to retry.\n\n`,
     );
   }
 }
