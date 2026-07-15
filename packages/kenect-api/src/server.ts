@@ -11,7 +11,7 @@ import {
   renderToCloudRun,
   type SerializableDistributedRenderConfig,
 } from "@kenectai/gcp-cloud-run/sdk";
-import { registerOAuthRoutes, resolveBearerIdentity } from "./oauthServer.js";
+import { registerOAuthRoutes, requestOrigin, resolveBearerIdentity } from "./oauthServer.js";
 import {
   BillingError,
   checkAndConsumeQuota,
@@ -482,7 +482,7 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
         // resource metadata so they can discover /oauth/authorize on their
         // own instead of failing with a bare, undiagnosable 401.
         if (path === "/mcp") {
-          const origin = new URL(c.req.url).origin;
+          const origin = requestOrigin(c);
           c.header(
             "WWW-Authenticate",
             `Bearer resource_metadata="${origin}/.well-known/oauth-protected-resource"`,

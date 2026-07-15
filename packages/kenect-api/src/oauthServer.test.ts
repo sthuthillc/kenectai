@@ -441,6 +441,27 @@ describe("OAuth discovery (RFC 8414 / RFC 9728)", () => {
       'Bearer resource_metadata="https://api.test/.well-known/oauth-protected-resource"',
     );
   });
+
+  it("reports an https:// origin behind Cloud Run's TLS-terminating proxy (X-Forwarded-Proto)", async () => {
+    // Cloud Run always terminates TLS upstream and forwards to the container
+    // over plain HTTP, so the request's own URL reports http:// even when
+    // the caller connected over HTTPS — this is exactly the bug that made
+    // every discovery document advertise itself as an untrusted HTTP
+    // authorization server (claude.ai's Connectors picker refused to
+    // register against it). Regression test for requestOrigin() in
+    // oauthServer.ts honoring X-Forwarded-Proto.
+    const app = makeApp();
+    const res = await app.request(
+      "http://mcp.kenectai.com/.well-known/oauth-authorization-server",
+      {
+        headers: { "x-forwarded-proto": "https" },
+      },
+    );
+    expect(res.status).toBe(200);
+    const body = await jsonBody(res);
+    expect(body["issuer"]).toBe("https://mcp.kenectai.com");
+    expect(body["registration_endpoint"]).toBe("https://mcp.kenectai.com/oauth/register");
+  });
 });
 
 describe("dynamic client registration (RFC 7591)", () => {

@@ -107,6 +107,21 @@ type FlowCheck =
   | { kind: "fatal"; message: string }
   | { kind: "redirect"; location: string };
 
+/**
+ * The request's true origin, correcting for Cloud Run terminating TLS
+ * upstream and forwarding to the container over plain HTTP — `c.req.url`
+ * alone reports `http://` even when the caller connected over HTTPS, which
+ * would make every OAuth discovery document advertise itself as an
+ * insecure (and therefore untrusted) authorization server. Cloud Run
+ * always sets X-Forwarded-Proto on the forwarded request.
+ */
+export function requestOrigin(c: Context): string {
+  const url = new URL(c.req.url);
+  const forwardedProto = c.req.header("x-forwarded-proto")?.split(",")[0]?.trim();
+  const protocol = forwardedProto || url.protocol.replace(":", "");
+  return `${protocol}://${url.host}`;
+}
+
 // --- crypto helpers -------------------------------------------------------
 
 function nowSeconds(): number {
@@ -836,7 +851,7 @@ export function registerOAuthRoutes(
   // own. Served relative to the request's own origin since this app
   // answers on multiple domains (api.kenectai.com, mcp.kenectai.com).
   app.get("/.well-known/oauth-authorization-server", (c) => {
-    const origin = new URL(c.req.url).origin;
+    const origin = requestOrigin(c);
     return c.json({
       issuer: origin,
       authorization_endpoint: `${origin}/oauth/authorize`,
@@ -858,11 +873,11 @@ export function registerOAuthRoutes(
   // bare well-known path and the resource-suffixed variant some MCP client
   // implementations probe instead.
   app.get("/.well-known/oauth-protected-resource", (c) => {
-    const origin = new URL(c.req.url).origin;
+    const origin = requestOrigin(c);
     return c.json({ resource: `${origin}/mcp`, authorization_servers: [origin] });
   });
   app.get("/.well-known/oauth-protected-resource/mcp", (c) => {
-    const origin = new URL(c.req.url).origin;
+    const origin = requestOrigin(c);
     return c.json({ resource: `${origin}/mcp`, authorization_servers: [origin] });
   });
 }
