@@ -305,6 +305,23 @@ function isLoopbackRedirect(uri: string): boolean {
   return url.pathname === "/oauth/callback";
 }
 
+/**
+ * Fixed HTTPS redirect for the first-party web dashboard (the same public
+ * PKCE client as the CLI, so no client secret either way). Exact-match only —
+ * defaults to the production web app, overridable for staging via
+ * KENECT_WEB_REDIRECT_URIS (comma-separated exact URIs).
+ */
+const WEB_REDIRECT_URIS: readonly string[] = (
+  process.env["KENECT_WEB_REDIRECT_URIS"]?.trim() || "https://kenectai.com/auth/callback"
+)
+  .split(",")
+  .map((value) => value.trim())
+  .filter(Boolean);
+
+function isAllowedRedirect(uri: string): boolean {
+  return isLoopbackRedirect(uri) || WEB_REDIRECT_URIS.includes(uri);
+}
+
 function redirectWithError(
   redirectUri: string,
   error: string,
@@ -327,11 +344,11 @@ function checkFlow(get: (name: string) => string | undefined): FlowCheck {
     return { kind: "fatal", message: "Unknown client_id." };
   }
   const redirectUri = get("redirect_uri") ?? "";
-  if (!isLoopbackRedirect(redirectUri)) {
+  if (!isAllowedRedirect(redirectUri)) {
     return {
       kind: "fatal",
       message:
-        "redirect_uri must be a loopback URL of the form http://127.0.0.1:<port>/oauth/callback.",
+        "redirect_uri must be a loopback URL of the form http://127.0.0.1:<port>/oauth/callback, or the registered web app callback.",
     };
   }
   const state = get("state") ?? "";

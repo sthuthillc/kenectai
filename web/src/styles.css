@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+/* KENECT AI brand tokens — same palette as the hand-authored landing page
+   (site/index.html) so the app pages and homepage read as one product. */
+@theme {
+  --color-ink: #0a0a0f;
+  --color-panel: #101017;
+  --color-panel2: #14141d;
+  --color-line: #232333;
+  --color-fg: #f6f5f1;
+  --color-dim: #9b9aa4;
+  --color-violet: #6366f1;
+  --color-magenta: #d946ef;
+  --color-pink: #ec4899;
+  --color-teal: #2dd4bf;
+  --color-sky: #0ea5e9;
+  --font-sans: "Outfit", "Inter", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+html {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Signature gradient text ─────────────────────────────────────────── */
+.grad-text {
+  background: linear-gradient(92deg, var(--color-violet), var(--color-magenta) 55%, var(--color-pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Animated conic border (the brand's spinning-aura motif, applied to
+      cards). Pure CSS — same animation language as the homepage logo. ── */
+.aura-border {
+  position: relative;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(var(--color-line), var(--color-line)) padding-box;
+  overflow: hidden;
+}
+.aura-border::before {
+  content: "";
+  position: absolute;
+  inset: -150%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 260deg,
+    var(--color-violet) 300deg,
+    var(--color-magenta) 330deg,
+    var(--color-teal) 350deg,
+    transparent 360deg
+  );
+  animation: aura-rotate 5s linear infinite;
+}
+.aura-border > * {
+  position: relative;
+  border-radius: 15px;
+  background: var(--color-panel);
+}
+@keyframes aura-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Masked blueprint grid backdrop (adapted from the 21st.dev
+      single-pricing-card pattern, re-toned for the KENECT palette). ─── */
+.grid-mask {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-fg) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-fg) 7%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse at center, black 10%, transparent 70%);
+}
+
+/* ── Logo lockup (mirrors the landing page's K mark) ─────────────────── */
+.k-mark {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+.k-mark .bar {
+  position: absolute;
+  left: 1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 29px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #ffffff 0%, #c7d2fe 45%, #7c86b8 100%);
+}
+.k-mark .diamond {
+  position: absolute;
+  left: 9px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 21px;
+  height: 21px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--color-violet) 0%, var(--color-magenta) 55%, var(--color-pink) 100%);
+  border: 2.5px solid var(--color-ink);
+  box-shadow: 0 0 14px rgb(217 70 239 / 0.35);
+}
+.k-mark .play {
+  position: absolute;
+  left: 16.5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 8px;
+  background: linear-gradient(180deg, #fff, #e2e8f0);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.k-mark .spark {
+  position: absolute;
+  top: -2px;
+  right: -3px;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, #5eead4, var(--color-teal) 50%, var(--color-sky));
+  clip-path: polygon(50% 0%, 58% 42%, 100% 50%, 58% 58%, 50% 100%, 42% 58%, 0% 50%, 42% 42%);
+  filter: drop-shadow(0 0 4px rgb(45 212 191 / 0.7));
+  animation: spark-pulse 3s infinite ease-in-out;
+}
+@keyframes spark-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.75);
+    opacity: 0.7;
+  }
+}
