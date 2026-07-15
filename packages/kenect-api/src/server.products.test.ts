@@ -96,6 +96,9 @@ const testEnv: KenectApiEnv = {
   jwtSecret: "test-secret",
   geminiApiKey: "test-gemini-key",
   geminiModel: "gemini-2.5-flash",
+  stripeSecretKey: "",
+  stripeWebhookSecret: "",
+  stripePriceId: "",
 };
 
 function makeApp(env: KenectApiEnv = testEnv): Hono {

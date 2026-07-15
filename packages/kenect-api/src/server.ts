@@ -12,6 +12,14 @@ import {
   type SerializableDistributedRenderConfig,
 } from "@kenectai/gcp-cloud-run/sdk";
 import { registerOAuthRoutes, resolveBearerIdentity } from "./oauthServer.js";
+import {
+  BillingError,
+  checkAndConsumeQuota,
+  registerBillingRoutes,
+  resolveCallerIdentity,
+  type CallerIdentity,
+} from "./billing.js";
+import { registerMcpRoutes } from "./mcp.js";
 import { GeminiClient, GeminiError } from "./gemini.js";
 import { generateFramePack } from "./products/framePack.js";
 import { CompositionLintError, generateWebsiteComposition } from "./products/websiteVideo.js";
@@ -37,6 +45,9 @@ export interface KenectApiEnv {
   jwtSecret: string;
   geminiApiKey: string;
   geminiModel: string;
+  stripeSecretKey: string;
+  stripeWebhookSecret: string;
+  stripePriceId: string;
 }
 
 type RenderStatus = "queued" | "rendering" | "completed" | "failed";
@@ -107,6 +118,9 @@ function loadEnv(): KenectApiEnv {
     jwtSecret: requiredEnv("KENECT_JWT_SECRET"),
     geminiApiKey: env("GEMINI_API_KEY", ""),
     geminiModel: env("KENECT_GEMINI_MODEL", "gemini-2.5-flash"),
+    stripeSecretKey: env("KENECT_STRIPE_SECRET_KEY", ""),
+    stripeWebhookSecret: env("KENECT_STRIPE_WEBHOOK_SECRET", ""),
+    stripePriceId: env("KENECT_STRIPE_PRICE_ID", ""),
   };
 }
 
@@ -434,6 +448,9 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
     if (err instanceof HttpError) {
       return c.json({ message: err.message }, err.status);
     }
+    if (err instanceof BillingError) {
+      return c.json({ message: err.message }, err.status);
+    }
     console.error(err);
     return c.json({ message: err instanceof Error ? err.message : String(err) }, 500);
   });
@@ -441,16 +458,24 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
   app.use("*", async (c, next) => {
     const path = c.req.path;
     // OAuth routes are pre-authentication by definition (the browser has
-    // no API key); health checks stay open for Cloud Run probes.
+    // no API key); health checks stay open for Cloud Run probes; the Stripe
+    // webhook authenticates via its signature instead of an API key.
     const isPublic =
       path === "/healthz" ||
       path === "/v3/healthz" ||
       path === "/favicon.ico" ||
       path === "/favicon.svg" ||
+      path === "/v1/billing/webhook" ||
       path.startsWith("/oauth/") ||
       path.startsWith("/v1/oauth/");
-    if (!isPublic && !resolveBearerIdentity(c.req.header("authorization"), env.jwtSecret)) {
-      assertAuthorized(c.req.raw.headers, env);
+    if (!isPublic) {
+      // Accepts any of: Bearer JWT, per-user kn_ API key, static admin key.
+      const identity = await resolveCallerIdentity(c.req.raw.headers, env, store);
+      if (!identity) {
+        // Preserves the open-access dev mode: with no static keys configured,
+        // assertAuthorized is a no-op rather than a 401.
+        assertAuthorized(c.req.raw.headers, env);
+      }
     }
     await next();
   });
@@ -487,6 +512,7 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
   });
 
   registerOAuthRoutes(app, { env, store, jwtSecret: env.jwtSecret });
+  registerBillingRoutes(app, env, store);
 
   app.post("/v3/assets/direct-uploads", async (c) => {
     const body = await readJsonBody(c);
@@ -589,8 +615,23 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
     }
   };
 
+  // Gate a paid action on the caller's subscription + monthly quota. A null
+  // identity only occurs in open-access dev mode (no static keys configured),
+  // which bills nothing — same as admin.
+  const consumeQuotaForRequest = async (c: Context): Promise<void> => {
+    const identity: CallerIdentity = (await resolveCallerIdentity(
+      c.req.raw.headers,
+      env,
+      store,
+    )) ?? {
+      kind: "admin",
+    };
+    await checkAndConsumeQuota(identity, store);
+  };
+
   const createRenderHandler = async (c: Context) => {
     const body = parseCreateRenderRequest(await readJsonBody(c));
+    await consumeQuotaForRequest(c);
     return c.json(await dispatchRender(body));
   };
 
@@ -708,6 +749,7 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
       throw new HttpError(413, "source_text must be 300,000 characters or fewer");
     }
     const gemini = requireGemini(env);
+    await consumeQuotaForRequest(c);
     const jobId = `fp_${randomUUID().replaceAll("-", "")}`;
     const startedAt = Math.floor(Date.now() / 1000);
     try {
@@ -773,6 +815,7 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
     const durationS = durationRaw && durationRaw >= 8 && durationRaw <= 60 ? durationRaw : 20;
     const title = stringField(body, "title");
     const gemini = requireGemini(env);
+    await consumeQuotaForRequest(c);
     const jobId = `wv_${randomUUID().replaceAll("-", "")}`;
     const startedAt = Math.floor(Date.now() / 1000);
     try {
@@ -868,6 +911,8 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
       failure_message: status === "failed" ? (progress.errors[0]?.cause ?? "render failed") : null,
     };
   }
+
+  registerMcpRoutes(app);
 
   return app;
 }
