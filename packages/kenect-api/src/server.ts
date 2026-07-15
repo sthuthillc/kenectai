@@ -455,6 +455,10 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
     return c.json({ message: err instanceof Error ? err.message : String(err) }, 500);
   });
 
+  // ACME challenge validation must complete before TLS cert is issued.
+  // Return 404 immediately on acme-challenge paths (no auth, no redirects).
+  app.get("/.well-known/acme-challenge/:token", (c) => c.body(null, 404));
+
   app.use("*", async (c, next) => {
     const path = c.req.path;
     // OAuth routes are pre-authentication by definition (the browser has
