@@ -467,11 +467,23 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
       path === "/favicon.svg" ||
       path === "/v1/billing/webhook" ||
       path.startsWith("/oauth/") ||
-      path.startsWith("/v1/oauth/");
+      path.startsWith("/v1/oauth/") ||
+      path.startsWith("/.well-known/");
     if (!isPublic) {
       // Accepts any of: Bearer JWT, per-user kn_ API key, static admin key.
       const identity = await resolveCallerIdentity(c.req.raw.headers, env, store);
       if (!identity) {
+        // RFC 9728 / MCP Authorization spec: point unauthenticated /mcp
+        // callers (e.g. the claude.ai Connectors picker) at the protected-
+        // resource metadata so they can discover /oauth/authorize on their
+        // own instead of failing with a bare, undiagnosable 401.
+        if (path === "/mcp") {
+          const origin = new URL(c.req.url).origin;
+          c.header(
+            "WWW-Authenticate",
+            `Bearer resource_metadata="${origin}/.well-known/oauth-protected-resource"`,
+          );
+        }
         // Preserves the open-access dev mode: with no static keys configured,
         // assertAuthorized is a no-op rather than a 401.
         assertAuthorized(c.req.raw.headers, env);

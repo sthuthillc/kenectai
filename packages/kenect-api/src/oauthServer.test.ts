@@ -388,3 +388,168 @@ describe("bearer identity", () => {
     });
   });
 });
+
+describe("OAuth discovery (RFC 8414 / RFC 9728)", () => {
+  it("GET /.well-known/oauth-authorization-server describes the endpoints", async () => {
+    const app = makeApp();
+    const res = await app.request("https://api.test/.well-known/oauth-authorization-server");
+    expect(res.status).toBe(200);
+    const body = await jsonBody(res);
+    expect(body).toMatchObject({
+      issuer: "https://api.test",
+      authorization_endpoint: "https://api.test/oauth/authorize",
+      token_endpoint: "https://api.test/v1/oauth/token",
+      registration_endpoint: "https://api.test/oauth/register",
+      revocation_endpoint: "https://api.test/v1/oauth/revoke",
+      response_types_supported: ["code"],
+      code_challenge_methods_supported: ["S256"],
+      token_endpoint_auth_methods_supported: ["none"],
+    });
+  });
+
+  it("GET /.well-known/oauth-protected-resource (and the /mcp-suffixed variant) point at this origin", async () => {
+    const app = makeApp();
+    for (const path of [
+      "/.well-known/oauth-protected-resource",
+      "/.well-known/oauth-protected-resource/mcp",
+    ]) {
+      const res = await app.request(`https://api.test${path}`);
+      expect(res.status).toBe(200);
+      expect(await jsonBody(res)).toEqual({
+        resource: "https://api.test/mcp",
+        authorization_servers: ["https://api.test"],
+      });
+    }
+  });
+
+  it("an unauthenticated /mcp request gets a WWW-Authenticate header pointing at the metadata", async () => {
+    const storage = new MemStorage() as unknown as Storage;
+    const app = createKenectApiApp({
+      env: { ...testEnv, apiKeys: ["test-admin-key"] },
+      storage,
+    });
+    const res = await app.request("https://api.test/mcp", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json, text/event-stream",
+      },
+      body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "initialize", params: {} }),
+    });
+    expect(res.status).toBe(401);
+    expect(res.headers.get("www-authenticate")).toBe(
+      'Bearer resource_metadata="https://api.test/.well-known/oauth-protected-resource"',
+    );
+  });
+});
+
+describe("dynamic client registration (RFC 7591)", () => {
+  const CLAUDE_REDIRECT = "https://claude.ai/api/mcp/auth_callback";
+
+  async function registerClient(app: Hono, over: Record<string, unknown> = {}): Promise<Response> {
+    return app.request("/oauth/register", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        redirect_uris: [CLAUDE_REDIRECT],
+        client_name: "Claude",
+        ...over,
+      }),
+    });
+  }
+
+  it("issues a client_id with no client_secret for a valid registration", async () => {
+    const app = makeApp();
+    const res = await registerClient(app);
+    expect(res.status).toBe(201);
+    const body = await jsonBody(res);
+    expect(typeof body["client_id"]).toBe("string");
+    expect(String(body["client_id"])).toMatch(/^dyn_/);
+    expect(body["client_secret"]).toBeUndefined();
+    expect(body["token_endpoint_auth_method"]).toBe("none");
+    expect(body["redirect_uris"]).toEqual([CLAUDE_REDIRECT]);
+  });
+
+  it("rejects a registration with no redirect_uris", async () => {
+    const app = makeApp();
+    const res = await registerClient(app, { redirect_uris: [] });
+    expect(res.status).toBe(400);
+    expect((await jsonBody(res))["error"]).toBe("invalid_redirect_uri");
+  });
+
+  it("rejects a non-HTTPS redirect_uri", async () => {
+    const app = makeApp();
+    const res = await registerClient(app, { redirect_uris: ["http://claude.ai/callback"] });
+    expect(res.status).toBe(400);
+    expect((await jsonBody(res))["error"]).toBe("invalid_redirect_uri");
+  });
+
+  it("the registered client can complete the full authorize → token loop with its own redirect_uri", async () => {
+    const app = makeApp();
+    const registerRes = await registerClient(app);
+    const clientId = String((await jsonBody(registerRes))["client_id"]);
+
+    const { verifier, challenge } = pkcePair();
+    const params = {
+      response_type: "code",
+      client_id: clientId,
+      redirect_uri: CLAUDE_REDIRECT,
+      scope: "openid profile email",
+      state: "dyn-state",
+      code_challenge: challenge,
+      code_challenge_method: "S256",
+    };
+
+    // Unauthenticated GET renders login, addressed to the registered client_name.
+    const authorizeRes = await app.request(`/oauth/authorize?${new URLSearchParams(params)}`);
+    expect(authorizeRes.status).toBe(200);
+    expect(await authorizeRes.text()).toContain("Claude");
+
+    const signupRes = await postForm(app, "/oauth/authorize/signup", {
+      ...params,
+      email: "dyn-client@example.com",
+      password: PASSWORD,
+    });
+    expect(signupRes.status).toBe(302);
+    const cookie = sessionCookieOf(signupRes);
+
+    const consentRes = await postForm(
+      app,
+      "/oauth/authorize/consent",
+      { ...params, action: "allow" },
+      cookie,
+    );
+    expect(consentRes.status).toBe(302);
+    const location = new URL(consentRes.headers.get("location") ?? "");
+    expect(location.origin + location.pathname).toBe(CLAUDE_REDIRECT);
+    const code = location.searchParams.get("code") ?? "";
+
+    const tokenRes = await postForm(app, "/v1/oauth/token", {
+      grant_type: "authorization_code",
+      code,
+      client_id: clientId,
+      redirect_uri: CLAUDE_REDIRECT,
+      code_verifier: verifier,
+    });
+    expect(tokenRes.status).toBe(200);
+    expect(typeof (await jsonBody(tokenRes))["access_token"]).toBe("string");
+  });
+
+  it("rejects an authorize request from a registered client using an unregistered redirect_uri", async () => {
+    const app = makeApp();
+    const registerRes = await registerClient(app);
+    const clientId = String((await jsonBody(registerRes))["client_id"]);
+    const { challenge } = pkcePair();
+    const params = new URLSearchParams({
+      response_type: "code",
+      client_id: clientId,
+      redirect_uri: "https://not-registered.example/callback",
+      state: "s",
+      code_challenge: challenge,
+      code_challenge_method: "S256",
+    });
+    const res = await app.request(`/oauth/authorize?${params}`);
+    expect(res.status).toBe(400);
+    expect(res.headers.get("location")).toBeNull();
+  });
+});

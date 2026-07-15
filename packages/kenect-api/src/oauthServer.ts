@@ -46,6 +46,20 @@ interface UserRecord {
   created_at: number;
 }
 
+/**
+ * A dynamically-registered OAuth client (RFC 7591) — e.g. the claude.ai
+ * Connectors picker, which discovers this server via
+ * /.well-known/oauth-protected-resource and self-registers rather than
+ * shipping a hardcoded client_id like the CLI/web app do. Public client
+ * only (PKCE, no client_secret), matching every other client here.
+ */
+interface OAuthClientRecord {
+  client_id: string;
+  client_name?: string;
+  redirect_uris: string[];
+  created_at: number;
+}
+
 interface AuthCodeRecord {
   user_id: string;
   email: string;
@@ -286,6 +300,10 @@ function refreshTokenKey(token: string): string {
   return `refresh_tokens/${sha256Hex(token)}.json`;
 }
 
+function oauthClientKey(clientId: string): string {
+  return `oauth_clients/${sha256Hex(clientId)}.json`;
+}
+
 // --- flow parameter validation ----------------------------------------------
 
 /**
@@ -318,8 +336,30 @@ const WEB_REDIRECT_URIS: readonly string[] = (
   .map((value) => value.trim())
   .filter(Boolean);
 
-function isAllowedRedirect(uri: string): boolean {
-  return isLoopbackRedirect(uri) || WEB_REDIRECT_URIS.includes(uri);
+/**
+ * True if `uri` is a valid redirect for `clientId` — either of the two
+ * static first-party clients (CLI loopback, web app), or a redirect_uri
+ * this specific client registered via POST /oauth/register.
+ */
+async function isAllowedRedirect(
+  clientId: string,
+  uri: string,
+  store: JsonStoreLike,
+): Promise<boolean> {
+  if (clientId === OAUTH_CLIENT_ID) {
+    return isLoopbackRedirect(uri) || WEB_REDIRECT_URIS.includes(uri);
+  }
+  const client = await store.read<OAuthClientRecord>(oauthClientKey(clientId));
+  return client !== null && client.redirect_uris.includes(uri);
+}
+
+/** Display name shown on the login/consent pages — "Kenect AI CLI" for the
+ * static client, the registered client_name (or a generic fallback) for
+ * dynamically-registered clients like claude.ai's Connectors picker. */
+async function resolveClientName(clientId: string, store: JsonStoreLike): Promise<string> {
+  if (clientId === OAUTH_CLIENT_ID) return "Kenect AI CLI";
+  const client = await store.read<OAuthClientRecord>(oauthClientKey(clientId));
+  return client?.client_name?.trim() || "a third-party app";
 }
 
 function redirectWithError(
@@ -338,17 +378,26 @@ function redirectWithError(
  * are fatal (400 page — RFC 6749 §4.1.2.1 forbids redirecting to an
  * unvalidated URI); other failures redirect back with an error code.
  */
-function checkFlow(get: (name: string) => string | undefined): FlowCheck {
+async function checkFlow(
+  get: (name: string) => string | undefined,
+  store: JsonStoreLike,
+): Promise<FlowCheck> {
   const clientId = get("client_id") ?? "";
+  if (!clientId) {
+    return { kind: "fatal", message: "client_id is required." };
+  }
   if (clientId !== OAUTH_CLIENT_ID) {
-    return { kind: "fatal", message: "Unknown client_id." };
+    const client = await store.read<OAuthClientRecord>(oauthClientKey(clientId));
+    if (!client) return { kind: "fatal", message: "Unknown client_id." };
   }
   const redirectUri = get("redirect_uri") ?? "";
-  if (!isAllowedRedirect(redirectUri)) {
+  if (!(await isAllowedRedirect(clientId, redirectUri, store))) {
     return {
       kind: "fatal",
       message:
-        "redirect_uri must be a loopback URL of the form http://127.0.0.1:<port>/oauth/callback, or the registered web app callback.",
+        clientId === OAUTH_CLIENT_ID
+          ? "redirect_uri must be a loopback URL of the form http://127.0.0.1:<port>/oauth/callback, or the registered web app callback."
+          : "redirect_uri is not one of this client's registered redirect_uris.",
     };
   }
   const state = get("state") ?? "";
@@ -425,13 +474,13 @@ function hiddenInputs(flow: FlowParams): string {
   ).join("");
 }
 
-function loginPage(flow: FlowParams, errorMessage?: string): string {
+function loginPage(flow: FlowParams, clientName: string, errorMessage?: string): string {
   const hidden = hiddenInputs(flow);
   const error = errorMessage ? `<p class="error">${escapeHtml(errorMessage)}</p>` : "";
   return pageShell(
     "Sign in to Kenect AI",
     `<h1>Kenect AI</h1>` +
-      `<p>Sign in to authorize the Kenect AI CLI.</p>` +
+      `<p>Sign in to authorize ${escapeHtml(clientName)}.</p>` +
       error +
       `<h2>Sign in</h2>` +
       `<form method="post" action="/oauth/authorize/login">${hidden}` +
@@ -451,14 +500,14 @@ function loginPage(flow: FlowParams, errorMessage?: string): string {
   );
 }
 
-function consentPage(flow: FlowParams, email: string): string {
+function consentPage(flow: FlowParams, email: string, clientName: string): string {
   return pageShell(
-    "Authorize Kenect AI CLI",
-    `<h1>Authorize Kenect AI CLI</h1>` +
+    `Authorize ${clientName}`,
+    `<h1>Authorize ${escapeHtml(clientName)}</h1>` +
       `<p>Signed in as <strong>${escapeHtml(email)}</strong>.</p>` +
-      `<p>The Kenect AI CLI is requesting access to your account: <code>${escapeHtml(flow.scope)}</code></p>` +
+      `<p>${escapeHtml(clientName)} is requesting access to your account: <code>${escapeHtml(flow.scope)}</code></p>` +
       `<form method="post" action="/oauth/authorize/consent">${hiddenInputs(flow)}` +
-      `<button type="submit" name="action" value="allow">Authorize Kenect AI CLI</button>` +
+      `<button type="submit" name="action" value="allow">Authorize ${escapeHtml(clientName)}</button>` +
       `<button type="submit" name="action" value="deny" class="secondary">Deny</button></form>`,
   );
 }
@@ -520,28 +569,30 @@ export function registerOAuthRoutes(
     });
   }
 
-  app.get("/oauth/authorize", (c) => {
-    const check = checkFlow((name) => c.req.query(name));
+  app.get("/oauth/authorize", async (c) => {
+    const check = await checkFlow((name) => c.req.query(name), store);
     if (check.kind === "fatal") return c.html(errorPage("invalid_request", check.message), 400);
     if (check.kind === "redirect") return c.redirect(check.location, 302);
+    const clientName = await resolveClientName(check.flow.client_id, store);
     const session = readSession(c, jwtSecret);
-    if (!session) return c.html(loginPage(check.flow));
-    return c.html(consentPage(check.flow, session.email));
+    if (!session) return c.html(loginPage(check.flow, clientName));
+    return c.html(consentPage(check.flow, session.email, clientName));
   });
 
   app.post("/oauth/authorize/login", async (c) => {
     const form = await readForm(c);
-    const check = checkFlow((name) => form[name]);
+    const check = await checkFlow((name) => form[name], store);
     if (check.kind === "fatal") return c.html(errorPage("invalid_request", check.message), 400);
     if (check.kind === "redirect") return c.redirect(check.location, 302);
+    const clientName = await resolveClientName(check.flow.client_id, store);
     const email = normalizeEmail(form["email"] ?? "");
     const password = form["password"] ?? "";
     if (!email || !password) {
-      return c.html(loginPage(check.flow, "Email and password are required."), 400);
+      return c.html(loginPage(check.flow, clientName, "Email and password are required."), 400);
     }
     const user = await store.read<UserRecord>(userKey(email));
     if (!user || !(await verifyPassword(password, user.password_hash))) {
-      return c.html(loginPage(check.flow, "Invalid email or password."), 401);
+      return c.html(loginPage(check.flow, clientName, "Invalid email or password."), 401);
     }
     setSessionCookie(c, user, jwtSecret);
     return c.redirect(`/oauth/authorize?${flowQuery(check.flow)}`, 302);
@@ -549,24 +600,33 @@ export function registerOAuthRoutes(
 
   app.post("/oauth/authorize/signup", async (c) => {
     const form = await readForm(c);
-    const check = checkFlow((name) => form[name]);
+    const check = await checkFlow((name) => form[name], store);
     if (check.kind === "fatal") return c.html(errorPage("invalid_request", check.message), 400);
     if (check.kind === "redirect") return c.redirect(check.location, 302);
+    const clientName = await resolveClientName(check.flow.client_id, store);
     const email = normalizeEmail(form["email"] ?? "");
     const password = form["password"] ?? "";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return c.html(loginPage(check.flow, "Enter a valid email address."), 400);
+      return c.html(loginPage(check.flow, clientName, "Enter a valid email address."), 400);
     }
     if (password.length < MIN_PASSWORD_LENGTH) {
       return c.html(
-        loginPage(check.flow, `Password must be at least ${MIN_PASSWORD_LENGTH} characters.`),
+        loginPage(
+          check.flow,
+          clientName,
+          `Password must be at least ${MIN_PASSWORD_LENGTH} characters.`,
+        ),
         400,
       );
     }
     const existing = await store.read<UserRecord>(userKey(email));
     if (existing) {
       return c.html(
-        loginPage(check.flow, "An account with that email already exists. Sign in instead."),
+        loginPage(
+          check.flow,
+          clientName,
+          "An account with that email already exists. Sign in instead.",
+        ),
         409,
       );
     }
@@ -584,7 +644,7 @@ export function registerOAuthRoutes(
 
   app.post("/oauth/authorize/consent", async (c) => {
     const form = await readForm(c);
-    const check = checkFlow((name) => form[name]);
+    const check = await checkFlow((name) => form[name], store);
     if (check.kind === "fatal") return c.html(errorPage("invalid_request", check.message), 400);
     if (check.kind === "redirect") return c.redirect(check.location, 302);
     const session = readSession(c, jwtSecret);
@@ -694,5 +754,115 @@ export function registerOAuthRoutes(
       await store.delete(refreshTokenKey(token));
     }
     return c.json({ revoked: true });
+  });
+
+  // RFC 7591 Dynamic Client Registration — lets a client that doesn't ship
+  // a hardcoded client_id (e.g. claude.ai's Connectors picker, discovered
+  // via /.well-known/oauth-protected-resource) register itself and get one
+  // back. Public clients only: no client_secret is ever issued, matching
+  // every other client here (PKCE is the only client authentication).
+  app.post("/oauth/register", async (c) => {
+    let body: unknown;
+    try {
+      body = await c.req.json();
+    } catch {
+      return c.json(
+        { error: "invalid_client_metadata", error_description: "request body must be JSON" },
+        400,
+      );
+    }
+    if (!isRecord(body)) {
+      return c.json({ error: "invalid_client_metadata" }, 400);
+    }
+    const redirectUrisRaw = body["redirect_uris"];
+    if (!Array.isArray(redirectUrisRaw) || redirectUrisRaw.length === 0) {
+      return c.json(
+        {
+          error: "invalid_redirect_uri",
+          error_description: "redirect_uris must be a non-empty array",
+        },
+        400,
+      );
+    }
+    const redirectUris: string[] = [];
+    for (const value of redirectUrisRaw) {
+      if (typeof value !== "string") {
+        return c.json({ error: "invalid_redirect_uri" }, 400);
+      }
+      let parsed: URL;
+      try {
+        parsed = new URL(value);
+      } catch {
+        return c.json(
+          { error: "invalid_redirect_uri", error_description: `not a valid URL: ${value}` },
+          400,
+        );
+      }
+      if (parsed.protocol !== "https:") {
+        return c.json(
+          { error: "invalid_redirect_uri", error_description: "redirect_uris must be HTTPS" },
+          400,
+        );
+      }
+      redirectUris.push(value);
+    }
+    const clientNameRaw = body["client_name"];
+    const clientName = typeof clientNameRaw === "string" ? clientNameRaw.slice(0, 200) : undefined;
+    const clientId = `dyn_${randomBytes(16).toString("base64url")}`;
+    const record: OAuthClientRecord = {
+      client_id: clientId,
+      ...(clientName ? { client_name: clientName } : {}),
+      redirect_uris: redirectUris,
+      created_at: nowSeconds(),
+    };
+    await store.write(oauthClientKey(clientId), record);
+    return c.json(
+      {
+        client_id: clientId,
+        client_id_issued_at: record.created_at,
+        redirect_uris: redirectUris,
+        grant_types: ["authorization_code", "refresh_token"],
+        response_types: ["code"],
+        token_endpoint_auth_method: "none",
+        ...(clientName ? { client_name: clientName } : {}),
+      },
+      201,
+    );
+  });
+
+  // OAuth 2.0 Authorization Server Metadata (RFC 8414) — lets clients that
+  // only know client_id-free discovery (like claude.ai's Connectors picker)
+  // find /oauth/authorize, /v1/oauth/token, and /oauth/register on their
+  // own. Served relative to the request's own origin since this app
+  // answers on multiple domains (api.kenectai.com, mcp.kenectai.com).
+  app.get("/.well-known/oauth-authorization-server", (c) => {
+    const origin = new URL(c.req.url).origin;
+    return c.json({
+      issuer: origin,
+      authorization_endpoint: `${origin}/oauth/authorize`,
+      token_endpoint: `${origin}/v1/oauth/token`,
+      registration_endpoint: `${origin}/oauth/register`,
+      revocation_endpoint: `${origin}/v1/oauth/revoke`,
+      response_types_supported: ["code"],
+      grant_types_supported: ["authorization_code", "refresh_token"],
+      code_challenge_methods_supported: ["S256"],
+      token_endpoint_auth_methods_supported: ["none"],
+      scopes_supported: TOKEN_SCOPE.split(" "),
+    });
+  });
+
+  // OAuth 2.0 Protected Resource Metadata (RFC 9728), per the MCP
+  // Authorization spec — tells a client hitting /mcp without a token which
+  // authorization server to use. mcp.ts's global auth check points 401s at
+  // this exact URL via the WWW-Authenticate header. Registered at both the
+  // bare well-known path and the resource-suffixed variant some MCP client
+  // implementations probe instead.
+  app.get("/.well-known/oauth-protected-resource", (c) => {
+    const origin = new URL(c.req.url).origin;
+    return c.json({ resource: `${origin}/mcp`, authorization_servers: [origin] });
+  });
+  app.get("/.well-known/oauth-protected-resource/mcp", (c) => {
+    const origin = new URL(c.req.url).origin;
+    return c.json({ resource: `${origin}/mcp`, authorization_servers: [origin] });
   });
 }
