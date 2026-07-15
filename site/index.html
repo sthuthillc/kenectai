@@ -5,11 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kenect AI — Write HTML. Render video.</title>
 <meta name="description" content="Kenect AI is the generative-video platform that turns HTML, CSS, and seekable animations into deterministic MP4 video. Built for AI agents and automation.">
+<meta name="theme-color" content="#0A0A0F">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kenect AI — Write HTML. Render video.">
+<meta property="og:description" content="The generative-video platform that turns HTML, CSS, and seekable animations into deterministic MP4 video — built for AI agents, automation, and CI.">
+<meta property="og:url" content="https://kenectai.com/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kenect AI — Write HTML. Render video.">
+<meta name="twitter:description" content="HTML in, deterministic MP4 out. Built for AI agents, automation, and CI.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="alternate icon" href="/favicon.ico">
+<link rel="canonical" href="https://kenectai.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@kenectai/player@0.7.54/dist/hyperframes-player.global.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@kenectai/player@0.7.57/dist/hyperframes-player.global.js" defer></script>
 <style>
   :root {
     --bg: #0A0A0F; --panel: #101017; --line: #232333;
@@ -156,8 +166,70 @@
     padding: 26px 28px; font: 13.5px/1.7 "SF Mono", ui-monospace, Menlo, monospace; overflow-x: auto;
   }
   .code-demo .c { color: #5d5d70; } .code-demo .t { color: #7ad3ff; } .code-demo .a { color: var(--teal); } .code-demo .s { color: #ffd479; }
+  .signin-panel {
+    margin: 56px 0 24px;
+    padding: 34px;
+    border: 1px solid rgba(45,212,191,.22);
+    border-radius: 18px;
+    background:
+      radial-gradient(circle at 18% 0%, rgba(45,212,191,.12), transparent 38%),
+      radial-gradient(circle at 85% 20%, rgba(99,102,241,.12), transparent 36%),
+      var(--panel);
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+    gap: 28px;
+    align-items: center;
+  }
+  .signin-panel .eyebrow {
+    color: var(--teal);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .signin-panel h2 {
+    font-size: clamp(26px, 4vw, 40px);
+    line-height: 1.08;
+    letter-spacing: -.02em;
+    margin-bottom: 14px;
+  }
+  .signin-panel p {
+    color: var(--dim);
+    font-size: 15.5px;
+    max-width: 560px;
+  }
+  .signin-panel .signin-actions {
+    margin-top: 22px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .signin-command {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: rgba(10,10,15,.72);
+    padding: 20px;
+  }
+  .signin-command code {
+    display: block;
+    color: var(--fg);
+    font: 14px/1.7 "SF Mono", ui-monospace, Menlo, monospace;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+  .signin-command .p { color: var(--teal); user-select: none; }
+  .signin-command .muted {
+    margin-top: 12px;
+    color: var(--dim);
+    font-size: 13px;
+  }
   footer { border-top: 1px solid var(--line); margin-top: 72px; padding: 34px 0 48px; color: var(--dim); font-size: 13.5px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
   footer a { color: var(--fg); }
+
+  @media (max-width: 760px) {
+    .signin-panel { grid-template-columns: 1fr; padding: 26px; }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -181,8 +253,9 @@
     <div class="nav-links">
       <a href="https://docs.kenectai.com/introduction">Docs</a>
       <a href="https://docs.kenectai.com/catalog/blocks/data-chart">Catalog</a>
+      <a href="/pricing">Pricing</a>
       <a href="https://www.npmjs.com/org/kenectai">npm</a>
-      <a href="https://api.kenectai.com/oauth/authorize">Sign in</a>
+      <a href="#signin" id="nav-auth">Sign in</a>
     </div>
   </nav>
 
@@ -192,7 +265,7 @@
     <div class="install"><span class="p">$</span> npx @kenectai/cli init my-video</div>
     <div class="cta-row">
       <a class="btn primary" href="https://docs.kenectai.com/quickstart">Get started</a>
-      <a class="btn ghost" href="https://docs.kenectai.com/introduction">Read the docs</a>
+      <a class="btn ghost" href="/pricing">View pricing</a>
     </div>
   </section>
 
@@ -217,7 +290,7 @@
     </div>
     <div class="card">
       <h3><span>▸</span>Cloud or local</h3>
-      <p>Render free on your machine, or push to Kenect AI Cloud with <code>kenectai cloud render</code> — zero infrastructure to manage.</p>
+      <p>Render free on your machine, or push to <a href="/pricing" style="color:var(--teal)">Kenect AI Premium</a> with <code>kenectai cloud render</code> — zero infrastructure to manage.</p>
     </div>
   </section>
 
@@ -230,10 +303,49 @@
 <span class="c">$ kenectai render   # → teaser.mp4, frame-for-frame reproducible</span></pre>
   </section>
 
+  <section class="signin-panel" id="signin">
+    <div>
+      <div class="eyebrow">Sign in</div>
+      <h2>One account. Web, terminal, and every agent.</h2>
+      <p>
+        Sign in on the web to manage your plan, track usage, and mint API keys —
+        or authenticate straight from your terminal. The same account powers the
+        dashboard, the CLI, and the MCP server your agents connect to.
+      </p>
+      <div class="signin-actions">
+        <a class="btn primary" href="/dashboard">Open the dashboard</a>
+        <a class="btn ghost" href="/pricing">View pricing</a>
+      </div>
+    </div>
+    <div class="signin-command" aria-label="KENECT AI CLI authentication commands">
+      <code><span class="p">$</span> kenectai auth login</code>
+      <code><span class="p">$</span> kenectai auth status</code>
+      <code><span class="p">$</span> export KENECT_API_KEY=kn_...</code>
+      <div class="muted">Use the dashboard or OAuth for interactive work, or a <code>kn_</code> API key for CI, servers, and agents.</div>
+    </div>
+  </section>
+
   <footer>
-    <div>© 2026 Kenect AI · All rights reserved</div>
-    <div><a href="https://docs.kenectai.com/introduction">docs.kenectai.com</a></div>
+    <div>© 2026 Kenect AI · Sthuthi Technologies, LLC · All rights reserved</div>
+    <div style="display:flex; gap:22px; flex-wrap:wrap">
+      <a href="/pricing">Pricing</a>
+      <a href="/dashboard">Dashboard</a>
+      <a href="https://docs.kenectai.com/introduction">Docs</a>
+      <a href="mailto:hello@kenectai.com">hello@kenectai.com</a>
+    </div>
   </footer>
 </div>
+<script>
+  // Signed-in users see "Dashboard" instead of "Sign in". The app pages
+  // (/dashboard, /pricing) store the session in localStorage on this same
+  // origin under "kenect.tokens".
+  try {
+    var kt = JSON.parse(localStorage.getItem('kenect.tokens') || 'null');
+    if (kt && (kt.refresh_token || (kt.expires_at && kt.expires_at * 1000 > Date.now()))) {
+      var authLink = document.getElementById('nav-auth');
+      if (authLink) { authLink.textContent = 'Dashboard'; authLink.setAttribute('href', '/dashboard'); }
+    }
+  } catch (e) { /* stay on "Sign in" */ }
+</script>
 </body>
 </html>
