@@ -48,6 +48,12 @@ import {
 } from "./types.js";
 
 const ZIP_CONTENT_TYPE = "application/zip";
+/**
+ * The high-volume / low-judgment calls (brief JSON, preset pick, repair and
+ * fix-up passes) run on the lite tier; storyboard authoring, visual design,
+ * and first-pass frame authoring stay on the full flash model.
+ */
+const DEFAULT_LITE_MODEL = "gemini-3.1-flash-lite";
 /** Frame-worker fan-out width (Gemini calls in flight at once). */
 const DEFAULT_WORKER_CONCURRENCY = 4;
 /** Max re-dispatches of a failing frame with lint findings (skill Retry contract). */
@@ -98,6 +104,8 @@ export interface SessionDeps {
   /** Absolute path to the built kenectai CLI entry (dist/cli.js). */
   cliPath: string;
   geminiApiKey: string;
+  /** Model for the high-volume/low-judgment calls (default gemini-3.1-flash-lite). */
+  liteModel?: string;
   runShellCommand?: SpawnFn;
   workerConcurrency?: number;
   /** Test seam: shrink waits. */
@@ -188,6 +196,10 @@ export class SessionEngine {
     this.record = record;
     this.deps = deps;
     this.spawnFn = deps.runShellCommand ?? defaultSpawn;
+  }
+
+  private get liteModel(): string {
+    return this.deps.liteModel ?? DEFAULT_LITE_MODEL;
   }
 
   private get skills(): SkillLoader {
@@ -324,7 +336,7 @@ export class SessionEngine {
           `Default destination is YouTube/embed → 16:9 unless the URL implies otherwise.`,
         temperature: 0.4,
         maxOutputTokens: 8000,
-        thinkingLevel: "low",
+        model: this.liteModel,
       });
       brief.length_s = Math.min(90, Math.max(20, Math.round(brief.length_s || 30)));
       if (!["16:9", "1:1", "9:16"].includes(brief.aspect)) brief.aspect = "16:9";
@@ -420,7 +432,7 @@ export class SessionEngine {
           `Reply with ONLY JSON {"preset": "<name>", "reason": "<one line>"}.`,
         temperature: 0.4,
         maxOutputTokens: 8000,
-        thinkingLevel: "low",
+        model: this.liteModel,
       });
       const preset = presets.some((p) => p.name === value.preset)
         ? value.preset
@@ -471,7 +483,10 @@ export class SessionEngine {
             : input,
           temperature: 0.6,
           maxOutputTokens: 65_536,
-          thinkingLevel: "high",
+          // The repair pass is mechanical (fix the listed problems) — lite tier.
+          ...(repairNote
+            ? { model: this.liteModel, thinkingLevel: "medium" as const }
+            : { thinkingLevel: "high" as const }),
         });
         const parts = text.split(/=====\s*SCRIPT\.md\s*=====/);
         const storyboard = (parts[0] ?? "")
@@ -724,12 +739,13 @@ export class SessionEngine {
     let html: string | null = null;
     let lastProblem = "";
     for (let attempt = 0; attempt < 3 && html === null; attempt++) {
-      // Fresh authoring gets full reasoning; fix-up passes (lint findings or
-      // a rejected reply) run at medium — observed live, "high" on the more
+      // Fresh authoring gets the full flash model at high reasoning; fix-up
+      // passes (lint findings or a rejected reply) are mechanical minimal
+      // edits → the lite tier at medium. (Observed live: "high" on the more
       // constrained retry prompts triggers runaway thinking that exhausts
-      // even a 64k output budget (thought tokens share it) and takes 3-4
-      // minutes per attempt.
-      const thinkingLevel = retryFindings || attempt > 0 ? "medium" : "high";
+      // even a 64k output budget — thought tokens share it — and takes 3-4
+      // minutes per attempt.)
+      const isFixup = Boolean(retryFindings) || attempt > 0;
       let text: string;
       try {
         ({ text } = await this.deps.interactions.interact({
@@ -740,7 +756,8 @@ export class SessionEngine {
               : `${input}\n\nYour previous reply was rejected: ${lastProblem}. Reply with the raw HTML file ONLY — it must contain a <template> wrapping the composition root and register window.__timelines["${id}"].`,
           temperature: 0.55,
           maxOutputTokens: 65_536,
-          thinkingLevel,
+          thinkingLevel: isFixup ? "medium" : "high",
+          ...(isFixup ? { model: this.liteModel } : {}),
         }));
       } catch (err) {
         lastProblem = (err as Error).message.slice(0, 200);

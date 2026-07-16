@@ -69,6 +69,7 @@ export function registerSessionRoutes(app: Hono, deps: SessionRoutesDeps): void 
         readRenderStatus: deps.readRenderStatus,
         cliPath: resolveCliPath(),
         geminiApiKey: deps.geminiApiKey,
+        liteModel: process.env["KENECT_GEMINI_LITE_MODEL"]?.trim() || undefined,
         log: deps.log,
       });
       void engine.runAll();
