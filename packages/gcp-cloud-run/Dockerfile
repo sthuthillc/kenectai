@@ -97,6 +97,7 @@ COPY packages/sdk-playground/package.json packages/sdk-playground/package.json
 COPY packages/shader-transitions/package.json packages/shader-transitions/package.json
 COPY packages/aws-lambda/package.json packages/aws-lambda/package.json
 COPY packages/gcp-cloud-run/package.json packages/gcp-cloud-run/package.json
+COPY packages/kenect-api/package.json packages/kenect-api/package.json
 RUN bun install --frozen-lockfile
 
 # Copy source for the packages the render path needs.
