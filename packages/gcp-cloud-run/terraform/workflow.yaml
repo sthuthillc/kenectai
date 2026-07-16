@@ -122,9 +122,24 @@ main:
                         ChunkOutputGcsPrefix: ${planOutputGcsPrefix}
                         Format: ${planResult.Format}
                     result: chunkResp
+                  # A single chunk render commonly takes 35-60s (confirmed
+                  # live via kenect-render logs), and concurrency_limit above
+                  # caps how many chunks render at once to the render
+                  # service's instance capacity — so a chunk queued behind a
+                  # full wave routinely waits 60-100s+ for a free slot before
+                  # it ever starts, surfacing as Cloud Run's "no available
+                  # instance" 429/500 in the meantime. The default 4-retry,
+                  # ~30s-total backoff budget was built for transient
+                  # failures, not this — it was exhausting before a slot ever
+                  # freed up, so a healthy chunk that only needed to wait its
+                  # turn was instead reported as a permanent
+                  # UnhandledBranchError. 12 retries with this backoff shape
+                  # gives ~8 minutes of patience (2+4+8+16+32+60×7s),
+                  # comfortably covering several queue waves for a
+                  # chunk-heavy composition.
                   retry:
                     predicate: ${retryable}
-                    max_retries: 4
+                    max_retries: 12
                     backoff:
                       initial_delay: 2
                       max_delay: 60
