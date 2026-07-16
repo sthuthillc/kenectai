@@ -20,7 +20,7 @@ import {
   type CallerIdentity,
 } from "./billing.js";
 import { registerMcpRoutes } from "./mcp.js";
-import { GeminiClient, GeminiError } from "./gemini.js";
+import { DEFAULT_GEMINI_MODEL, GeminiClient, GeminiError } from "./gemini.js";
 import { generateFramePack } from "./products/framePack.js";
 import { CompositionLintError, generateWebsiteComposition } from "./products/websiteVideo.js";
 
@@ -117,7 +117,7 @@ function loadEnv(): KenectApiEnv {
     apiKeys: splitCsv(process.env["KENECT_API_KEYS"]),
     jwtSecret: requiredEnv("KENECT_JWT_SECRET"),
     geminiApiKey: env("GEMINI_API_KEY", ""),
-    geminiModel: env("KENECT_GEMINI_MODEL", "gemini-2.5-flash"),
+    geminiModel: env("KENECT_GEMINI_MODEL", DEFAULT_GEMINI_MODEL),
     stripeSecretKey: env("KENECT_STRIPE_SECRET_KEY", ""),
     stripeWebhookSecret: env("KENECT_STRIPE_WEBHOOK_SECRET", ""),
     stripePriceId: env("KENECT_STRIPE_PRICE_ID", ""),

@@ -5,11 +5,12 @@
  * the "brain" for the product routes in ./products/*.
  */
 
-// gemini-3.5-flash (GA): "most intelligent model for sustained frontier
-// performance on agentic and coding tasks" — the right default for this
-// client's two jobs (structured design-token extraction, HTML/GSAP
-// composition authoring). Override per deployment via KENECT_GEMINI_MODEL.
-const DEFAULT_MODEL = "gemini-3.5-flash";
+// Exported so server.ts's env default is this exact value, not a second
+// hardcoded copy — two independent defaults drifting out of sync (one here,
+// one in server.ts) is exactly what silently pinned production to a model
+// Gemini had deprecated for new API keys. Override per deployment via
+// KENECT_GEMINI_MODEL.
+export const DEFAULT_GEMINI_MODEL = "gemini-3-flash-preview";
 export type ThinkingLevel = "minimal" | "low" | "medium" | "high";
 const DEFAULT_BASE_URL = "https://generativelanguage.googleapis.com/v1beta";
 const REQUEST_TIMEOUT_MS = 90_000;
@@ -61,7 +62,7 @@ export class GeminiClient {
       throw new GeminiError("GEMINI_API_KEY is not configured on this deployment");
     }
     this.apiKey = options.apiKey;
-    this.model = options.model || DEFAULT_MODEL;
+    this.model = options.model || DEFAULT_GEMINI_MODEL;
     this.baseUrl = options.baseUrl || DEFAULT_BASE_URL;
   }
 

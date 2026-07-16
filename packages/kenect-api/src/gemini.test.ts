@@ -41,7 +41,7 @@ describe("GeminiClient", () => {
     expect(fetchMock).toHaveBeenCalledOnce();
     const [url] = fetchMock.mock.calls[0]!;
     expect(String(url)).toContain("generativelanguage.googleapis.com");
-    expect(String(url)).toContain("gemini-3.5-flash");
+    expect(String(url)).toContain("gemini-3-flash-preview");
   });
 
   it("uses the configured model in the request URL", async () => {
