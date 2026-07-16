@@ -10,7 +10,8 @@ import type { Storage } from "@google-cloud/storage";
 import type { Hono } from "hono";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { createKenectApiApp, type KenectApiEnv } from "./server.js";
-import { PLAN_MONTHLY_RENDERS, verifyStripeSignature } from "./billing.js";
+import { checkAndConsumeQuota, PLAN_MONTHLY_RENDERS, verifyStripeSignature } from "./billing.js";
+import type { JsonStoreLike } from "./oauthServer.js";
 
 vi.mock("@kenectai/gcp-cloud-run/sdk", () => ({
   renderToCloudRun: vi.fn(async () => ({
@@ -88,6 +89,28 @@ function makeApp(): { app: Hono; files: Map<string, Buffer> } {
   const storage = new MemStorage();
   const app = createKenectApiApp({ env: testEnv, storage: storage as unknown as Storage });
   return { app, files: storage.files };
+}
+
+/** Wraps the same in-memory files map the app writes to, for calling billing.ts's exports directly. */
+function jsonStoreOf(files: Map<string, Buffer>): JsonStoreLike {
+  return {
+    async write<T>(key: string, value: T): Promise<void> {
+      files.set(key, Buffer.from(JSON.stringify(value), "utf8"));
+    },
+    async read<T>(key: string): Promise<T | null> {
+      const value = files.get(key);
+      return value ? (JSON.parse(value.toString("utf8")) as T) : null;
+    },
+    async list<T>(prefix: string, limit: number): Promise<T[]> {
+      return [...files.entries()]
+        .filter(([key]) => key.startsWith(prefix))
+        .slice(0, limit)
+        .map(([, value]) => JSON.parse(value.toString("utf8")) as T);
+    },
+    async delete(key: string): Promise<void> {
+      files.delete(key);
+    },
+  };
 }
 
 function b64url(value: unknown): string {
@@ -209,6 +232,62 @@ describe("POST /v1/billing/webhook", () => {
     expect(record.status).toBe("active");
     expect(record.stripe_subscription_id).toBe("sub_123");
     expect(files.has("stripe_customers/cus_123.json")).toBe(true);
+  });
+
+  it("reads current_period_end from the subscription item when the top-level field is absent", async () => {
+    // Newer Stripe API versions removed current_period_end from the
+    // top-level Subscription object — it now lives only on each
+    // subscription item. This is the exact shape GET /v1/subscriptions/:id
+    // returns today; without the items.data[0] fallback, every account's
+    // billing record silently got current_period_end: 0, which fails the
+    // "current_period_end + grace > now" active check regardless of status.
+    const periodEnd = Math.floor(Date.now() / 1000) + 30 * 24 * 3600;
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(
+        async () =>
+          new Response(
+            JSON.stringify({
+              id: "sub_456",
+              customer: "cus_456",
+              status: "active",
+              items: {
+                object: "list",
+                data: [{ id: "si_1", current_period_end: periodEnd, current_period_start: 0 }],
+              },
+            }),
+            { status: 200 },
+          ),
+      ),
+    );
+    const { app, files } = makeApp();
+    const body = JSON.stringify({
+      type: "checkout.session.completed",
+      data: {
+        object: {
+          client_reference_id: "user_items_shape",
+          customer_details: { email: "items-shape@test.dev" },
+          subscription: "sub_456",
+        },
+      },
+    });
+
+    const res = await app.request("/v1/billing/webhook", {
+      method: "POST",
+      headers: { "content-type": "application/json", "stripe-signature": signWebhook(body) },
+      body,
+    });
+    expect(res.status).toBe(200);
+    const record = JSON.parse(files.get("billing/user_items_shape.json")!.toString("utf8")) as {
+      current_period_end: number;
+    };
+    expect(record.current_period_end).toBe(periodEnd);
+
+    // The whole point: this is exactly the record checkAndConsumeQuota reads
+    // to decide active vs. expired — it must not throw BillingError(402).
+    await expect(
+      checkAndConsumeQuota({ kind: "user", userId: "user_items_shape" }, jsonStoreOf(files)),
+    ).resolves.toBeUndefined();
   });
 });
 

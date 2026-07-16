@@ -257,6 +257,22 @@ export async function checkAndConsumeQuota(
 
 // --- webhook event handling ----------------------------------------------------
 
+/**
+ * Stripe removed `current_period_end` from the top-level Subscription
+ * object in newer API versions — it now lives only on each subscription
+ * item (`subscription.items.data[].current_period_end`). Every
+ * subscription has exactly one item here (one price, quantity 1), so the
+ * first item's value is authoritative; the top-level field is checked
+ * first for accounts still on an older Stripe API version.
+ */
+function subscriptionPeriodEnd(subscription: Record<string, unknown>): number {
+  const topLevel = subscription["current_period_end"];
+  if (typeof topLevel === "number") return topLevel;
+  const items = subscription["items"] as { data?: Array<Record<string, unknown>> } | undefined;
+  const itemLevel = items?.data?.[0]?.["current_period_end"];
+  return typeof itemLevel === "number" ? itemLevel : 0;
+}
+
 async function upsertBillingFromSubscription(
   store: JsonStoreLike,
   userId: string,
@@ -269,7 +285,7 @@ async function upsertBillingFromSubscription(
     stripe_customer_id: String(subscription["customer"] ?? ""),
     stripe_subscription_id: String(subscription["id"] ?? ""),
     status: String(subscription["status"] ?? "unknown"),
-    current_period_end: Number(subscription["current_period_end"] ?? 0),
+    current_period_end: subscriptionPeriodEnd(subscription),
     updated_at: nowSeconds(),
   };
   await store.write(billingKey(userId), record);
