@@ -329,6 +329,24 @@ describe("plan() — golden planDir + planHash determinism", () => {
       expect(planJson.planHash).toBe(result.planHash);
       expect(planJson.hasAudio).toBe(false);
       expect(planJson.totalFrames).toBe(result.totalFrames);
+
+      // ── meta/encoder.json: every distributed render forces screenshot
+      // capture ───────────────────────────────────────────────────────────
+      // Distributed chunk renders always run on SwiftShare (software GPU,
+      // no real GPU on the render host) — BeginFrame capture stalls the
+      // compositor on shader-heavy frames under CPU rasterization there,
+      // silently producing a frozen/static output frame regardless of the
+      // composition's actual animation. Confirmed against a real render
+      // (kenect-render) that produced a byte-identical frame for the
+      // video's entire duration despite a correct, animated composition.
+      // Regression guard for that: forceScreenshot must be locked `true`
+      // (and captureMode "screenshot") unconditionally here, not just for
+      // alpha formats.
+      const encoderJson = JSON.parse(
+        readFileSync(join(planDir, "meta", "encoder.json"), "utf-8"),
+      ) as Record<string, unknown>;
+      expect(encoderJson.forceScreenshot).toBe(true);
+      expect(encoderJson.captureMode).toBe("screenshot");
     },
     TIMEOUT_MS,
   );

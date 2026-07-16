@@ -725,7 +725,20 @@ export async function plan(
   const cfg: EngineConfig = {
     ...(config.producerConfig ?? resolveConfig()),
     browserGpuMode: "software",
-    forceScreenshot: false,
+    // Every distributed chunk render runs on SwiftShader (no real GPU on
+    // the render host) — confirmed live via kenect-render's own capture
+    // logs reporting "beginframe" mode. BeginFrame capture stalls the
+    // compositor on shader-heavy frames under CPU software rasterization
+    // (gradients, blurs, filters), producing a frozen/static output frame
+    // for the render's full duration despite a fully correct, animated
+    // composition underneath — confirmed against a real render that
+    // produced 20s of byte-identical frames. screenshot capture doesn't
+    // depend on the compositor and renders correctly on software GPU.
+    // forceScreenshot only ever gets promoted further downstream
+    // (applyRenderModeHints, cfg.lowMemoryMode) never demoted, so `true`
+    // here is safe as the floor for every distributed render regardless
+    // of format.
+    forceScreenshot: true,
   };
 
   const job = buildSyntheticRenderJob({
