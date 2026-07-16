@@ -87,13 +87,21 @@ main:
     - renderChunks:
         parallel:
           shared: [chunkUris, chunkResults]
-          # Run up to chunkCount chunks at once, clamped to 20 — Cloud
-          # Workflows hard-caps concurrent branches/iterations per execution
-          # at 20 (https://cloud.google.com/workflows/quotas). Above that,
-          # iterations queue regardless of concurrency_limit, so a config with
-          # maxParallelChunks > 20 still renders correctly; the extra chunks
-          # just wait. All chunkCount iterations always run.
-          concurrency_limit: ${math.min(chunkCount, 20)}
+          # Run up to chunkCount chunks at once, clamped to the render
+          # service's actual instance capacity — NOT Cloud Workflows' own
+          # 20-branch hard cap (https://cloud.google.com/workflows/quotas).
+          # Firing more concurrent HTTP calls than the render Cloud Run
+          # service can serve doesn't queue gracefully: Cloud Run's own
+          # request queue times out under sustained overload and the caller
+          # sees a generic Google Frontend 500 ("try again in 30 seconds"),
+          # which surfaces here as an UnhandledBranchError failing the whole
+          # render — even though every chunk would have rendered fine one at
+          # a time. This value must match (or stay below) the render
+          # service's `autoscaling.knative.dev/maxScale` — currently 6
+          # (2 vCPU / 4Gi per instance; project-region quota is 20 vCPU /
+          # 40Gi, shared with kenect-api and kenect-web). Raise both
+          # together if the render service is resized.
+          concurrency_limit: ${math.min(chunkCount, 6)}
           for:
             value: idx
             in: ${chunkIndexes}
