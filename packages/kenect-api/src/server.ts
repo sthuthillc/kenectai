@@ -20,6 +20,7 @@ import {
   type CallerIdentity,
 } from "./billing.js";
 import { registerMcpRoutes } from "./mcp.js";
+import { registerSessionRoutes } from "./sessions/routes.js";
 import { DEFAULT_GEMINI_MODEL, GeminiClient, GeminiError } from "./gemini.js";
 import { generateFramePack } from "./products/framePack.js";
 import { CompositionLintError, generateWebsiteComposition } from "./products/websiteVideo.js";
@@ -927,6 +928,29 @@ export function createKenectApiApp(options?: { env?: KenectApiEnv; storage?: Sto
       failure_message: status === "failed" ? (progress.errors[0]?.cause ?? "render failed") : null,
     };
   }
+
+  // KENECT Sessions — the skill-following URL→video orchestrator. Reuses
+  // this scope's dispatchRender + renderDetail closures so a session's
+  // final render rides the same distributed pipeline as every other render.
+  registerSessionRoutes(app, {
+    store,
+    geminiApiKey: env.geminiApiKey,
+    geminiModel: env.geminiModel,
+    appBaseUrl: env.appBaseUrl,
+    resolveIdentity: (headers) => resolveCallerIdentity(headers, env, store),
+    dispatchRender: (body) => dispatchRender(body as unknown as CreateRenderRequest),
+    readRenderStatus: async (renderId) => {
+      const record = await store.read<RenderRecord>(renderRecordKey(renderId));
+      if (!record) return { status: "failed", failure_message: "render record not found" };
+      const detail = await renderDetail(storage, record);
+      return {
+        status: String(detail["status"] ?? "unknown"),
+        video_url: (detail["video_url"] as string | null) ?? null,
+        failure_message: (detail["failure_message"] as string | null) ?? null,
+      };
+    },
+    log: (message) => console.log(message),
+  });
 
   registerMcpRoutes(app);
 

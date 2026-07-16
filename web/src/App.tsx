@@ -4,6 +4,7 @@ import { AuthCallback } from "./pages/AuthCallback";
 import { BillingCancelled, BillingSuccess } from "./pages/Billing";
 import { Dashboard } from "./pages/Dashboard";
 import { Pricing } from "./pages/Pricing";
+import { Session } from "./pages/Session";
 
 export function App() {
   return (
@@ -12,6 +13,7 @@ export function App() {
         <Routes>
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/sessions/:id" element={<Session />} />
           <Route path="/auth/callback" element={<AuthCallback />} />
           <Route path="/billing/success" element={<BillingSuccess />} />
           <Route path="/billing/cancelled" element={<BillingCancelled />} />

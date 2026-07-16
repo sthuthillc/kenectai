@@ -1,13 +1,96 @@
 import { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   api,
   ApiError,
   type ApiKeySummary,
   type BillingStatus,
+  type SessionListEntry,
   isSignedIn,
   startSignIn,
 } from "../lib/api";
+
+function NewVideoCard({ onError }: { onError: (message: string) => void }) {
+  const navigate = useNavigate();
+  const [url, setUrl] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [recent, setRecent] = useState<SessionListEntry[]>([]);
+
+  useEffect(() => {
+    api
+      .listSessions()
+      .then((r) => setRecent(r.sessions.slice(0, 5)))
+      .catch(() => {});
+  }, []);
+
+  async function start() {
+    const trimmed = url.trim();
+    if (!/^https:\/\//.test(trimmed)) {
+      onError("Enter a full HTTPS URL, e.g. https://yourproduct.com");
+      return;
+    }
+    setBusy(true);
+    try {
+      const { session_id } = await api.createSession(trimmed);
+      navigate(`/sessions/${session_id}`);
+    } catch (err) {
+      onError(err instanceof Error ? err.message : String(err));
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="aura-border">
+      <div className="space-y-4 p-6">
+        <div>
+          <h2 className="font-semibold">New launch video</h2>
+          <p className="mt-1 text-sm text-dim">
+            Paste a product URL — the agent captures the brand, writes the story, narrates, scores,
+            and renders a promo. Takes ~10–20 minutes.
+          </p>
+        </div>
+        <div className="flex gap-2">
+          <input
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && !busy && void start()}
+            placeholder="https://yourproduct.com"
+            className="min-w-0 flex-1 rounded-lg border border-line bg-ink px-3 py-2 text-sm outline-none focus:border-teal/60"
+          />
+          <button
+            onClick={() => void start()}
+            disabled={busy}
+            className="shrink-0 rounded-lg bg-gradient-to-r from-violet via-magenta to-pink px-4 py-2 text-sm font-semibold text-white hover:opacity-90 disabled:opacity-50"
+          >
+            {busy ? "Starting…" : "Create video"}
+          </button>
+        </div>
+        {recent.length > 0 && (
+          <ul className="space-y-1 text-sm">
+            {recent.map((s) => (
+              <li key={s.id}>
+                <Link to={`/sessions/${s.id}`} className="text-dim hover:text-fg">
+                  <span
+                    className={
+                      s.status === "completed"
+                        ? "text-teal"
+                        : s.status === "failed"
+                          ? "text-magenta"
+                          : "text-sky"
+                    }
+                  >
+                    ●
+                  </span>{" "}
+                  {s.url} — {s.status}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+}
 
 function CopyField({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
@@ -129,8 +212,12 @@ export function Dashboard() {
       </div>
 
       {error && (
-        <div className="rounded-lg border border-pink/40 bg-pink/5 p-3 text-sm text-pink">{error}</div>
+        <div className="rounded-lg border border-pink/40 bg-pink/5 p-3 text-sm text-pink">
+          {error}
+        </div>
       )}
+
+      <NewVideoCard onError={setError} />
 
       <div className="grid gap-5 md:grid-cols-2">
         <div className="aura-border">
@@ -139,9 +226,7 @@ export function Dashboard() {
               <h2 className="font-semibold">Plan</h2>
               <span
                 className={`rounded-full border px-3 py-0.5 text-xs ${
-                  hasPlan
-                    ? "border-teal/40 bg-teal/10 text-teal"
-                    : "border-line bg-panel2 text-dim"
+                  hasPlan ? "border-teal/40 bg-teal/10 text-teal" : "border-line bg-panel2 text-dim"
                 }`}
               >
                 {status?.plan === "admin" ? "Admin" : hasPlan ? "Premium — active" : "No plan"}
@@ -167,7 +252,7 @@ export function Dashboard() {
             Point any MCP-capable agent at KENECT AI with your API key:
           </p>
           <pre className="mt-3 overflow-x-auto rounded-lg bg-ink p-3 font-mono text-[11px] leading-relaxed text-fg/80">
-{`claude mcp add --transport http kenectai \\
+            {`claude mcp add --transport http kenectai \\
   https://mcp.kenectai.com/mcp \\
   --header "X-Api-Key: kn_..."`}
           </pre>

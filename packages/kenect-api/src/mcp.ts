@@ -75,23 +75,37 @@ function buildMcpServer(app: Hono, auth: CallerAuth): McpServer {
     {
       title: "Create a video from a website URL",
       description:
-        "Capture a website with a headless browser and generate a short (8-60s) tour/promo video from it, brand colors and copy inferred automatically. Returns a job_id and render_id — poll render status with get_video_status.",
+        'Produce a studio-quality product launch promo from a website URL: real browser capture of the brand, a storyboarded multi-scene composition, narrated voiceover, background music, and captions (the product-launch-video workflow, run autonomously). Takes ~10-20 minutes; returns a session_id — poll with get_video_status. Pass mode:"fast" for the legacy single-scene silent video (~5 min, lower quality).',
       inputSchema: {
-        url: z.string().url().describe("The HTTPS URL of the website to turn into a video"),
+        url: z.string().url().describe("The HTTPS URL of the product website to turn into a video"),
+        mode: z
+          .enum(["studio", "fast"])
+          .optional()
+          .describe(
+            '"studio" (default): full narrated multi-scene pipeline. "fast": legacy single-shot silent video.',
+          ),
         duration_seconds: z
           .number()
           .min(8)
           .max(60)
           .optional()
-          .describe("Target video length in seconds (default 20)"),
-        title: z.string().optional().describe("Optional title override for the video"),
+          .describe("(fast mode only) Target video length in seconds (default 20)"),
+        title: z.string().optional().describe("(fast mode only) Optional title override"),
       },
     },
-    async ({ url, duration_seconds, title }) => {
-      const result = await callInternalRoute(app, "/v1/products/website-video", {
+    async ({ url, mode, duration_seconds, title }) => {
+      if (mode === "fast") {
+        const result = await callInternalRoute(app, "/v1/products/website-video", {
+          method: "POST",
+          headers: forwardedHeaders(auth, { "content-type": "application/json" }),
+          body: JSON.stringify({ url, duration_s: duration_seconds, title }),
+        });
+        return toolTextResult(result);
+      }
+      const result = await callInternalRoute(app, "/v1/sessions", {
         method: "POST",
         headers: forwardedHeaders(auth, { "content-type": "application/json" }),
-        body: JSON.stringify({ url, duration_s: duration_seconds, title }),
+        body: JSON.stringify({ url }),
       });
       return toolTextResult(result);
     },
@@ -123,22 +137,23 @@ function buildMcpServer(app: Hono, auth: CallerAuth): McpServer {
   server.registerTool(
     "get_video_status",
     {
-      title: "Check the status of a video render",
+      title: "Check the status of a video job",
       description:
-        "Poll a render_id (returned by create_video_from_url) for its current status, and a signed video download URL once it's complete.",
+        "Poll a session_id (ses_..., studio pipeline: reports the live step-by-step task board, then the signed video URL) or a render_id (hf-render-..., fast mode) returned by create_video_from_url.",
       inputSchema: {
-        render_id: z.string().describe("The render_id returned by create_video_from_url"),
+        render_id: z
+          .string()
+          .describe("The session_id (ses_...) or render_id returned by create_video_from_url"),
       },
     },
     async ({ render_id }) => {
-      const result = await callInternalRoute(
-        app,
-        `/v3/kenectai/renders/${encodeURIComponent(render_id)}`,
-        {
-          method: "GET",
-          headers: forwardedHeaders(auth),
-        },
-      );
+      const path = render_id.startsWith("ses_")
+        ? `/v1/sessions/${encodeURIComponent(render_id)}`
+        : `/v3/kenectai/renders/${encodeURIComponent(render_id)}`;
+      const result = await callInternalRoute(app, path, {
+        method: "GET",
+        headers: forwardedHeaders(auth),
+      });
       return toolTextResult(result);
     },
   );

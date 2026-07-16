@@ -192,7 +192,10 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   });
   const body = (await res.json().catch(() => ({}))) as Record<string, unknown>;
   if (!res.ok) {
-    throw new ApiError(res.status, typeof body["message"] === "string" ? body["message"] : `HTTP ${res.status}`);
+    throw new ApiError(
+      res.status,
+      typeof body["message"] === "string" ? body["message"] : `HTTP ${res.status}`,
+    );
   }
   return body as T;
 }
@@ -216,6 +219,42 @@ export interface ApiKeySummary {
   created_at: number;
 }
 
+export interface SessionTask {
+  id: string;
+  title: string;
+  state: "pending" | "running" | "done" | "failed" | "skipped";
+  note?: string;
+  started_at?: number;
+  finished_at?: number;
+}
+
+export interface SessionChatMessage {
+  role: "agent" | "user" | "system";
+  text: string;
+  ts: number;
+}
+
+export interface SessionRecord {
+  id: string;
+  url: string;
+  status: "queued" | "running" | "completed" | "failed";
+  brief?: { angle: string; length_s: number; aspect: string; message: string };
+  tasks: SessionTask[];
+  chat: SessionChatMessage[];
+  render_id?: string;
+  video_url?: string;
+  error?: string;
+  created_at: number;
+  updated_at: number;
+}
+
+export interface SessionListEntry {
+  id: string;
+  url: string;
+  status: SessionRecord["status"];
+  created_at: number;
+}
+
 export const api = {
   me: () => apiFetch<{ data?: UserInfo } & UserInfo>("/v3/users/me"),
   billingStatus: () => apiFetch<BillingStatus>("/v1/billing/status"),
@@ -232,4 +271,12 @@ export const api = {
     apiFetch<{ revoked: boolean }>(`/v1/keys/${encodeURIComponent(prefix)}`, {
       method: "DELETE",
     }),
+  createSession: (url: string) =>
+    apiFetch<{ session_id: string; session_url: string }>("/v1/sessions", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ url }),
+    }),
+  getSession: (id: string) => apiFetch<SessionRecord>(`/v1/sessions/${encodeURIComponent(id)}`),
+  listSessions: () => apiFetch<{ sessions: SessionListEntry[] }>("/v1/sessions"),
 };
