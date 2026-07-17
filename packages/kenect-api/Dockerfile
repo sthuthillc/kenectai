@@ -58,6 +58,9 @@ RUN bun run --cwd packages/parsers build \
     && (cd packages/producer && bunx tsx scripts/generate-font-data.ts) \
     && bun run --cwd packages/producer build
 RUN bun run --filter @kenectai/gcp-cloud-run build
+# The CLI's build:copy step waits on packages/studio/dist (it bundles the
+# studio UI into the CLI's dist/studio) — build studio first or it 30s-timeouts.
+RUN bun run --cwd packages/studio build
 # The kenectai CLI powers session capture / lint (spawned via KENECT_CLI_PATH).
 RUN bun run --filter @kenectai/cli build
 RUN bun run --filter @kenectai/api build
